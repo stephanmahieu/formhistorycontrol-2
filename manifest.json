@@ -1,0 +1,69 @@
+{
+  "manifest_version": 2,
+  "short_name": "FormHistCtrl",
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "version": "2.0.0",
+  "developer": {
+    "name": "Stephan Mahieu",
+    "url": "https://formhistory.blogspot.com/"
+  },
+  "default_locale": "en",
+
+  "applications": {
+    "gecko": {
+      "id": "formhistorycontrol@yahoo.com",
+      "strict_min_version": "51.0"
+    }
+  },
+
+  "permissions": [
+    "contextMenus",
+    "notifications",
+    "storage",
+    "activeTab"
+  ],
+
+  "icons": {
+    "16": "icons/fhc-16.png",
+    "32": "icons/fhc-32.png",
+    "48": "icons/fhc-48.png",
+    "64": "icons/fhc-64.png",
+    "65": "icons/fhc_icon.svg"
+  },
+  
+  "options_ui": {
+      "page": "options/options.html"
+  },
+
+  "background": {
+    "scripts": [
+      "background/contextmenu.js",
+      "background/receiveFormData.js"
+    ]
+  },
+
+  "content_scripts": [
+    {
+      "js": [
+        "content/collectFormData.js",
+        "content/injectFormData.js"
+      ],
+      "matches": [ "*://*/*", "file:///*"],
+      "run_at": "document_end",
+      "all_frames" : true
+    }
+  ],
+
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": "icons/fhc_icon.svg",
+    "default_title": "__MSG_extensionName__",
+    "default_popup": "popup/popup.html"
+  },
+  
+  "web_accessible_resources": [
+    "folder/example.png"
+  ]
+
+}

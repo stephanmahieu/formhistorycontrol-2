@@ -1,0 +1,74 @@
+nav {
+    background: #e6e6e6;
+    margin-bottom: 5px;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+nav ul {
+    /*font-size: 0;*/
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #888888;
+}
+
+nav ul li {
+    display: inline-block;
+    position: relative;
+}
+
+nav ul li a {
+    color: #000;
+    display: block;
+    font-size: 0.75em;
+    padding: 5px 10px;
+    transition: 0.3s linear;
+}
+
+nav ul li:hover {
+    background: #cde8ff;
+}
+
+nav ul li ul {
+    border-bottom: 3px solid #215c7e;
+    display: none;
+    position: absolute;
+    width: 160px;
+    z-index: 10;
+    box-shadow: 0px 5px 5px #444;
+}
+
+nav ul li ul li {
+    /*border-top: 1px solid #bfbfbf;*/
+    display: block;
+    z-index: 10;
+}
+
+/*nav ul li ul li:first-child {*/
+    /*border-top: none;*/
+    /*z-index: 10;*/
+/*}*/
+
+nav ul li ul li a {
+    background: #d5d5d5;
+    display: block;
+    padding: 4px 10px;
+    z-index: 10;
+}
+
+nav ul li ul li a:hover {
+    background: #0a0d5f;
+    color: #fff;
+}
+
+nav ul li ul li div {
+    background: #cbcbcb;
+    display: block;
+    padding: 2px 6px;
+    z-index: 10;
+}
+nav ul li ul li div hr {
+    margin: 0;
+}

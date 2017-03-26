@@ -1,0 +1,105 @@
+{
+  "extensionName": {
+    "message": "Form History Control (II)",
+    "description": "The title of this extension"
+  },
+
+  "extensionDescription": {
+    "message": "Manage form history entries (search, edit, cleanup, export/import) and easy text formfiller, now Multiprocess (e10s) and WebExtensions compatible!",
+    "description": "Description of this extension."
+  },
+
+
+  "optionsLegend": {
+    "message": "Options",
+    "description": "The Options legend."
+  },
+  "optionsLabel": {
+    "message": "This is my user preference",
+    "description": "Label for my option."
+  },
+  "optionsSaveButton": {
+    "message": "Save",
+    "description": "Save options button."
+  },
+
+  
+  
+  "popupHeader": {
+    "message": "Test, show myUserPref (json)",
+    "description": "Header title (h2) of this popup."
+  },
+  
+  
+  
+  "notificationTitle": {
+    "message": "Test notification",
+    "description": "Title of the test notification."
+  },
+  "notificationContent": {
+    "message": "Test message: $MESSAGE$.",
+    "description": "Just a test notification.",
+    "placeholders": {
+      "message" : {
+        "content" : "$1",
+        "example" : "Hello world!"
+      }
+    }
+  },
+  
+  
+  
+  "contextMenuItemManageHistory": {
+    "message": "Manage History",
+    "description": "Title of context menu item that starts the Manage history dialog."
+  },
+  "contextMenuItemRestoreEditorField": {
+    "message": "Restore editor field",
+    "description": "Title of context menu item that displays the editor (wysiwyg) field values."
+  },
+  "contextMenuItemFillMostRecent": {
+    "message": "Fill fields with most recent entries",
+    "description": "Title of context menu item that fills formfields with the most recent used value."
+  },
+  "contextMenuItemFillMostUsed": {
+    "message": "Fill fields with most often used entries",
+    "description": "Title of context menu item that fills formfields with the most used value."
+  },
+  "contextMenuItemClearFields": {
+    "message": "Clear the filled fields",
+    "description": "Title of context menu item that clears all filled fields."
+  },
+  "contextMenuItemShowformfields": {
+    "message": "Show fields current page",
+    "description": "Title of context menu item that shows info next to input textfields om the page."
+  },
+  "contextMenuItemOptions": {
+    "message": "Options",
+    "description": "Title of context menu item that shows the preferences page."
+  },
+
+
+  "buttonDelete": {
+    "message": "Delete",
+    "description": "Label of delete button."
+  },
+  "buttonCleanup": {
+    "message": "Cleanup",
+    "description": "Label of cleanup button."
+  },
+  "buttonModify": {
+    "message": "Modify",
+    "description": "Label of modify button."
+  },
+  "buttonAdd": {
+    "message": "Add",
+    "description": "Label of add button."
+  },
+  "buttonClose": {
+    "message": "Close",
+    "description": "Label of close button."
+  }
+
+
+
+}

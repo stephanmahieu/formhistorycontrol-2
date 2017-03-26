@@ -1,0 +1,103 @@
+{
+  "extensionName": {
+    "message": "Form History Control (II)",
+    "description": "The title of this extension"
+  },
+
+  "extensionDescription": {
+    "message": "Een add-on voor onderhoud van de formulier historie (inzien, verwijderen, aanpassen, selectief opschonen, exporteren/importeren) en simpele formulier vuller, now Multiprocess (e10s) and WebExtensions compatible!",
+    "description": "Description of this extension."
+  },
+  
+  
+  "optionsLegend": {
+    "message": "Opties",
+    "description": "The Options legend."
+  },
+  "optionsLabel": {
+    "message": "Dit is mijn optie",
+    "description": "Label for my option."
+  },
+  "optionsSaveButton": {
+    "message": "Opslaan",
+    "description": "Save options button."
+  },
+
+
+  
+  "popupHeader": {
+    "message": "Test, toon myUserPref (json)",
+    "description": "Header title (h2) of this popup."
+  },
+  
+  
+  
+  "notificationTitle": {
+    "message": "Test notificatie",
+    "description": "Title of the test notification."
+  },
+  "notificationContent": {
+    "message": "Test bericht: $MESSAGE$.",
+    "description": "Just a test notification.",
+    "placeholders": {
+      "message" : {
+        "content" : "$1",
+        "example" : "Hallo wereld!"
+      }
+    }
+  },
+  
+  
+
+  "contextMenuItemManageHistory": {
+    "message": "Historie Beheer",
+    "description": "Title of context menu item that starts the Manage history dialog."
+  },
+  "contextMenuItemRestoreEditorField": {
+    "message": "Herstel editor veld",
+    "description": "Title of context menu item that displays the editor (wysiwyg) field values."
+  },
+  "contextMenuItemFillMostRecent": {
+    "message": "Vul velden met meest recente waarden",
+    "description": "Title of context menu item that fills formfields with the most recent used value."
+  },
+  "contextMenuItemFillMostUsed": {
+    "message": "Vul velden met meest gebruikte waarden",
+    "description": "Title of context menu item that fills formfields with the most used value."
+  },
+  "contextMenuItemClearFields": {
+    "message": "Wis de ingevulde velden",
+    "description": "Title of context menu item that clears all filled fields."
+  },
+  "contextMenuItemShowformfields": {
+    "message": "Toon veldnamen huidige pagina",
+    "description": "Title of context menu item that shows info next to input textfields om the page."
+  },
+  "contextMenuItemOptions": {
+    "message": "Voorkeuren",
+    "description": "Title of context menu item that shows the preferences page."
+  },
+
+
+  "buttonDelete": {
+    "message": "Verwijderen",
+    "description": "Label of delete button."
+  },
+  "buttonCleanup": {
+    "message": "Opschonen",
+    "description": "Label of cleanup button."
+  },
+  "buttonModify": {
+    "message": "Wijzigien",
+    "description": "Label of modify button."
+  },
+  "buttonAdd": {
+    "message": "Toevoegen",
+    "description": "Label of add button."
+  },
+  "buttonClose": {
+    "message": "Sluiten",
+    "description": "Label of close button."
+  }
+
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE.html>
+<html>
+<head>
+    <title data-fhc-i18n="contextMenuItemManageHistory">Manage history</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="lib/datatables.min.css"/>
+    <link rel="stylesheet" href="popup-big.css"/>
+    <link rel="stylesheet" href="navigation.css"/>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#">Bestand</a>
+                    <ul>
+                        <li><a href="#">Import</a></li>
+                        <li><a href="#">Export</a></li>
+                        <li><div><hr/></div></li>
+                        <li><a href="#">Afsluiten</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Bewerken</a>
+                    <ul>
+                        <li><a href="#">Toevoegen</a></li>
+                        <li><a href="#">Wijzigen</a></li>
+                        <li><a href="#">Verwijderen</a></li>
+                        <li><div><hr/></div></li>
+                        <li><a href="#">Kopieer naar klembord</a></li>
+                        <li><div><hr/></div></li>
+                        <li><a href="#">Selecteer alles</a></li>
+                        <li><a href="#">Selecteer niets</a></li>
+                        <li><a href="#">Inverteer selectie</a></li>
+                    </ul>
+                </li>
+                <li class='sub-menu'> <a href="#">Tonen</a>
+                    <ul>
+                        <li><a href="#">Vernieuwen</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Extra</a>
+                    <ul>
+                        <li><a href="#">Voorkeuren</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Help</a>
+                    <ul>
+                        <li><a href="#">Help overzicht</a></li>
+                        <li><a href="#">Release Notes</a></li>
+                        <li><div><hr/></div></li>
+                        <li><a href="#">Over</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="root">
+        <!-- h2 data-fhc-i18n="popupHeader">Test, show myUserPref</h2 -->
+        <table id="fhcTable" class="dataTable display responsive compact nowrap" width="100%" cellspacing="0">
+        </table>
+
+        <div id="buttons">
+            <button id="buttonDelete" data-fhc-i18n="buttonDelete">Delete</button>
+            <button id="buttonCleanup" data-fhc-i18n="buttonCleanup" >Cleanup</button>
+            <button id="buttonModify" data-fhc-i18n="buttonModify">Modify</button>
+            <button id="buttonAdd" data-fhc-i18n="buttonAdd">Add</button>
+            <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
+        </div>
+    </div>
+    <script src="lib/jquery-3.1.1.min.js"></script>
+    <script src="lib/datatables.min.js"></script>
+    <script src="lib/datatables.responsive.min.js"></script>
+    <script src="datatable-render-functions.js"></script>
+    <script src="datatabase.js"></script>
+    <script src="popup-big.js"></script>
+    <script src="../common/translation.js"></script>
+</body>
+</html>
