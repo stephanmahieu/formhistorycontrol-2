@@ -13,6 +13,23 @@ function receiveEvents(fhcEvent) {
                 /* Process non-text like radiobuttons, checkboxes etcetera */
                 console.log("Received a formelement event! for " + fhcEvent.id + " which is a " + fhcEvent.type);
                 break;
+            case 3:
+                console.log("Received a dataRetrieval event! for " + fhcEvent.id + " which is a " + fhcEvent.type + " for tab " + fhcEvent.targetTabId);
+                // console.log("fhcEvent.id    = "+ fhcEvent.id);
+                // console.log("fhcEvent.type  = "+ fhcEvent.type);
+                // console.log("fhcEvent.name  = "+ fhcEvent.name);
+                // console.log("fhcEvent.formid= "+ fhcEvent.formid);
+                // console.log("fhcEvent.url   = "+ fhcEvent.url);
+                // console.log("fhcEvent.host  = "+ fhcEvent.host);
+
+                // retrieve value and send it back
+                if (fhcEvent.action === "clearFields") {
+                    setEmptyValueAndNotify(fhcEvent);
+                } else {
+                    getTextFieldFromStoreAndNotify(fhcEvent);
+                }
+                break;
+
         }
     }
 
@@ -127,6 +144,38 @@ function initDatabase() {
 function getObjectStore(store_name, mode) {
     var tx = db.transaction(store_name, mode);
     return tx.objectStore(store_name);
+}
+
+function setEmptyValueAndNotify(fhcEvent) {
+    fhcEvent.action = "formfieldValueResponse";
+    fhcEvent.value = "";
+    console.log("Sending a " + fhcEvent.action + " message to tab " + fhcEvent.targetTabId);
+    browser.tabs.sendMessage(fhcEvent.targetTabId, fhcEvent);
+}
+
+function getTextFieldFromStoreAndNotify(fhcEvent) {
+    var objStore = getObjectStore(DB_STORE_TEXT, "readonly");
+
+    var key = getLookupKey(fhcEvent);
+    var getReq = objStore.get(key);
+    getReq.onerror = function(event) {
+        console.error("Get failed for record-key " + key, this.error);
+    };
+    getReq.onsuccess = function(event) {
+        console.log("Get succeeded for record-key " + key);
+        // TODO implement the database getTextField method
+        // if (event.target.result) {
+        //     result = event.target.result.value;
+        // }
+        var result = "Dummy value (not DB)";
+        if (result) {
+            // use a callback function instead? (or a promise, arrow function whatever...)
+            fhcEvent.action = "formfieldValueResponse";
+            fhcEvent.value = result;
+            console.log("Sending a " + fhcEvent.action + " message to tab " + fhcEvent.targetTabId);
+            browser.tabs.sendMessage(fhcEvent.targetTabId, fhcEvent);
+        }
+    };
 }
 
 
