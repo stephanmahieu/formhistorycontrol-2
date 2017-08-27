@@ -1,5 +1,155 @@
 var eventQueue = [];
 
+browser.runtime.onMessage.addListener(receiveEvents);
+
+function receiveEvents(fhcActionEvent) {
+    if (fhcActionEvent.action) {
+        switch (fhcActionEvent.action) {
+
+            case "fillMostRecent":
+            case "fillMostUsed":
+            case "clearFields":
+                console.log("Received action event " + fhcActionEvent.action);
+                _fillformfields(fhcActionEvent.action, fhcActionEvent.targetTabId);
+                break;
+
+            case "formfieldValueResponse":
+                console.log("Received action event " + fhcActionEvent.action);
+                _findFieldAndSetValue(fhcActionEvent);
+                break;
+        }
+    }
+}
+
+//----------------------------------------------------------------------------
+// fill formfields response handling methods
+//----------------------------------------------------------------------------
+
+function _findFieldAndSetValue(fhcEvent) {
+    var field = null;
+    [].forEach.call( document.querySelectorAll("input,textarea"), function(elem) {
+        if (_isTextInputSubtype(elem.type) && _isDisplayed(elem)) {
+            if (!field) {
+                field = _ifMatchSetValue(elem, fhcEvent);
+            }
+        }
+    });
+
+    [].forEach.call( document.querySelectorAll("html,div,iframe,body"), function(elem) {
+        if ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem)) {
+            if (!field) {
+                field = _ifMatchSetValue(elem, fhcEvent);
+            }
+        }
+    });
+}
+
+function _ifMatchSetValue(node, fhcEvent) {
+    var type = node.nodeName.toLowerCase();
+    var location;
+    var formid = "";
+    var id = (node.id) ? node.id : ((node.name) ? node.name : "");
+    var name = (node.name) ? node.name : ((node.id) ? node.id : "");
+
+    switch(type) {
+        case "textarea":
+        case "input":
+            // if id is empty, ditch it, it can never be used for restore
+            if (id === "") return;
+            location = node.ownerDocument.location;
+            formid = _getFormId(node);
+            break;
+        case "html":
+        case "div":
+        case "iframe":
+            location = node.ownerDocument.location;
+            break;
+    }
+
+    // TODO test if additional properties are equal???
+    if (fhcEvent.type === type && fhcEvent.id === id) {
+
+        // TODO only set a new value when the current value is empty?
+        // we have found a match, set the new value
+        switch(type) {
+            case "textarea":
+            case "input":
+                // TODO is json stringified?
+                node.value = fhcEvent.value;
+                break;
+            case "html":
+            case "div":
+            case "iframe":
+                node.innerHTML = fhcEvent.value;
+                break;
+        }
+        return node;
+    }
+    return null;
+}
+
+
+//----------------------------------------------------------------------------
+// fill formfields request handling methods
+//----------------------------------------------------------------------------
+
+function _fillformfields(action, targetTabId) {
+    [].forEach.call( document.querySelectorAll("input,textarea"), function(elem) {
+        if (_isTextInputSubtype(elem.type) && _isDisplayed(elem)) {
+            console.log("requesting content for elem-id: " + elem.id);
+            _requestHistoricValue(elem, action, targetTabId);
+        }
+    });
+
+    [].forEach.call( document.querySelectorAll("html,div,iframe,body"), function(elem) {
+        if ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem)) {
+            console.log("requesting content for elem-id: " + elem.id);
+            _requestHistoricValue(elem, action, targetTabId);
+        }
+    });
+}
+
+function _requestHistoricValue(node, action, targetTabId) {
+    var type = node.nodeName.toLowerCase();
+    var location;
+    var formid = "";
+    var id = (node.id) ? node.id : ((node.name) ? node.name : "");
+    var name = (node.name) ? node.name : ((node.id) ? node.id : "");
+    switch(type) {
+        case "textarea":
+        case "input":
+            // if id is empty, ditch it, it can never be used for restore
+            if (id === "") return;
+            location = node.ownerDocument.location;
+            formid = _getFormId(node);
+            break;
+        case "html":
+        case "div":
+        case "iframe":
+            location = node.ownerDocument.location;
+            break;
+    }
+
+    var dataRetrievalEvent = _createHistoricValueRetrievalEvent(name, type, id, formid, location, action, targetTabId);
+    browser.runtime.sendMessage(dataRetrievalEvent);
+}
+
+function _createHistoricValueRetrievalEvent(name, type, id, formid, location, action, targetTabId) {
+    return {
+        eventType:   3,
+        node:        null,
+        type:        type,
+        id:          id,
+        name:        name,
+        formid:      formid,
+        url:         location.href,
+        host:        _getHost(location),
+        value:       null,
+        action:      action,
+        targetTabId: targetTabId
+    };
+}
+
 
 //----------------------------------------------------------------------------
 // EventQueue handling methods
@@ -371,7 +521,7 @@ function _enqueueContentEvent(name, type, id, formid, location, node) {
         formid:     formid,
         url:        location.href,
         host:       _getHost(location),
-        content:    null
+        value:      null
     };
     if (!_alreadyQueued(event)) {
         eventQueue.push(event);

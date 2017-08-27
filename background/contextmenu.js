@@ -98,7 +98,18 @@ function showformfields(tabId) {
     // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/sendMessage
     console.log('Sending a message to tab ' + tabId);
     browser.tabs.sendMessage(tabId, {
-        action: "showformfields"
+        action: "showformfields",
+        targetTabId: tabId
+    });
+}
+
+function fillformfields(tabId, action) {
+    // send without checking response
+    // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/sendMessage
+    console.log('Sending a message to tab ' + tabId);
+    browser.tabs.sendMessage(tabId, {
+        action: action,
+        targetTabId: tabId
     });
 }
 
@@ -193,10 +204,13 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
             break;
 
         case "restoreEditorField":
+            notify("Not implemented yet!");
+            break;
+
+        case "clearFields":
         case "fillMostRecent":
         case "fillMostUsed":
-        case "clearFields":
-            notify("Not implemented yet!");
+            fillformfields(tab.id, info.menuItemId);
             break;
 
         case "showformfields":
