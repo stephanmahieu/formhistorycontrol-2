@@ -156,24 +156,50 @@ function setEmptyValueAndNotify(fhcEvent) {
 function getTextFieldFromStoreAndNotify(fhcEvent) {
     var objStore = getObjectStore(DB_STORE_TEXT, "readonly");
 
-    var key = getLookupKey(fhcEvent);
-    var getReq = objStore.get(key);
-    getReq.onerror = function(event) {
-        console.error("Get failed for record-key " + key, this.error);
+    var found = {
+        value: null,
+        used: 0,
+        last: 0
     };
-    getReq.onsuccess = function(event) {
-        console.log("Get succeeded for record-key " + key);
-        // TODO implement the database getTextField method
-        // if (event.target.result) {
-        //     result = event.target.result.value;
-        // }
-        var result = "Dummy value (not DB)";
-        if (result) {
-            // use a callback function instead? (or a promise, arrow function whatever...)
-            fhcEvent.action = "formfieldValueResponse";
-            fhcEvent.value = result;
-            console.log("Sending a " + fhcEvent.action + " message to tab " + fhcEvent.targetTabId);
-            browser.tabs.sendMessage(fhcEvent.targetTabId, fhcEvent);
+
+    var index = objStore.index("by_name");
+    var singleKeyRange = IDBKeyRange.only(fhcEvent.name);
+
+    var req = index.openCursor(singleKeyRange);
+    req.onsuccess = function(evt) {
+        var cursor = evt.target.result;
+        if (cursor) {
+            var fhcEntry = cursor.value;
+            // console.log("Named Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type +
+            //     "} KEY=[" + fhcEntry.fieldkey + "] first:[" + fhcEntry.first + "] last:[" + fhcEntry.last + "]");
+
+            switch (fhcEvent.action) {
+                case "fillMostRecent":
+                    if (fhcEntry.last > found.last) {
+                        found.value = fhcEntry.value;
+                        found.last = fhcEntry.last;
+                    }
+                    break;
+
+                case "fillMostUsed":
+                    if (fhcEntry.used > found.used) {
+                        found.value = fhcEntry.value;
+                        found.used = fhcEntry.used;
+                    }
+                    break;
+            }
+            cursor.continue();
+        }
+        else {
+            //console.log("No more named entries!");
+            if (found.value) {
+                // use a callback function instead? (or a promise, arrow function whatever...)
+                fhcEvent.action = "formfieldValueResponse";
+                fhcEvent.value = found.value;
+                console.log("Sending a " + fhcEvent.action + " message to tab " + fhcEvent.targetTabId);
+                browser.tabs.sendMessage(fhcEvent.targetTabId, fhcEvent);
+                // TODO Does this mean this value is used now and used-count and lastused-date should be updated?
+            }
         }
     };
 }
