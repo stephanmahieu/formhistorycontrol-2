@@ -237,19 +237,14 @@ $(document).ready(function() {
 
 
     // Add event listeners for the buttons
-    $('#buttonClose').on('click', function () {
-        var getting = browser.windows.getCurrent({populate: false, windowTypes: ["popup"]});
-        getting.then((window) => {
-            var removing = browser.windows.remove(window.id);
-            removing.onRemoved = function() {
-                console.log("Window removed");
-            };
-            removing.onError = function() {
-                console.error("Database open error", this.error);
-            }
-        });
+    $('#buttons button').on('click', function (event) {
+        onButtonClicked(event.currentTarget.id);
     });
 
+    // Add event listeners for the menu items
+    $('nav ul li ul li a').on('click', function (event) {
+        onMenuClicked(event.currentTarget.id);
+    });
 
     // populate the database
     populateFromDatabase(table);
@@ -288,4 +283,60 @@ function populateFromDatabase(table) {
             }
         }
     };
+}
+
+function onButtonClicked(buttonId) {
+    switch (buttonId) {
+        case "buttonDelete":
+        case "buttonCleanup":
+        case "buttonModify":
+        case "buttonAdd":
+            console.log("buttonId " + buttonId + " clicked...");
+            break;
+
+        case "buttonClose":
+            console.log("buttonId " + buttonId + " clicked...");
+            _closeThisPopup();
+            break;
+    }
+}
+
+function onMenuClicked(menuItemId) {
+    switch (menuItemId) {
+        case "import":
+        case "export":
+        case "add":
+        case "modify":
+        case "delete":
+        case "copy2clipboard":
+        case "selectall":
+        case "selectnone":
+        case "selectinvert":
+        case "refresh":
+        case "preferences":
+        case "helpoverview":
+        case "releasenotes":
+        case "about":
+            console.log("menuItemId " + menuItemId + " clicked...");
+            break;
+
+        case "close":
+            console.log("menuItemId " + menuItemId + " clicked...");
+            _closeThisPopup();
+            break;
+    }
+}
+
+
+function _closeThisPopup() {
+    var getting = browser.windows.getCurrent({populate: false, windowTypes: ["popup"]});
+    getting.then((window) => {
+        var removing = browser.windows.remove(window.id);
+        removing.onRemoved = function() {
+            console.log("Window removed");
+        };
+        removing.onError = function() {
+            console.error("Database open error", this.error);
+        }
+    });
 }
