@@ -98,8 +98,93 @@
   "buttonClose": {
     "message": "Close",
     "description": "Label of close button."
+  },
+
+
+
+  "menuFile": {
+    "message": "File",
+    "description": "Label of File menu."
+  },
+  "menuItemFileImport": {
+    "message": "Import",
+    "description": "Label of Import menuitem in the File menu."
+  },
+  "menuItemFileExport": {
+    "message": "Export",
+    "description": "Label of Export menuitem in the File menu."
+  },
+  "menuItemFileClose": {
+    "message": "Close",
+    "description": "Label of Close menuitem in the File menu."
+  },
+
+  "menuEdit": {
+    "message": "Edit",
+    "description": "Label of Edit menu."
+  },
+  "menuItemEditAdd": {
+    "message": "Add",
+    "description": "Label of Add menuitem in the Edit menu."
+  },
+  "menuItemEditModify": {
+    "message": "Modify",
+    "description": "Label of Modify menuitem in the Edit menu."
+  },
+  "menuItemEditDelete": {
+    "message": "Delete",
+    "description": "Label of Delete menuitem in the Edit menu."
+  },
+  "menuItemEditClipboard": {
+    "message": "Copy to clipboard",
+    "description": "Label of Copy to clipboard menuitem in the Edit menu."
+  },
+  "menuItemEditSelectAll": {
+    "message": "Select all",
+    "description": "Label of Select all menuitem in the Edit menu."
+  },
+  "menuItemEditSelectNone": {
+    "message": "Select none",
+    "description": "Label of Select none menuitem in the Edit menu."
+  },
+  "menuItemEditSelectInvert": {
+    "message": "Invert selection",
+    "description": "Label of Invert selection menuitem in the Edit menu."
+  },
+
+  "menuDisplay": {
+    "message": "Display",
+    "description": "Label of Display menu."
+  },
+  "menuItemDisplayRefresh": {
+    "message": "Refresh",
+    "description": "Label of Refresh menuitem in the Display menu."
+  },
+
+  "menuExtra": {
+    "message": "Extra",
+    "description": "Label of Extra menu."
+  },
+  "menuItemExtraPreferences": {
+    "message": "Preferences",
+    "description": "Label of Preferences menuitem in the Extra menu."
+  },
+
+  "menuHelp": {
+    "message": "Help",
+    "description": "Label of Help menu."
+  },
+  "menuItemHelpOverview": {
+    "message": "Help Overview",
+    "description": "Label of Invert menuitem in the Help menu."
+  },
+  "menuItemHelpReleasenotes": {
+    "message": "Release notes",
+    "description": "Label of Invert menuitem in the Help menu."
+  },
+  "menuItemHelpAbout": {
+    "message": "About",
+    "description": "Label of Invert menuitem in the Help menu."
   }
-
-
 
 }
