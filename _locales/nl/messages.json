@@ -119,7 +119,7 @@
   },
 
   "menuEdit": {
-    "message": "Edit",
+    "message": "Bewerken",
     "description": "Label of Edit menu."
   },
   "menuItemEditAdd": {
