@@ -38,6 +38,7 @@
 
   "background": {
     "scripts": [
+      "common/fhcWindows.js",
       "background/contextmenu.js",
       "background/receiveFormData.js"
     ]
