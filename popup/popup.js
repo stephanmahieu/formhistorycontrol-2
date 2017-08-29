@@ -231,7 +231,7 @@ function populateFromDatabase(table) {
         //console.log("Database opened successfully.");
 
         var objStore = db.transaction(DB_STORE_TEXT, "readonly").objectStore(DB_STORE_TEXT);
-        var cursorReq = objStore.openCursor();
+        var cursorReq = objStore.index("by_last").openCursor(null, "prev");
         cursorReq.onsuccess = function(evt) {
             var cursor = evt.target.result;
             if (cursor) {
