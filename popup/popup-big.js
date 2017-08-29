@@ -322,7 +322,7 @@ function onMenuClicked(menuItemId) {
 
         case "preferences":
             console.log("menuItemId " + menuItemId + " clicked...");
-            // - currently in contextmenu.js :: createOrFocusWindow(WIN_OPTIONS_URL);
+            createOrFocusWindow(WIN_OPTIONS_URL);
             break;
 
         case "close":
