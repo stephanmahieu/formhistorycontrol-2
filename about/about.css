@@ -1,0 +1,55 @@
+html, body {
+    height: 100%;
+    font-family: sans-serif;
+}
+
+body {
+    background: rgb(240,240,240);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-size: 0.8em;
+}
+
+h1 {
+    font-size: 1.8em;
+    margin-top: 6px;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+
+.footer {
+    height: 70px;
+    background-color: #cbcbcb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* left */
+#image {
+    float: left;
+    width: 200px;
+}
+/* right */
+#information {
+    overflow: hidden;
+    padding: 10px;
+}
+
+#image img {
+    width: 160px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#description {
+    margin-top: 10px;
+}
+
+#developer {
+}

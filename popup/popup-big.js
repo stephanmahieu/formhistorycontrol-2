@@ -316,13 +316,17 @@ function onMenuClicked(menuItemId) {
         case "refresh":
         case "helpoverview":
         case "releasenotes":
-        case "about":
             console.log("menuItemId " + menuItemId + " clicked...");
             break;
 
         case "preferences":
             console.log("menuItemId " + menuItemId + " clicked...");
-            createOrFocusWindow(WIN_OPTIONS_URL);
+            createOrFocusWindow(WIN_OPTIONS_URL, 1000, 500);
+            break;
+
+        case "about":
+            console.log("menuItemId " + menuItemId + " clicked...");
+            createOrFocusWindow(WIN_ABOUT_URL, 620, 320);
             break;
 
         case "close":

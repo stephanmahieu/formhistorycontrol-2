@@ -15,10 +15,12 @@ function notify(message) {
 
 
 const WIN_OPTIONS_URL = "options/options.html";
+const WIN_ABOUT_URL = "about/about.html";
 const WIN_MANAGE_URL  = "popup/popup-big.html";
 
 var currentIdWindowManageFHC;
 var currentIdWindowOptionsFHC;
+var currentIdWindowAboutFHC;
 
 function onPopupManageCreated(windowInfo) {
     console.log(`Created window: ${windowInfo.id}`);
@@ -27,6 +29,10 @@ function onPopupManageCreated(windowInfo) {
 function onPopupOptionsCreated(windowInfo) {
     console.log(`Created window: ${windowInfo.id}`);
     currentIdWindowOptionsFHC = windowInfo.id;
+}
+function onPopupAboutCreated(windowInfo) {
+    console.log(`Created window: ${windowInfo.id}`);
+    currentIdWindowAboutFHC = windowInfo.id;
 }
 function onPopupError(error) {
     console.error(`Error: ${error}`);
@@ -38,12 +44,14 @@ function getCurrentWindowId(path) {
             return currentIdWindowManageFHC;
         case WIN_OPTIONS_URL:
             return currentIdWindowOptionsFHC;
+        case WIN_ABOUT_URL:
+            return currentIdWindowAboutFHC;
         default:
             console.error("Programmer error: No global currentIdWindow variable defined for path: " + path);
     }
 }
 
-function createOrFocusWindow(path) {
+function createOrFocusWindow(path, width, height) {
     var currentWindowId = getCurrentWindowId(path);
     var allWindows = browser.windows.getAll();
     allWindows.then((windows) => {
@@ -53,17 +61,17 @@ function createOrFocusWindow(path) {
             curWindow = item;
         }
     }
-    curWindow ? focusPopupWindow(curWindow) : createNewPopupWindow(path);
+    curWindow ? focusPopupWindow(curWindow) : createNewPopupWindow(path, width, height);
 });
 }
 
-function createNewPopupWindow(path) {
+function createNewPopupWindow(path, width, height) {
     var popupURL = browser.extension.getURL(path);
     var creating = browser.windows.create({
         url: popupURL,
         type: "popup",
-        height: 500,
-        width: 1000
+        height: height,
+        width: width
     });
     switch (path) {
         case WIN_MANAGE_URL:
@@ -71,6 +79,9 @@ function createNewPopupWindow(path) {
             break;
         case WIN_OPTIONS_URL:
             creating.then(onPopupOptionsCreated, onPopupError);
+            break;
+        case WIN_ABOUT_URL:
+            creating.then(onPopupAboutCreated, onPopupError);
             break;
         default:
             console.error("Programmer error: No onPoupupCreated method defined for path: " + path);

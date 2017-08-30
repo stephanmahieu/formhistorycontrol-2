@@ -106,12 +106,12 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
     switch (info.menuItemId) {
         case "manage":
             console.log("Manage history from context menu clicked...");
-            createOrFocusWindow(WIN_MANAGE_URL);
+            createOrFocusWindow(WIN_MANAGE_URL, 1000, 500);
             break;
 
         case "options":
             console.log("Options from context menu clicked...");
-            createOrFocusWindow(WIN_OPTIONS_URL);
+            createOrFocusWindow(WIN_OPTIONS_URL, 1000, 500);
             break;
 
         case "restoreEditorField":
