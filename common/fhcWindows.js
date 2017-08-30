@@ -33,6 +33,19 @@ function onPopupOptionsCreated(windowInfo) {
 function onPopupAboutCreated(windowInfo) {
     console.log(`Created window: ${windowInfo.id}`);
     currentIdWindowAboutFHC = windowInfo.id;
+
+    // add a listener once in order to close this popup if it loses focus
+    // if (!currentIdWindowAboutFHC) {
+    //     browser.windows.onFocusChanged.addListener((windowId) => {
+    //         console.log("Newly focused window: " + windowId);
+    //         if (currentIdWindowAboutFHC > 0 && windowId !== currentIdWindowAboutFHC) {
+    //             // lost focus to another window
+    //             browser.windows.remove(currentIdWindowAboutFHC);
+    //             currentIdWindowAboutFHC = -1;
+    //         }
+    //     });
+    // }
+
 }
 function onPopupError(error) {
     console.error(`Error: ${error}`);
@@ -56,13 +69,13 @@ function createOrFocusWindow(path, width, height) {
     var allWindows = browser.windows.getAll();
     allWindows.then((windows) => {
         var curWindow = null;
-    for (var item of windows) {
-        if (item.id === currentWindowId) {
-            curWindow = item;
+        for (var item of windows) {
+            if (item.id === currentWindowId) {
+                curWindow = item;
+            }
         }
-    }
-    curWindow ? focusPopupWindow(curWindow) : createNewPopupWindow(path, width, height);
-});
+        curWindow ? focusPopupWindow(curWindow) : createNewPopupWindow(path, width, height);
+    });
 }
 
 function createNewPopupWindow(path, width, height) {
