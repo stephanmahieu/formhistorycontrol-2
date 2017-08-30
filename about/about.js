@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event) {
     let manifest = browser.runtime.getManifest();
+    // document.title += " " + manifest.name;
     document.getElementById("app-name").innerHTML = manifest.name;
     document.getElementById("app-version").innerHTML = manifest.version;
     document.getElementById("app-description").innerHTML = manifest.description;
@@ -8,5 +9,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // optional_permissions[]
     // permissions[]
     // web_accessible_resources[] -> folder/example.png
-    console.log("manifest is:" + manifest);
+    //console.log("manifest is:" + manifest);
 });
