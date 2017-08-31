@@ -14,9 +14,9 @@ function notify(message) {
 }
 
 
-const FHC_WINDOW_MANAGE  = { path:"popup/popup-big.html", width:1000, height:500, type:"popup", currentId: undefined };
-const FHC_WINDOW_OPTIONS = { path:"options/options.html", width: 400, height:300, type:"popup", currentId: undefined };
-const FHC_WINDOW_ABOUT   = { path:"about/about.html",     width: 600, height:300, type:"popup", currentId: undefined };
+const FHC_WINDOW_MANAGE  = { path:"popup/popup-big.html", width:1000, height:500, type:"popup", currentId: -1 };
+const FHC_WINDOW_OPTIONS = { path:"options/options.html", width: 400, height:300, type:"popup", currentId: -1 };
+const FHC_WINDOW_ABOUT   = { path:"about/about.html",     width: 600, height:300, type:"popup", currentId: -1 };
 
 
 function createOrFocusWindow(fhcWindowObject) {
