@@ -242,7 +242,7 @@ $(document).ready(function() {
     });
 
     // Add event listeners for the menu items
-    $('nav ul li ul li a').on('click', function (event) {
+    $('nav ul li ul li span').on('click', function (event) {
         onMenuClicked(event.currentTarget.id);
     });
 

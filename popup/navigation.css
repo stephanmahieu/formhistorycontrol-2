@@ -3,8 +3,8 @@ nav {
     margin-bottom: 5px;
 }
 
-nav a {
-    text-decoration: none;
+nav span {
+    cursor: default;
 }
 
 nav ul {
@@ -19,7 +19,7 @@ nav ul li {
     position: relative;
 }
 
-nav ul li a {
+nav ul li span {
     color: #000;
     display: block;
     font-size: 0.75em;
@@ -51,14 +51,14 @@ nav ul li ul li {
     /*z-index: 10;*/
 /*}*/
 
-nav ul li ul li a {
+nav ul li ul li span {
     background: #d5d5d5;
     display: block;
     padding: 4px 10px;
     z-index: 10;
 }
 
-nav ul li ul li a:hover {
+nav ul li ul li span:hover {
     background: #0a0d5f;
     color: #fff;
 }
