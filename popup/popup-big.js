@@ -321,12 +321,12 @@ function onMenuClicked(menuItemId) {
 
         case "preferences":
             console.log("menuItemId " + menuItemId + " clicked...");
-            createOrFocusWindow(WIN_OPTIONS_URL, 1000, 500);
+            createOrFocusWindow(FHC_WINDOW_OPTIONS);
             break;
 
         case "about":
             console.log("menuItemId " + menuItemId + " clicked...");
-            createOrFocusWindow(WIN_ABOUT_URL, 600, 300);
+            createOrFocusWindow(FHC_WINDOW_ABOUT);
             break;
 
         case "close":
