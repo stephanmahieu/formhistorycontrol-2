@@ -326,7 +326,7 @@ function onMenuClicked(menuItemId) {
 
         case "about":
             console.log("menuItemId " + menuItemId + " clicked...");
-            createOrFocusWindow(WIN_ABOUT_URL, 620, 320);
+            createOrFocusWindow(WIN_ABOUT_URL, 600, 300);
             break;
 
         case "close":

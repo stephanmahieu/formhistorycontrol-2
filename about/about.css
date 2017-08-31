@@ -8,7 +8,8 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    font-size: 0.75em;
+    font-size: 0.7em;
+    cursor: default;
 }
 
 h1 {
@@ -24,7 +25,7 @@ h1 {
 }
 
 .footer {
-    height: 70px;
+    height: 50px;
     background-color: #cbcbcb;
     display: flex;
     justify-content: center;
@@ -50,9 +51,30 @@ h1 {
     margin-right: 20px;
 }
 
+
+#app-name {
+    color: #505050;
+}
+
+#version {
+    font-weight: bold;
+}
+
 #description {
     margin-top: 10px;
+    line-height: 18px;
+}
+#description-label {
+    font-weight: bold;
 }
 
 #developer {
+}
+
+#app-developer-url {
+    color: darkblue;
+    cursor: pointer;
+}
+#app-developer-url:hover {
+    text-decoration: underline;
 }
