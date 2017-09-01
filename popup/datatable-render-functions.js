@@ -1,3 +1,4 @@
+'use strict';
 
 /* Formatting function for row details */
 function formatDetail( d ) {
@@ -13,18 +14,18 @@ function formatDetail( d ) {
 }
 
 function formatDate(data, type) {
-    return (type === 'display' || type == 'filter') ? _dateToDateString(new Date(data)) : data;
+    return (type === 'display' || type === 'filter') ? _dateToDateString(new Date(data)) : data;
 }
 
 function _dateToDateString(aDate) {
     return _getDateString(aDate) + ' ' + _getTimeString(aDate);
 }
 function _getDateString(aDate) {
-    var strLocaleDate = aDate.toLocaleDateString();
-    var dateSeparator = strLocaleDate.replace(/[0-9]/g,'').charAt(0);
-    var dateParts = strLocaleDate.split(dateSeparator);
-    var strPaddedDate = '';
-    for(var i=0; i<dateParts.length; i++) {
+    let strLocaleDate = aDate.toLocaleDateString();
+    let dateSeparator = strLocaleDate.replace(/[0-9]/g,'').charAt(0);
+    let dateParts = strLocaleDate.split(dateSeparator);
+    let strPaddedDate = '';
+    for(let i=0; i<dateParts.length; i++) {
         strPaddedDate += _pad(dateParts[i]);
         if (i<dateParts.length-1) {
             strPaddedDate += dateSeparator;
@@ -41,7 +42,7 @@ function _pad(aValue) {
 
 
 function ellipsis(data, type, cutoff, wordbreak, escapeHtml) {
-    var esc = function ( t ) {
+    let esc = function ( t ) {
         return t
             .replace( /&/g, '&amp;' )
             .replace( /</g, '&lt;' )
@@ -64,7 +65,7 @@ function ellipsis(data, type, cutoff, wordbreak, escapeHtml) {
         return data;
     }
 
-    var shortened = data.substr(0, cutoff-1);
+    let shortened = data.substr(0, cutoff-1);
 
     // Find the last white space character in the string
     if ( wordbreak ) {
@@ -77,11 +78,11 @@ function ellipsis(data, type, cutoff, wordbreak, escapeHtml) {
     }
 
     return '<span class="ellipsis" title="'+esc(data)+'">'+shortened+'&#8230;</span>';
-};
+}
 
 
 function formatAge(data, type) {
-    if  (type === 'display' || type == 'filter') {
+    if  (type === 'display' || type === 'filter') {
         return getFuzzyAge(data);
     }
     else {
@@ -101,30 +102,30 @@ function formatAge(data, type) {
  *         single unit of time (seconds|minutes|hours|days|weeks|months|years)
  */
 function getFuzzyAge(aDate) {
-    var _getIndDay = function(n) {
-        return " " + ((n==1) ? "day" : "days");
+    let _getIndDay = function(n) {
+        return " " + ((n===1) ? "day" : "days");
     };
-    var _getIndHour = function(n) {
-        return " " + ((n==1) ? "hour" : "hours");
+    let _getIndHour = function(n) {
+        return " " + ((n===1) ? "hour" : "hours");
     };
-    var _getIndMinute = function(n) {
-        return " " + ((n==1) ? "minute" : "minutes");
+    let _getIndMinute = function(n) {
+        return " " + ((n===1) ? "minute" : "minutes");
     };
-    var _getIndSecond = function(n) {
-        return " " + ((n==1) ? "second" : "seconds");
+    let _getIndSecond = function(n) {
+        return " " + ((n===1) ? "second" : "seconds");
     };
 
-    var d = new Date();
-    var nowDate = d.getTime();
+    let d = new Date();
+    let nowDate = d.getTime();
 
-    var result;
-    var space = "&nbsp;&nbsp;";
-    var noOfSeconds = Math.round((nowDate - aDate) / 1000);
-    var noOfDays = Math.round(noOfSeconds / (60 * 60 * 24));
+    let result;
+    let space = "&nbsp;&nbsp;";
+    let noOfSeconds = Math.round((nowDate - aDate) / 1000);
+    let noOfDays = Math.round(noOfSeconds / (60 * 60 * 24));
 
     if (noOfDays > 0) {
-        var noOfWeeks = Math.floor(noOfDays / 7);
-        var noOfMonths = Math.floor(noOfDays / 30);
+        let noOfWeeks = Math.floor(noOfDays / 7);
+        let noOfMonths = Math.floor(noOfDays / 30);
         if (noOfMonths > 24) {
             result = Math.round(noOfMonths / 12) + " " + "years";
         }
@@ -141,7 +142,7 @@ function getFuzzyAge(aDate) {
         }
     }
     else {
-        var noOfHours = Math.round(noOfSeconds / (60*60));
+        let noOfHours = Math.round(noOfSeconds / (60*60));
         if (noOfHours > 0) {
             result = noOfHours + _getIndHour(noOfHours);
             if (noOfHours > 9) space = "";
@@ -152,7 +153,7 @@ function getFuzzyAge(aDate) {
                 if (noOfSeconds > 9) space = "";
             }
             else {
-                var noOfMinutes = Math.round(noOfSeconds / 60);
+                let noOfMinutes = Math.round(noOfSeconds / 60);
                 result = noOfMinutes + _getIndMinute(noOfMinutes);
                 if (noOfMinutes > 9) space = "";
             }

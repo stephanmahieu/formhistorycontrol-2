@@ -1,3 +1,5 @@
+'use strict';
+
 browser.runtime.onMessage.addListener(receiveEvents);
 
 function receiveEvents(fhcEvent) {
@@ -43,14 +45,14 @@ const DB_NAME = "FormHistoryControl8";
 const DB_VERSION = 1;
 const DB_STORE_TEXT = 'text_history8';
 
-var db;
+let db;
 
 /**
  * Initialize (open) the database, create or upgrade if necessary.
  */
 function initDatabase() {
     console.log("Open database " + DB_NAME + "...");
-    var req;
+    let req;
     try {
         req = indexedDB.open(DB_NAME, DB_VERSION);
     } catch (ex){
@@ -69,11 +71,12 @@ function initDatabase() {
     };
     req.onupgradeneeded = function (event) {
         console.log("Database upgrade start...");
-        var db = event.target.result;
+        let db = event.target.result;
 
         // Create an objectStore for this database
+        let objStore;
         if (event.oldVersion < 1) {
-            var objStore = db.createObjectStore(DB_STORE_TEXT, {autoIncrement: true});
+            objStore = db.createObjectStore(DB_STORE_TEXT, {autoIncrement: true});
             objStore.createIndex("by_fieldkey", "fieldkey", {unique: true});
             objStore.createIndex("by_name", "name", {unique: false});
             objStore.createIndex("by_value", "value", {unique: false});
@@ -87,7 +90,7 @@ function initDatabase() {
 
         // // Create an objectStore for this database
         // if (event.oldVersion < 1) {
-        //     var objStore = db.createObjectStore(DB_STORE_TEXT, {keyPath: 'id', autoIncrement: true});
+        //     objStore = db.createObjectStore(DB_STORE_TEXT, {keyPath: 'id', autoIncrement: true});
         //     objStore.createIndex("name", "name", {unique: false});
         //     objStore.createIndex("value", "value", {unique: false});
         //     objStore.createIndex("first", "first", {unique: false});
@@ -97,13 +100,13 @@ function initDatabase() {
         // }
         // if (event.oldVersion < 2) {
         //     // Version 2 introduces 2 new indexes
-        //     var objStore = req.transaction.objectStore(DB_STORE_TEXT);
+        //     objStore = req.transaction.objectStore(DB_STORE_TEXT);
         //     objStore.createIndex("by_type", "type", {unique: false});
         //     objStore.createIndex("bt_pagetitle", "pagetitle", {unique: false});
         // }
         // if (event.oldVersion < 3) {
         //     // Version 3 renames new indexes
-        //     var objStore = req.transaction.objectStore(DB_STORE_TEXT);
+        //     objStore = req.transaction.objectStore(DB_STORE_TEXT);
         //     objStore.deleteIndex("name");
         //     objStore.deleteIndex("value");
         //     objStore.deleteIndex("first");
@@ -122,12 +125,12 @@ function initDatabase() {
         // }
         // if (event.oldVersion < 4) {
         //     // Version 4 additional indexe
-        //     var objStore = req.transaction.objectStore(DB_STORE_TEXT);
+        //     objStore = req.transaction.objectStore(DB_STORE_TEXT);
         //     objStore.createIndex("by_host_name", "host_name", {unique: true});
         // }
 
         // Use transaction oncomplete to make sure the objStore creation is finished before adding data into it.
-        objStore.transaction.oncomplete = function (event) {
+        objStore.transaction.oncomplete = function (/*event*/) {
             console.log("Database upgrade success.");
             doDatabaseTests();
         };
@@ -142,7 +145,7 @@ function initDatabase() {
  * @param {string} mode either "readonly" or "readwrite"
  */
 function getObjectStore(store_name, mode) {
-    var tx = db.transaction(store_name, mode);
+    let tx = db.transaction(store_name, mode);
     return tx.objectStore(store_name);
 }
 
@@ -154,22 +157,22 @@ function setEmptyValueAndNotify(fhcEvent) {
 }
 
 function getTextFieldFromStoreAndNotify(fhcEvent) {
-    var objStore = getObjectStore(DB_STORE_TEXT, "readonly");
+    let objStore = getObjectStore(DB_STORE_TEXT, "readonly");
 
-    var found = {
+    let found = {
         value: null,
         used: 0,
         last: 0
     };
 
-    var index = objStore.index("by_name");
-    var singleKeyRange = IDBKeyRange.only(fhcEvent.name);
+    let index = objStore.index("by_name");
+    let singleKeyRange = IDBKeyRange.only(fhcEvent.name);
 
-    var req = index.openCursor(singleKeyRange);
+    let req = index.openCursor(singleKeyRange);
     req.onsuccess = function(evt) {
-        var cursor = evt.target.result;
+        let cursor = evt.target.result;
         if (cursor) {
-            var fhcEntry = cursor.value;
+            let fhcEntry = cursor.value;
             // console.log("Named Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type +
             //     "} KEY=[" + fhcEntry.fieldkey + "] first:[" + fhcEntry.first + "] last:[" + fhcEntry.last + "]");
 
@@ -206,27 +209,27 @@ function getTextFieldFromStoreAndNotify(fhcEvent) {
 
 
 function saveOrUpdateTextField(fhcEvent) {
-    var objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
 
     // entry already exists? (index = host + type + name + value)
-    var key = getLookupKey(fhcEvent);
+    let key = getLookupKey(fhcEvent);
 
-    var index = objStore.index("by_fieldkey");
-    var req = index.getKey(key);
+    let index = objStore.index("by_fieldkey");
+    let req = index.getKey(key);
 
     req.onsuccess = function(event) {
-        var key = event.target.result;
-        var now = (new Date()).getTime();
+        let key = event.target.result;
+        let now = (new Date()).getTime();
         if (key) {
             //console.log("entry exist, updating value for key " + key);
 
             // now get the complete record by key
-            var getReq = objStore.get(key);
-            getReq.onerror = function(event) {
+            let getReq = objStore.get(key);
+            getReq.onerror = function(/*event*/) {
                 console.error("Get (for update) failed for record-key " + key, this.error);
             };
             getReq.onsuccess = function(event) {
-                var fhcEntry = event.target.result;
+                let fhcEntry = event.target.result;
                 // fhcEntry.used++;
                 // fhcEntry.last = now;
                 // fhcEntry.uri = fhcEvent.url;
@@ -238,11 +241,11 @@ function saveOrUpdateTextField(fhcEvent) {
                 // updateReq.onerror = function(updateEvent) {
                 //     console.error("Update failed! " + updateReq.error.name + ": " + updateReq.error.message);
                 // };
-                var deleteReq = objStore.delete(key);
-                deleteReq.onerror = function(deleteEvent) {
+                let deleteReq = objStore.delete(key);
+                deleteReq.onerror = function(/*deleteEvent*/) {
                     console.error("Delete (for update) failed for record-key " + key, this.error);
                 };
-                deleteReq.onsuccess = function(deleteEvent) {
+                deleteReq.onsuccess = function(/*deleteEvent*/) {
                     //console.log("Delete (for update) okay");
 
                     // now add the modified record
@@ -256,8 +259,8 @@ function saveOrUpdateTextField(fhcEvent) {
                         fhcEntry.value = fhcEvent.value;
                     }
 
-                    var addReq = objStore.add(fhcEntry);
-                    addReq.onerror = function(addEvent) {
+                    let addReq = objStore.add(fhcEntry);
+                    addReq.onerror = function(/*addEvent*/) {
                         console.error("Add (for update) failed for original record with record-key " + key, this.error);
                     };
                     addReq.onsuccess = function(addEvent) {
@@ -268,7 +271,7 @@ function saveOrUpdateTextField(fhcEvent) {
             };
         } else {
             console.log("entry does not exist, adding...");
-            var fhcEntry = {
+            let fhcEntry = {
                 fieldkey: getLookupKey(fhcEvent),
                 name: fhcEvent.name,
                 value: fhcEvent.value,
@@ -279,9 +282,9 @@ function saveOrUpdateTextField(fhcEvent) {
                 host: fhcEvent.host,
                 uri: fhcEvent.host,
                 pagetitle: "ToDo"
-            }
-            var insertReq = objStore.add(fhcEntry);
-            insertReq.onerror = function(insertEvent) {
+            };
+            let insertReq = objStore.add(fhcEntry);
+            insertReq.onerror = function(/*insertEvent*/) {
                 console.error("Insert failed!", this.error);
             };
             insertReq.onsuccess = function(insertEvent) {
@@ -293,18 +296,18 @@ function saveOrUpdateTextField(fhcEvent) {
 
 
 function clearTextFieldsStore() {
-    var objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
-    var req = objStore.clear();
-    req.onsuccess = function(insertEvent) {
+    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+    let req = objStore.clear();
+    req.onsuccess = function(/*insertEvent*/) {
         console.log("Clear okay, all TextField records deleted!");
     };
-    req.onerror = function(insertEvent) {
+    req.onerror = function(/*insertEvent*/) {
         console.error("Clear failed!!");
     };
 }
 
 function getLookupKey(fhcEvent) {
-    var key = fhcEvent.host + "|" + fhcEvent.type + "|" + fhcEvent.name;
+    let key = fhcEvent.host + "|" + fhcEvent.type + "|" + fhcEvent.name;
     // for wysiwyg fields values are updated on each keystroke, so we do not want to insert a new entry for each change
     if ("input" === fhcEvent.type) {
         key += "|" + fhcEvent.value;
@@ -343,9 +346,9 @@ function doDatabaseAddTest() {
     //     console.log("Insert error: " + event.target.errorCode);
     // };
 
-    var objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
-    for (var i in formHistData) {
-        var req = objStore.add(formHistData[i]);
+    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+    for (let i in formHistData) {
+        let req = objStore.add(formHistData[i]);
         req.onsuccess = function(event) {
             console.log("Insert okay, id: " + event.target.result);
         };
@@ -355,27 +358,27 @@ function doDatabaseAddTest() {
 function doReadAllTest() {
     console.log("Attempt reading all...");
 
-    var objectStore = getObjectStore(DB_STORE_TEXT, 'readonly');
-    var req;
+    let objectStore = getObjectStore(DB_STORE_TEXT, 'readonly');
+    let req;
 
     req = objectStore.count();
     req.onsuccess = function(evt) {
         console.log("There are " + evt.target.result + " record(s) in the object store.");
     };
-    req.onerror = function(evt) {
+    req.onerror = function(/*evt*/) {
         console.error("add error", this.error);
     };
 
     req = objectStore.openCursor();
     req.onsuccess = function(evt) {
-        var cursor = evt.target.result;
+        let cursor = evt.target.result;
         if (cursor) {
             // req = objectStore.get(cursor.key);
             // req.onsuccess = function (evt) {
             //     var value = evt.target.result;
             //     console.log("Entry [" + cursor.key + "] name: " + cursor.value.name);
             // };
-            var fhcEntry = cursor.value;
+            let fhcEntry = cursor.value;
             console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type +
                 "} KEY=[" + fhcEntry.fieldkey + "] first:[" + fhcEntry.first + "] last:[" + fhcEntry.last + "]");
             cursor.continue();
@@ -389,15 +392,15 @@ function doReadAllTest() {
 function doDatabaseUpdateTest() {
     console.log("Attempt update...");
 
-    var objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
 
-    var request = objStore.index("by_fieldkey").get("key1");
-    request.onerror = function(event) {
+    let request = objStore.index("by_fieldkey").get("key1");
+    request.onerror = function(/*event*/) {
         console.log("Update, get by index failed!");
     };
     request.onsuccess = function(event) {
         // Get the old value that we want to update
-        var data = event.target.result;
+        let data = event.target.result;
 
         if (data) {
             console.log("Found existing record");
@@ -406,11 +409,11 @@ function doDatabaseUpdateTest() {
             data.value = "value changed!";
 
             // Put this updated object back into the database.
-            var requestUpdate = objStore.put(data);
-            requestUpdate.onerror = function(event) {
+            let requestUpdate = objStore.put(data);
+            requestUpdate.onerror = function(/*event*/) {
                 console.error("update error", this.error);
             };
-            requestUpdate.onsuccess = function(event) {
+            requestUpdate.onsuccess = function(/*event*/) {
                 console.log("Update succeeded.");
             };
         }

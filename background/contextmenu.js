@@ -1,4 +1,6 @@
-function onMenuCreated(n) {
+'use strict';
+
+function onMenuCreated() {
   if (browser.runtime.lastError) {
     console.error(`Error: ${browser.runtime.lastError}`);
   } else {

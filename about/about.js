@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+'use strict';
+
+document.addEventListener("DOMContentLoaded", function(/*event*/) {
     let manifest = browser.runtime.getManifest();
     // document.title += " " + manifest.name;
     document.getElementById("app-name").innerHTML = manifest.name;

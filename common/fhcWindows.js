@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Show a notification message.
  * @param message

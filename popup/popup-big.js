@@ -1,3 +1,5 @@
+'use strict';
+
 //browser.runtime.onMessage.addListener(receiveEvents);
 //
 // function receiveEvents(fhcEvent) {
@@ -85,8 +87,8 @@
 
 
 
-var openChildRow;
-var openTr;
+let openChildRow;
+let openTr;
 function closePrevChildIfOpen() {
     if (openChildRow) {
         openChildRow.child.hide();
@@ -104,7 +106,7 @@ function closePrevChildIfOpen() {
 }
 
 $(document).ready(function() {
-    var table = $('#fhcTable').DataTable( {
+    let table = $('#fhcTable').DataTable( {
         scrollY: 300,
         paging: false,
         order: [[ 7, "desc" ]],
@@ -197,34 +199,39 @@ $(document).ready(function() {
 
 
     // Add event listener for opening and closing details
-    $('#fhcTable tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
+    $('#fhcTable')
+        .find('tbody').on('click', 'td.details-control', function () {
+            let tr = $(this).closest('tr');
+            let row = table.row( tr );
 
-        if (row.child.isShown()) {
-            // This row is already open - close it
-            $('div.detail-root', row.child()).slideUp('fast', function () {
-                row.child.hide();
-                tr.removeClass('shown');
-            });
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                $('div.detail-root', row.child()).slideUp('fast', function () {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                });
+            }
+            else {
+                closePrevChildIfOpen();
+                openChildRow = row.child( formatDetail(row.data()), 'no-padding');
+                openChildRow.show();
+                openTr = tr;
+                tr.addClass('shown');
+                $('div.detail-root', row.child()).slideDown('fast');
+            }
+        }).end()
+        .find('tbody').on( 'click', 'tr', function () {
+            $(this).toggleClass('selected');
         }
-        else {
-            closePrevChildIfOpen();
-            openChildRow = row.child( formatDetail(row.data()), 'no-padding');
-            openChildRow.show();
-            openTr = tr;
-            tr.addClass('shown');
-            $('div.detail-root', row.child()).slideDown('fast');
-        }
-    } );
+    );
+    // $('#fhcTable').find('tbody').on( 'click', 'tr', function () {
+    //     $(this).toggleClass('selected');
+    // });
 
     // table.on('page.dt', function () {
     //     closePrevChildIfOpen();
     // });
 
-    $('#fhcTable tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    });
 
     $('nav li').hover(
         function() {
@@ -237,7 +244,7 @@ $(document).ready(function() {
 
 
     // Add event listeners for the buttons
-    $('#buttons button').on('click', function (event) {
+    $('#buttons').find('button').on('click', function (event) {
         onButtonClicked(event.currentTarget.id);
     });
 
@@ -257,22 +264,22 @@ const DB_VERSION = 1;
 const DB_STORE_TEXT = 'text_history8';
 
 function populateFromDatabase(table) {
-    var req = indexedDB.open(DB_NAME, DB_VERSION);
-    req.onerror = function (event) {
+    let req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onerror = function (/*event*/) {
         console.error("Database open error", this.error);
     };
     req.onsuccess = function (event) {
         // Better use "this" than "req" to get the result to avoid problems with garbage collection.
-        var db = event.target.result;
+        let db = event.target.result;
         //console.log("Database opened successfully.");
 
-        var objStore = db.transaction(DB_STORE_TEXT, "readonly").objectStore(DB_STORE_TEXT);
-        var cursorReq = objStore.index("by_last").openCursor(null, "prev");
+        let objStore = db.transaction(DB_STORE_TEXT, "readonly").objectStore(DB_STORE_TEXT);
+        let cursorReq = objStore.index("by_last").openCursor(null, "prev");
 
         cursorReq.onsuccess = function(evt) {
-            var cursor = evt.target.result;
+            let cursor = evt.target.result;
             if (cursor) {
-                var fhcEntry = cursor.value;
+                let fhcEntry = cursor.value;
                 //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
 
                 table.row.add([cursor.key, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]).draw();
@@ -338,9 +345,9 @@ function onMenuClicked(menuItemId) {
 
 
 function _closeThisPopup() {
-    var getting = browser.windows.getCurrent({populate: false, windowTypes: ["popup"]});
+    let getting = browser.windows.getCurrent({populate: false, windowTypes: ["popup"]});
     getting.then((window) => {
-        var removing = browser.windows.remove(window.id);
+        let removing = browser.windows.remove(window.id);
         removing.onRemoved = function() {
             console.log("Window removed");
         };

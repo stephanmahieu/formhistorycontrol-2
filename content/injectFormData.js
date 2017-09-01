@@ -1,3 +1,5 @@
+'use strict';
+
 browser.runtime.onMessage.addListener(receiveEvents);
 
 function receiveEvents(fhcEvent) {
@@ -13,7 +15,7 @@ function receiveEvents(fhcEvent) {
 
 
 function showformfields() {
-    var ii = 0, id, div;
+    let ii = 0, id, div;
     [].forEach.call( document.querySelectorAll("input,textarea"), function(elem) {
         //console.log("adding info for elem-id: " + elem.id);
 
@@ -60,42 +62,39 @@ function _isDesignModeOn(elem) {
 /**
  * Create a div element for displaying the fieldname next to a formfield.
  *
- * @param document {DOM Document}
- *        the HTML document containing the inputfield
- *
  * @param id {String}
  *        the unique id for the div element
  *
- * @param sourceElem {DOM Element}
+ * @param sourceElem {Element}
  *        the inputfield determining the position for the new div element
  *
  * @param includeForm boolean
  *        whether or not to include info about te containing form
  *
- * @return {DOM Element}
+ * @return {Element}
  *         the newly created div, absolute positioned next to the sourceElem
  */
 function _createInfoElement(id, sourceElem, includeForm) {
-    var fldName = _getElementNameOrId(sourceElem);
-    if (fldName == '') {
+    let fldName = _getElementNameOrId(sourceElem);
+    if (fldName === '') {
         fldName = '\u00a0'; //&nbsp;
     }
 
-    var style = 'display:block; border:1px solid #000; padding: 0 4px; ' +
+    let style = 'display:block; border:1px solid #000; padding: 0 4px; ' +
         'background-color:#FFFFAA; color:#000; opacity: 0.75; ' +
         'font: bold 11px sans-serif; text-decoration:none; text-align:left; ' +
         'z-index: 2147483647; cursor:default; box-shadow: 3px 3px 2px black; ';
 
-    var compstyle = document.defaultView.getComputedStyle(sourceElem, null);
-    var width = 0;
+    let compstyle = document.defaultView.getComputedStyle(sourceElem, null);
+    let width = 0;
     if ('BODY' !== sourceElem.nodeName && 'HTML' !== sourceElem.nodeName) {
         // do need place info about body or html next to (and outside) the element
         width = parseInt(compstyle.getPropertyValue("width").replace('px', ''));
     }
-    var padding = parseInt(compstyle.getPropertyValue("padding-right").replace('px', ''));
-    var border = parseInt(compstyle.getPropertyValue("border-right-width").replace('px', ''));
+    let padding = parseInt(compstyle.getPropertyValue("padding-right").replace('px', ''));
+    let border = parseInt(compstyle.getPropertyValue("border-right-width").replace('px', ''));
 
-    var left = 0, top = 0, elem = sourceElem;
+    let left = 0, top = 0, elem = sourceElem;
     if (elem.offsetParent) {
         do {
             left += elem.offsetLeft;
@@ -105,7 +104,7 @@ function _createInfoElement(id, sourceElem, includeForm) {
     style += 'position:absolute; top:' + top + 'px; ';
     style += 'left:' + (left + width + padding + border + 4) + 'px; ';
 
-    var div = document.createElement('div');
+    let div = document.createElement('div');
     div.setAttribute('id', id);
     div.setAttribute('title', _getFormInfoText(sourceElem, includeForm));
     div.setAttribute('style', style);
@@ -114,11 +113,11 @@ function _createInfoElement(id, sourceElem, includeForm) {
     div.addEventListener("mouseleave", function(){this.style.opacity=0.75;this.style.zIndex=1001;}, false);
     div.appendChild(document.createTextNode(fldName));
 
-    var innerDiv = document.createElement('div');
+    let innerDiv = document.createElement('div');
     div.appendChild(innerDiv);
     div.addEventListener("click", function(){
-        var e=document.getElementById(this.id + 'inner');
-        if(e.style.display=='none') {
+        let e=document.getElementById(this.id + 'inner');
+        if(e.style.display==='none') {
             e.style.display='block';
             this.style.zIndex=1001;
         } else {
@@ -140,44 +139,41 @@ function _createInfoElement(id, sourceElem, includeForm) {
 /**
  * Collect the attributes for the element and its form container and return as String.
  *
- * @param element {DOM Element}
+ * @param element {Element}
  *        the inputfield
- *
- * @param {DOM Document}
- *        the HTML document object
  *
  * @param includeForm boolean
  *        whether or not to include info about te containing form
  *
- * @return {DOM}
+ * @return {Element}
  *         info about element and form
  */
 function _getFormInfoHTML(element, includeForm) {
-    var info = document.createElement('div');
+    let info = document.createElement('div');
 
-    var inputBold = document.createElement('b');
+    let inputBold = document.createElement('b');
     inputBold.textContent = '<' + element.nodeName + '>';
     info.appendChild(inputBold);
 
     info.appendChild(document.createElement('br'));
 
-    for (var j = 0; j < element.attributes.length; j++) {
+    for (let j = 0; j < element.attributes.length; j++) {
         info.appendChild(document.createTextNode(element.attributes[j].name + '=' + element.attributes[j].value));
         info.appendChild(document.createElement('br'));
     }
 
     if (includeForm) {
-        var form = element;
-        while (form.parentNode && form.localName != 'form') {
+        let form = element;
+        while (form.parentNode && form.localName !== 'form') {
             form = form.parentNode;
         }
-        if (form && form.localName == 'form') {
+        if (form && form.localName === 'form') {
             info.appendChild(document.createElement('br'));
-            var formBold = document.createElement('b');
+            let formBold = document.createElement('b');
             formBold.textContent = '<FORM>';
             info.appendChild(formBold);
             info.appendChild(document.createElement('br'));
-            for (var i = 0; i < form.attributes.length; i++) {
+            for (let i = 0; i < form.attributes.length; i++) {
                 info.appendChild(document.createTextNode(form.attributes[i].name + '=' + form.attributes[i].value));
                 info.appendChild(document.createElement('br'));
             }
@@ -189,7 +185,7 @@ function _getFormInfoHTML(element, includeForm) {
 /**
  * Collect the attributes for the element and its form container and return as String.
  *
- * @param element {DOM Element}
+ * @param element {Element}
  *        the inputfield
  *
  * @param includeForm boolean
@@ -199,21 +195,21 @@ function _getFormInfoHTML(element, includeForm) {
  *         info about element and form
  */
 function _getFormInfoText(element, includeForm) {
-    var sep = ' ';
+    let sep = ' ';
 
-    var result = element.nodeName + ': ';
-    for (var j = 0; j < element.attributes.length; j++) {
+    let result = element.nodeName + ': ';
+    for (let j = 0; j < element.attributes.length; j++) {
         result += element.attributes[j].name + '=' + element.attributes[j].value + sep;
     }
 
     if (includeForm) {
-        var form = element;
-        while (form.parentNode && form.localName != 'form') {
+        let form = element;
+        while (form.parentNode && form.localName !== 'form') {
             form = form.parentNode;
         }
-        if (form && form.localName == 'form') {
+        if (form && form.localName === 'form') {
             result += ' # FORM: ';
-            for (var i = 0; i < form.attributes.length; i++) {
+            for (let i = 0; i < form.attributes.length; i++) {
                 result += form.attributes[i].name + '=' + form.attributes[i].value + sep;
             }
         }
@@ -224,7 +220,7 @@ function _getFormInfoText(element, includeForm) {
 /**
  * Determine the name of an element (either name if it has one, otherwise its id).
  *
- * @param  element {DOM element}
+ * @param  element {Element}
  *         the DOM element
  *
  * @return {String}
@@ -240,34 +236,31 @@ function _getElementNameOrId(element) {
  * New html5 types like search, tel, url, time, week and email are
  * also considered text types.
  *
- * @param  type {DOM element type}
+ * @param  type {String}
  * @return {Boolean} whether or not a DOM element is a text input element
  */
 function _isTextInputSubtype(type) {
-    if ("text" === type || "search" === type || "tel" === type || "url" === type || "email" === type || "textarea" === type) {
-        // exclude "password", never save those!
-        // also exclude number, range and color
-        // and exclude the not fully supported: date, datetime-local, month, time, week
-        return true;
-    }
-    return false;
+    // exclude "password", never save those!
+    // also exclude number, range and color
+    // and exclude the not fully supported: date, datetime-local, month, time, week
+    return ("text" === type || "search" === type || "tel" === type || "url" === type || "email" === type || "textarea" === type);
 }
 
 /**
  * Test whether the element is displayed according to its display property.
  *
- * @param  elem {DOM element}
+ * @param  elem {Element}
  * @return {boolean} whether or not the element is displayed
  */
 function _isDisplayed(elem) {
-    var display = _getEffectiveStyle(elem, "display");
-    if ("none" == display) return false;
+    let display = _getEffectiveStyle(elem, "display");
+    if ("none" === display) return false;
 
-    var visibility = _getEffectiveStyle(elem, "visibility");
-    if ("hidden" == visibility || "collapse" == visibility) return false;
+    let visibility = _getEffectiveStyle(elem, "visibility");
+    if ("hidden" === visibility || "collapse" === visibility) return false;
 
-    var opacity = _getEffectiveStyle(elem, "opacity");
-    if (0 == opacity) return false;
+    let opacity = _getEffectiveStyle(elem, "opacity");
+    if (0 === opacity) return false;
 
     if (elem.parentNode.style) {
         return _isDisplayed(elem.parentNode);
@@ -278,19 +271,19 @@ function _isDisplayed(elem) {
 /**
  * Get the effective css style of an element.
  *
- * @param  element {DOM element}
+ * @param  element {Element}
  * @param  property {String} the css property to obtain
  * @return {String} the effective css style
  */
 function _getEffectiveStyle(element, property) {
-    if (element.style == undefined) {
+    if (element.style === undefined) {
         return undefined; // not a styled element
     }
 
-    var doc = element.ownerDocument;
-    var effectiveStyle = doc.defaultView.getComputedStyle(element, null);
-    var propertyValue = effectiveStyle.getPropertyValue(property);
-    if ("inherit" == propertyValue && element.parentNode.style) {
+    let doc = element.ownerDocument;
+    let effectiveStyle = doc.defaultView.getComputedStyle(element, null);
+    let propertyValue = effectiveStyle.getPropertyValue(property);
+    if ("inherit" === propertyValue && element.parentNode.style) {
         return _getEffectiveStyle(element.parentNode, property);
     }
     return propertyValue;
@@ -299,7 +292,7 @@ function _getEffectiveStyle(element, property) {
 /**
  * Get the effective contentEditable property of an element.
  *
- * @param  element {DOM element}
+ * @param  element {Element}
  * @return {boolean} whether content is editable "true" or not "false"
  */
 function _isContentEditable(element) {
@@ -310,11 +303,11 @@ function _isContentEditable(element) {
         return ("true" === element.contentEditable);
     }
 
-    var doc = element.ownerDocument;
-    var effectiveStyle = doc.defaultView.getComputedStyle(element, null);
-    var propertyValue = effectiveStyle.getPropertyValue("contentEditable");
-    if ("inherit" == propertyValue && element.parentNode.style) {
+    let doc = element.ownerDocument;
+    let effectiveStyle = doc.defaultView.getComputedStyle(element, null);
+    let propertyValue = effectiveStyle.getPropertyValue("contentEditable");
+    if ("inherit" === propertyValue && element.parentNode.style) {
         return _isContentEditable(element.parentNode);
     }
-    return ("true" == propertyValue);
+    return ("true" === propertyValue);
 }

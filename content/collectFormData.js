@@ -1,4 +1,6 @@
-var eventQueue = [];
+'use strict';
+
+let eventQueue = [];
 
 browser.runtime.onMessage.addListener(receiveEvents);
 
@@ -26,7 +28,7 @@ function receiveEvents(fhcActionEvent) {
 //----------------------------------------------------------------------------
 
 function _findFieldAndSetValue(fhcEvent) {
-    var field = null;
+    let field = null;
     [].forEach.call( document.querySelectorAll("input,textarea"), function(elem) {
         if (_isTextInputSubtype(elem.type) && _isDisplayed(elem)) {
             if (!field) {
@@ -45,11 +47,11 @@ function _findFieldAndSetValue(fhcEvent) {
 }
 
 function _ifMatchSetValue(node, fhcEvent) {
-    var type = node.nodeName.toLowerCase();
-    var location;
-    var formid = "";
-    var id = (node.id) ? node.id : ((node.name) ? node.name : "");
-    var name = (node.name) ? node.name : ((node.id) ? node.id : "");
+    let type = node.nodeName.toLowerCase();
+    let location;
+    let formid = "";
+    let id = (node.id) ? node.id : ((node.name) ? node.name : "");
+    //let name = (node.name) ? node.name : ((node.id) ? node.id : "");
 
     switch(type) {
         case "textarea":
@@ -110,11 +112,11 @@ function _fillformfields(action, targetTabId) {
 }
 
 function _requestHistoricValue(node, action, targetTabId) {
-    var type = node.nodeName.toLowerCase();
-    var location;
-    var formid = "";
-    var id = (node.id) ? node.id : ((node.name) ? node.name : "");
-    var name = (node.name) ? node.name : ((node.id) ? node.id : "");
+    let type = node.nodeName.toLowerCase();
+    let location;
+    let formid = "";
+    let id = (node.id) ? node.id : ((node.name) ? node.name : "");
+    let name = (node.name) ? node.name : ((node.id) ? node.id : "");
     switch(type) {
         case "textarea":
         case "input":
@@ -130,7 +132,7 @@ function _requestHistoricValue(node, action, targetTabId) {
             break;
     }
 
-    var dataRetrievalEvent = _createHistoricValueRetrievalEvent(name, type, id, formid, location, action, targetTabId);
+    let dataRetrievalEvent = _createHistoricValueRetrievalEvent(name, type, id, formid, location, action, targetTabId);
     browser.runtime.sendMessage(dataRetrievalEvent);
 }
 
@@ -161,8 +163,8 @@ function _createHistoricValueRetrievalEvent(name, type, id, formid, location, ac
 function processEventQueue() {
     if (0 < eventQueue.length) {
         //console.log("Start processing event-queue");
-        var event;
-        for (var it=0; it<eventQueue.length; it++) {
+        let event;
+        for (let it=0; it<eventQueue.length; it++) {
             event = eventQueue[it];
             switch(event.eventType) {
                 case 1:
@@ -185,7 +187,7 @@ function _processContentEvent(event) {
     //console.log("_handleContentEvent");
 
     // get current content (lazily load)
-    var theContent = _getContent(event);
+    let theContent = _getContent(event);
     if (theContent.length > 0)  {
         event.value = JSON.stringify(theContent);
         event.node = null;
@@ -212,19 +214,19 @@ function _processFormElementEvent(event) {
 
 function onFormSubmit(event) {
     //console.log("collectFormData::onFormSubmit start");
-    var form = _findForm(event.target);
+    let form = _findForm(event.target);
     if (form && form.elements){
-        var formElements = form.elements;
-        var location = form.ownerDocument.location;
+        let formElements = form.elements;
+        let location = form.ownerDocument.location;
         //console.log("form id: " + form.id);
         //console.log("form url: " + location.href);
         //console.log("formElements #: " + formElements.length);
 
-        var formFormid = _getId(form);
-        var formHost = _getHost(location);
+        let formFormid = _getId(form);
+        let formHost = _getHost(location);
 
-        var formField, allFormElements = [];
-        for (var i=0; i<formElements.length; i++) {
+        let formField, allFormElements = [];
+        for (let i=0; i<formElements.length; i++) {
             formField = formElements[i];
             //console.log("###field id=" + _getId(formField) + " type=" + formField.type);
             switch(formField.type){
@@ -265,8 +267,8 @@ function onFormSubmit(event) {
                 case "select-one":
                     //console.log("select field:");
                     if (formField.options) {
-                        var option;
-                        for (var j=0; j<formField.options.length; j++) {
+                        let option;
+                        for (let j=0; j<formField.options.length; j++) {
                             option = formField.options[j];
                             // option may contain attribute label and/or value, if both missing use the text-content
                             //console.log("- option id=" + option.id + " value=" + option.value + " selected=" + option.selected);
@@ -288,7 +290,7 @@ function onFormSubmit(event) {
             }
         }
 
-        for (var i=0; i < allFormElements.length; i++) {
+        for (let i=0; i < allFormElements.length; i++) {
             // send immediately because submitting will reload the page and the background-connection will be lost
             _processFormElementEvent(allFormElements[i]);
         }
@@ -297,8 +299,8 @@ function onFormSubmit(event) {
 }
 
 function onContentChanged(event) {
-    var t = event.originalTarget;
-    var n = t.nodeName.toLowerCase();
+    let t = event.originalTarget;
+    let n = t.nodeName.toLowerCase();
 
     if ("keyup" === event.type) {
         // for input we rely on change events
@@ -319,7 +321,7 @@ function onContentChanged(event) {
     }
     else if ("html" === n) {
         //console.log("keyup from html");
-        var p = t.parentNode;
+        let p = t.parentNode;
         if (p && "on" === p.designMode) {
             _contentChangedHandler("html", p);
         }
@@ -327,8 +329,8 @@ function onContentChanged(event) {
     else if ("body" === n || "div" === n) {
         // body of iframe
         //console.log("keyup from body");
-        var doc = t.ownerDocument;
-        var e = doc.activeElement;
+        let doc = t.ownerDocument;
+        let e = doc.activeElement;
         if (("on" === doc.designMode) || _isContentEditable(e)) {
             //console.log("content is editable");
             _contentChangedHandler("body" === n ? "iframe" : "div", e);
@@ -337,10 +339,10 @@ function onContentChanged(event) {
 }
 
 function _contentChangedHandler(type, node) {
-    var location;
-    var formid = "";
-    var id = (node.id) ? node.id : ((node.name) ? node.name : "");
-    var name = (node.name) ? node.name : ((node.id) ? node.id : "");
+    let location;
+    let formid = "";
+    let id = (node.id) ? node.id : ((node.name) ? node.name : "");
+    let name = (node.name) ? node.name : ((node.id) ? node.id : "");
     switch(type) {
         case "textarea":
         case "input":
@@ -366,13 +368,10 @@ function _contentChangedHandler(type, node) {
 //----------------------------------------------------------------------------
 
 function _isTextInputSubtype(type) {
-    if ("text" === type || "search" === type || "tel" === type || "url" === type || "email" === type) {
-        // exclude "password", never save those!
-        // also exclude number, range and color
-        // and exclude the not fully supported: date, datetime-local, month, time, week
-        return true;
-    }
-    return false;
+    // exclude "password", never save those!
+    // also exclude number, range and color
+    // and exclude the not fully supported: date, datetime-local, month, time, week
+    return ("text" === type || "search" === type || "tel" === type || "url" === type || "email" === type);
 }
 
 /**
@@ -384,7 +383,7 @@ function _isTextInputSubtype(type) {
  *         the editor/multiline text being edited by a user
  */
 function _getContent(event) {
-    var theContent = "";
+    let theContent = "";
     try {
         switch(event.type) {
             case "textarea":
@@ -406,11 +405,11 @@ function _getContent(event) {
 }
 
 function _findForm(element) {
-    var form = element;
-    while (form.parentNode && form.localName != 'form') {
+    let form = element;
+    while (form.parentNode && form.localName !== 'form') {
         form = form.parentNode;
     }
-    if (form && form.localName == 'form') {
+    if (form && form.localName === 'form') {
         return form;
     }
     return null;
@@ -421,7 +420,7 @@ function _findForm(element) {
  * Get the id of a HTML element, if id not present return the name.
  * If neither is present return an empty string.
  *
- * @param  element {HTML Element}
+ * @param  element {Element}
  * @return {String} id, name or empty string
  */
 function _getId(element) {
@@ -432,16 +431,16 @@ function _getId(element) {
 /**
  * Get the id (or name) of the parent form if any for the HTML element.
  *
- * @param  element {HTML Element}
+ * @param  element {Element}
  * @return {String} id, name or empty string of the parent form element
  *
  */
 function _getFormId(element) {
-    var insideForm = false;
-    var parentElm = element;
+    let insideForm = false;
+    let parentElm = element;
     while(parentElm && !insideForm) {
         parentElm = parentElm.parentNode;
-        insideForm = (parentElm && "FORM" == parentElm.tagName);
+        insideForm = (parentElm && "FORM" === parentElm.tagName);
     }
     return (insideForm && parentElm) ? _getId(parentElm) : "";
 }
@@ -465,24 +464,24 @@ function _getHost(aLocation) {
 /**
  * Get the effective contentEditable property of an element.
  *
- * @param  element {DOM element}
+ * @param  element {Element}
  * @return {boolean} wether content is editable "true" or not "false"
  */
 function _isContentEditable(element) {
-    if (element.contentEditable == undefined) {
+    if (element.contentEditable === undefined) {
         return false;
     }
-    if ("inherit" != element.contentEditable) {
-        return ("true" == element.contentEditable);
+    if ("inherit" !== element.contentEditable) {
+        return ("true" === element.contentEditable);
     }
 
-    var doc = element.ownerDocument;
-    var effectiveStyle = doc.defaultView.getComputedStyle(element, null);
-    var propertyValue = effectiveStyle.getPropertyValue("contentEditable");
-    if ("inherit" == propertyValue && element.parentNode.style) {
+    let doc = element.ownerDocument;
+    let effectiveStyle = doc.defaultView.getComputedStyle(element, null);
+    let propertyValue = effectiveStyle.getPropertyValue("contentEditable");
+    if ("inherit" === propertyValue && element.parentNode.style) {
         return _isContentEditable(element.parentNode);
     }
-    return ("true" == propertyValue);
+    return ("true" === propertyValue);
 }
 
 
@@ -512,7 +511,7 @@ function _isContentEditable(element) {
  *        the node object representing the field
  */
 function _enqueueContentEvent(name, type, id, formid, location, node) {
-    var event = {
+    let event = {
         eventType:  1,
         node:       node,
         type:       type,
@@ -536,8 +535,8 @@ function _enqueueContentEvent(name, type, id, formid, location, node) {
  *        a content or maintenance event
  */
 function _alreadyQueued(event) {
-    var e;
-    for (var it=0; it<eventQueue.length; it++) {
+    let e;
+    for (let it=0; it<eventQueue.length; it++) {
         e = eventQueue[it];
         if (e.eventType === event.eventType && e.node === event.node) {
             return true;
