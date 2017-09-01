@@ -4,9 +4,19 @@
     "description": "The title of this extension"
   },
 
+  "extensionDescriptionLabel": {
+    "message": "Description",
+    "description": "Label for description."
+  },
+
   "extensionDescription": {
     "message": "Manage form history entries (search, edit, cleanup, export/import) and easy text formfiller, now Multiprocess (e10s) and WebExtensions compatible!",
     "description": "Description of this extension."
+  },
+
+  "extensionDeveloperLabel": {
+    "message": "Developer",
+    "description": "Label for developer."
   },
 
 

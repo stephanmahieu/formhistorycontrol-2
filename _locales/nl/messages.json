@@ -4,12 +4,22 @@
     "description": "The title of this extension"
   },
 
+  "extensionDescriptionLabel": {
+    "message": "Omschrijving",
+    "description": "Label for description."
+  },
+
   "extensionDescription": {
     "message": "Een add-on voor onderhoud van de formulier historie (inzien, verwijderen, aanpassen, selectief opschonen, exporteren/importeren) en simpele formulier vuller, now Multiprocess (e10s) and WebExtensions compatible!",
     "description": "Description of this extension."
   },
-  
-  
+
+  "extensionDeveloperLabel": {
+    "message": "Ontwikkelaar",
+    "description": "Label for developer."
+  },
+
+
   "optionsLegend": {
     "message": "Opties",
     "description": "The Options legend."
