@@ -317,8 +317,8 @@ function getLookupKey(fhcEvent) {
 
 
 function doDatabaseTests() {
-    //  doDatabaseAddTest();
-    doReadAllTest();
+    // doDatabaseAddTest();
+    // doReadAllTest();
     // doDatabaseUpdateTest();
     // clearTextFieldsStore();
     // doReadAllTest();
