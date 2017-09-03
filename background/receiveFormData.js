@@ -8,12 +8,12 @@ function receiveEvents(fhcEvent) {
             case 1:
                 /* Process Text */
                 fhcEvent.value = JSON.parse(fhcEvent.value);
-                console.log("Received a content event! for " + fhcEvent.id + " content is: " + fhcEvent.value);
+                console.log("Received a content event for " + fhcEvent.id + " content is: " + fhcEvent.value);
                 saveOrUpdateTextField(fhcEvent);
                 break;
             case 2:
                 /* Process non-text like radiobuttons, checkboxes etcetera */
-                console.log("Received a formelement event! for " + fhcEvent.id + " which is a " + fhcEvent.type);
+                console.log("Received a formelement event for " + fhcEvent.id + " which is a " + fhcEvent.type);
                 break;
             case 3:
                 console.log("Received a dataRetrieval event! for " + fhcEvent.id + " which is a " + fhcEvent.type + " for tab " + fhcEvent.targetTabId);
@@ -32,6 +32,9 @@ function receiveEvents(fhcEvent) {
                 }
                 break;
 
+            case 4:
+                console.log("Received an import dataRetrieval event for [" + fhcEvent.name + "] which is a " + fhcEvent.type);
+                importIfNotExist(fhcEvent);
         }
     }
 
@@ -176,6 +179,8 @@ function getTextFieldFromStoreAndNotify(fhcEvent) {
             // console.log("Named Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type +
             //     "} KEY=[" + fhcEntry.fieldkey + "] first:[" + fhcEntry.first + "] last:[" + fhcEntry.last + "]");
 
+            // TODO If also matches host it should take precedence
+
             switch (fhcEvent.action) {
                 case "fillMostRecent":
                     if (fhcEntry.last > found.last) {
@@ -202,6 +207,8 @@ function getTextFieldFromStoreAndNotify(fhcEvent) {
                 console.log("Sending a " + fhcEvent.action + " message to tab " + fhcEvent.targetTabId);
                 browser.tabs.sendMessage(fhcEvent.targetTabId, fhcEvent);
                 // TODO Does this mean this value is used now and used-count and lastused-date should be updated?
+                //      In any case only if the host and or uri matches?
+                //      Maybe we should trigger an update from the page itself by firing a change event (input. textarea)
             }
         }
     };
@@ -233,7 +240,7 @@ function saveOrUpdateTextField(fhcEvent) {
                 // fhcEntry.used++;
                 // fhcEntry.last = now;
                 // fhcEntry.uri = fhcEvent.url;
-                // fhcEntry.pagetitle = "ToDo;";
+                // fhcEntry.pagetitle = fhcEvent.pagetitle;
                 // var updateReq = objStore.put(fhcEntry);
                 // updateReq.onsuccess = function(updateEvent) {
                 //     console.log("Update okay, id: " + updateEvent.target.result);
@@ -252,7 +259,7 @@ function saveOrUpdateTextField(fhcEvent) {
                     fhcEntry.used++;
                     fhcEntry.last = now;
                     fhcEntry.uri = fhcEvent.url;
-                    fhcEntry.pagetitle = "ToDo;";
+                    fhcEntry.pagetitle = fhcEvent.pagetitle;
 
                     // if it is a multiline field (not input) value must be updated too
                     if ("input" !== fhcEvent.type) {
@@ -280,8 +287,8 @@ function saveOrUpdateTextField(fhcEvent) {
                 last: now,
                 used: 1,
                 host: fhcEvent.host,
-                uri: fhcEvent.host,
-                pagetitle: "ToDo"
+                uri: fhcEvent.url,
+                pagetitle: fhcEvent.pagetitle
             };
             let insertReq = objStore.add(fhcEntry);
             insertReq.onerror = function(/*insertEvent*/) {
@@ -294,6 +301,12 @@ function saveOrUpdateTextField(fhcEvent) {
     };
 }
 
+function importIfNotExist(fhcEvent) {
+    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+
+    // entry already exists? (index = host + type + name + value)
+
+}
 
 function clearTextFieldsStore() {
     let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");

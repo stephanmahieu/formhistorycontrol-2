@@ -48,7 +48,8 @@ function _findFieldAndSetValue(fhcEvent) {
 
 function _ifMatchSetValue(node, fhcEvent) {
     let type = node.nodeName.toLowerCase();
-    let location;
+    //let location = node.ownerDocument.location;
+    //let pagetitle = node.ownerDocument.title;
     let formid = "";
     let id = (node.id) ? node.id : ((node.name) ? node.name : "");
     //let name = (node.name) ? node.name : ((node.id) ? node.id : "");
@@ -58,13 +59,12 @@ function _ifMatchSetValue(node, fhcEvent) {
         case "input":
             // if id is empty, ditch it, it can never be used for restore
             if (id === "") return;
-            location = node.ownerDocument.location;
             formid = _getFormId(node);
             break;
         case "html":
         case "div":
         case "iframe":
-            location = node.ownerDocument.location;
+            // noop
             break;
     }
 
@@ -113,7 +113,8 @@ function _fillformfields(action, targetTabId) {
 
 function _requestHistoricValue(node, action, targetTabId) {
     let type = node.nodeName.toLowerCase();
-    let location;
+    let location = node.ownerDocument.location;
+    let pagetitle = node.ownerDocument.title;
     let formid = "";
     let id = (node.id) ? node.id : ((node.name) ? node.name : "");
     let name = (node.name) ? node.name : ((node.id) ? node.id : "");
@@ -122,21 +123,20 @@ function _requestHistoricValue(node, action, targetTabId) {
         case "input":
             // if id is empty, ditch it, it can never be used for restore
             if (id === "") return;
-            location = node.ownerDocument.location;
             formid = _getFormId(node);
             break;
         case "html":
         case "div":
         case "iframe":
-            location = node.ownerDocument.location;
+            // noop
             break;
     }
 
-    let dataRetrievalEvent = _createHistoricValueRetrievalEvent(name, type, id, formid, location, action, targetTabId);
+    let dataRetrievalEvent = _createHistoricValueRetrievalEvent(name, type, id, formid, location, pagetitle, action, targetTabId);
     browser.runtime.sendMessage(dataRetrievalEvent);
 }
 
-function _createHistoricValueRetrievalEvent(name, type, id, formid, location, action, targetTabId) {
+function _createHistoricValueRetrievalEvent(name, type, id, formid, location, pagetitle, action, targetTabId) {
     return {
         eventType:   3,
         node:        null,
@@ -146,6 +146,7 @@ function _createHistoricValueRetrievalEvent(name, type, id, formid, location, ac
         formid:      formid,
         url:         location.href,
         host:        _getHost(location),
+        pagetitle:   pagetitle,
         value:       null,
         action:      action,
         targetTabId: targetTabId
@@ -218,6 +219,7 @@ function onFormSubmit(event) {
     if (form && form.elements){
         let formElements = form.elements;
         let location = form.ownerDocument.location;
+        let pagetitle = form.ownerDocument.title;
         //console.log("form id: " + form.id);
         //console.log("form url: " + location.href);
         //console.log("formElements #: " + formElements.length);
@@ -243,7 +245,8 @@ function onFormSubmit(event) {
                         value: formField.value,
                         formid: formFormid,
                         host: formHost,
-                        url: location.href
+                        url: location.href,
+                        pagetitle: pagetitle
                     });
                     break;
                 case "radio":
@@ -259,7 +262,8 @@ function onFormSubmit(event) {
                         value: null,
                         formid: formFormid,
                         host: formHost,
-                        url: location.href
+                        url: location.href,
+                        pagetitle: pagetitle
                     });
                     break;
                 case "select":
@@ -282,7 +286,8 @@ function onFormSubmit(event) {
                                 value: null,
                                 formid: formFormid,
                                 host: formHost,
-                                url: location.href
+                                url: location.href,
+                                pagetitle: pagetitle
                             });
                         }
                     }
@@ -339,7 +344,8 @@ function onContentChanged(event) {
 }
 
 function _contentChangedHandler(type, node) {
-    let location;
+    let location = node.ownerDocument.location;
+    let pagetitle = node.ownerDocument.title;
     let formid = "";
     let id = (node.id) ? node.id : ((node.name) ? node.name : "");
     let name = (node.name) ? node.name : ((node.id) ? node.id : "");
@@ -348,18 +354,17 @@ function _contentChangedHandler(type, node) {
         case "input":
              // if id is empty, ditch it, it can never be used for restore
              if (id === "") return;
-             location = node.ownerDocument.location;
              formid = _getFormId(node);
              break;
         case "html":
         case "div":
         case "iframe":
-             location = node.ownerDocument.location;
+             // noop
              break;
     }
 
     // add to queue (if not already queued)
-    _enqueueContentEvent(name, type, id, formid, location, node);
+    _enqueueContentEvent(name, type, id, formid, location, pagetitle, node);
 }
 
 
@@ -507,10 +512,13 @@ function _isContentEditable(element) {
  * @param location {Location}
  *        the location of the page
  *
+ * @param pagetitle {String}
+ *        the title of the page
+ *
  * @param node {Node}
  *        the node object representing the field
  */
-function _enqueueContentEvent(name, type, id, formid, location, node) {
+function _enqueueContentEvent(name, type, id, formid, location, pagetitle, node) {
     let event = {
         eventType:  1,
         node:       node,
@@ -520,6 +528,7 @@ function _enqueueContentEvent(name, type, id, formid, location, node) {
         formid:     formid,
         url:        location.href,
         host:       _getHost(location),
+        pagetitle:  pagetitle,
         value:      null
     };
     if (!_alreadyQueued(event)) {
