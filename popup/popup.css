@@ -19,6 +19,14 @@ body {
   height: inherit;
 }
 
+#popup-header {
+  margin: 2px;
+  font-size: 1.3em;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
 #root {
   overflow: auto;
   width: 100%;
