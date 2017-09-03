@@ -70,8 +70,8 @@
 // ];
 
 
-var openChildRow;
-var openTr;
+let openChildRow;
+let openTr;
 function closePrevChildIfOpen() {
     if (openChildRow) {
         openChildRow.child.hide();
@@ -89,7 +89,7 @@ function closePrevChildIfOpen() {
 }
 
 $(document).ready(function() {
-    var table = $('#fhcTable').DataTable( {
+    let table = $('#fhcTable').DataTable( {
         scrollY: 300,
         paging: false,
         order: [[ 7, "desc" ]],
@@ -186,8 +186,8 @@ $(document).ready(function() {
 
     // Add event listener for opening and closing details
     $('#fhcTable tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
+        let tr = $(this).closest('tr');
+        let row = table.row( tr );
 
         if (row.child.isShown()) {
             // This row is already open - close it
@@ -223,29 +223,41 @@ const DB_VERSION = 1;
 const DB_STORE_TEXT = 'text_history8';
 
 function populateFromDatabase(table) {
-    var req = indexedDB.open(DB_NAME, DB_VERSION);
+    $("#overlaystatus").show();
+
+    let req = indexedDB.open(DB_NAME, DB_VERSION);
     req.onerror = function (event) {
         console.error("Database open error", this.error);
+        $("#overlaystatus").hide();
     };
     req.onsuccess = function (event) {
         // Better use "this" than "req" to get the result to avoid problems with garbage collection.
-        var db = event.target.result;
+        let db = event.target.result;
         //console.log("Database opened successfully.");
 
-        var objStore = db.transaction(DB_STORE_TEXT, "readonly").objectStore(DB_STORE_TEXT);
-        var cursorReq = objStore.index("by_last").openCursor(null, "prev");
+        let count = 0;
+        let objStore = db.transaction(DB_STORE_TEXT, "readonly").objectStore(DB_STORE_TEXT);
+        let cursorReq = objStore.index("by_last").openCursor(null, "prev");
         cursorReq.onsuccess = function(evt) {
             var cursor = evt.target.result;
             if (cursor) {
-                var fhcEntry = cursor.value;
+                let fhcEntry = cursor.value;
                 //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
 
-                table.row.add([cursor.key, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]).draw();
+                table.row.add([cursor.key, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]);
+
+                // only update display after 15 rows and when finished
+                count += 1;
+                if (count === 15) {
+                    table.draw();
+                }
 
                 cursor.continue();
             }
             else {
                 //console.log("No more entries!");
+                table.draw();
+                $("#overlaystatus").hide();
             }
         }
     };
