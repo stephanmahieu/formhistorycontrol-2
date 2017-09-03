@@ -9,10 +9,10 @@ function formatDetail( d ) {
     return '<div class="detail-root"><table>'+
         '<tr><td><span class="label">Veldnaam:</span></td><td>'+d[1]+'</td></tr>'+
         '<tr><td><span class="label">Waarde:</span></td><td>'+d[2]+'</td></tr>'+
-        '<tr><td><span class="label">Aantal:</span></td><td>'+d[3]+'</td></tr>'+
-        '<tr><td><span class="label">Eerst gebruikt:</span></td><td>'+formatDate(d[4], 'display')+'</td></tr>'+
-        '<tr><td><span class="label">Laatst gebruikt:</span></td><td>'+formatDate(d[5], 'display')+'</td></tr>'+
-        '<tr><td><span class="label">Bron:</span></td><td>'+d[6]+'</td></tr>'+
+        '<tr><td><span class="label">Aantal:</span></td><td>'+d[4]+'</td></tr>'+
+        '<tr><td><span class="label">Eerst gebruikt:</span></td><td>'+formatDate(d[5], 'display')+'</td></tr>'+
+        '<tr><td><span class="label">Laatst gebruikt:</span></td><td>'+formatDate(d[6], 'display')+'</td></tr>'+
+        '<tr><td><span class="label">Bron:</span></td><td>'+d[7]+'</td></tr>'+
         '</table></div>';
 }
 
