@@ -264,15 +264,19 @@ const DB_VERSION = 1;
 const DB_STORE_TEXT = 'text_history8';
 
 function populateFromDatabase(table) {
+    $("#overlaystatus").show();
+
     let req = indexedDB.open(DB_NAME, DB_VERSION);
     req.onerror = function (/*event*/) {
         console.error("Database open error", this.error);
+        $("#overlaystatus").hide();
     };
     req.onsuccess = function (event) {
         // Better use "this" than "req" to get the result to avoid problems with garbage collection.
         let db = event.target.result;
         //console.log("Database opened successfully.");
 
+        let count = 0;
         let objStore = db.transaction(DB_STORE_TEXT, "readonly").objectStore(DB_STORE_TEXT);
         let cursorReq = objStore.index("by_last").openCursor(null, "prev");
 
@@ -282,12 +286,20 @@ function populateFromDatabase(table) {
                 let fhcEntry = cursor.value;
                 //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
 
-                table.row.add([cursor.key, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]).draw();
+                table.row.add([cursor.key, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]);
+
+                // only update display after 25 rows and when finished
+                count += 1;
+                if (count === 25) {
+                    table.draw();
+                }
 
                 cursor.continue();
             }
             else {
                 //console.log("No more entries!");
+                table.draw();
+                $("#overlaystatus").hide();
             }
         }
     };
@@ -311,7 +323,6 @@ function onButtonClicked(buttonId) {
 
 function onMenuClicked(menuItemId) {
     switch (menuItemId) {
-        case "import":
         case "export":
         case "add":
         case "modify":
@@ -324,6 +335,11 @@ function onMenuClicked(menuItemId) {
         case "helpoverview":
         case "releasenotes":
             console.log("menuItemId " + menuItemId + " clicked...");
+            break;
+
+        case "import":
+            console.log("menuItemId " + menuItemId + " clicked...");
+            createOrFocusWindow(FHC_WINDOW_IMPORT);
             break;
 
         case "preferences":

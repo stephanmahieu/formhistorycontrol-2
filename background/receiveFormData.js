@@ -179,7 +179,7 @@ function getTextFieldFromStoreAndNotify(fhcEvent) {
             // console.log("Named Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type +
             //     "} KEY=[" + fhcEntry.fieldkey + "] first:[" + fhcEntry.first + "] last:[" + fhcEntry.last + "]");
 
-            // TODO If also matches host it should take precedence
+            // TODO If host matches also it should take precedence
 
             switch (fhcEvent.action) {
                 case "fillMostRecent":
@@ -226,7 +226,7 @@ function saveOrUpdateTextField(fhcEvent) {
 
     req.onsuccess = function(event) {
         let key = event.target.result;
-        let now = (new Date()).getTime();
+        // let now = (new Date()).getTime();
         if (key) {
             //console.log("entry exist, updating value for key " + key);
 
@@ -237,66 +237,11 @@ function saveOrUpdateTextField(fhcEvent) {
             };
             getReq.onsuccess = function(event) {
                 let fhcEntry = event.target.result;
-                // fhcEntry.used++;
-                // fhcEntry.last = now;
-                // fhcEntry.uri = fhcEvent.url;
-                // fhcEntry.pagetitle = fhcEvent.pagetitle;
-                // var updateReq = objStore.put(fhcEntry);
-                // updateReq.onsuccess = function(updateEvent) {
-                //     console.log("Update okay, id: " + updateEvent.target.result);
-                // };
-                // updateReq.onerror = function(updateEvent) {
-                //     console.error("Update failed! " + updateReq.error.name + ": " + updateReq.error.message);
-                // };
-                let deleteReq = objStore.delete(key);
-                deleteReq.onerror = function(/*deleteEvent*/) {
-                    console.error("Delete (for update) failed for record-key " + key, this.error);
-                };
-                deleteReq.onsuccess = function(/*deleteEvent*/) {
-                    //console.log("Delete (for update) okay");
-
-                    // now add the modified record
-                    fhcEntry.used++;
-                    fhcEntry.last = now;
-                    fhcEntry.uri = fhcEvent.url;
-                    fhcEntry.pagetitle = fhcEvent.pagetitle;
-
-                    // if it is a multiline field (not input) value must be updated too
-                    if ("input" !== fhcEvent.type) {
-                        fhcEntry.value = fhcEvent.value;
-                    }
-
-                    let addReq = objStore.add(fhcEntry);
-                    addReq.onerror = function(/*addEvent*/) {
-                        console.error("Add (for update) failed for original record with record-key " + key, this.error);
-                    };
-                    addReq.onsuccess = function(addEvent) {
-                        console.log("Update succeeded for record-key " + key + ", new record-key is " + addEvent.target.result);
-                    };
-                };
-
+                _updateEntry(objStore, key, fhcEntry, fhcEvent);
             };
         } else {
             console.log("entry does not exist, adding...");
-            let fhcEntry = {
-                fieldkey: getLookupKey(fhcEvent),
-                name: fhcEvent.name,
-                value: fhcEvent.value,
-                type: fhcEvent.type,
-                first: now,
-                last: now,
-                used: 1,
-                host: fhcEvent.host,
-                uri: fhcEvent.url,
-                pagetitle: fhcEvent.pagetitle
-            };
-            let insertReq = objStore.add(fhcEntry);
-            insertReq.onerror = function(/*insertEvent*/) {
-                console.error("Insert failed!", this.error);
-            };
-            insertReq.onsuccess = function(insertEvent) {
-                console.log("Insert succeeded, new record-key is " + insertEvent.target.result);
-            };
+            _insertNewEntry(objStore, fhcEvent);
         }
     };
 }
@@ -305,7 +250,87 @@ function importIfNotExist(fhcEvent) {
     let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
 
     // entry already exists? (index = host + type + name + value)
+    let key = getLookupKey(fhcEvent);
 
+    let index = objStore.index("by_fieldkey");
+    let req = index.getKey(key);
+
+    req.onsuccess = function(event) {
+        let key = event.target.result;
+        let now = (new Date()).getTime();
+        if (key) {
+            console.log("import entry exist, skipping key " + key);
+        } else {
+            console.log("import-entry does not exist, adding...");
+            _insertNewEntry(objStore, fhcEvent);
+        }
+    }
+}
+
+
+function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
+    // fhcEntry.used++;
+    // fhcEntry.last = now;
+    // fhcEntry.uri = fhcEvent.url;
+    // fhcEntry.pagetitle = fhcEvent.pagetitle;
+    // var updateReq = objStore.put(fhcEntry);
+    // updateReq.onsuccess = function(updateEvent) {
+    //     console.log("Update okay, id: " + updateEvent.target.result);
+    // };
+    // updateReq.onerror = function(updateEvent) {
+    //     console.error("Update failed! " + updateReq.error.name + ": " + updateReq.error.message);
+    // };
+    let deleteReq = objStore.delete(key);
+
+    deleteReq.onerror = function(/*deleteEvent*/) {
+        console.error("Delete (for update) failed for record-key " + key, this.error);
+    };
+    deleteReq.onsuccess = function(/*deleteEvent*/) {
+        //console.log("Delete (for update) okay");
+        let now = (new Date()).getTime();
+
+        // now add the modified record
+        fhcEntry.used++;
+        fhcEntry.last = now;
+        fhcEntry.uri = fhcEvent.url;
+        fhcEntry.pagetitle = fhcEvent.pagetitle;
+
+        // if it is a multiline field (not input) value must be updated too
+        if ("input" !== fhcEvent.type) {
+            fhcEntry.value = fhcEvent.value;
+        }
+
+        let addReq = objStore.add(fhcEntry);
+        addReq.onerror = function(/*addEvent*/) {
+            console.error("Add (for update) failed for original record with record-key " + key, this.error);
+        };
+        addReq.onsuccess = function(addEvent) {
+            console.log("Update succeeded for record-key " + key + ", new record-key is " + addEvent.target.result);
+        };
+    };
+}
+
+function _insertNewEntry(objStore, fhcEvent) {
+    let now = (new Date()).getTime();
+    let fhcEntry = {
+        fieldkey: getLookupKey(fhcEvent),
+        name: fhcEvent.name,
+        value: fhcEvent.value,
+        type: fhcEvent.type,
+        first: now,
+        last: now,
+        used: 1,
+        host: fhcEvent.host,
+        uri: fhcEvent.url,
+        pagetitle: fhcEvent.pagetitle
+    };
+    let insertReq = objStore.add(fhcEntry);
+    insertReq.onerror = function(/*insertEvent*/) {
+        console.error("Insert failed!", this.error);
+    };
+    insertReq.onsuccess = function(insertEvent) {
+        console.log("Insert succeeded, new record-key is " + insertEvent.target.result);
+    };
 }
 
 function clearTextFieldsStore() {
@@ -335,6 +360,22 @@ function doDatabaseTests() {
     // doDatabaseUpdateTest();
     // clearTextFieldsStore();
     // doReadAllTest();
+    // doDatabaseDeleteTest();
+}
+
+function doDatabaseDeleteTest() {
+    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+
+    console.log("Attempt deleting keys...");
+    for (let i=200; i<=299; i++) {
+        let req = objStore.delete(i);
+        req.onsuccess = function(evt) {
+            console.log("key " + i + " deleted from the object store.");
+        };
+        req.onerror = function(/*evt*/) {
+            console.error("delete error for key " + i, this.error);
+        };
+    }
 }
 
 function doDatabaseAddTest() {
