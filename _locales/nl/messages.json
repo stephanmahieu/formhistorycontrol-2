@@ -145,7 +145,7 @@
     "description": "Label of Delete menuitem in the Edit menu."
   },
   "menuItemEditClipboard": {
-    "message": "Kopieer naar klembord<",
+    "message": "Kopieer naar klembord",
     "description": "Label of Copy to clipboard menuitem in the Edit menu."
   },
   "menuItemEditSelectAll": {

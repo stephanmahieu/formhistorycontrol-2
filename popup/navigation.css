@@ -35,7 +35,7 @@ nav ul li ul {
     border-bottom: 3px solid #215c7e;
     display: none;
     position: absolute;
-    width: 160px;
+    width: 190px;
     z-index: 10;
     box-shadow: 0px 5px 5px #444;
 }
@@ -71,4 +71,110 @@ nav ul li ul li div {
 }
 nav ul li ul li div hr {
     margin: 0;
+}
+
+/* File menu */
+.icon-none:before {
+    content: url("../icons/menu/empty.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-import:before {
+    content: url("../icons/menu/import.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-export:before {
+    content: url("../icons/menu/export.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-close:before {
+    content: url("../icons/menu/close.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+
+/* Edit menu */
+.icon-insert:before {
+    content: url("../icons/menu/insert.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-edit:before {
+    content: url("../icons/menu/edit.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-delete:before {
+    content: url("../icons/menu/delete.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-copy:before {
+    content: url("../icons/menu/copy.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-selectall:before {
+    content: url("../icons/menu/selectall.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-selectnone:before {
+    content: url("../icons/menu/selectnone.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-selectinvert:before {
+    content: url("../icons/menu/selectinvert.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+
+/* Display menu */
+.icon-refresh:before {
+    content: url("../icons/menu/refresh.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+
+/* Extra menu */
+.icon-preferences:before {
+    content: url("../icons/menu/preferences.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+
+/* Help menu */
+.icon-help:before {
+    content: url("../icons/menu/help.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-releasenotes:before {
+    content: url("../icons/menu/releasenotes.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
+.icon-about:before {
+    content: url("../icons/menu/about.png");
+    display: block;
+    float: left;
+    padding-right: 4px;
 }
