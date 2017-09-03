@@ -36,8 +36,8 @@
 
   
   "popupHeader": {
-    "message": "Test, toon myUserPref (json)",
-    "description": "Header title (h2) of this popup."
+    "message": "Form History Control (II)",
+    "description": "Header title of the small popup."
   },
   
   
@@ -194,6 +194,11 @@
   "menuItemHelpAbout": {
     "message": "Over",
     "description": "Label of Invert menuitem in the Help menu."
+  },
+
+  "loading-status": {
+    "message": "Laden...",
+    "description": "Text displayed while data is being loaded."
   }
 
 }
