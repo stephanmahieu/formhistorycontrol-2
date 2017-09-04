@@ -257,12 +257,11 @@ function importIfNotExist(fhcEvent) {
 
     req.onsuccess = function(event) {
         let key = event.target.result;
-        let now = (new Date()).getTime();
         if (key) {
             console.log("import entry exist, skipping key " + key);
         } else {
             console.log("import-entry does not exist, adding...");
-            _insertNewEntry(objStore, fhcEvent);
+            _importNewEntry(objStore, fhcEvent);
         }
     }
 }
@@ -333,6 +332,29 @@ function _insertNewEntry(objStore, fhcEvent) {
     };
 }
 
+function _importNewEntry(objStore, fhcEvent) {
+    let fhcEntry = {
+        fieldkey: getLookupKey(fhcEvent),
+        name: fhcEvent.name,
+        value: fhcEvent.value,
+        type: fhcEvent.type,
+        first: fhcEvent.first,
+        last: fhcEvent.last,
+        used: fhcEvent.used,
+        host: fhcEvent.host,
+        uri: fhcEvent.url,
+        pagetitle: fhcEvent.pagetitle
+    };
+    let insertReq = objStore.add(fhcEntry);
+    insertReq.onerror = function(/*insertEvent*/) {
+        console.error("Insert failed!", this.error);
+    };
+    insertReq.onsuccess = function(insertEvent) {
+        console.log("Insert succeeded, new record-key is " + insertEvent.target.result);
+    };
+}
+
+
 function clearTextFieldsStore() {
     let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
     let req = objStore.clear();
@@ -360,14 +382,14 @@ function doDatabaseTests() {
     // doDatabaseUpdateTest();
     // clearTextFieldsStore();
     // doReadAllTest();
-    // doDatabaseDeleteTest();
+    doDatabaseDeleteTest();
 }
 
 function doDatabaseDeleteTest() {
     let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
 
     console.log("Attempt deleting keys...");
-    for (let i=200; i<=299; i++) {
+    for (let i=41; i<=300; i++) {
         let req = objStore.delete(i);
         req.onsuccess = function(evt) {
             console.log("key " + i + " deleted from the object store.");
