@@ -62,7 +62,11 @@ function handleFileSelect(evt) {
         reader.onload = function(/*evt*/) {
             let result = XmlUtil.parseXMLdata(reader.result);
             console.log("found " + result.entries.length + " text-entries and " + result.multiline.length + " multiline-entries");
-            _sroreTextEntries(result.entries);
+
+            document.getElementById('count-text').innerHTML = result.entries.length;
+            document.getElementById('count-multiline').innerHTML = result.multiline.length;
+
+            _storeTextEntries(result.entries);
             _storeMultilineEntries(result.multiline);
         };
 
@@ -74,11 +78,11 @@ function handleFileSelect(evt) {
 /**
  * Send text entries to the background handler for adding to the datastore.
  *
- * @param entries {Array}
+ * @param textEntries {Array}
  * @private
  */
-function _sroreTextEntries(textEntries) {
-    textEntries.forEach(function(textEntry, index/*, array*/) {
+function _storeTextEntries(textEntries) {
+    textEntries.forEach(function(textEntry, /* index, array*/) {
         //console.log(textEntry, index);
         // host used to be absent in old versions
         let host = (textEntry.host) ? textEntry.host : "local.import";
@@ -101,11 +105,11 @@ function _sroreTextEntries(textEntries) {
 /**
  * Send multiline entries to the background handler for adding to the datastore.
  *
- * @param entries {Array}
+ * @param multilineEntries {Array}
  * @private
  */
 function _storeMultilineEntries(multilineEntries) {
-    multilineEntries.forEach(function(multilineEntry, index/*, array*/) {
+    multilineEntries.forEach(function(multilineEntry, /* index, array*/) {
         //console.log(multilineEntry, index);
         browser.runtime.sendMessage({
             eventType: 4,

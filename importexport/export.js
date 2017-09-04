@@ -57,8 +57,8 @@ function handleExport(evt) {
                         formid: "",
                         host: fhcEntry.host,
                         url: fhcEntry.uri,
-                        firstsaved: fhcEntry.first,
-                        lastsaved: fhcEntry.last,
+                        first: fhcEntry.first,
+                        last: fhcEntry.last,
                         content: fhcEntry.value,
                         /* new */
                         pagetitle: fhcEntry.pagetitle

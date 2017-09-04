@@ -1,14 +1,14 @@
 class DateUtil {
 
     /**
-     * Get the current system date/time in microseconds.
+     * Get the current system date/time in milliseconds.
      *
      * @return {number}
-     *         the current system date/time in microseconds
+     *         the current system date/time in milliseconds
      */
     static getCurrentDate() {
         let d = new Date();
-        return d.getTime() * 1000;
+        return d.getTime();
     }
 
     /**
@@ -32,19 +32,19 @@ class DateUtil {
     }
 
     /**
-     * Convert date in microseconds to string according to current locale, parts
+     * Convert date in milliseconds to string according to current locale, parts
      * are left padded with 0 in order to align nicely when used in columns and
      * fractional seconds are excluded.
      *
-     * @param   uSeconds {Number}
-     *          the date/time in microseconds (internal firefox representation)
+     * @param   milliseconds {Number}
+     *          the date/time in milliseconds (internal javascript representation)
      *
      * @returns {String}
      *          date+time according to current locale (ie 15-07-2009 12:01:59)
      */
-    static toDateString(uSeconds) {
-        if (!uSeconds) return "";
-        let d = new Date(uSeconds / 1000);
+    static toDateString(milliseconds) {
+        if (!milliseconds) return "";
+        let d = new Date(milliseconds);
         return this.dateToDateString(d);
     }
 
@@ -60,17 +60,17 @@ class DateUtil {
      *         date+time according to current locale (ie 15-07-2009 12:01:59)
      */
     static dateToDateString(aDate) {
-        return this._getShortDateString(aDate) + " " + this._getTimeString(aDate);
+        return this._getShortDateString(aDate) + " " + this._getTimeStringShort(aDate);
     }
 
     /**
-     * Convert ISO date/time back to microseconds.
+     * Convert ISO date/time back to milliseconds.
      *
      * @param  aDateString {String}
      *         the date/time in ISO format (2009-10-19T13:08:34.000)
      *
      * @return {Number}
-     *         date in uSeconds (internal representation)
+     *         date in milliseconds (internal representation)
      */
     static fromISOdateString(aDateString) {
         let d = new Date(
@@ -82,11 +82,11 @@ class DateUtil {
             parseInt(aDateString.substr(17,2), 10),   // seconds
             parseInt(aDateString.substr(20,3), 10)    // msec
         );
-        return d.getTime()*1000; //msec * 1000
+        return d.getTime(); // msec
     }
 
     /**
-     * Convert a date/time in microseconds to a date string according to
+     * Convert a date/time in milliseconds to a date string according to
      * the w3 recommendation (http://www.w3.org/TR/xmlschema-2/#dateTime).
      * (closely related to dates and times described in ISO 8601)
      *
@@ -95,21 +95,19 @@ class DateUtil {
      *
      * Example: 2009-10-19T13:08:34.000
      *
-     * @param  uSeconds {Number}
-     *         the date/time in microseconds (internal firefox representation)
+     * @param  milliseconds {Number}
+     *         the date/time in milliseconds (internal javascript representation)
      *
      * @return {String}
      *         date formatted according to widely accepted xmlschema standard.
      */
-    static toISOdateString(uSeconds) {
-        if (!uSeconds) return "";
-        let msec = uSeconds / 1000;
-        let d = new Date(msec);
-        let msecPart = msec.toString().substr(-3);
+    static toISOdateString(milliseconds) {
+        if (!milliseconds) return "";
+        let d = new Date(milliseconds);
         return this._padZero(d.getFullYear(), 4) + "-" +
             this._padZero(d.getMonth()+1, 2) + "-" +
             this._padZero(d.getDate(), 2) + "T" +
-            this._getTimeString(d) + "." +  msecPart;
+            this._getTimeString(d);
     }
 
     /**
@@ -215,7 +213,22 @@ class DateUtil {
     }
 
     /**
-     * Get time formatted as string in 24hr format.
+     * Get time formatted as string in 24hr format without milliseconds.
+     *
+     * @param  aDate {Date}
+     *         the date to convert
+     *
+     * @return {String}
+     *         date converted to time string (13:05:59)
+     */
+    static _getTimeStringShort(aDate) {
+        return this._padZero(aDate.getHours(), 2) + ":"
+             + this._padZero(aDate.getMinutes(), 2) + ":"
+             + this._padZero(aDate.getSeconds(), 2);
+    }
+
+    /**
+     * Get time formatted as string in 24hr format including milliseconds.
      *
      * @param  aDate {Date}
      *         the date to convert
@@ -224,7 +237,10 @@ class DateUtil {
      *         date converted to time string (13:05:59)
      */
     static _getTimeString(aDate) {
-        return this._padZero(aDate.getHours(), 2) + ":" + this._padZero(aDate.getMinutes(), 2) + ":" + this._padZero(aDate.getSeconds(), 2);
+        return this._padZero(aDate.getHours(), 2) + ":"
+             + this._padZero(aDate.getMinutes(), 2) + ":"
+             + this._padZero(aDate.getSeconds(), 2) + "."
+             + this._padZero(aDate.getMilliseconds(), 3);
     }
 
 

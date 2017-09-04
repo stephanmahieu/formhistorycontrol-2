@@ -66,7 +66,7 @@ class XmlUtil {
                             firstsaved:                    this._getElemenDate(edFldElem, "firstsaved", ""),
                             lastsaved:                     this._getElemenDate(edFldElem, "lastsaved", ""),
                             /* new since 2.0.0. */
-                            pagetitle:  decodeURIComponent(this._getElementValue(fldElem[ii], "pagetitle", ""))
+                            pagetitle:  decodeURIComponent(this._getElementValue(edFldElem, "pagetitle", ""))
                         });
                     }
                 }
@@ -176,23 +176,33 @@ class XmlUtil {
      * @param  defaultValue
      *         the value to return if no tag is found
      *
-     * @return {String}
-     *         the date value of the requested child element or the default
-     *         value if tag is not found
+     * @return {Number}
+     *         the date value in milliseconds of the requested child element or
+     *         the default value if tag is not found
      */
     static _getElemenDate (parentElem, tagName, defaultValue) {
         let result = defaultValue;
         let childElem = parentElem.getElementsByTagName(tagName);
         if (1 === childElem.length) {
             if (childElem[0].firstElementChild !== null) {
-                // uSeconds format
-                result = this._getElementValue(childElem[0], "date", "");
+                // found an old microseconds format, convert it to milliseconds
+                result = this._microToMillis(this._getElementValue(childElem[0], "date", ""));
             }
             else {
                 result = DateUtil.fromISOdateString(childElem[0].textContent);
             }
         }
         return result;
+    }
+
+    /**
+     *  Convert microseconds to milliseconds.
+     */
+    static _microToMillis(uSeconds) {
+        if (isNaN(uSeconds)) {
+            return uSeconds;
+        }
+        return Math.round(uSeconds/1000);
     }
 
     /**
@@ -239,7 +249,7 @@ class XmlUtil {
     }
 
     /**
-     *  Create a DOM element for a date in native format (microseconds) and append
+     *  Create a DOM element for a date in native format (milliseconds) and append
      *  it to the parentElemen. Also add a comment inside the date tag containing
      *  the date in human readable form.
      *
@@ -249,13 +259,13 @@ class XmlUtil {
      *  @param  dateElem {Element}
      *          the DOM element representing the child date element
      *
-     *  @param  uSeconds {Number}
-     *          the date in microseconds, the content of this element
+     *  @param  milliseconds {Number}
+     *          the date in milliseconds, the content of this element
      */
-    static _appendDateElement(parentElem, dateElem, uSeconds) {
-        if (uSeconds !== undefined) {
+    static _appendDateElement(parentElem, dateElem, milliseconds) {
+        if (milliseconds !== undefined) {
             // ISO date format
-            dateElem.textContent = DateUtil.toISOdateString(uSeconds);
+            dateElem.textContent = DateUtil.toISOdateString(milliseconds);
             parentElem.appendChild(dateElem);
         }
     }
@@ -351,17 +361,17 @@ class XmlUtil {
     static _createEditorfieldElement(doc, editorField) {
         let editorElem = doc.createElement("editorField");
 
-        this._appendElement(editorElem, doc.createElement("id"), this._encode(editorField.id));
-        this._appendElement(editorElem, doc.createElement("name"), this._encode(editorField.name));
-        this._appendElement(editorElem, doc.createElement("type"), this._encode(editorField.type));
-        this._appendElement(editorElem, doc.createElement("formid"), this._encode(editorField.formid));
-        this._appendElement(editorElem, doc.createElement("host"), this._encode(editorField.host));
-        this._appendElement(editorElem, doc.createElement("url"), this._encode(editorField.url));
-        this._appendDateElement(editorElem, doc.createElement("firstsaved"), editorField.firstsaved);
-        this._appendDateElement(editorElem, doc.createElement("lastsaved"), editorField.lastsaved);
-        this._appendElement(editorElem, doc.createElement("content"), this._encode(editorField.content));
+        this._appendElement(    editorElem, doc.createElement("id"), this._encode(editorField.id));
+        this._appendElement(    editorElem, doc.createElement("name"), this._encode(editorField.name));
+        this._appendElement(    editorElem, doc.createElement("type"), this._encode(editorField.type));
+        this._appendElement(    editorElem, doc.createElement("formid"), this._encode(editorField.formid));
+        this._appendElement(    editorElem, doc.createElement("host"), this._encode(editorField.host));
+        this._appendElement(    editorElem, doc.createElement("url"), this._encode(editorField.url));
+        this._appendDateElement(editorElem, doc.createElement("firstsaved"), editorField.first);
+        this._appendDateElement(editorElem, doc.createElement("lastsaved"), editorField.last);
+        this._appendElement(    editorElem, doc.createElement("content"), this._encode(editorField.content));
         /* Extra since 2.0.0 */
-        this._appendElement(editorElem, doc.createElement("pagetitle"), editorField.pagetitle);
+        this._appendElement(    editorElem, doc.createElement("pagetitle"), editorField.pagetitle);
 
         return editorElem;
     }
@@ -413,7 +423,7 @@ class XmlUtil {
             } else
             // <elm></elm> //
             if( /^<\w/.exec(ar[i-1]) && /^<\/\w/.exec(ar[i]) &&
-                /^<[\w:\-.,]+/.exec(ar[i-1]) === /^<\/[\w:\-.,]+/.exec(ar[i])[0].replace('/','')) {
+                /^<[\w:\-.,]+/.exec(ar[i-1]) == /^<\/[\w:\-.,]+/.exec(ar[i])[0].replace('/','')) {
                 str += ar[i];
                 if(!inComment) deep--;
             } else
@@ -438,7 +448,7 @@ class XmlUtil {
                 str += shift[deep]+ar[i];
             } else
             // xmlns //
-            if( ar[i].search(/xmlns:/) > -1  || ar[i].search(/xmlns=/) > -1) {
+            if( ar[i].search(/xmlns:/) > -1 || ar[i].search(/xmlns=/) > -1) {
                 str += shift[deep]+ar[i];
             }
             else {
