@@ -1,0 +1,29 @@
+html, body {
+    height: 100%;
+    font-family: sans-serif;
+}
+
+body {
+    background: rgb(240,240,240);
+    margin: 8px;
+    cursor: default;
+}
+
+#count-text-label,
+#count-text,
+#count-multiline-label,
+#count-multiline {
+    display: inline-block;
+    font-style: italic;
+    font-size: 0.85em;
+}
+
+#download-label {
+    display: inline-block;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+#link {
+    display: none;
+}

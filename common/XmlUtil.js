@@ -33,12 +33,17 @@ class XmlUtil {
 
                         if (1 === valElem.length && 0 < valElem[0].textContent.length) {
                             parsedEntries.push({
-                                id:    -1,
-                                name:  nameElem[0].textContent,
-                                value: decodeURIComponent(valElem[0].textContent),
-                                used:  this._getElementValue(fldElem[ii], "timesUsed", 0),
-                                first: this._getElemenDate(  fldElem[ii], "firstUsed", now),
-                                last:  this._getElemenDate(  fldElem[ii], "lastUsed",  now)
+                                id:        -1,
+                                name:      decodeURIComponent(nameElem[0].textContent),
+                                value:     decodeURIComponent(valElem[0].textContent),
+                                used:      decodeURIComponent(this._getElementValue(fldElem[ii], "timesUsed", 0)),
+                                first:                        this._getElemenDate(  fldElem[ii], "firstUsed", now),
+                                last:                         this._getElemenDate(  fldElem[ii], "lastUsed",  now),
+                                /* new since 2.0.0. */
+                                type:      decodeURIComponent(this._getElementValue(fldElem[ii], "type", "")),
+                                host:      decodeURIComponent(this._getElementValue(fldElem[ii], "host", "")),
+                                url:       decodeURIComponent(this._getElementValue(fldElem[ii], "url", "")),
+                                pagetitle: decodeURIComponent(this._getElementValue(fldElem[ii], "pagetitle", ""))
                             });
                         }
                     }
@@ -58,8 +63,10 @@ class XmlUtil {
                             content:    decodeURIComponent(this._getElementValue(edFldElem, "content", "")),
                             host:       decodeURIComponent(this._getElementValue(edFldElem, "host", "")),
                             url:        decodeURIComponent(this._getElementValue(edFldElem, "url", "")),
-                            firstsaved: this._getElemenDate(edFldElem, "firstsaved",  ""),
-                            lastsaved:  this._getElemenDate(edFldElem, "lastsaved",  "")
+                            firstsaved:                    this._getElemenDate(edFldElem, "firstsaved", ""),
+                            lastsaved:                     this._getElemenDate(edFldElem, "lastsaved", ""),
+                            /* new since 2.0.0. */
+                            pagetitle:  decodeURIComponent(this._getElementValue(fldElem[ii], "pagetitle", ""))
                         });
                     }
                 }
@@ -320,6 +327,11 @@ class XmlUtil {
         this._appendElement(fieldElem, doc.createElement("timesUsed"), entry.used);
         this._appendDateElement(fieldElem, doc.createElement("firstUsed"), entry.first);
         this._appendDateElement(fieldElem, doc.createElement("lastUsed"),  entry.last);
+        /* Extra since 2.0.0 */
+        this._appendElement(fieldElem, doc.createElement("type"), entry.type);
+        this._appendElement(fieldElem, doc.createElement("host"), entry.host);
+        this._appendElement(fieldElem, doc.createElement("url"), entry.url);
+        this._appendElement(fieldElem, doc.createElement("pagetitle"), entry.pagetitle);
 
         return fieldElem;
     }
@@ -348,6 +360,8 @@ class XmlUtil {
         this._appendDateElement(editorElem, doc.createElement("firstsaved"), editorField.firstsaved);
         this._appendDateElement(editorElem, doc.createElement("lastsaved"), editorField.lastsaved);
         this._appendElement(editorElem, doc.createElement("content"), this._encode(editorField.content));
+        /* Extra since 2.0.0 */
+        this._appendElement(editorElem, doc.createElement("pagetitle"), editorField.pagetitle);
 
         return editorElem;
     }

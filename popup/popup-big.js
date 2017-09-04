@@ -323,7 +323,6 @@ function onButtonClicked(buttonId) {
 
 function onMenuClicked(menuItemId) {
     switch (menuItemId) {
-        case "export":
         case "add":
         case "modify":
         case "delete":
@@ -340,6 +339,11 @@ function onMenuClicked(menuItemId) {
         case "import":
             console.log("menuItemId " + menuItemId + " clicked...");
             createOrFocusWindow(FHC_WINDOW_IMPORT);
+            break;
+
+        case "export":
+            console.log("menuItemId " + menuItemId + " clicked...");
+            createOrFocusWindow(FHC_WINDOW_EXPORT);
             break;
 
         case "preferences":
