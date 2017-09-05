@@ -249,16 +249,19 @@ function saveOrUpdateTextField(fhcEvent) {
 function importIfNotExist(fhcEvent) {
     let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
 
+    // FIXME the lookupKey is not sufficient for multiple versions of multiline fields
+    // TODO  import-lookupkey should include date so maybe use a cursor to match multiple versions
+
     // entry already exists? (index = host + type + name + value)
-    let key = getLookupKey(fhcEvent);
+    let lookupKey = getLookupKey(fhcEvent);
 
     let index = objStore.index("by_fieldkey");
-    let req = index.getKey(key);
+    let req = index.getKey(lookupKey);
 
     req.onsuccess = function(event) {
         let key = event.target.result;
         if (key) {
-            console.log("import entry exist, skipping key " + key);
+            console.log("import entry exist, skipping key " + key + "  [" + lookupKey + "]");
         } else {
             console.log("import-entry does not exist, adding...");
             _importNewEntry(objStore, fhcEvent);
@@ -382,7 +385,7 @@ function doDatabaseTests() {
     // doDatabaseUpdateTest();
     // clearTextFieldsStore();
     // doReadAllTest();
-    doDatabaseDeleteTest();
+    // doDatabaseDeleteTest();
 }
 
 function doDatabaseDeleteTest() {
