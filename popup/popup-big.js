@@ -106,7 +106,8 @@ function closePrevChildIfOpen() {
 }
 
 $(document).ready(function() {
-    let table = $('#fhcTable').DataTable( {
+    let tableElement = $('#fhcTable');
+    let table = tableElement.DataTable( {
         scrollY: 300,
         paging: false,
         select: {
@@ -142,7 +143,7 @@ $(document).ready(function() {
                 targets: 2,
                 data: 1,
                 className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
+                render: function ( data, type /*, full, meta */) {
                     return ellipsis(data, type, 25, false, true);
                 }
             },
@@ -150,7 +151,7 @@ $(document).ready(function() {
                 targets: 3,
                 data: 2,
                 className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
+                render: function ( data, type /* , full, meta */) {
                     return ellipsis(data, type, 40, false, true);
                 }
             },
@@ -170,7 +171,7 @@ $(document).ready(function() {
                 targets: 6,
                 data: 5,
                 className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
+                render: function ( data, type /*, full, meta */) {
                     return formatDate(data, type);
                 }
             },
@@ -178,7 +179,7 @@ $(document).ready(function() {
                 targets: 7,
                 data: 6,
                 className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
+                render: function ( data, type /*, full, meta */) {
                     return formatDate(data, type);
                 }
             },
@@ -186,7 +187,7 @@ $(document).ready(function() {
                 targets: 8,
                 data: 6,
                 className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
+                render: function ( data, type /*, full, meta */) {
                     return formatAge(data, type);
                 }
             },
@@ -194,7 +195,7 @@ $(document).ready(function() {
                 targets: 9,
                 data: 7,
                 className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
+                render: function ( data, type /*, full, meta */) {
                     return ellipsis(data, type, 25, false, true);
                 }
             }
@@ -203,7 +204,7 @@ $(document).ready(function() {
 
 
     // Add event listener for opening and closing details
-    $('#fhcTable')
+    tableElement
         .find('tbody').on('click', 'td.details-control', function () {
             let tr = $(this).closest('tr');
             let row = table.row( tr );
@@ -228,13 +229,20 @@ $(document).ready(function() {
             $(this).toggleClass('selected');
         }
     );
-    // $('#fhcTable').find('tbody').on( 'click', 'tr', function () {
-    //     $(this).toggleClass('selected');
-    // });
 
-    // table.on('page.dt', function () {
-    //     closePrevChildIfOpen();
-    // });
+    // Add event listener for select events
+    table.on('select', function (e, dt, type /*, indexes */) {
+        if (type === 'row') {
+            selectionChangedHandler();
+        }
+    });
+
+    // Add event listener for deselect events
+    table.on('deselect', function (e, dt, type /*, indexes*/) {
+        if (type === 'row') {
+            selectionChangedHandler();
+        }
+    });
 
 
     $('nav li').hover(
@@ -259,6 +267,7 @@ $(document).ready(function() {
 
     // populate tableview with data from the database
     populateViewFromDatabase(table);
+    selectionChangedHandler();
 });
 
 
@@ -279,10 +288,48 @@ function selectInvert() {
     table.rows(curSelected).deselect();
 }
 
+function deleteSelectedItems() {
+    let rows = $('#fhcTable').DataTable().rows('.selected');
+    rows.every(
+        function (/* rowIdx, tableLoop, rowLoop */) {
+            let primaryKey = this.data()[0];
+            console.log('primaryKey database (delete) is: ' + primaryKey);
+            deleteItemFromDatabase(primaryKey);
+        }
+    );
+
+    // assume db deletes succeed, remove selected entries en redraw table
+    rows.remove().draw();
+}
+
+
+function deleteItemFromDatabase(primaryKey) {
+    // TODO open db only once?
+    let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
+    req.onerror = function (/*event*/) {
+        console.error("Database open error", this.error);
+    };
+    req.onsuccess = function (event) {
+        let db = event.target.result;
+        //console.log("Database opened successfully.");
+
+        let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readwrite").objectStore(DbConst.DB_STORE_TEXT);
+
+        let reqDel = objStore.delete(primaryKey);
+        reqDel.onsuccess = function(/*evt*/) {
+            console.log("key " + primaryKey + " deleted from the object store.");
+        };
+        reqDel.onerror = function(/*evt*/) {
+            console.error("delete error for key " + primaryKey, this.error);
+        };
+    }
+}
+
 
 function refreshView() {
     let table = $('#fhcTable').DataTable();
     table.clear();
+    selectionChangedHandler();
     populateViewFromDatabase(table);
 }
 
@@ -309,7 +356,7 @@ function populateViewFromDatabase(table) {
                 let fhcEntry = cursor.value;
                 //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
 
-                table.row.add([cursor.key, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]);
+                table.row.add([cursor.primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]);
 
                 // only update display after 25 rows and when finished
                 count += 1;
@@ -328,76 +375,128 @@ function populateViewFromDatabase(table) {
     };
 }
 
+function selectionChangedHandler() {
+    let table = $('#fhcTable').DataTable();
+    let noSelected = table.rows('.selected').indexes().length;
+    console.log("Selection has changed! (" + noSelected + " selected)");
+
+    // enable/disable buttons
+    setButtonEnabled('buttonDelete', (noSelected !== 0));
+    setButtonEnabled('buttonModify', (noSelected !== 0));
+
+    // enable/disable menu-item
+    seMenuItemEnabled('delete', (noSelected !== 0));
+    seMenuItemEnabled('modify', (noSelected !== 0));
+    seMenuItemEnabled('copy2clipboard', (noSelected === 1));
+}
+
+function setButtonEnabled(id, enabled) {
+    $('#'+id).prop( "disabled", !enabled);
+}
+function seMenuItemEnabled(id, enabled) {
+    let mnuItem = $('#'+id);
+    if (enabled) {
+        mnuItem.removeClass('menu-disabled');
+    } else {
+        mnuItem.addClass('menu-disabled');
+    }
+}
+function isMenuItemEnabled(id) {
+    return  !($('#'+id).hasClass('menu-disabled'));
+}
+
 function onButtonClicked(buttonId) {
+    console.log("buttonId " + buttonId + " clicked...");
     switch (buttonId) {
         case "buttonDelete":
+            deleteSelectedItems();
+            break;
+
         case "buttonCleanup":
+            // TODO cleanup
+            break;
+
         case "buttonModify":
+            // TODO modify
+            break;
+
         case "buttonAdd":
-            console.log("buttonId " + buttonId + " clicked...");
+            // TODO add
             break;
 
         case "buttonClose":
-            console.log("buttonId " + buttonId + " clicked...");
             _closeThisPopup();
             break;
     }
 }
 
 function onMenuClicked(menuItemId) {
+    console.log("menuItemId " + menuItemId + " clicked...");
     switch (menuItemId) {
-        case "add":
-        case "modify":
-        case "delete":
-        case "copy2clipboard":
-        case "helpoverview":
-        case "releasenotes":
-            console.log("menuItemId " + menuItemId + " clicked...");
-            break;
-
         case "import":
-            console.log("menuItemId " + menuItemId + " clicked...");
             createOrFocusWindow(FHC_WINDOW_IMPORT);
             break;
 
         case "export":
-            console.log("menuItemId " + menuItemId + " clicked...");
             createOrFocusWindow(FHC_WINDOW_EXPORT);
             break;
 
+        case "close":
+            _closeThisPopup();
+            break;
+
+        case "add":
+            // TODO add
+            break;
+
+        case "modify":
+            if (isMenuItemEnabled(menuItemId)) {
+                // TODO modify
+            }
+            break;
+
+        case "delete":
+            if (isMenuItemEnabled(menuItemId)) {
+                deleteSelectedItems();
+            }
+            break;
+
+        case "copy2clipboard":
+            if (isMenuItemEnabled(menuItemId)) {
+                // TODO copy2clipboard
+            }
+            break;
+
         case "selectall":
-            console.log("menuItemId " + menuItemId + " clicked...");
             selectAll();
             break;
 
         case "selectnone":
-            console.log("menuItemId " + menuItemId + " clicked...");
             selectNone();
             break;
 
         case "selectinvert":
-            console.log("menuItemId " + menuItemId + " clicked...");
             selectInvert();
             break;
 
         case "refresh":
-            console.log("menuItemId " + menuItemId + " clicked...");
             refreshView();
             break;
 
         case "preferences":
-            console.log("menuItemId " + menuItemId + " clicked...");
             createOrFocusWindow(FHC_WINDOW_OPTIONS);
             break;
 
-        case "about":
-            console.log("menuItemId " + menuItemId + " clicked...");
-            createOrFocusWindow(FHC_WINDOW_ABOUT);
+        case "helpoverview":
+            // TODO helpoverview
             break;
 
-        case "close":
-            console.log("menuItemId " + menuItemId + " clicked...");
-            _closeThisPopup();
+        case "releasenotes":
+            // TODO releasenotes
+            break;
+
+        case "about":
+            createOrFocusWindow(FHC_WINDOW_ABOUT);
             break;
     }
 }

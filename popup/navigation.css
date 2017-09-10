@@ -73,6 +73,16 @@ nav ul li ul li div hr {
     margin: 0;
 }
 
+.menu-disabled {
+    color: #8f8f8f;
+    filter: grayscale(70%);
+}
+.menu-disabled:hover {
+    background-color: #b9b9b9;
+    color: #8f8f8f;
+}
+
+
 /* File menu */
 .icon-none:before {
     content: url("../icons/menu/empty.png");
