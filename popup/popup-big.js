@@ -109,6 +109,10 @@ $(document).ready(function() {
     let table = $('#fhcTable').DataTable( {
         scrollY: 300,
         paging: false,
+        select: {
+            style: 'multi+shift',
+            info: true
+        },
         order: [[ 7, "desc" ]],
         columns: [
             {
@@ -253,13 +257,36 @@ $(document).ready(function() {
         onMenuClicked(event.currentTarget.id);
     });
 
-    // populate the database
-    populateFromDatabase(table);
+    // populate tableview with data from the database
+    populateViewFromDatabase(table);
 });
 
 
+function selectAll() {
+    let table = $('#fhcTable').DataTable();
+    table.rows().select();
+}
 
-function populateFromDatabase(table) {
+function selectNone() {
+    let table = $('#fhcTable').DataTable();
+    table.rows().deselect();
+}
+
+function selectInvert() {
+    let table = $('#fhcTable').DataTable();
+    let curSelected = table.rows('.selected').indexes();
+    table.rows().select();
+    table.rows(curSelected).deselect();
+}
+
+
+function refreshView() {
+    let table = $('#fhcTable').DataTable();
+    table.clear();
+    populateViewFromDatabase(table);
+}
+
+function populateViewFromDatabase(table) {
     $("#overlaystatus").show();
 
     let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
@@ -323,10 +350,6 @@ function onMenuClicked(menuItemId) {
         case "modify":
         case "delete":
         case "copy2clipboard":
-        case "selectall":
-        case "selectnone":
-        case "selectinvert":
-        case "refresh":
         case "helpoverview":
         case "releasenotes":
             console.log("menuItemId " + menuItemId + " clicked...");
@@ -340,6 +363,26 @@ function onMenuClicked(menuItemId) {
         case "export":
             console.log("menuItemId " + menuItemId + " clicked...");
             createOrFocusWindow(FHC_WINDOW_EXPORT);
+            break;
+
+        case "selectall":
+            console.log("menuItemId " + menuItemId + " clicked...");
+            selectAll();
+            break;
+
+        case "selectnone":
+            console.log("menuItemId " + menuItemId + " clicked...");
+            selectNone();
+            break;
+
+        case "selectinvert":
+            console.log("menuItemId " + menuItemId + " clicked...");
+            selectInvert();
+            break;
+
+        case "refresh":
+            console.log("menuItemId " + menuItemId + " clicked...");
+            refreshView();
             break;
 
         case "preferences":

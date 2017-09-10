@@ -47,6 +47,10 @@ table.dataTable thead {
   font-size: 0.75em;
 }
 
+/* too close, add room */
+.select-info {
+  padding-left: 5px;
+}
 
 
 table.dataTable tbody tr {
