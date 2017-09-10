@@ -44,20 +44,16 @@ function receiveEvents(fhcEvent) {
 // Database methods
 //----------------------------------------------------------------------------
 
-const DB_NAME = "FormHistoryControl8";
-const DB_VERSION = 1;
-const DB_STORE_TEXT = 'text_history8';
-
 let db;
 
 /**
  * Initialize (open) the database, create or upgrade if necessary.
  */
 function initDatabase() {
-    console.log("Open database " + DB_NAME + "...");
+    console.log("Open database " + DbConst.DB_NAME + "...");
     let req;
     try {
-        req = indexedDB.open(DB_NAME, DB_VERSION);
+        req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
     } catch (ex){
         console.error("Error opening database: " + ex.name + ": " + ex.message + "\nEnabling cookies might resolve this.");
     }
@@ -79,7 +75,7 @@ function initDatabase() {
         // Create an objectStore for this database
         let objStore;
         if (event.oldVersion < 1) {
-            objStore = db.createObjectStore(DB_STORE_TEXT, {autoIncrement: true});
+            objStore = db.createObjectStore(DbConst.DB_STORE_TEXT, {autoIncrement: true});
             objStore.createIndex("by_fieldkey", "fieldkey", {unique: true});
             objStore.createIndex("by_name", "name", {unique: false});
             objStore.createIndex("by_value", "value", {unique: false});
@@ -93,7 +89,7 @@ function initDatabase() {
 
         // // Create an objectStore for this database
         // if (event.oldVersion < 1) {
-        //     objStore = db.createObjectStore(DB_STORE_TEXT, {keyPath: 'id', autoIncrement: true});
+        //     objStore = db.createObjectStore(DbConst.DB_STORE_TEXT, {keyPath: 'id', autoIncrement: true});
         //     objStore.createIndex("name", "name", {unique: false});
         //     objStore.createIndex("value", "value", {unique: false});
         //     objStore.createIndex("first", "first", {unique: false});
@@ -103,13 +99,13 @@ function initDatabase() {
         // }
         // if (event.oldVersion < 2) {
         //     // Version 2 introduces 2 new indexes
-        //     objStore = req.transaction.objectStore(DB_STORE_TEXT);
+        //     objStore = req.transaction.objectStore(DbConst.DB_STORE_TEXT);
         //     objStore.createIndex("by_type", "type", {unique: false});
         //     objStore.createIndex("bt_pagetitle", "pagetitle", {unique: false});
         // }
         // if (event.oldVersion < 3) {
         //     // Version 3 renames new indexes
-        //     objStore = req.transaction.objectStore(DB_STORE_TEXT);
+        //     objStore = req.transaction.objectStore(DbConst.DB_STORE_TEXT);
         //     objStore.deleteIndex("name");
         //     objStore.deleteIndex("value");
         //     objStore.deleteIndex("first");
@@ -128,7 +124,7 @@ function initDatabase() {
         // }
         // if (event.oldVersion < 4) {
         //     // Version 4 additional indexe
-        //     objStore = req.transaction.objectStore(DB_STORE_TEXT);
+        //     objStore = req.transaction.objectStore(DbConst.DB_STORE_TEXT);
         //     objStore.createIndex("by_host_name", "host_name", {unique: true});
         // }
 
@@ -160,7 +156,7 @@ function setEmptyValueAndNotify(fhcEvent) {
 }
 
 function getTextFieldFromStoreAndNotify(fhcEvent) {
-    let objStore = getObjectStore(DB_STORE_TEXT, "readonly");
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readonly");
 
     let found = {
         value: null,
@@ -216,7 +212,7 @@ function getTextFieldFromStoreAndNotify(fhcEvent) {
 
 
 function saveOrUpdateTextField(fhcEvent) {
-    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
 
     // entry already exists? (index = host + type + name + value)
     let key = getLookupKey(fhcEvent);
@@ -247,7 +243,7 @@ function saveOrUpdateTextField(fhcEvent) {
 }
 
 function importIfNotExist(fhcEvent) {
-    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
 
     // FIXME the lookupKey is not sufficient for multiple versions of multiline fields
     // TODO  import-lookupkey should include date so maybe use a cursor to match multiple versions
@@ -359,7 +355,7 @@ function _importNewEntry(objStore, fhcEvent) {
 
 
 function clearTextFieldsStore() {
-    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
     let req = objStore.clear();
     req.onsuccess = function(/*insertEvent*/) {
         console.log("Clear okay, all TextField records deleted!");
@@ -389,7 +385,7 @@ function doDatabaseTests() {
 }
 
 function doDatabaseDeleteTest() {
-    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
 
     console.log("Attempt deleting keys...");
     for (let i=41; i<=300; i++) {
@@ -415,7 +411,7 @@ function doDatabaseAddTest() {
         { name: "testfld4", value: "bar",   type: "iframe",   first: 1364453733248, last: 1487678983265, used:  5, host: "dummy.org", uri: "http://dummy.org/page/two", pagetitle: "Yeah", fieldkey: "key5"}
     ];
 
-    // var transaction = db.transaction([DB_STORE_TEXT], "readwrite");
+    // var transaction = db.transaction([DbConst.DB_STORE_TEXT], "readwrite");
     // transaction.oncomplete = function(event) {
     //     console.log("Transaction complete.");
     //
@@ -425,7 +421,7 @@ function doDatabaseAddTest() {
     //     console.log("Insert error: " + event.target.errorCode);
     // };
 
-    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
     for (let i in formHistData) {
         let req = objStore.add(formHistData[i]);
         req.onsuccess = function(event) {
@@ -437,10 +433,10 @@ function doDatabaseAddTest() {
 function doReadAllTest() {
     console.log("Attempt reading all...");
 
-    let objectStore = getObjectStore(DB_STORE_TEXT, 'readonly');
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, 'readonly');
     let req;
 
-    req = objectStore.count();
+    req = objStore.count();
     req.onsuccess = function(evt) {
         console.log("There are " + evt.target.result + " record(s) in the object store.");
     };
@@ -448,11 +444,11 @@ function doReadAllTest() {
         console.error("add error", this.error);
     };
 
-    req = objectStore.openCursor();
+    req = objStore.openCursor();
     req.onsuccess = function(evt) {
         let cursor = evt.target.result;
         if (cursor) {
-            // req = objectStore.get(cursor.key);
+            // req = objStore.get(cursor.key);
             // req.onsuccess = function (evt) {
             //     var value = evt.target.result;
             //     console.log("Entry [" + cursor.key + "] name: " + cursor.value.name);
@@ -471,7 +467,7 @@ function doReadAllTest() {
 function doDatabaseUpdateTest() {
     console.log("Attempt update...");
 
-    let objStore = getObjectStore(DB_STORE_TEXT, "readwrite");
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
 
     let request = objStore.index("by_fieldkey").get("key1");
     request.onerror = function(/*event*/) {

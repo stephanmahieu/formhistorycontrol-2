@@ -9,12 +9,8 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
 
 
 
-const DB_NAME = "FormHistoryControl8";
-const DB_VERSION = 1;
-const DB_STORE_TEXT = 'text_history8';
-
 function handleExport(evt) {
-    let req = indexedDB.open(DB_NAME, DB_VERSION);
+    let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
     req.onerror = function (event) {
         console.error("Database open error", this.error);
     };
@@ -26,7 +22,7 @@ function handleExport(evt) {
         let multilines = [];
 
         let count = 0;
-        let objStore = db.transaction(DB_STORE_TEXT, "readonly").objectStore(DB_STORE_TEXT);
+        let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readonly").objectStore(DbConst.DB_STORE_TEXT);
         let cursorReq = objStore.index("by_last").openCursor(null, "prev");
         cursorReq.onsuccess = function(evt) {
             var cursor = evt.target.result;
