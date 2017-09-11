@@ -106,10 +106,13 @@ function closePrevChildIfOpen() {
 }
 
 $(document).ready(function() {
+    let languageURL = DataTableUtil.getLanguageURL();
+
     let tableElement = $('#fhcTable');
     let table = tableElement.DataTable( {
         scrollY: 300,
         paging: false,
+        language: {url: languageURL},
         select: {
             style: 'multi+shift',
             info: true
@@ -144,7 +147,7 @@ $(document).ready(function() {
                 data: 1,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
-                    return ellipsis(data, type, 25, false, true);
+                    return DataTableUtil.ellipsis(data, type, 25, false, true);
                 }
             },
             {
@@ -152,7 +155,7 @@ $(document).ready(function() {
                 data: 2,
                 className: "dt-head-left",
                 render: function ( data, type /* , full, meta */) {
-                    return ellipsis(data, type, 40, false, true);
+                    return DataTableUtil.ellipsis(data, type, 40, false, true);
                 }
             },
             {
@@ -172,7 +175,7 @@ $(document).ready(function() {
                 data: 5,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
-                    return formatDate(data, type);
+                    return DataTableUtil.formatDate(data, type);
                 }
             },
             {
@@ -180,7 +183,7 @@ $(document).ready(function() {
                 data: 6,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
-                    return formatDate(data, type);
+                    return DataTableUtil.formatDate(data, type);
                 }
             },
             {
@@ -188,7 +191,7 @@ $(document).ready(function() {
                 data: 6,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
-                    return formatAge(data, type);
+                    return DataTableUtil.formatAge(data, type);
                 }
             },
             {
@@ -196,7 +199,7 @@ $(document).ready(function() {
                 data: 7,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
-                    return ellipsis(data, type, 25, false, true);
+                    return DataTableUtil.ellipsis(data, type, 25, false, true);
                 }
             }
         ]
@@ -218,7 +221,7 @@ $(document).ready(function() {
             }
             else {
                 closePrevChildIfOpen();
-                openChildRow = row.child( formatDetail(row.data()), 'no-padding');
+                openChildRow = row.child(DataTableUtil.formatDetail(row.data()), 'no-padding');
                 openChildRow.show();
                 openTr = tr;
                 tr.addClass('shown');
