@@ -9,6 +9,7 @@
 html {
   margin: 0;
   font-family: sans-serif;
+  font-size: 0.75em;
 }
 
 body {
@@ -30,18 +31,16 @@ body {
 #root {
   overflow: auto;
   width: 100%;
-  font-size: 1.0em;
 }
 
-table.dataTable tbody {
-  font-size: 0.70em;
+/* too close to the edge, add room */
+#fhcTable_info,
+#fhcTable_length {
+  padding-left: 5px;
 }
-
-table.dataTable thead {
-  font-size: 0.75em;
+#fhcTable_filter {
+  padding-right: 5px;
 }
-
-
 
 table.dataTable tbody tr {
   background-color: whitesmoke; }

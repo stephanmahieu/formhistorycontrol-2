@@ -111,11 +111,14 @@ $(document).ready(function() {
     let tableElement = $('#fhcTable');
     let table = tableElement.DataTable( {
         scrollY: 300,
-        paging: false,
         language: {url: languageURL},
+        paging: true,
+        lengthMenu: [100, 500, 1000, 2000],
+        pageLength: 500,
         select: {
             style: 'multi+shift',
-            info: true
+            info: true,
+            selector: 'td:not(.details-control)'
         },
         order: [[ 7, "desc" ]],
         columns: [
@@ -211,27 +214,11 @@ $(document).ready(function() {
         .find('tbody').on('click', 'td.details-control', function () {
             let tr = $(this).closest('tr');
             let row = table.row( tr );
+            let data = row.data();
+            // TODO html popup for viewing a field
+            alert('TODO showing a popup window for field ' + data[1] + '...');
 
-            if (row.child.isShown()) {
-                // This row is already open - close it
-                $('div.detail-root', row.child()).slideUp('fast', function () {
-                    row.child.hide();
-                    tr.removeClass('shown');
-                });
-            }
-            else {
-                closePrevChildIfOpen();
-                openChildRow = row.child(DataTableUtil.formatDetail(row.data()), 'no-padding');
-                openChildRow.show();
-                openTr = tr;
-                tr.addClass('shown');
-                $('div.detail-root', row.child()).slideDown('fast');
-            }
-        }).end()
-        .find('tbody').on( 'click', 'tr', function () {
-            $(this).toggleClass('selected');
-        }
-    );
+        });
 
     // Add event listener for select events
     table.on('select', function (e, dt, type /*, indexes */) {

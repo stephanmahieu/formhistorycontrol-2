@@ -22,7 +22,6 @@ nav ul li {
 nav ul li span {
     color: #000;
     display: block;
-    font-size: 0.75em;
     padding: 5px 10px;
     transition: 0.3s linear;
 }

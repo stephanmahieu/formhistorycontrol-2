@@ -9,8 +9,8 @@ class DataTableUtil {
         let languageURL = '';
         let uiLanguage = browser.i18n.getUILanguage();
         if (uiLanguage && uiLanguage.length >= 2) {
-            //console.log("detected language: " + uiLanguage);
-            languageURL = 'file:///_locales/' + uiLanguage.substring(0, 2) + '/datatables.json';
+            languageURL = browser.extension.getURL('/_locales/' + uiLanguage.substring(0, 2) + '/datatables.json');
+            // console.log("setting languageURL for DataTables: " + languageURL);
         }
         return languageURL;
     }

@@ -93,11 +93,17 @@ $(document).ready(function() {
 
     let table = $('#fhcTable').DataTable( {
         scrollY: 300,
-        paging: false,
         language: {url: languageURL},
         order: [[ 7, "desc" ]],
-        XXXlengthMenu: [ 5, 7, 10 ],
-        XXXpageLength: 10,
+        paging: true,
+        lengthMenu: [11, 20, 50, 100, 500],
+        pageLength: 11,
+        select: {
+            style: 'single',
+            info: false,
+            selector: 'td:not(.details-control)'
+        },
+
         columns: [
             {
                 responsivePriority: 1,
@@ -213,9 +219,10 @@ $(document).ready(function() {
     //     closePrevChildIfOpen();
     // });
 
-    $('#fhcTable tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    });
+    // Handled by select plugin?
+    // $('#fhcTable tbody').on( 'click', 'tr', function () {
+    //     $(this).toggleClass('selected');
+    // });
 
     // populate the database
     populateFromDatabase(table);

@@ -7,7 +7,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    /*background-color: rgba(0,0,0,0.2); !* Black background with opacity *!*/
+    background-color: rgba(95, 198, 255, 0.11); /* Blueish background with opacity */
     z-index: 2;
 }
 #overlaystatus div {
@@ -18,7 +18,7 @@
     font-size: 50px;
     font-weight: bold;
     font-style: italic;
-    color: #8f8f8f;
+    color: #5c818f;
     text-shadow: 1px 1px 1px #282828, 4px 3px 0px rgba(0,0,0,0.15);
     transform: translate(-50%,-50%);
 }
