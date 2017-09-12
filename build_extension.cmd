@@ -1,7 +1,7 @@
 @echo off
 
 set ZIP_FILE=formhistory_200.zip
-
+set ZIP_APP=7z.exe
 
 rem --(check if xpi exist)-------------------------------------
 if not exist %ZIP_FILE% goto continue
@@ -10,12 +10,12 @@ echo -------------------------------------------
 echo ZIP file (%ZIP_FILE%) exists!!!
 echo -------------------------------------------
 echo.
-echo Hit CTRL-C to abort, Enter to continue...
+echo Hit CTRL-C to abort, Enter to delete current zip and continue...
 pause > nul
 del %ZIP_FILE%
 :continue
 
-7z.exe a -r %ZIP_FILE% manifest.json _locales background common content contextmenu icons options popup
+"%ZIP_APP%" a -r -x@zip_exclude_list.txt %ZIP_FILE%
 if errorlevel 1 goto error
 
 goto okay
@@ -34,3 +34,4 @@ echo Finished
 echo --------
 echo.
 :end
+pause

@@ -1,0 +1,6 @@
+.git
+.idea
+*.iml
+*.cmd
+*.zip
+zip_exclude_list.txt
