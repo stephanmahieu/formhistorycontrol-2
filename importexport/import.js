@@ -63,8 +63,8 @@ function handleFileSelect(evt) {
             let result = XmlUtil.parseXMLdata(reader.result);
             console.log("found " + result.entries.length + " text-entries and " + result.multiline.length + " multiline-entries");
 
-            document.getElementById('count-text').innerHTML = result.entries.length;
-            document.getElementById('count-multiline').innerHTML = result.multiline.length;
+            document.getElementById('count-text').textContent = result.entries.length;
+            document.getElementById('count-multiline').textContent = result.multiline.length;
 
             _storeTextEntries(result.entries);
             _storeMultilineEntries(result.multiline);

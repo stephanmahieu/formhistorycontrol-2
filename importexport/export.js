@@ -67,8 +67,8 @@ function handleExport(evt) {
                 //console.log("No more entries!");
                 //console.log("Exporting " + textEntries.length + " text-entries and " + multilines.length + " multiline entries");
 
-                document.getElementById('count-text').innerHTML = textEntries.length;
-                document.getElementById('count-multiline').innerHTML = multilines.length;
+                document.getElementById('count-text').textContent = textEntries.length;
+                document.getElementById('count-multiline').textContent = multilines.length;
 
                 let content = XmlUtil.serializeToXMLString(textEntries, multilines);
                 setDownloadLink(content);
