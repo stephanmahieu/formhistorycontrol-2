@@ -118,13 +118,13 @@ $(document).ready(function() {
         select: {
             style: 'multi+shift',
             info: true,
-            selector: 'td:not(.details-control)'
+            selector: 'td:not(.my-details-control)'
         },
         order: [[ 7, "desc" ]],
         columns: [
             {
                 responsivePriority: 1,
-                className: 'details-control',
+                className: 'my-details-control',
                 orderable: false,
                 data: null,
                 defaultContent: ''
@@ -211,12 +211,14 @@ $(document).ready(function() {
 
     // Add event listener for opening and closing details
     tableElement
-        .find('tbody').on('click', 'td.details-control', function () {
+        .find('tbody').on('click', 'td.my-details-control', function () {
             let tr = $(this).closest('tr');
             let row = table.row( tr );
             let data = row.data();
             // TODO html popup for viewing a field
             alert('TODO showing a popup window for field ' + data[1] + '...');
+            // https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
+
 
         });
 
@@ -235,6 +237,7 @@ $(document).ready(function() {
     });
 
 
+    // navigation menu animation
     $('nav li').hover(
         function() {
             $('ul', this).stop().slideDown(200);
