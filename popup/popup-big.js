@@ -215,10 +215,23 @@ $(document).ready(function() {
             let tr = $(this).closest('tr');
             let row = table.row( tr );
             let data = row.data();
-            // TODO html popup for viewing a field
-            alert('TODO showing a popup window for field ' + data[1] + '...');
-            // https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
+            
+            // store data in local storage so it can be retrieved by the view
+            browser.storage.local.set({
+                entryObject: {
+                    primaryKey: data[0],
+                    name      : data[1],
+                    value     : data[2],
+                    type      : data[3],
+                    used      : data[4],
+                    first     : data[5],
+                    last      : data[6],
+                    url       : data[7]
+                }
+            });
 
+            // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
+            createNewPopupWindow(FHC_WINDOW_ENTRYVW);
 
         });
 
@@ -503,7 +516,7 @@ function _closeThisPopup() {
             console.log("Window removed");
         };
         removing.onError = function() {
-            console.error("Database open error", this.error);
+            console.error("Window remove error", this.error);
         }
     });
 }

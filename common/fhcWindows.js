@@ -21,6 +21,7 @@ const FHC_WINDOW_OPTIONS = { path:"options/options.html",     width: 400, height
 const FHC_WINDOW_ABOUT   = { path:"about/about.html",         width: 600, height:300, type:"popup", currentId: -1 };
 const FHC_WINDOW_IMPORT  = { path:"importexport/import.html", width: 400, height:300, type:"popup", currentId: -1 };
 const FHC_WINDOW_EXPORT  = { path:"importexport/export.html", width: 400, height:300, type:"popup", currentId: -1 };
+const FHC_WINDOW_ENTRYVW = { path:"entryview/entryview.html", width: 400, height:300, type:"popup", currentId: -1 };
 
 
 function createOrFocusWindow(fhcWindowObject) {

@@ -1,0 +1,39 @@
+html, body {
+    height: 100%;
+    font-family: sans-serif;
+}
+
+body {
+    background: rgb(240,240,240);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    cursor: default;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+
+#buttons {
+    height: 35px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    /*background-color: #cbcbcb;*/
+    margin: 10px;
+}
+
+
+button {
+    margin: 2px 2px;
+    min-width: 7em;
+}
+
+#name-label,
+#name,
+#value-label,
+#value {
+    display: inline-block;
+    /*font-size: 0.85em;*/
+}
