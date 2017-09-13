@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     populateView();
 
     // Add event listeners for the buttons
-    document.getElementById("buttonClose").addEventListener("click", _closeThisPopup);
+    document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
 });
 
 
@@ -35,18 +35,4 @@ function onDataRetrieved(data) {
 
 function onDataRetrieveError(error) {
     console.error(`Error retrieving data from local storage: ${error}`);
-}
-
-
-function _closeThisPopup() {
-    let getting = browser.windows.getCurrent({populate: false, windowTypes: ["popup"]});
-    getting.then((window) => {
-        let removing = browser.windows.remove(window.id);
-        removing.onRemoved = function() {
-            console.log("Window removed");
-        };
-        removing.onError = function() {
-            console.error("Window remove error", this.error);
-        }
-    });
 }

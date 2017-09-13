@@ -231,7 +231,7 @@ $(document).ready(function() {
             });
 
             // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
-            createNewPopupWindow(FHC_WINDOW_ENTRYVW);
+            WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
 
         });
 
@@ -431,7 +431,7 @@ function onButtonClicked(buttonId) {
             break;
 
         case "buttonClose":
-            _closeThisPopup();
+            WindowUtil.closeThisPopup();
             break;
     }
 }
@@ -440,15 +440,15 @@ function onMenuClicked(menuItemId) {
     console.log("menuItemId " + menuItemId + " clicked...");
     switch (menuItemId) {
         case "import":
-            createOrFocusWindow(FHC_WINDOW_IMPORT);
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_IMPORT);
             break;
 
         case "export":
-            createOrFocusWindow(FHC_WINDOW_EXPORT);
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_EXPORT);
             break;
 
         case "close":
-            _closeThisPopup();
+            WindowUtil.closeThisPopup();
             break;
 
         case "add":
@@ -490,7 +490,7 @@ function onMenuClicked(menuItemId) {
             break;
 
         case "preferences":
-            createOrFocusWindow(FHC_WINDOW_OPTIONS);
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_OPTIONS);
             break;
 
         case "helpoverview":
@@ -502,21 +502,7 @@ function onMenuClicked(menuItemId) {
             break;
 
         case "about":
-            createOrFocusWindow(FHC_WINDOW_ABOUT);
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_ABOUT);
             break;
     }
-}
-
-
-function _closeThisPopup() {
-    let getting = browser.windows.getCurrent({populate: false, windowTypes: ["popup"]});
-    getting.then((window) => {
-        let removing = browser.windows.remove(window.id);
-        removing.onRemoved = function() {
-            console.log("Window removed");
-        };
-        removing.onError = function() {
-            console.error("Window remove error", this.error);
-        }
-    });
 }

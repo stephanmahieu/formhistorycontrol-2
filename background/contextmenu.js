@@ -108,16 +108,16 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
     switch (info.menuItemId) {
         case "manage":
             console.log("Manage history from context menu clicked...");
-            createOrFocusWindow(FHC_WINDOW_MANAGE);
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
             break;
 
         case "options":
             console.log("Options from context menu clicked...");
-            createOrFocusWindow(FHC_WINDOW_OPTIONS);
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_OPTIONS);
             break;
 
         case "restoreEditorField":
-            notify("Not implemented yet!");
+            WindowUtil.notify("Not implemented yet!");
             break;
 
         case "clearFields":

@@ -39,7 +39,7 @@
   "background": {
     "scripts": [
       "common/DbConst.js",
-      "common/fhcWindows.js",
+      "common/WindowUtil.js",
       "background/contextmenu.js",
       "background/receiveFormData.js"
     ]
