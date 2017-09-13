@@ -30,6 +30,28 @@ body {
     min-width: 7em;
 }
 
+table {
+    width: 100%;
+}
+
+th {
+    text-align: left;
+    vertical-align: baseline;
+    width: 7em;
+    font-size: 0.9em;
+}
+
+input {
+    width: 100%;
+    display: block;
+}
+
+input:disabled {
+    color: black;
+    /*background-color: #efefef;*/
+}
+
+
 #name-label,
 #name,
 #value-label,

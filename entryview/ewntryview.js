@@ -27,8 +27,12 @@ function onDataRetrieved(data) {
     let first = entryObject.first;
     let last = entryObject.last;
     let url = entryObject.url;
-    document.getElementById('name').textContent = name;
-    document.getElementById('value').textContent = value;
+    document.getElementById('name').value = name;
+    document.getElementById('value').value = value;
+    document.getElementById('type').value = type;
+    document.getElementById('used').value = used;
+    document.getElementById('first').value = DateUtil.dateToDateString(new Date(first));
+    document.getElementById('last').value = DateUtil.dateToDateString(new Date(last));
 }
 
 function onDataRetrieveError(error) {

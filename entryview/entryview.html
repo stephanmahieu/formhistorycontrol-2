@@ -4,15 +4,38 @@
     <title>Form field</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="ewntryview.css"/>
+    <link rel="stylesheet" href="../../../FormHistory_git/formhistorycontrol/chrome/skin/classic/editDialog.css">
 </head>
 <body>
 <div class="content">
-    <div>
-        <div id="name-label">Name</div>: <div id="name">-</div>
-    </div>
-    <div>
-        <div id="value-label">Value</div>: <div id="value">-</div>
-    </div>
+    <table>
+        <tbody>
+            <tr>
+                <th>Fieldname</th>
+                <td><input id="name" type="text" disabled/></td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td><input id="value" type="text" disabled/></td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td><input id="type" type="text" disabled/></td>
+            </tr>
+            <tr>
+                <th>Used count</th>
+                <td><input id="used" type="text" disabled/></td>
+            </tr>
+            <tr>
+                <th>First used</th>
+                <td><input id="first" type="text" disabled/></td>
+            </tr>
+            <tr>
+                <th>Last used</th>
+                <td><input id="last" type="text" disabled/></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <div id="buttons">
     <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
