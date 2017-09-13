@@ -5,8 +5,28 @@ html, body {
 
 body {
     background: rgb(240,240,240);
-    margin: 8px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
     cursor: default;
+}
+
+.content {
+    flex: 1 0 auto;
+    margin: 8px;
+}
+
+#buttons {
+    height: 35px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 10px;
+}
+
+#buttons button {
+    margin: 2px 2px;
+    min-width: 7em;
 }
 
 #count-text-label,

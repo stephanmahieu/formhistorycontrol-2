@@ -5,6 +5,7 @@
 
 document.addEventListener("DOMContentLoaded", function(/*event*/) {
     document.getElementById('files').addEventListener('change', handleFileSelect);
+    document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
 });
 
 

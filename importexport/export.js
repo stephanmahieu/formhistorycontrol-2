@@ -5,6 +5,7 @@
 
 document.addEventListener("DOMContentLoaded", function(/*event*/) {
     document.getElementById("buttonExport").addEventListener("click", handleExport);
+    document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
 });
 
 

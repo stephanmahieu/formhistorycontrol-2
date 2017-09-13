@@ -5,8 +5,6 @@
 
 document.addEventListener("DOMContentLoaded", function(/*event*/) {
     populateView();
-
-    // Add event listeners for the buttons
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
 });
 
