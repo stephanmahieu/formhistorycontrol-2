@@ -1,10 +1,10 @@
 
-const FHC_WINDOW_MANAGE  = { path:"popup/popup-big.html",     width:1000, height:500, type:"popup", currentId: -1 };
-const FHC_WINDOW_OPTIONS = { path:"options/options.html",     width: 400, height:300, type:"popup", currentId: -1 };
-const FHC_WINDOW_ABOUT   = { path:"about/about.html",         width: 600, height:300, type:"popup", currentId: -1 };
-const FHC_WINDOW_IMPORT  = { path:"importexport/import.html", width: 400, height:300, type:"popup", currentId: -1 };
-const FHC_WINDOW_EXPORT  = { path:"importexport/export.html", width: 400, height:300, type:"popup", currentId: -1 };
-const FHC_WINDOW_ENTRYVW = { path:"entryview/entryview.html", width: 400, height:300, type:"popup", currentId: -1 };
+const FHC_WINDOW_MANAGE  = { path:"popup/tableview/popup-big.html",     width:1000, height:500, type:"popup", currentId: -1 };
+const FHC_WINDOW_OPTIONS = { path:"popup/options/options.html",     width: 400, height:300, type:"popup", currentId: -1 };
+const FHC_WINDOW_ABOUT   = { path:"popup/about/about.html",         width: 600, height:300, type:"popup", currentId: -1 };
+const FHC_WINDOW_IMPORT  = { path:"popup/importexport/import.html", width: 400, height:300, type:"popup", currentId: -1 };
+const FHC_WINDOW_EXPORT  = { path:"popup/importexport/export.html", width: 400, height:300, type:"popup", currentId: -1 };
+const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 400, height:300, type:"popup", currentId: -1 };
 
 class WindowUtil {
 

@@ -43,7 +43,7 @@ button {
 
 
 td.my-details-control {
-  background: url('../icons/details_popup.png') no-repeat center center;
+  background: url('../../icons/details_popup.png') no-repeat center center;
   /*background: url('../icons/icon_info.png') no-repeat center center;*/
   cursor: pointer;
 }

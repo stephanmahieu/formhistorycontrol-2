@@ -84,25 +84,25 @@ nav ul li ul li div hr {
 
 /* File menu */
 .icon-none:before {
-    content: url("../icons/menu/empty.png");
+    content: url("../../icons/menu/empty.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-import:before {
-    content: url("../icons/menu/import.png");
+    content: url("../../icons/menu/import.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-export:before {
-    content: url("../icons/menu/export.png");
+    content: url("../../icons/menu/export.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-close:before {
-    content: url("../icons/menu/close.png");
+    content: url("../../icons/menu/close.png");
     display: block;
     float: left;
     padding-right: 4px;
@@ -110,43 +110,43 @@ nav ul li ul li div hr {
 
 /* Edit menu */
 .icon-insert:before {
-    content: url("../icons/menu/insert.png");
+    content: url("../../icons/menu/insert.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-edit:before {
-    content: url("../icons/menu/edit.png");
+    content: url("../../icons/menu/edit.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-delete:before {
-    content: url("../icons/menu/delete.png");
+    content: url("../../icons/menu/delete.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-copy:before {
-    content: url("../icons/menu/copy.png");
+    content: url("../../icons/menu/copy.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-selectall:before {
-    content: url("../icons/menu/selectall.png");
+    content: url("../../icons/menu/selectall.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-selectnone:before {
-    content: url("../icons/menu/selectnone.png");
+    content: url("../../icons/menu/selectnone.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-selectinvert:before {
-    content: url("../icons/menu/selectinvert.png");
+    content: url("../../icons/menu/selectinvert.png");
     display: block;
     float: left;
     padding-right: 4px;
@@ -154,7 +154,7 @@ nav ul li ul li div hr {
 
 /* Display menu */
 .icon-refresh:before {
-    content: url("../icons/menu/refresh.png");
+    content: url("../../icons/menu/refresh.png");
     display: block;
     float: left;
     padding-right: 4px;
@@ -162,7 +162,7 @@ nav ul li ul li div hr {
 
 /* Extra menu */
 .icon-preferences:before {
-    content: url("../icons/menu/preferences.png");
+    content: url("../../icons/menu/preferences.png");
     display: block;
     float: left;
     padding-right: 4px;
@@ -170,19 +170,19 @@ nav ul li ul li div hr {
 
 /* Help menu */
 .icon-help:before {
-    content: url("../icons/menu/help.png");
+    content: url("../../icons/menu/help.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-releasenotes:before {
-    content: url("../icons/menu/releasenotes.png");
+    content: url("../../icons/menu/releasenotes.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
 .icon-about:before {
-    content: url("../icons/menu/about.png");
+    content: url("../../icons/menu/about.png");
     display: block;
     float: left;
     padding-right: 4px;

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Import</title>
+    <title>Export</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="importexport.css"/>
 </head>
 <body>
 <div class="content">
-    <input type="file" id="files" name="files[]"/>
+    <button id="buttonExport">Export</button>
     <p>
         <div>
             <div id="count-text-label">Number of text entries</div>: <div id="count-text">-</div>
@@ -15,15 +15,20 @@
         <div>
             <div id="count-multiline-label">Number of multiline entries</div>: <div id="count-multiline">-</div>
         </div>
+        <div>
+            <div id="download-label">Download link:</div>
+            <a id="link" target="_blank" download="formhistory.xml">formhistory.xml</a>
+        </div>
     </p>
 </div>
 <div id="buttons">
     <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
 </div>
-<script src="../common/DateUtil.js"></script>
-<script src="../common/XmlUtil.js"></script>
-<script src="../common/WindowUtil.js"></script>
-<script src="../common/translation.js"></script>
-<script src="import.js"></script>
+<script src="../../common/DbConst.js"></script>
+<script src="../../common/DateUtil.js"></script>
+<script src="../../common/XmlUtil.js"></script>
+<script src="../../common/WindowUtil.js"></script>
+<script src="../../common/translation.js"></script>
+<script src="export.js"></script>
 </body>
 </html>

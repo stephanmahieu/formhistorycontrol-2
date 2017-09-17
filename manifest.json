@@ -33,7 +33,7 @@
   },
   
   "options_ui": {
-      "page": "options/options.html"
+      "page": "popup/options/options.html"
   },
 
   "background": {
@@ -61,7 +61,7 @@
     "browser_style": true,
     "default_icon": "icons/fhc_icon.svg",
     "default_title": "__MSG_extensionName__",
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup/tableview/popup-small.html"
   },
   
   "web_accessible_resources": [
