@@ -290,12 +290,14 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
         // now add the modified record
         fhcEntry.used++;
         fhcEntry.last = now;
-        fhcEntry.uri = fhcEvent.url;
-        fhcEntry.pagetitle = fhcEvent.pagetitle;
 
         // if it is a multiline field (not input) value must be updated too
-        if ("input" !== fhcEvent.type) {
+        if ("input" === fhcEvent.type) {
+            // TODO input -> host should be a 1 to many relation, update related hosts
+        } else {
+            fhcEntry.uri = fhcEvent.url;
             fhcEntry.value = fhcEvent.value;
+            fhcEntry.pagetitle = fhcEvent.pagetitle;
         }
 
         let addReq = objStore.add(fhcEntry);
@@ -310,6 +312,21 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
 
 function _insertNewEntry(objStore, fhcEvent) {
     let now = (new Date()).getTime();
+    let host;
+    let uri;
+    let pagetitle;
+
+    if ("input" === fhcEvent.type) {
+        // TODO input -> host should be a 1 to many relation, update related hosts
+        host = "";
+        uri = "";
+        pagetitle = "";
+    } else {
+        host = fhcEvent.host;
+        uri = fhcEvent.url;
+        pagetitle = fhcEvent.pagetitle;
+    }
+
     let fhcEntry = {
         fieldkey: getLookupKey(fhcEvent),
         name: fhcEvent.name,
@@ -318,9 +335,9 @@ function _insertNewEntry(objStore, fhcEvent) {
         first: now,
         last: now,
         used: 1,
-        host: fhcEvent.host,
-        uri: fhcEvent.url,
-        pagetitle: fhcEvent.pagetitle
+        host: host,
+        uri: uri,
+        pagetitle: pagetitle
     };
     let insertReq = objStore.add(fhcEntry);
     insertReq.onerror = function(/*insertEvent*/) {
@@ -332,6 +349,21 @@ function _insertNewEntry(objStore, fhcEvent) {
 }
 
 function _importNewEntry(objStore, fhcEvent) {
+    let host;
+    let uri;
+    let pagetitle;
+
+    if ("input" === fhcEvent.type) {
+        // TODO input -> host should be a 1 to many relation, update related hosts
+        host = "";
+        uri = "";
+        pagetitle = "";
+    } else {
+        host = fhcEvent.host;
+        uri = fhcEvent.url;
+        pagetitle = fhcEvent.pagetitle;
+    }
+
     let fhcEntry = {
         fieldkey: getLookupKey(fhcEvent),
         name: fhcEvent.name,
@@ -340,9 +372,9 @@ function _importNewEntry(objStore, fhcEvent) {
         first: fhcEvent.first,
         last: fhcEvent.last,
         used: fhcEvent.used,
-        host: fhcEvent.host,
-        uri: fhcEvent.url,
-        pagetitle: fhcEvent.pagetitle
+        host: host,
+        uri: uri,
+        pagetitle: pagetitle
     };
     let insertReq = objStore.add(fhcEntry);
     insertReq.onerror = function(/*insertEvent*/) {
@@ -366,10 +398,15 @@ function clearTextFieldsStore() {
 }
 
 function getLookupKey(fhcEvent) {
-    let key = fhcEvent.host + "|" + fhcEvent.type + "|" + fhcEvent.name;
-    // for wysiwyg fields values are updated on each keystroke, so we do not want to insert a new entry for each change
+    let key = fhcEvent.type + "|" + fhcEvent.name;
+
     if ("input" === fhcEvent.type) {
-        key += "|" + fhcEvent.value;
+        // prepend with empty host, input values are universal and not bound to a host
+        key = "|" + key + "|" + fhcEvent.value;
+    } else {
+        // bind multiline fields to a specific host
+        // do not add the value, we keep one or more versions per host
+        key = fhcEvent.host + "|" + key;
     }
     return key;
 }
