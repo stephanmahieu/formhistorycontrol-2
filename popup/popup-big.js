@@ -210,30 +210,13 @@ $(document).ready(function() {
 
 
     // Add event listener for opening and closing details
-    tableElement
-        .find('tbody').on('click', 'td.my-details-control', function () {
-            let tr = $(this).closest('tr');
-            let row = table.row( tr );
-            let data = row.data();
-            
-            // store data in local storage so it can be retrieved by the view
-            browser.storage.local.set({
-                entryObject: {
-                    primaryKey: data[0],
-                    name      : data[1],
-                    value     : data[2],
-                    type      : data[3],
-                    used      : data[4],
-                    first     : data[5],
-                    last      : data[6],
-                    url       : data[7]
-                }
-            });
+    tableElement.find('tbody').on('click', 'td.my-details-control', function() {
+        DataTableUtil.openDetailViewOnRowClick($(this), table);
+    });
 
-            // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
-            WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
-
-        });
+    tableElement.find('tbody').on('dblclick', 'tr', function() {
+        DataTableUtil.openDetailViewOnRowClick($(this), table);
+    });
 
     // Add event listener for select events
     table.on('select', function (e, dt, type /*, indexes */) {
@@ -249,7 +232,6 @@ $(document).ready(function() {
         }
     });
 
-
     // navigation menu animation
     $('nav li').hover(
         function() {
@@ -259,6 +241,14 @@ $(document).ready(function() {
             $('ul', this).stop().slideUp(200);
         }
     );
+
+    // Prevent the default right-click contextmenu
+    document.oncontextmenu = function() {return false;};
+
+    // custom right-click menu
+    tableElement.find('tbody').on('contextmenu', 'tr', function() {
+        console.log("context menu should now display :-)");
+    });
 
 
     // Add event listeners for the buttons

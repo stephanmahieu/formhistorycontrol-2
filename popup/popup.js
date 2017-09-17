@@ -192,6 +192,18 @@ $(document).ready(function() {
         ]
     } );
 
+    $('#fhcTable tbody').on('dblclick', 'tr', function () {
+        DataTableUtil.openDetailViewOnRowClick($(this), table);
+    });
+
+    // Prevent the default right-click contextmenu
+    document.oncontextmenu = function() {return false;};
+
+    // custom right-click menu
+    $('#fhcTable').find('tbody').on('contextmenu', 'tr', function() {
+        console.log("context menu should now display :-)");
+    });
+
 
     // Add event listener for opening and closing details
     $('#fhcTable tbody').on('click', 'td.details-control', function () {

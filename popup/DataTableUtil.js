@@ -107,6 +107,30 @@ class DataTableUtil {
             return date;
         }
     }
+
+    static openDetailViewOnRowClick(clickedElem, table) {
+        let tr = clickedElem.closest('tr');
+        let row = table.row( tr );
+        let data = row.data();
+
+        // store data in local storage so it can be retrieved by the view
+        browser.storage.local.set({
+            entryObject: {
+                primaryKey: data[0],
+                name      : data[1],
+                value     : data[2],
+                type      : data[3],
+                used      : data[4],
+                first     : data[5],
+                last      : data[6],
+                url       : data[7]
+            }
+        });
+
+        // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
+        WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
+    }
+
 }
 
 
