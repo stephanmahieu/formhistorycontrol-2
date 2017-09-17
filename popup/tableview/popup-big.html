@@ -4,10 +4,14 @@
     <title data-fhc-i18n="contextMenuItemManageHistory">Manage history</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="lib/datatables.min.css"/>
-    <link rel="stylesheet" href="popup-big.css"/>
     <link rel="stylesheet" href="popup-theme.css"/>
+    <link rel="stylesheet" href="popup-big.css"/>
     <link rel="stylesheet" href="navigation.css"/>
     <link rel="stylesheet" href="loadingstatus.css"/>
+    <link rel="alternate stylesheet" href="theme/popup-big-dark.css" title="Dark"/>
+    <link rel="alternate stylesheet" href="theme/popup-theme-dark.css" title="Dark"/>
+    <link rel="alternate stylesheet" href="theme/navigation-dark.css" title="Dark"/>
+    <link rel="alternate stylesheet" href="theme/loadingstatus-dark.css" title="Dark"/>
 </head>
 <body>
     <div id="overlaystatus"><div data-fhc-i18n="loading-status">Loading...</div></div>
@@ -18,7 +22,7 @@
                     <ul>
                         <li><span id="import" data-fhc-i18n="menuItemFileImport" class="icon-import">Import</span></li>
                         <li><span id="export" data-fhc-i18n="menuItemFileExport" class="icon-export">Export</span></li>
-                        <li><div><hr/></div></li>
+                        <li><span class="menu-spacer"><span></span></span></li>
                         <li><span id="close" data-fhc-i18n="menuItemFileClose" class="icon-close">Close</span></li>
                     </ul>
                 </li>
@@ -27,9 +31,9 @@
                         <li><span id="add" data-fhc-i18n="menuItemEditAdd" class="icon-insert">Add</span></li>
                         <li><span id="modify" data-fhc-i18n="menuItemEditModify" class="icon-edit">Modify</span></li>
                         <li><span id="delete" data-fhc-i18n="menuItemEditDelete" class="icon-delete">Delete</span></li>
-                        <li><div><hr/></div></li>
+                        <li><span class="menu-spacer"><span></span></span></li>
                         <li><span id="copy2clipboard" data-fhc-i18n="menuItemEditClipboard" class="icon-copy">Copy to clipboard</span></li>
-                        <li><div><hr/></div></li>
+                        <li><span class="menu-spacer"><span></span></span></li>
                         <li><span id="selectall" data-fhc-i18n="menuItemEditSelectAll" class="icon-selectall">Select all</span></li>
                         <li><span id="selectnone" data-fhc-i18n="menuItemEditSelectNone" class="icon-selectnone">Select none</span></li>
                         <li><span id="selectinvert" data-fhc-i18n="menuItemEditSelectInvert" class="icon-selectinvert">Invert selection</span></li>
@@ -49,7 +53,7 @@
                     <ul>
                         <li><span id="helpoverview" data-fhc-i18n="menuItemHelpOverview" class="icon-help">Help overview</span></li>
                         <li><span id="releasenotes" data-fhc-i18n="menuItemHelpReleasenotes" class="icon-releasenotes">Release Notes</span></li>
-                        <li><div><hr/></div></li>
+                        <li><span class="menu-spacer"><span></span></span></li>
                         <li><span id="about" data-fhc-i18n="menuItemHelpAbout" class="icon-about">About</span></li>
                     </ul>
                 </li>
@@ -71,6 +75,8 @@
         </div>
     </div>
     <script src="../../common/jquery-3.2.1.min.js"></script>
+    <script src="../../common/OptionsUtil.js"></script>
+    <script src="../../common/ThemeUtil.js"></script>
     <script src="../../common/DbConst.js"></script>
     <script src="../../common/WindowUtil.js"></script>
     <script src="../../common/DateUtil.js"></script>

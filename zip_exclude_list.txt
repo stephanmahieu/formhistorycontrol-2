@@ -3,4 +3,5 @@
 *.iml
 *.cmd
 *.zip
+todo-list.md
 zip_exclude_list.txt

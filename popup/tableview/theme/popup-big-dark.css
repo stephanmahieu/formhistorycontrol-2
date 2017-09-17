@@ -1,0 +1,30 @@
+/* Dark theme */
+
+body {
+    background: #393f4c;
+    /*background: #555416;*/
+    color: #cdcdcd;
+}
+
+input, select {
+    background-color: #4c4e57;
+    color: #e3e3e3;
+    border: 1px solid #717171;
+}
+
+button {
+    background-color: #5675b9;
+    color: white;
+    border: 1px solid #5b9ae2;
+}
+
+button:disabled,
+button:disabled:hover {
+    background-color: #485590;
+    color: #999999;
+}
+
+button:hover {
+    background-color: #5698dc;
+    color: #ffffff;
+}

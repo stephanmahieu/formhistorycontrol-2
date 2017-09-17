@@ -1,89 +1,44 @@
-nav {
-    background: #e6e6e6;
-    margin-bottom: 5px;
-}
 
-nav span {
-    cursor: default;
+nav {
+    background: #1e1e1e;
 }
 
 nav ul {
-    /*font-size: 0;*/
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid #888888;
+    /*border-bottom: 1px solid #888888;*/
 }
 
-nav ul li {
-    display: inline-block;
-    position: relative;
-}
 
 nav ul li span {
-    color: #000;
-    display: block;
-    padding: 5px 10px;
-    transition: 0.3s linear;
+    color: #e6e6e6;
 }
 
 nav ul li:hover {
-    background: #cde8ff;
+    background: #2c303b;
 }
 
+/* bottom dropdown menu */
 nav ul li ul {
-    border-bottom: 3px solid #215c7e;
-    display: none;
-    position: absolute;
-    width: 190px;
-    z-index: 10;
+    border-bottom: 3px solid #226e91;
     box-shadow: 0px 5px 5px #444;
 }
-
-nav ul li ul li {
-    /*border-top: 1px solid #bfbfbf;*/
-    display: block;
-    z-index: 10;
-}
-
-/*nav ul li ul li:first-child {*/
-    /*border-top: none;*/
-    /*z-index: 10;*/
-/*}*/
 
 nav ul li ul li span,
 span.menu-spacer,
 span.menu-spacer:hover {
-    background: #d5d5d5;
-    display: block;
-    padding: 4px 10px;
-    z-index: 10;
+    background-color: #3d3d3d;
 }
 
-span.menu-spacer {
-    height: 1px;
-    min-height: 1px;
-}
 span.menu-spacer span {
-    height: 1px;
-    min-height: 1px;
-    background-color: #b3b3b3;
-    margin: 0;
-    padding: 0;
+    background-color: #565656;
 }
 
 nav ul li ul li span:hover {
-    background-color: #0a0d5f;
+    background: #5675b9;
     color: #fff;
 }
 
 nav ul li ul li div {
     background: #cbcbcb;
-    display: block;
-    padding: 2px 6px;
-    z-index: 10;
-}
-nav ul li ul li div hr {
-    margin: 0;
 }
 
 .menu-disabled {
@@ -91,12 +46,13 @@ nav ul li ul li div hr {
     filter: grayscale(70%);
 }
 .menu-disabled:hover {
-    background-color: #b9b9b9;
+    background-color: #4e4e4e;
     color: #8f8f8f;
 }
 
 
 /* File menu */
+/*
 .icon-none:before {
     content: url("../../icons/menu/empty.png");
     display: block;
@@ -121,8 +77,10 @@ nav ul li ul li div hr {
     float: left;
     padding-right: 4px;
 }
+*/
 
 /* Edit menu */
+/*
 .icon-insert:before {
     content: url("../../icons/menu/insert.png");
     display: block;
@@ -165,24 +123,30 @@ nav ul li ul li div hr {
     float: left;
     padding-right: 4px;
 }
+*/
 
 /* Display menu */
+/*
 .icon-refresh:before {
     content: url("../../icons/menu/refresh.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
+*/
 
 /* Extra menu */
+/*
 .icon-preferences:before {
     content: url("../../icons/menu/preferences.png");
     display: block;
     float: left;
     padding-right: 4px;
 }
+*/
 
 /* Help menu */
+/*
 .icon-help:before {
     content: url("../../icons/menu/help.png");
     display: block;
@@ -201,3 +165,4 @@ nav ul li ul li div hr {
     float: left;
     padding-right: 4px;
 }
+*/

@@ -106,6 +106,8 @@ function closePrevChildIfOpen() {
 }
 
 $(document).ready(function() {
+    ThemeUtil.switchTheme(OptionsUtil.getThema());
+
     let languageURL = DataTableUtil.getLanguageURL();
 
     let tableElement = $('#fhcTable');
