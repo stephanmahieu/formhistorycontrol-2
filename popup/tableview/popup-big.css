@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  background: #e6e6e6;
+  background: #f0f0f0;
   margin: 0 auto;
   padding: 2px;
   height: inherit;
@@ -30,6 +30,7 @@ body {
 button {
   margin: 2px 2px;
   min-width: 7em;
+  height: 28px;
 }
 
 .button-right {

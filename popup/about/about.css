@@ -4,7 +4,7 @@ html, body {
 }
 
 body {
-    background: rgb(240,240,240);
+    background: #f0f0f0;
     display: flex;
     flex-direction: column;
     margin: 0;
