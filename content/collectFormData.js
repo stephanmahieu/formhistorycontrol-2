@@ -46,6 +46,11 @@ function _findFieldAndSetValue(fhcEvent) {
     });
 }
 
+
+function _isDesignModeOn(elem) {
+    return (elem.contentDocument && ("on" === elem.contentDocument.designMode));
+}
+
 function _ifMatchSetValue(node, fhcEvent) {
     let type = node.nodeName.toLowerCase();
     //let location = node.ownerDocument.location;
@@ -98,14 +103,14 @@ function _ifMatchSetValue(node, fhcEvent) {
 function _fillformfields(action, targetTabId) {
     [].forEach.call( document.querySelectorAll("input,textarea"), function(elem) {
         if (_isTextInputSubtype(elem.type) && _isDisplayed(elem)) {
-            console.log("requesting content for elem-id: " + elem.id);
+            console.log("requesting text content for elem-id: " + elem.id);
             _requestHistoricValue(elem, action, targetTabId);
         }
     });
 
     [].forEach.call( document.querySelectorAll("html,div,iframe,body"), function(elem) {
         if ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem)) {
-            console.log("requesting content for elem-id: " + elem.id);
+            console.log("requesting editable content for elem-id: " + elem.id);
             _requestHistoricValue(elem, action, targetTabId);
         }
     });
@@ -372,11 +377,19 @@ function _contentChangedHandler(type, node) {
 // HTML Field/Form helper methods
 //----------------------------------------------------------------------------
 
+/**
+ * Determine whether or not a DOM element type is a text input element.
+ * New html5 types like search, tel, url, time, week and email are
+ * also considered text types.
+ *
+ * @param  type {String}
+ * @return {Boolean} whether or not a DOM element is a text input element
+ */
 function _isTextInputSubtype(type) {
     // exclude "password", never save those!
     // also exclude number, range and color
     // and exclude the not fully supported: date, datetime-local, month, time, week
-    return ("text" === type || "search" === type || "tel" === type || "url" === type || "email" === type);
+    return ("text" === type || "search" === type || "tel" === type || "url" === type || "email" === type || "textarea" === type);
 }
 
 /**
@@ -470,7 +483,7 @@ function _getHost(aLocation) {
  * Get the effective contentEditable property of an element.
  *
  * @param  element {Element}
- * @return {boolean} wether content is editable "true" or not "false"
+ * @return {boolean} whether content is editable "true" or not "false"
  */
 function _isContentEditable(element) {
     if (element.contentEditable === undefined) {

@@ -49,7 +49,7 @@
     {
       "js": [
         "content/collectFormData.js",
-        "content/injectFormData.js"
+        "content/showFormData.js"
       ],
       "matches": [ "*://*/*", "file:///*"],
       "run_at": "document_end",

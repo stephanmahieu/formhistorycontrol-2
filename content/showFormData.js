@@ -1,18 +1,70 @@
 'use strict';
 
+// uses some functions from collectFormData.js
+//import {collectFormData} from 'collectFormData.js';
+
 browser.runtime.onMessage.addListener(receiveEvents);
 
 function receiveEvents(fhcEvent) {
     if (fhcEvent.action) {
+        console.log("Received action event " + fhcEvent.action);
+
         switch (fhcEvent.action) {
             case "showformfields":
-                console.log("Received action event " + fhcEvent.action);
                 showformfields();
                 break;
+
+            // case "getformfields":
+            //     getCurrentFields();
+            //     break;
         }
     }
 }
 
+
+// function getCurrentFields() {
+//     // TODO get the formfields for this (active) page and return in the form of a response event (array of fields)
+//     let fields = [];
+//
+//     [].forEach.call( document.querySelectorAll("input,textarea"), (node) => {
+//         if (_isTextInputSubtype(node.type) && _isDisplayed(node)) {
+//             let name = (node.name) ? node.name : ((node.id) ? node.id : "");
+//             if (name) {
+//                 fields.push({
+//                     name: name,
+//                     type: node.nodeName.toLowerCase()
+//                 });
+//             }
+//         }
+//     });
+//
+//     [].forEach.call( document.querySelectorAll("html,div,iframe,body"), (node) => {
+//         if ((_isContentEditable(node) && _isDisplayed(node)) || _isDesignModeOn(node)) {
+//             let name = (node.name) ? node.name : ((node.id) ? node.id : "");
+//             if (name) {
+//                 fields.push({
+//                     name: name,
+//                     type: node.nodeName.toLowerCase()
+//                 });
+//             }
+//         }
+//     });
+//
+//     let gettingCurrent = browser.tabs.getCurrent();
+//     gettingCurrent.then(
+//         (tabInfo) => {
+//             console.log('Sending getCurrentFields response message from tabID ' + tabInfo.id);
+//             browser.runtime.sendMessage({
+//                 eventType  : 6,
+//                 targetTabId: tabInfo.id,
+//                 fields     : fields
+//             });
+//         },
+//         (error) => {
+//             console.log(`Error getting current tab: ${error}`);
+//         }
+//     );
+// }
 
 function showformfields() {
     let ii = 0, id, div;
@@ -52,11 +104,6 @@ function showformfields() {
             }
         }
     });
-}
-
-
-function _isDesignModeOn(elem) {
-    return (elem.contentDocument && ("on" === elem.contentDocument.designMode));
 }
 
 /**
@@ -230,22 +277,6 @@ function _getElementNameOrId(element) {
     return (element.name && element.name.length > 0) ? element.name : element.id;
 }
 
-
-/**
- * Determine whether or not a DOM element type is a text input element.
- * New html5 types like search, tel, url, time, week and email are
- * also considered text types.
- *
- * @param  type {String}
- * @return {Boolean} whether or not a DOM element is a text input element
- */
-function _isTextInputSubtype(type) {
-    // exclude "password", never save those!
-    // also exclude number, range and color
-    // and exclude the not fully supported: date, datetime-local, month, time, week
-    return ("text" === type || "search" === type || "tel" === type || "url" === type || "email" === type || "textarea" === type);
-}
-
 /**
  * Test whether the element is displayed according to its display property.
  *
@@ -287,27 +318,4 @@ function _getEffectiveStyle(element, property) {
         return _getEffectiveStyle(element.parentNode, property);
     }
     return propertyValue;
-}
-
-/**
- * Get the effective contentEditable property of an element.
- *
- * @param  element {Element}
- * @return {boolean} whether content is editable "true" or not "false"
- */
-function _isContentEditable(element) {
-    if (element.contentEditable === undefined) {
-        return false;
-    }
-    if ("inherit" !== element.contentEditable) {
-        return ("true" === element.contentEditable);
-    }
-
-    let doc = element.ownerDocument;
-    let effectiveStyle = doc.defaultView.getComputedStyle(element, null);
-    let propertyValue = effectiveStyle.getPropertyValue("contentEditable");
-    if ("inherit" === propertyValue && element.parentNode.style) {
-        return _isContentEditable(element.parentNode);
-    }
-    return ("true" === propertyValue);
 }
