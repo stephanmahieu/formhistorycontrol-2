@@ -27,6 +27,7 @@ body {
 #buttons button {
     margin: 2px 2px;
     min-width: 7em;
+    height: 25px;
 }
 
 #count-text-label,
