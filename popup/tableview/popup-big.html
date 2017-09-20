@@ -4,66 +4,64 @@
     <title data-fhc-i18n="contextMenuItemManageHistory">Manage history</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="lib/datatables.min.css"/>
-    <link rel="stylesheet" href="popup-theme.css"/>
+    <link rel="stylesheet" href="table-theme.css"/>
     <link rel="stylesheet" href="popup-big.css"/>
     <link rel="stylesheet" href="navigation.css"/>
     <link rel="stylesheet" href="loadingstatus.css"/>
     <link rel="alternate stylesheet" href="theme/popup-big-dark.css" title="Dark"/>
-    <link rel="alternate stylesheet" href="theme/popup-theme-dark.css" title="Dark"/>
+    <link rel="alternate stylesheet" href="theme/table-theme-dark.css" title="Dark"/>
     <link rel="alternate stylesheet" href="theme/navigation-dark.css" title="Dark"/>
     <link rel="alternate stylesheet" href="theme/loadingstatus-dark.css" title="Dark"/>
 </head>
 <body>
     <div id="overlaystatus"><div data-fhc-i18n="loading-status">Loading...</div></div>
     <nav>
-        <div class="container">
-            <ul>
-                <li><span data-fhc-i18n="menuFile">File</span>
-                    <ul>
-                        <li><span id="import" data-fhc-i18n="menuItemFileImport" class="icon-import">Import</span></li>
-                        <li><span id="export" data-fhc-i18n="menuItemFileExport" class="icon-export">Export</span></li>
-                        <li><span class="menu-spacer"><span></span></span></li>
-                        <li><span id="close" data-fhc-i18n="menuItemFileClose" class="icon-close">Close</span></li>
-                    </ul>
-                </li>
-                <li><span data-fhc-i18n="menuEdit">Edit</span>
-                    <ul>
-                        <li><span id="add" data-fhc-i18n="menuItemEditAdd" class="icon-insert">Add</span></li>
-                        <li><span id="modify" data-fhc-i18n="menuItemEditModify" class="icon-edit">Modify</span></li>
-                        <li><span id="delete" data-fhc-i18n="menuItemEditDelete" class="icon-delete">Delete</span></li>
-                        <li><span class="menu-spacer"><span></span></span></li>
-                        <li><span id="copy2clipboard" data-fhc-i18n="menuItemEditClipboard" class="icon-copy">Copy to clipboard</span></li>
-                        <li><span class="menu-spacer"><span></span></span></li>
-                        <li><span id="selectall" data-fhc-i18n="menuItemEditSelectAll" class="icon-selectall">Select all</span></li>
-                        <li><span id="selectnone" data-fhc-i18n="menuItemEditSelectNone" class="icon-selectnone">Select none</span></li>
-                        <li><span id="selectinvert" data-fhc-i18n="menuItemEditSelectInvert" class="icon-selectinvert">Invert selection</span></li>
-                    </ul>
-                </li>
-                <li><span data-fhc-i18n="menuDisplay">Display</span>
-                    <ul>
-                        <li><span id="refresh" data-fhc-i18n="menuItemDisplayRefresh" class="icon-refresh">Refresh</span></li>
-                    </ul>
-                </li>
-                <li><span data-fhc-i18n="menuExtra">Extra</span>
-                    <ul>
-                        <li><span id="preferences" data-fhc-i18n="menuItemExtraPreferences" class="icon-preferences">Preferences</span></li>
-                    </ul>
-                </li>
-                <li><span data-fhc-i18n="menuHelp">Help</span>
-                    <ul>
-                        <li><span id="helpoverview" data-fhc-i18n="menuItemHelpOverview" class="icon-help">Help overview</span></li>
-                        <li><span id="releasenotes" data-fhc-i18n="menuItemHelpReleasenotes" class="icon-releasenotes">Release Notes</span></li>
-                        <li><span class="menu-spacer"><span></span></span></li>
-                        <li><span id="about" data-fhc-i18n="menuItemHelpAbout" class="icon-about">About</span></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+        <ul>
+            <li><span data-fhc-i18n="menuFile">File</span>
+                <ul>
+                    <li><span id="import" data-fhc-i18n="menuItemFileImport" class="icon-item icon-import">Import</span></li>
+                    <li><span id="export" data-fhc-i18n="menuItemFileExport" class="icon-item icon-export">Export</span></li>
+                    <li><span class="menu-spacer"><span></span></span></li>
+                    <li><span id="close" data-fhc-i18n="menuItemFileClose" class="icon-item icon-close">Close</span></li>
+                </ul>
+            </li>
+            <li><span data-fhc-i18n="menuEdit">Edit</span>
+                <ul>
+                    <li><span id="add" data-fhc-i18n="menuItemEditAdd" class="icon-item icon-insert">Add</span></li>
+                    <li><span id="modify" data-fhc-i18n="menuItemEditModify" class="icon-item icon-edit">Modify</span></li>
+                    <li><span id="delete" data-fhc-i18n="menuItemEditDelete" class="icon-item icon-delete">Delete</span></li>
+                    <li><span class="menu-spacer"><span></span></span></li>
+                    <li><span id="copy2clipboard" data-fhc-i18n="menuItemEditClipboard" class="icon-item icon-copy">Copy to clipboard</span></li>
+                    <li><span class="menu-spacer"><span></span></span></li>
+                    <li><span id="selectall" data-fhc-i18n="menuItemEditSelectAll" class="icon-item icon-selectall">Select all</span></li>
+                    <li><span id="selectnone" data-fhc-i18n="menuItemEditSelectNone" class="icon-item icon-selectnone">Select none</span></li>
+                    <li><span id="selectinvert" data-fhc-i18n="menuItemEditSelectInvert" class="icon-item icon-selectinvert">Invert selection</span></li>
+                </ul>
+            </li>
+            <li><span data-fhc-i18n="menuDisplay">Display</span>
+                <ul>
+                    <li><span id="refresh" data-fhc-i18n="menuItemDisplayRefresh" class="icon-item icon-refresh">Refresh</span></li>
+                </ul>
+            </li>
+            <li><span data-fhc-i18n="menuExtra">Extra</span>
+                <ul>
+                    <li><span id="preferences" data-fhc-i18n="menuItemExtraPreferences" class="icon-item icon-preferences">Preferences</span></li>
+                </ul>
+            </li>
+            <li><span data-fhc-i18n="menuHelp">Help</span>
+                <ul>
+                    <li><span id="helpoverview" data-fhc-i18n="menuItemHelpOverview" class="icon-item icon-help">Help overview</span></li>
+                    <li><span id="releasenotes" data-fhc-i18n="menuItemHelpReleasenotes" class="icon-item icon-releasenotes">Release Notes</span></li>
+                    <li><span class="menu-spacer"><span></span></span></li>
+                    <li><span id="about" data-fhc-i18n="menuItemHelpAbout" class="icon-item icon-about">About</span></li>
+                </ul>
+            </li>
+        </ul>
     </nav>
 
     <div id="root">
         <!-- h2 data-fhc-i18n="popupHeader">Test, show myUserPref</h2 -->
-        <table id="fhcTable" class="dataTable display responsive compact nowrap" width="100%" cellspacing="0">
+        <table id="fhcTable" class="dataTable display responsive compact nowrap" width="100%" cellspacing="0" contextmenu="context-menu">
         </table>
 
         <div id="buttons">
@@ -74,6 +72,19 @@
             <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
         </div>
     </div>
+
+    <menu type="context" id="context-menu">
+        <menuitem id="add-ctx" data-fhc-i18n="menuItemEditAdd" icon="../../icons/menu/insert.png" label="Add"></menuitem>
+        <menuitem id="modify-ctx" data-fhc-i18n="menuItemEditModify" icon="../../icons/menu/edit.png" label="Modify"></menuitem>
+        <menuitem id="delete-ctx" data-fhc-i18n="menuItemEditDelete" icon="../../icons/menu/delete.png" label="Delete"></menuitem>
+        <hr>
+        <menuitem id="copy2clipboard-ctx" data-fhc-i18n="menuItemEditClipboard" icon="../../icons/menu/copy.png" label="Copy to clipboard"></menuitem>
+        <hr>
+        <menuitem id="selectall-ctx" data-fhc-i18n="menuItemEditSelectAll" icon="../../icons/menu/selectall.png" label="Select all"></menuitem>
+        <menuitem id="selectnone-ctx" data-fhc-i18n="menuItemEditSelectNone" icon="../../icons/menu/selectnone.png" label="Select none"></menuitem>
+        <menuitem id="selectinvert-ctx" data-fhc-i18n="menuItemEditSelectInvert" icon="../../icons/menu/selectinvert.png" label="Invert selection"></menuitem>
+    </menu>
+
     <script src="../../common/jquery-3.2.1.min.js"></script>
     <script src="../../common/OptionsUtil.js"></script>
     <script src="../../common/ThemeUtil.js"></script>

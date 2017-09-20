@@ -105,6 +105,8 @@ function closePrevChildIfOpen() {
     }
 }
 
+let dataRightClicked;
+
 $(document).ready(function() {
     ThemeUtil.switchTheme(OptionsUtil.getThema());
 
@@ -244,14 +246,19 @@ $(document).ready(function() {
         }
     );
 
-    // Prevent the default right-click contextmenu
-    document.oncontextmenu = function() {return false;};
+    // // Prevent the default right-click contextmenu
+    // //document.oncontextmenu = function() {return false;};
 
     // custom right-click menu
     tableElement.find('tbody').on('contextmenu', 'tr', function() {
         console.log("context menu should now display :-)");
+        let tr = $(this).closest('tr');
+        let row = table.row( tr );
+        dataRightClicked = row.data();
     });
-
+    $('menuitem').on('click', function(event) {
+        onContextMenuClicked(event.currentTarget.id);
+    });
 
     // Add event listeners for the buttons
     $('#buttons').find('button').on('click', function (event) {
@@ -261,6 +268,11 @@ $(document).ready(function() {
     // Add event listeners for the menu items
     $('nav ul li ul li span').on('click', function (event) {
         onMenuClicked(event.currentTarget.id);
+    });
+
+    // add keyhandler for menu
+    $('body').on('keyup', function(event) {
+        onKeyClicked(event);
     });
 
     // populate tableview with data from the database
@@ -428,6 +440,42 @@ function onButtonClicked(buttonId) {
     }
 }
 
+function onContextMenuClicked(menuItemId) {
+    console.log("context menuItemId " + menuItemId + " clicked...");
+    console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
+
+    switch (menuItemId) {
+
+        case "add-ctx":
+            // TODO addCurrentItem();
+            break;
+
+        case "modify-ctx":
+            // TODO modifyCurrentItem();
+            break;
+
+        case "delete-ctx":
+            // TODO deleteCurrentItem();
+            break;
+
+        case "copy2clipboard-ctx":
+            // TODO copy2clipboardCurrentItem();
+            break;
+
+        case "selectall-ctx":
+            selectAll();
+            break;
+
+        case "selectnone-ctx":
+            selectNone();
+            break;
+
+        case "selectinvert-ctx":
+            selectInvert();
+            break;
+    }
+}
+
 function onMenuClicked(menuItemId) {
     console.log("menuItemId " + menuItemId + " clicked...");
     switch (menuItemId) {
@@ -496,5 +544,25 @@ function onMenuClicked(menuItemId) {
         case "about":
             WindowUtil.createOrFocusWindow(FHC_WINDOW_ABOUT);
             break;
+    }
+}
+
+
+function onKeyClicked(event) {
+    const keyName = event.key;
+    if (event.altKey && !event.ctrlKey && !event.shiftKey && isAlpha(keyName)) {
+        console.log("We have an Alt-key event: " + keyName);
+
+        // try to find a matching menu-item
+        const menuItems = $("span[data-access-key='" + keyName +"']");
+        if (menuItems.length > 0) {
+            const menuItem = menuItems[0];
+
+            // if no id its a toplevel menu
+            if (!menuItem.id) {
+                $(menuItem).parent().addClass('hovered');
+                $(menuItem).parent().find('*').addClass('hovered');
+            }
+        }
     }
 }

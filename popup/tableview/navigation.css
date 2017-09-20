@@ -1,5 +1,5 @@
 nav {
-    background: #e6e6e6;
+    background-color: #e6e6e6;
     margin-bottom: 5px;
 }
 
@@ -8,7 +8,6 @@ nav span {
 }
 
 nav ul {
-    /*font-size: 0;*/
     margin: 0;
     padding: 0;
     border-bottom: 1px solid #888888;
@@ -27,7 +26,7 @@ nav ul li span {
 }
 
 nav ul li:hover {
-    background: #cde8ff;
+    background-color: #cde8ff;
 }
 
 nav ul li ul {
@@ -53,7 +52,7 @@ nav ul li ul li {
 nav ul li ul li span,
 span.menu-spacer,
 span.menu-spacer:hover {
-    background: #d5d5d5;
+    background-color: #d5d5d5;
     display: block;
     padding: 4px 10px;
     z-index: 10;
@@ -76,15 +75,6 @@ nav ul li ul li span:hover {
     color: #fff;
 }
 
-nav ul li ul li div {
-    background: #cbcbcb;
-    display: block;
-    padding: 2px 6px;
-    z-index: 10;
-}
-nav ul li ul li div hr {
-    margin: 0;
-}
 
 .menu-disabled {
     color: #8f8f8f;
@@ -95,109 +85,30 @@ nav ul li ul li div hr {
     color: #8f8f8f;
 }
 
+.icon-item:before {
+    display: block;
+    float: left;
+    padding-right: 4px;
+}
 
 /* File menu */
-.icon-none:before {
-    content: url("../../icons/menu/empty.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-import:before {
-    content: url("../../icons/menu/import.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-export:before {
-    content: url("../../icons/menu/export.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-close:before {
-    content: url("../../icons/menu/close.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-
+.icon-none:before         { content: url("../../icons/menu/empty.png")}
+.icon-import:before       { content: url("../../icons/menu/import.png")}
+.icon-export:before       { content: url("../../icons/menu/export.png")}
+.icon-close:before        { content: url("../../icons/menu/close.png")}
 /* Edit menu */
-.icon-insert:before {
-    content: url("../../icons/menu/insert.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-edit:before {
-    content: url("../../icons/menu/edit.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-delete:before {
-    content: url("../../icons/menu/delete.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-copy:before {
-    content: url("../../icons/menu/copy.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-selectall:before {
-    content: url("../../icons/menu/selectall.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-selectnone:before {
-    content: url("../../icons/menu/selectnone.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-selectinvert:before {
-    content: url("../../icons/menu/selectinvert.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-
+.icon-insert:before       { content: url("../../icons/menu/insert.png")}
+.icon-edit:before         { content: url("../../icons/menu/edit.png")}
+.icon-delete:before       { content: url("../../icons/menu/delete.png")}
+.icon-copy:before         { content: url("../../icons/menu/copy.png")}
+.icon-selectall:before    { content: url("../../icons/menu/selectall.png")}
+.icon-selectnone:before   { content: url("../../icons/menu/selectnone.png")}
+.icon-selectinvert:before { content: url("../../icons/menu/selectinvert.png")}
 /* Display menu */
-.icon-refresh:before {
-    content: url("../../icons/menu/refresh.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-
+.icon-refresh:before      { content: url("../../icons/menu/refresh.png")}
 /* Extra menu */
-.icon-preferences:before {
-    content: url("../../icons/menu/preferences.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-
+.icon-preferences:before  { content: url("../../icons/menu/preferences.png")}
 /* Help menu */
-.icon-help:before {
-    content: url("../../icons/menu/help.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-releasenotes:before {
-    content: url("../../icons/menu/releasenotes.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
-.icon-about:before {
-    content: url("../../icons/menu/about.png");
-    display: block;
-    float: left;
-    padding-right: 4px;
-}
+.icon-help:before         { content: url("../../icons/menu/help.png")}
+.icon-releasenotes:before { content: url("../../icons/menu/releasenotes.png")}
+.icon-about:before        { content: url("../../icons/menu/about.png")}
