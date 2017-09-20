@@ -560,8 +560,8 @@ function onKeyClicked(event) {
 
             // if no id its a toplevel menu
             if (!menuItem.id) {
-                $(menuItem).parent().addClass('hovered');
-                $(menuItem).parent().find('*').addClass('hovered');
+                // $(menuItem).parent().addClass('hovered');
+                // $(menuItem).parent().find('*').addClass('hovered');
             }
         }
     }
