@@ -288,7 +288,10 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
         let now = (new Date()).getTime();
 
         // now add the modified record
-        fhcEntry.used++;
+        if (fhcEntry.used) {
+            // multiline has no used count
+            fhcEntry.used++;
+        }
         fhcEntry.last = now;
 
         // if it is a multiline field (not input) value must be updated too

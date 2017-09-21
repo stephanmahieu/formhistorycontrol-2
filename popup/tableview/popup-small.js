@@ -156,7 +156,10 @@ $(document).ready(function() {
                 data: 4,
                 searchable: false,
                 type: "num",
-                className: "dt-right"
+                className: "dt-right",
+                render: function ( data, /*type, full, meta */) {
+                    return (!data) ? "" : data;
+                }
             },
             {
                 targets: 6,

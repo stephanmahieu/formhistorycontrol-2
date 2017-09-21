@@ -120,9 +120,9 @@ function _storeMultilineEntries(multilineEntries) {
             host     : multilineEntry.host,
             url      : multilineEntry.url,
             pagetitle: "",
-            used     : multilineEntry.used,
-            first    : multilineEntry.first,
-            last     : multilineEntry.last,
+            used     : undefined,
+            first    : multilineEntry.firstsaved,
+            last     : multilineEntry.lastsaved,
             /* Extra */
             id       : multilineEntry.id
           /*formid   : multilineEntry.formid,*/

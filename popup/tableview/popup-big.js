@@ -175,7 +175,10 @@ $(document).ready(function() {
                 data: 4,
                 type: "num",
                 searchable: false,
-                className: "dt-right"
+                className: "dt-right",
+                render: function ( data, /*type, full, meta */) {
+                    return (!data) ? "" : data;
+                }
             },
             {
                 targets: 6,
