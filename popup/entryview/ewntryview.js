@@ -29,12 +29,25 @@ function onDataRetrieved(data) {
     let first = entryObject.first;
     let last = entryObject.last;
     let url = entryObject.url;
+
     document.getElementById('name').value = name;
+
     document.getElementById('value').value = value;
-    document.getElementById('type').value = type;
+
+    document.getElementById('typeSelect').value = type;
     document.getElementById('used').value = used;
     document.getElementById('first').value = DateUtil.dateToDateString(new Date(first));
     document.getElementById('last').value = DateUtil.dateToDateString(new Date(last));
+
+    if (type === 'input') {
+        document.getElementById('urlRow').style.display = 'none';
+        document.getElementById('multiline-value').style.display = 'none';
+        document.getElementById('value').value = value;
+    } else {
+        document.getElementById('url').value = url;
+        document.getElementById('value').style.display = 'none';
+        document.getElementById('multiline-value').value = value;
+    }
 }
 
 function onDataRetrieveError(error) {

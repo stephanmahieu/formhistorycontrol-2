@@ -1,3 +1,8 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 .content {
     flex: 1 0 auto;
     margin: 8px;
@@ -8,7 +13,6 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    /*background-color: #cbcbcb;*/
     margin: 10px;
 }
 
@@ -20,7 +24,6 @@ th {
     text-align: left;
     vertical-align: baseline;
     width: 7em;
-    font-size: 0.9em;
 }
 
 input {
@@ -28,16 +31,26 @@ input {
     display: block;
 }
 
-input:disabled {
+input:disabled,
+textarea:disabled,
+select:disabled {
     color: black;
-    /*background-color: #efefef;*/
 }
 
+select:disabled {
+    background-color: transparent;
+    border-style: solid;
+}
+
+
+textarea {
+    height: 120px;
+    width: 100%;
+}
 
 #name-label,
 #name,
 #value-label,
 #value {
     display: inline-block;
-    /*font-size: 0.85em;*/
 }

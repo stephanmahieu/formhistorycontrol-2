@@ -128,7 +128,11 @@ class DataTableUtil {
         });
 
         // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
-        WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
+        if (data[3] === 'input') {
+            WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
+        } else {
+            WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
+        }
     }
 
 }

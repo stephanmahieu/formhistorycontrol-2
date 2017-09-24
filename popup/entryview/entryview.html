@@ -18,11 +18,19 @@
             </tr>
             <tr>
                 <th>Value</th>
-                <td><input id="value" type="text" disabled/></td>
+                <td><input id="value" type="text" disabled/><textarea id="multiline-value" cols="30" rows="6" disabled></textarea></td>
             </tr>
             <tr>
                 <th>Type</th>
-                <td><input id="type" type="text" disabled/></td>
+                <td>
+                    <select id="typeSelect" disabled>
+                        <option value="input">input</option>
+                        <option value="textarea">textarea</option>
+                        <option value="div">div</option>
+                        <option value="html">html</option>
+                        <option value="iframe">iframe</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <th>Used count</th>
@@ -35,6 +43,10 @@
             <tr>
                 <th>Last used</th>
                 <td><input id="last" type="text" disabled/></td>
+            </tr>
+            <tr id="urlRow">
+                <th>URL</th>
+                <td><input id="url" type="text" disabled/></td>
             </tr>
         </tbody>
     </table>

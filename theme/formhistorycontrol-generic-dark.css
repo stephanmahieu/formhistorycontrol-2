@@ -3,10 +3,22 @@ body {
     color: #cdcdcd;
 }
 
-input, select {
+input, select, textarea {
     background-color: #4c4e57;
     color: #e3e3e3;
     border: 1px solid #717171;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+    color: #bfbfbf;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+    background-color: #4c4e57;
 }
 
 button {
@@ -24,13 +36,4 @@ button:disabled:hover {
 button:hover {
     background-color: #5698dc;
     color: #ffffff;
-}
-
-input {
-
-}
-
-input:disabled {
-    color: #bfbfbf;
-    /*background-color: #efefef;*/
 }
