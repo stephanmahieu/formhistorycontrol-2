@@ -44,10 +44,11 @@ nav ul li ul li {
     z-index: 10;
 }
 
-/*nav ul li ul li:first-child {*/
-    /*border-top: none;*/
-    /*z-index: 10;*/
-/*}*/
+/*
+nav ul li ul li:first-child {
+    border-top: none;
+    z-index: 10;
+} */
 
 nav ul li ul li span,
 span.menu-spacer,
@@ -92,23 +93,23 @@ nav ul li ul li span:hover {
 }
 
 /* File menu */
-.icon-none:before         { content: url("../../icons/menu/empty.png")}
-.icon-import:before       { content: url("../../icons/menu/import.png")}
-.icon-export:before       { content: url("../../icons/menu/export.png")}
-.icon-close:before        { content: url("../../icons/menu/close.png")}
+.icon-none:before         { content: url("../../../theme/icons/menu/empty.png")}
+.icon-import:before       { content: url("../../../theme/icons/menu/import.png")}
+.icon-export:before       { content: url("../../../theme/icons/menu/export.png")}
+.icon-close:before        { content: url("../../../theme/icons/menu/close.png")}
 /* Edit menu */
-.icon-insert:before       { content: url("../../icons/menu/insert.png")}
-.icon-edit:before         { content: url("../../icons/menu/edit.png")}
-.icon-delete:before       { content: url("../../icons/menu/delete.png")}
-.icon-copy:before         { content: url("../../icons/menu/copy.png")}
-.icon-selectall:before    { content: url("../../icons/menu/selectall.png")}
-.icon-selectnone:before   { content: url("../../icons/menu/selectnone.png")}
-.icon-selectinvert:before { content: url("../../icons/menu/selectinvert.png")}
+.icon-insert:before       { content: url("../../../theme/icons/menu/insert.png")}
+.icon-edit:before         { content: url("../../../theme/icons/menu/edit.png")}
+.icon-delete:before       { content: url("../../../theme/icons/menu/delete.png")}
+.icon-copy:before         { content: url("../../../theme/icons/menu/copy.png")}
+.icon-selectall:before    { content: url("../../../theme/icons/menu/selectall.png")}
+.icon-selectnone:before   { content: url("../../../theme/icons/menu/selectnone.png")}
+.icon-selectinvert:before { content: url("../../../theme/icons/menu/selectinvert.png")}
 /* Display menu */
-.icon-refresh:before      { content: url("../../icons/menu/refresh.png")}
+.icon-refresh:before      { content: url("../../../theme/icons/menu/refresh.png")}
 /* Extra menu */
-.icon-preferences:before  { content: url("../../icons/menu/preferences.png")}
+.icon-preferences:before  { content: url("../../../theme/icons/menu/preferences.png")}
 /* Help menu */
-.icon-help:before         { content: url("../../icons/menu/help.png")}
-.icon-releasenotes:before { content: url("../../icons/menu/releasenotes.png")}
-.icon-about:before        { content: url("../../icons/menu/about.png")}
+.icon-help:before         { content: url("../../../theme/icons/menu/help.png")}
+.icon-releasenotes:before { content: url("../../../theme/icons/menu/releasenotes.png")}
+.icon-about:before        { content: url("../../../theme/icons/menu/about.png")}

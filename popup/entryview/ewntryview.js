@@ -4,6 +4,8 @@
 'use strict';
 
 document.addEventListener("DOMContentLoaded", function(/*event*/) {
+    ThemeUtil.switchTheme(OptionsUtil.getThema());
+
     populateView();
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
 });

@@ -2,19 +2,6 @@
   box-sizing: border-box;
 }
 
-html {
-  margin: 0;
-  font-family: sans-serif;
-  font-size: 0.75em;
-}
-
-body {
-  background: #f0f0f0;
-  margin: 0 auto;
-  padding: 2px;
-  height: inherit;
-}
-
 #root {
   overflow: auto;
   width: 100%;
@@ -25,12 +12,6 @@ body {
   width: 100%;
   margin-left: auto;
   right: auto;
-}
-
-button {
-  margin: 2px 2px;
-  min-width: 7em;
-  height: 25px;
 }
 
 .button-right {
@@ -44,8 +25,7 @@ button {
 
 
 td.my-details-control {
-  background: url('../../icons/details_popup.png') no-repeat center center;
-  /*background: url('../icons/icon_info.png') no-repeat center center;*/
+  background: url('/theme/icons/details_popup.png') no-repeat center center;
   cursor: pointer;
 }
 

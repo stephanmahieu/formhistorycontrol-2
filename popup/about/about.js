@@ -1,6 +1,8 @@
 'use strict';
 
 document.addEventListener("DOMContentLoaded", function(/*event*/) {
+    ThemeUtil.switchTheme(OptionsUtil.getThema());
+
     let manifest = browser.runtime.getManifest();
     // document.title += " " + manifest.name;
     document.getElementById("app-name").textContent = manifest.name;

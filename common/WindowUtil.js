@@ -17,7 +17,7 @@ class WindowUtil {
         let content = browser.i18n.getMessage("notificationContent", message);
         browser.notifications.create({
             "type": "basic",
-            "iconUrl": browser.extension.getURL("icons/fhc-48.png"),
+            "iconUrl": browser.extension.getURL("theme/icons/fhc-48.png"),
             "title": title,
             "message": content
         });

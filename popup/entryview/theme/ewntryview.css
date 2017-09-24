@@ -1,16 +1,3 @@
-html, body {
-    height: 100%;
-    font-family: sans-serif;
-}
-
-body {
-    background: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    cursor: default;
-}
-
 .content {
     flex: 1 0 auto;
     margin: 8px;
@@ -23,12 +10,6 @@ body {
     align-items: flex-end;
     /*background-color: #cbcbcb;*/
     margin: 10px;
-}
-
-#buttons button {
-    margin: 2px 2px;
-    min-width: 7em;
-    height: 25px;
 }
 
 table {

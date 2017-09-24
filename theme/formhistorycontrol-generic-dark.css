@@ -1,5 +1,3 @@
-/* Dark theme */
-
 body {
     background: #393f4c;
     /*background: #555416;*/
@@ -27,4 +25,13 @@ button:disabled:hover {
 button:hover {
     background-color: #5698dc;
     color: #ffffff;
+}
+
+input {
+
+}
+
+input:disabled {
+    color: #bfbfbf;
+    /*background-color: #efefef;*/
 }

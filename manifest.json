@@ -25,11 +25,11 @@
   ],
 
   "icons": {
-    "16": "icons/fhc-16.png",
-    "32": "icons/fhc-32.png",
-    "48": "icons/fhc-48.png",
-    "64": "icons/fhc-64.png",
-    "65": "icons/fhc_icon.svg"
+    "16": "theme/icons/fhc-16.png",
+    "32": "theme/icons/fhc-32.png",
+    "48": "theme/icons/fhc-48.png",
+    "64": "theme/icons/fhc-64.png",
+    "65": "theme/icons/fhc_icon.svg"
   },
   
   "options_ui": {
@@ -59,7 +59,7 @@
 
   "browser_action": {
     "browser_style": true,
-    "default_icon": "icons/fhc_icon.svg",
+    "default_icon": "theme/icons/fhc_icon.svg",
     "default_title": "__MSG_extensionName__",
     "default_popup": "popup/tableview/popup-small.html"
   },
