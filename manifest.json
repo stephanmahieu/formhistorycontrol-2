@@ -33,6 +33,8 @@
   },
   
   "options_ui": {
+      "open_in_tab": true,
+      "browser_style": false,
       "page": "popup/options/options.html"
   },
 
@@ -58,7 +60,7 @@
   ],
 
   "browser_action": {
-    "browser_style": true,
+    "browser_style": false,
     "default_icon": "theme/icons/fhc_icon.svg",
     "default_title": "__MSG_extensionName__",
     "default_popup": "popup/tableview/popup-small.html"

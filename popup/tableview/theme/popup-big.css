@@ -1,5 +1,6 @@
-* {
-  box-sizing: border-box;
+body {
+  display: flex;
+  flex-direction: column;
 }
 
 /* workaround: prevent unwanted horizontal scrollbar from appearing occasionally */
@@ -7,12 +8,12 @@ div.dataTables_scrollBody {
   overflow-x: hidden !important;
 }
 
-#root {
-  overflow: auto;
-  width: 100%;
+#content {
+  flex: 1 0 auto;
 }
 
 #buttons {
+  height: 50px;
   padding-top: 10px;
   width: 100%;
   margin-left: auto;

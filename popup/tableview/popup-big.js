@@ -97,7 +97,7 @@ $(document).ready(function() {
     let tableElement = $('#fhcTable');
     let table = tableElement.DataTable( {
         responsive: {details: false},
-        scrollY: '65vh',
+        scrollY: '300px',
         language: {url: languageURL},
         paging: true,
         lengthMenu: [100, 500, 1000, 2000],
@@ -264,6 +264,16 @@ $(document).ready(function() {
     // populate tableview with data from the database
     populateViewFromDatabase(table);
     selectionChangedHandler();
+});
+
+let resizeTimer;
+$(window).on('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        // resizing has "stopped"
+        $('.dataTables_scrollBody').css('height', window.innerHeight-160+"px");
+        $('#fhcTable').DataTable().draw();
+    }, 250);
 });
 
 
