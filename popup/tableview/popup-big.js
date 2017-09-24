@@ -87,24 +87,6 @@
 
 
 
-let openChildRow;
-let openTr;
-function closePrevChildIfOpen() {
-    if (openChildRow) {
-        openChildRow.child.hide();
-        openTr.removeClass('shown');
-        openChildRow = null;
-        openTr = null;
-
-        // $('div.detail-root', openChildRow.child()).slideUp( function () {
-        //     openChildRow.child.hide();
-        //     openTr.removeClass('shown');
-        //     openChildRow = null;
-        //     openTr = null;
-        // });
-    }
-}
-
 let dataRightClicked;
 
 $(document).ready(function() {
@@ -114,7 +96,8 @@ $(document).ready(function() {
 
     let tableElement = $('#fhcTable');
     let table = tableElement.DataTable( {
-        scrollY: 300,
+        responsive: {details: false},
+        scrollY: '65vh',
         language: {url: languageURL},
         paging: true,
         lengthMenu: [100, 500, 1000, 2000],

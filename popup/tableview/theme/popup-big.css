@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+/* workaround: prevent unwanted horizontal scrollbar from appearing occasionally */
+div.dataTables_scrollBody {
+  overflow-x: hidden !important;
+}
+
 #root {
   overflow: auto;
   width: 100%;
