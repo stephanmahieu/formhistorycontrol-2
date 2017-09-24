@@ -270,12 +270,16 @@ let resizeTimer;
 $(window).on('resize', function() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function() {
-        // resizing has "stopped"
-        $('.dataTables_scrollBody').css('height', window.innerHeight-160+"px");
+        // resizing has stopped
+        let buttonSpace = 160;
+        if (window.innerWidth < 768) {
+            // miscellaneous DataTable components will stack on top of each other, leave more room for the buttons
+            buttonSpace = 220;
+        }
+        $('.dataTables_scrollBody').css('height', window.innerHeight-buttonSpace+"px");
         $('#fhcTable').DataTable().draw();
     }, 250);
 });
-
 
 function selectAll() {
     let table = $('#fhcTable').DataTable();
