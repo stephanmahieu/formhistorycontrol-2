@@ -23,7 +23,7 @@ table {
 th {
     text-align: left;
     vertical-align: baseline;
-    width: 7em;
+    width: 6.5em;
     padding-top: 5px;
 }
 
@@ -47,6 +47,7 @@ select:disabled {
 textarea {
     height: calc(100vh - 230px);
     width: 100%;
+    min-height: 18px;
 }
 
 #name-label,
