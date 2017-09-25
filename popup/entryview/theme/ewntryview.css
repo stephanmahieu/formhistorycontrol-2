@@ -24,6 +24,7 @@ th {
     text-align: left;
     vertical-align: baseline;
     width: 7em;
+    padding-top: 5px;
 }
 
 input {

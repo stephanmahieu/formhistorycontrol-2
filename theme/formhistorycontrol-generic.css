@@ -22,3 +22,7 @@ button {
     height: 25px;
     font-size: 12px;
 }
+
+input, select, textarea {
+    border-radius: 4px;
+}
