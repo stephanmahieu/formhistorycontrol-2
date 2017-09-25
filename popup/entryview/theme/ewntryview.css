@@ -44,7 +44,7 @@ select:disabled {
 
 
 textarea {
-    height: 120px;
+    height: calc(100vh - 230px);
     width: 100%;
 }
 
