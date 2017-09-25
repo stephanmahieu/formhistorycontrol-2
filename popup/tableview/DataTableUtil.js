@@ -108,30 +108,69 @@ class DataTableUtil {
         }
     }
 
-    static openDetailViewOnRowClick(clickedElem, table) {
+    static openDetailViewSelectedEntries(table, doWhat) {
+        let rowSelected = table.rows('.selected');
+        let primaryKeys = [];
+        let rowIdxFirst = null;
+        rowSelected.every(
+            function (rowIdx /*, tableLoop, rowLoop */) {
+                let primaryKey = this.data()[0];
+                //console.log('primaryKey database (edit) is: ' + primaryKey);
+                primaryKeys.push(primaryKey);
+                if (rowIdxFirst === null || rowIdx < rowIdxFirst) {
+                    rowIdxFirst = rowIdx;
+                }
+            }
+        )
+        console.log('No of entries to edit is: ' + primaryKeys.length + ', rowIdxFirst is: ' + rowIdxFirst);
+
+        // get the data of the one entry to edit
+        let data = table.row( rowIdxFirst ).data();
+
+        // store data in local storage so it can be retrieved by the view
+        browser.storage.local.set(
+            this.createEntryObject(data, doWhat, primaryKeys)
+        );
+
+        if (data[3] === 'input' && primaryKeys.length === 1) {
+            WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
+        } else {
+            WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
+        }
+    }
+
+    static openDetailViewOnRowClick(clickedElem, table, doWhat) {
         let tr = clickedElem.closest('tr');
         let row = table.row( tr );
         let data = row.data();
 
         // store data in local storage so it can be retrieved by the view
-        browser.storage.local.set({
-            entryObject: {
-                primaryKey: data[0],
-                name      : data[1],
-                value     : data[2],
-                type      : data[3],
-                used      : data[4],
-                first     : data[5],
-                last      : data[6],
-                url       : data[7]
-            }
-        });
+        browser.storage.local.set(
+            this.createEntryObject(data, "view", [])
+        );
 
         // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
         if (data[3] === 'input') {
             WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
         } else {
             WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
+        }
+    }
+
+    static createEntryObject(data, doWhat, multiKeys) {
+        return {
+            entryObject: {
+                doWhat: doWhat,
+                multiKeys: multiKeys,
+                primaryKey: data[0],
+                name: data[1],
+                value: data[2],
+                type: data[3],
+                used: data[4],
+                first: data[5],
+                last: data[6],
+                url: data[7]
+            }
         }
     }
 

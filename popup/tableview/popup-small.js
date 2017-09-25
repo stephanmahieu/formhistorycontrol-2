@@ -91,6 +91,15 @@ function closePrevChildIfOpen() {
 $(document).ready(function() {
     ThemeUtil.switchTheme(OptionsUtil.getThema());
 
+    // console.log("Sending a getformfields request message to the background (receiveFormData.js)...");
+    // browser.runtime.sendMessage({
+    //     eventType: 5
+    // });
+
+    // UNDEFINED
+    // console.log("call getCurrentFields() function in content script showFormData.js...");
+    // getCurrentFields();
+
     let languageURL = DataTableUtil.getLanguageURL();
 
     let table = $('#fhcTable').DataTable( {
@@ -198,7 +207,7 @@ $(document).ready(function() {
     } );
 
     $('#fhcTable tbody').on('dblclick', 'tr', function () {
-        DataTableUtil.openDetailViewOnRowClick($(this), table);
+        DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
     });
 
     // Prevent the default right-click contextmenu

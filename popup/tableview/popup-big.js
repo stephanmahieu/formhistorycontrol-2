@@ -201,11 +201,11 @@ $(document).ready(function() {
 
     // Add event listener for opening and closing details
     tableElement.find('tbody').on('click', 'td.my-details-control', function() {
-        DataTableUtil.openDetailViewOnRowClick($(this), table);
+        DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
     });
 
     tableElement.find('tbody').on('dblclick', 'tr', function() {
-        DataTableUtil.openDetailViewOnRowClick($(this), table);
+        DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
     });
 
     // Add event listener for select events
@@ -335,6 +335,10 @@ function deleteItemFromDatabase(primaryKey) {
     }
 }
 
+function editSelectedEntries() {
+    let table = $('#fhcTable').DataTable();
+    DataTableUtil.openDetailViewSelectedEntries(table, "edit");
+}
 
 function refreshView() {
     let table = $('#fhcTable').DataTable();
@@ -427,7 +431,7 @@ function onButtonClicked(buttonId) {
             break;
 
         case "buttonModify":
-            // TODO modify
+            editSelectedEntries();
             break;
 
         case "buttonAdd":

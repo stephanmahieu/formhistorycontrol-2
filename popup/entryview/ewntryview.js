@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
 
     populateView();
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
+    document.getElementById("buttonCancel").addEventListener("click", WindowUtil.closeThisPopup);
 });
 
 
@@ -21,6 +22,8 @@ function populateView() {
 function onDataRetrieved(data) {
     console.log("Data retrieved", data);
     let entryObject = data.entryObject;
+    let doWhat = entryObject.doWhat;
+    let multiKeys = entryObject.multiKeys;
     let primaryKey = entryObject.primaryKey;
     let name = entryObject.name;
     let value = entryObject.value;
@@ -30,23 +33,44 @@ function onDataRetrieved(data) {
     let last = entryObject.last;
     let url = entryObject.url;
 
-    document.getElementById('name').value = name;
+    if (doWhat === "view" || (doWhat === "edit" && multiKeys.length === 1)) {
+        document.getElementById('name').value = name;
+        document.getElementById('value').value = value;
+        document.getElementById('typeSelect').value = type;
+        document.getElementById('used').value = used;
+        document.getElementById('first').value = DateUtil.dateToDateString(new Date(first));
+        document.getElementById('last').value = DateUtil.dateToDateString(new Date(last));
+        if (type === 'input') {
+            document.getElementById('value').value = value;
+        } else {
+            document.getElementById('url').value = url;
+            document.getElementById('multiline-value').value = value;
+        }
+    }
 
-    document.getElementById('value').value = value;
-
-    document.getElementById('typeSelect').value = type;
-    document.getElementById('used').value = used;
-    document.getElementById('first').value = DateUtil.dateToDateString(new Date(first));
-    document.getElementById('last').value = DateUtil.dateToDateString(new Date(last));
+    if (doWhat === "edit") {
+        // enable fields
+        document.getElementById('name').removeAttribute('disabled');
+        if (type === 'input') {
+            document.getElementById('value').removeAttribute('disabled');
+        } else {
+            document.getElementById('multiline-value').removeAttribute('disabled');
+        }
+        document.getElementById('typeSelect').removeAttribute('disabled');
+        document.getElementById('used').removeAttribute('disabled');
+    }
 
     if (type === 'input') {
         document.getElementById('urlRow').style.display = 'none';
         document.getElementById('multiline-value').style.display = 'none';
-        document.getElementById('value').value = value;
     } else {
-        document.getElementById('url').value = url;
         document.getElementById('value').style.display = 'none';
-        document.getElementById('multiline-value').value = value;
+    }
+
+    if (doWhat === "edit") {
+        document.getElementById('buttonClose').style.display = 'none';
+        document.getElementById('buttonOkay').style.display = 'block';
+        document.getElementById('buttonCancel').style.display = 'block';
     }
 }
 

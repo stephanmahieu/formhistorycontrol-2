@@ -4,15 +4,15 @@ body {
 }
 
 input, select, textarea {
-    background-color: #4c4e57;
-    color: #e3e3e3;
+    background-color: #6e7079;
+    color: #f2f2f2;
     border: 1px solid #717171;
 }
 
 input:disabled,
 select:disabled,
 textarea:disabled {
-    color: #bfbfbf;
+    color: #949494;
 }
 
 input:disabled,
