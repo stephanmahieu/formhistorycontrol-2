@@ -463,7 +463,7 @@ function onContextMenuClicked(menuItemId) {
             break;
 
         case "copy2clipboard-ctx":
-            // TODO copy2clipboardCurrentItem();
+            DataTableUtil.copyEntryToClipboard(dataRightClicked);
             break;
 
         case "selectall-ctx":
@@ -513,7 +513,9 @@ function onMenuClicked(menuItemId) {
 
         case "copy2clipboard":
             if (isMenuItemEnabled(menuItemId)) {
-                // TODO copy2clipboard
+                DataTableUtil.copySelectedEntryToClipboard($('#fhcTable').DataTable());
+                // hide the menu and give feedback of successful copy
+                alert("Value copied"); // TODO internationalize copy 2 clipboard alert
             }
             break;
 

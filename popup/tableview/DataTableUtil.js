@@ -26,6 +26,7 @@ class DataTableUtil {
         return '<div class="detail-root"><table>'+
             '<tr><td><span class="label">Veldnaam:</span></td><td>'+d[1]+'</td></tr>'+
             '<tr><td><span class="label">Waarde:</span></td><td>'+d[2]+'</td></tr>'+
+            '<tr><td><span class="label">Type:</span></td><td>'+d[3]+'</td></tr>'+
             '<tr><td><span class="label">Aantal:</span></td><td>'+d[4]+'</td></tr>'+
             '<tr><td><span class="label">Eerst gebruikt:</span></td><td>'+this.formatDate(d[5], 'display')+'</td></tr>'+
             '<tr><td><span class="label">Laatst gebruikt:</span></td><td>'+this.formatDate(d[6], 'display')+'</td></tr>'+
@@ -155,6 +156,29 @@ class DataTableUtil {
         } else {
             WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
         }
+    }
+
+    static copySelectedEntryToClipboard(table) {
+        const data = table.row('.selected').data();
+        if (data) {
+            this.copyEntryToClipboard(data);
+        }
+    }
+
+    static copyEntryToClipboard(data) {
+        //const type = data[3];
+        const value = data[2];
+        console.log('Trying to copy value: ' + value);
+
+        // create invisible textarea to set value and copy to clipboard (only works for popup scripts)
+        const input = document.createElement('textarea');
+        input.style.position = 'fixed';
+        input.style.opacity = 0;
+        input.value = value;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
     }
 
     static createEntryObject(data, doWhat, multiKeys) {
