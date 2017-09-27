@@ -21,6 +21,10 @@ function populateView() {
 
 function onDataRetrieved(data) {
     console.log("Data retrieved", data);
+
+    let removingData = browser.storage.local.remove("entryObject");
+    removingData.then(onDataRemoved, onDataRemoveError);
+
     let entryObject = data.entryObject;
     let doWhat = entryObject.doWhat;
     let multiKeys = entryObject.multiKeys;
@@ -47,8 +51,15 @@ function onDataRetrieved(data) {
             document.getElementById('multiline-value').value = value;
         }
     }
+    if (doWhat === "add") {
+        // populate with defaults
+        document.getElementById('used').value = '1';
+        const nowDateString = DateUtil.getCurrentDateString();
+        document.getElementById('first').value = nowDateString;
+        document.getElementById('last').value = nowDateString;
+    }
 
-    if (doWhat === "edit") {
+    if (doWhat === "edit" || doWhat === "add") {
         // enable fields
         document.getElementById('name').removeAttribute('disabled');
         if (type === 'input') {
@@ -58,6 +69,9 @@ function onDataRetrieved(data) {
         }
         document.getElementById('typeSelect').removeAttribute('disabled');
         document.getElementById('used').removeAttribute('disabled');
+        document.getElementById('first').removeAttribute('disabled');
+        document.getElementById('last').removeAttribute('disabled');
+        document.getElementById('url').removeAttribute('disabled');
     }
 
     if (type === 'input') {
@@ -67,13 +81,20 @@ function onDataRetrieved(data) {
         document.getElementById('value').style.display = 'none';
     }
 
-    if (doWhat === "edit") {
+    if (doWhat !== "view") {
         document.getElementById('buttonClose').style.display = 'none';
         document.getElementById('buttonOkay').style.display = 'block';
         document.getElementById('buttonCancel').style.display = 'block';
     }
 }
 
+function onDataRemoved() {
+    console.log('Data removed');
+}
+
 function onDataRetrieveError(error) {
     console.error(`Error retrieving data from local storage: ${error}`);
+}
+function onDataRemoveError(error) {
+    console.warn(`Error removing data from local storage: ${error}`);
 }

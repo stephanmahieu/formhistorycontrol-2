@@ -140,6 +140,19 @@ class DataTableUtil {
         }
     }
 
+    static openDetailViewEntry(data, doWhat) {
+        // store data in local storage so it can be retrieved by the view
+        browser.storage.local.set(
+            this.createEntryObject(data, doWhat, [data[0]])
+        );
+
+        if (data[3] === 'input') {
+            WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
+        } else {
+            WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
+        }
+    }
+
     static openDetailViewOnRowClick(clickedElem, table, doWhat) {
         let tr = clickedElem.closest('tr');
         let row = table.row( tr );
@@ -147,7 +160,7 @@ class DataTableUtil {
 
         // store data in local storage so it can be retrieved by the view
         browser.storage.local.set(
-            this.createEntryObject(data, "view", [])
+            this.createEntryObject(data, "view", [data[0]])
         );
 
         // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal

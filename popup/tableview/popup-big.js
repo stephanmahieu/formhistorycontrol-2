@@ -340,6 +340,14 @@ function editSelectedEntries() {
     DataTableUtil.openDetailViewSelectedEntries(table, "edit");
 }
 
+function editEntry(data) {
+    DataTableUtil.openDetailViewEntry(data, "edit");
+}
+
+function addNewEntry() {
+    DataTableUtil.openDetailViewEntry({}, "add");
+}
+
 function refreshView() {
     let table = $('#fhcTable').DataTable();
     table.clear();
@@ -435,7 +443,7 @@ function onButtonClicked(buttonId) {
             break;
 
         case "buttonAdd":
-            // TODO add
+            addNewEntry();
             break;
 
         case "buttonClose":
@@ -451,11 +459,11 @@ function onContextMenuClicked(menuItemId) {
     switch (menuItemId) {
 
         case "add-ctx":
-            // TODO addCurrentItem();
+            addNewEntry();
             break;
 
         case "modify-ctx":
-            // TODO modifyCurrentItem();
+            editEntry(dataRightClicked);
             break;
 
         case "delete-ctx":
@@ -496,12 +504,12 @@ function onMenuClicked(menuItemId) {
             break;
 
         case "add":
-            // TODO add
+            addNewEntry();
             break;
 
         case "modify":
             if (isMenuItemEnabled(menuItemId)) {
-                // TODO modify
+                editSelectedEntries();
             }
             break;
 
