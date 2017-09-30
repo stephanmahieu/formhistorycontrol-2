@@ -568,27 +568,8 @@ function _alreadyQueued(event) {
     return false;
 }
 
-
-
-// function addiframeEventListeners(aDocument) {
-//     var iframes = aDocument.querySelectorAll('iframe');
-//     for (var i = 0; i < iframes.length; i++) {
-//         var iframeDocument = iframes[i].contentDocument;
-//         if (iframeDocument) {
-//             console.log("Add EventListener to iframe with id: " + iframes[i].id);
-//             iframeDocument.addEventListener("keyup", onContentChanged);
-//
-//             // handle embedded iframes
-//             //iframeDocument.addEventListener("DOMContentLoaded", function() {
-//             //    addiframeEventListeners(iframeDocument);
-//             //});
-//         }
-//     }
-// }
-
-
 function addHandler(selector, eventType, aFunction) {
-    [].forEach.call( document.querySelectorAll(selector), function(elem) {
+    document.querySelectorAll(selector).forEach( (elem) => {
         //console.log("adding " + eventType + " handler to " + selector + "-event for elem-id: " + elem.id);
         elem.addEventListener(eventType, aFunction);
     });
