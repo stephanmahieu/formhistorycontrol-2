@@ -29,7 +29,7 @@ function receiveEvents(fhcActionEvent) {
 
 function _findFieldAndSetValue(fhcEvent) {
     let field = null;
-    [].forEach.call( document.querySelectorAll("input,textarea"), function(elem) {
+    document.querySelectorAll("input,textarea").forEach( (elem) => {
         if (_isTextInputSubtype(elem.type) && _isDisplayed(elem)) {
             if (!field) {
                 field = _ifMatchSetValue(elem, fhcEvent);
@@ -37,7 +37,7 @@ function _findFieldAndSetValue(fhcEvent) {
         }
     });
 
-    [].forEach.call( document.querySelectorAll("html,div,iframe,body"), function(elem) {
+    document.querySelectorAll("html,div,iframe,body").forEach( (elem) => {
         if ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem)) {
             if (!field) {
                 field = _ifMatchSetValue(elem, fhcEvent);
@@ -87,6 +87,7 @@ function _ifMatchSetValue(node, fhcEvent) {
             case "html":
             case "div":
             case "iframe":
+                // FIXME innerHTML: Unsafe assignment to innerHTML. Warning: Due to both security and performance concerns, this may not be set using dynamic values which have not been adequately sanitized.
                 node.innerHTML = fhcEvent.value;
                 break;
         }
@@ -101,14 +102,14 @@ function _ifMatchSetValue(node, fhcEvent) {
 //----------------------------------------------------------------------------
 
 function _fillformfields(action, targetTabId) {
-    [].forEach.call( document.querySelectorAll("input,textarea"), function(elem) {
+    document.querySelectorAll("input,textarea").forEach( (elem) => {
         if (_isTextInputSubtype(elem.type) && _isDisplayed(elem)) {
             console.log("requesting text content for elem-id: " + elem.id);
             _requestHistoricValue(elem, action, targetTabId);
         }
     });
 
-    [].forEach.call( document.querySelectorAll("html,div,iframe,body"), function(elem) {
+    document.querySelectorAll("html,div,iframe,body").forEach( (elem) => {
         if ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem)) {
             console.log("requesting editable content for elem-id: " + elem.id);
             _requestHistoricValue(elem, action, targetTabId);
