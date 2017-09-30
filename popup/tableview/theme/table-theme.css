@@ -1,5 +1,11 @@
 /* common styles for table view */
 
+/* Disable select (might accidentally occur when double clicking) */
+table.dataTable tbody tr {
+    user-select: none;
+    -moz-user-select: none;
+}
+
 /* Selection color even rows */
 table.dataTable.display tbody tr.even.selected,
 table.dataTable.display tbody tr.even.selected > .sorting_1,
@@ -13,8 +19,6 @@ table.dataTable.display tbody tr.odd.selected > .sorting_1,
 table.dataTable         tbody tr.odd.selected > .sorting_1 {
     background-color: #abb9d3;
 }
-
-
 
 /* Even zebra rows */
 table.dataTable              tbody tr,
@@ -32,7 +36,6 @@ table.dataTable.display      tbody tr.odd > .sorting_1,
 table.dataTable.order-column tbody tr.odd > .sorting_1 {
     background-color: #ebebeb;
 }
-
 
 /* Row hover color */
 table.dataTable              tbody tr:hover,

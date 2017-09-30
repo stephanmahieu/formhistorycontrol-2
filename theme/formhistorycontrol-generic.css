@@ -23,6 +23,21 @@ button {
     font-size: 12px;
 }
 
-input, select, textarea {
+input, select, textarea, fieldset {
     border-radius: 4px;
+}
+
+fieldset {
+    margin-top: 15px;
+    border: 1px solid #4b74ff;
+    background-color: #e5e8ff;
+}
+
+legend {
+    padding: 0.2em 0.5em;
+    border: 1px solid #4b74ff;
+    color: #1d2063;
+    background-color: #fafaff;
+    font-weight: bold;
+    font-size: 125%;
 }

@@ -3,11 +3,14 @@ body {
     color: #cdcdcd;
 }
 
-input, select, textarea {
+input, select, textarea, fieldset, legend {
     background-color: #6e7079;
     color: #f2f2f2;
     border: 1px solid #717171;
 }
+
+::selection { background: #b36800; color: #24242d}
+::-moz-selection { background: orange; color: #24242d}
 
 input:disabled,
 select:disabled,
@@ -36,4 +39,15 @@ button:disabled:hover {
 button:hover {
     background-color: #5698dc;
     color: #ffffff;
+}
+
+fieldset {
+    border-color: #757575;
+    background-color: #373740;
+}
+
+legend {
+    border-color: #999999;
+    background-color: #36363f;
+    color: #acacac;
 }
