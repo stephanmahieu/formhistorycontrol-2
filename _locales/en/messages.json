@@ -28,9 +28,9 @@
     "message": "This is my user preference",
     "description": "Label for my option."
   },
-  "optionsSaveButton": {
-    "message": "Save",
-    "description": "Save options button."
+  "optionsApplyButton": {
+    "message": "Apply",
+    "description": "Apply options button."
   },
 
   

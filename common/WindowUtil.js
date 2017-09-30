@@ -58,11 +58,22 @@ class WindowUtil {
             (windowInfo) => {
                 console.log(`Created window: ${windowInfo.id} (${fhcWindowObject.path})`);
                 fhcWindowObject.currentId = windowInfo.id;
+                this.optionsCloseButton(fhcWindowObject);
             },
             (error) => {
                 console.error(`Error: ${error}`);
             }
         );
+    }
+
+    static optionsCloseButton(fhcWindowObject) {
+        if (fhcWindowObject.path.includes('options.html')) {
+            // send a notification to this window so it knows it has been invoked from the app and must add a close-button
+            console.log('sending an event intended for options.html popup');
+            browser.runtime.sendMessage({
+                eventType: 999
+            });
+        }
     }
 
     static closeThisPopup() {

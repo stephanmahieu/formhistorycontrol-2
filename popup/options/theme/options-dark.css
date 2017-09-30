@@ -1,0 +1,9 @@
+
+fieldset.sub-fieldset {
+    background-color: #4a4b56;
+    border-color: #222222;
+}
+
+fieldset.sub-fieldset > legend {
+    /*color: #d5ddee;*/
+}

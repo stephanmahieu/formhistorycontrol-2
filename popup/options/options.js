@@ -1,23 +1,67 @@
 'use strict';
 
-document.addEventListener("DOMContentLoaded", function(event) {
-    ThemeUtil.switchTheme(OptionsUtil.getThema());
+browser.runtime.onMessage.addListener( (fhcEvent)=> {
+    if (fhcEvent.eventType && fhcEvent.eventType === 999) {
+        //console.log('options popup received an event!' + fhcEvent);
+        document.querySelector("#buttonClose").style.display = "inline";
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+
+    addStylesheetThemesToSelect();
 
     restoreOptions();
     document.querySelector("form").addEventListener("submit", saveOptions);
+    document.querySelector("#themeSelect").addEventListener("change", themeSelectionChanged);
+    document.querySelector("#buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
 });
 
 
 function saveOptions(e) {
     browser.storage.local.set({
-        myUserPref: document.querySelector("#myUserPref").value
+        interfaceTheme : document.querySelector("#themeSelect").value,
+        testvalue      : document.querySelector("#myUserPref").value
     });
     e.preventDefault();
+
+    browser.runtime.sendMessage({
+        eventType: 888
+    });
 }
 
 function restoreOptions() {
-    let gettingItem = browser.storage.local.get('myUserPref');
-    gettingItem.then((res) => {
-        document.querySelector("#myUserPref").value = res.myUserPref || 'Firefox says hello.';
+    let gettingItem = browser.storage.local.get({
+        interfaceTheme: "default",
+        testvalue: "<empty>"
     });
+    gettingItem.then((res) => {
+        document.querySelector('#themeSelect').value = res.interfaceTheme;
+        document.querySelector("#myUserPref").value = res.testvalue;
+    });
+}
+
+function addStylesheetThemesToSelect() {
+    // discover the installed alternate stylesheets and create a list
+    let themeList = new Set();
+    document.querySelectorAll('link[rel="alternate stylesheet"]').forEach( (elem) => {
+        if (elem.title) {
+            themeList.add(elem.title);
+        }
+    });
+
+    // add the discovered themes as option to the theme select
+    themeList.forEach((option)=>{
+        const optionNode = document.createElement('option');
+        optionNode.value = option;
+        optionNode.appendChild(document.createTextNode(option));
+        document.querySelector('#themeSelect').appendChild(optionNode);
+    });
+}
+
+function themeSelectionChanged(event) {
+    // theme selection changed, apply directly to this window to preview the theme
+    const selectedTheme = document.querySelector("#themeSelect").value;
+    ThemeUtil.switchTheme(selectedTheme === 'default' ? '' : selectedTheme);
 }

@@ -28,9 +28,9 @@
     "message": "Dit is mijn optie",
     "description": "Label for my option."
   },
-  "optionsSaveButton": {
-    "message": "Opslaan",
-    "description": "Save options button."
+  "optionsApplyButton": {
+    "message": "Toepassen",
+    "description": "Apply options button."
   },
 
 
@@ -39,7 +39,7 @@
     "message": "Form History Control (II)",
     "description": "Header title of the small popup."
   },
-  
+
   
   
   "notificationTitle": {

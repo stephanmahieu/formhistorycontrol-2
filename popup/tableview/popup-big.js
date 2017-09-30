@@ -1,5 +1,12 @@
 'use strict';
 
+browser.runtime.onMessage.addListener(fhcEvent=>{
+    if (fhcEvent.eventType && fhcEvent.eventType===888) {
+        // options have changed, reload
+        OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+    }
+});
+
 //browser.runtime.onMessage.addListener(receiveEvents);
 //
 // function receiveEvents(fhcEvent) {
@@ -90,7 +97,7 @@
 let dataRightClicked;
 
 $(document).ready(function() {
-    ThemeUtil.switchTheme(OptionsUtil.getThema());
+    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
 
     let languageURL = DataTableUtil.getLanguageURL();
 

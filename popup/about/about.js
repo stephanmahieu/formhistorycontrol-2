@@ -1,7 +1,14 @@
 'use strict';
 
+browser.runtime.onMessage.addListener(fhcEvent=>{
+    if (fhcEvent.eventType && fhcEvent.eventType===888) {
+        // options have changed, reload
+        OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+    }
+});
+
 document.addEventListener("DOMContentLoaded", function(/*event*/) {
-    ThemeUtil.switchTheme(OptionsUtil.getThema());
+    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
 
     let manifest = browser.runtime.getManifest();
     // document.title += " " + manifest.name;

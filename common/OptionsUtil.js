@@ -1,7 +1,6 @@
 class OptionsUtil {
 
-    static getThema() {
-        return "Dark";
-        // return "";
+    static getInterfaceTheme() {
+        return browser.storage.local.get({interfaceTheme: "default"});
     }
 }

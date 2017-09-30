@@ -89,7 +89,7 @@ function closePrevChildIfOpen() {
 }
 
 $(document).ready(function() {
-    ThemeUtil.switchTheme(OptionsUtil.getThema());
+    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
 
     // console.log("Sending a getformfields request message to the background (receiveFormData.js)...");
     // browser.runtime.sendMessage({

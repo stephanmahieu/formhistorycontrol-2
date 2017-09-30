@@ -10,16 +10,36 @@
 </head>
 <body>
 <form>
-    <fieldset>
-        <legend data-fhc-i18n="optionsLegend">Options</legend>
-        <label for="myUserPref" data-fhc-i18n="optionsLabel">This is my user preference</label>
-        <input type="text" id="myUserPref"><br/>
-        <button type="submit" data-fhc-i18n="optionsSaveButton">Save</button>
-    </fieldset>
+    <div class="content">
+        <fieldset>
+            <legend data-fhc-i18n="optionsLegend">Options</legend>
+
+            <fieldset class="sub-fieldset">
+                <legend data-fhc-i18n="optionsXXX">Display</legend>
+
+                <label for="themeSelect" data-fhc-i18n="optionsXXX">Select a theme</label>
+                <select id="themeSelect">
+                    <option value="default">default</option>
+                </select>
+
+            </fieldset>
+
+            <fieldset class="sub-fieldset">
+                <legend data-fhc-i18n="optionsXXX">Cleanup</legend>
+                <label for="myUserPref" data-fhc-i18n="optionsXXX">This is my user preference</label>
+                <input type="text" id="myUserPref"><br/>
+            </fieldset>
+        </fieldset>
+    </div>
+    <div id="buttons">
+        <button type="submit" data-fhc-i18n="optionsApplyButton">Apply</button>
+        <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
+    </div>
 </form>
 <script src="options.js"></script>
 <script src="../../common/OptionsUtil.js"></script>
 <script src="../../common/ThemeUtil.js"></script>
+<script src="../../common/WindowUtil.js"></script>
 <script src="../../common/translation.js"></script>
 </body>
 </html>
