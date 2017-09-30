@@ -26,7 +26,7 @@ function receiveEvents(fhcEvent) {
 //     // TODO get the formfields for this (active) page and return in the form of a response event (array of fields)
 //     let fields = [];
 //
-//     [].forEach.call( document.querySelectorAll("input,textarea"), (node) => {
+//     document.querySelectorAll("input,textarea").forEach( (node) => {
 //         if (_isTextInputSubtype(node.type) && _isDisplayed(node)) {
 //             let name = (node.name) ? node.name : ((node.id) ? node.id : "");
 //             if (name) {
@@ -38,7 +38,7 @@ function receiveEvents(fhcEvent) {
 //         }
 //     });
 //
-//     [].forEach.call( document.querySelectorAll("html,div,iframe,body"), (node) => {
+//     document.querySelectorAll("html,div,iframe,body").forEach( (node) => {
 //         if ((_isContentEditable(node) && _isDisplayed(node)) || _isDesignModeOn(node)) {
 //             let name = (node.name) ? node.name : ((node.id) ? node.id : "");
 //             if (name) {
@@ -68,7 +68,7 @@ function receiveEvents(fhcEvent) {
 
 function showformfields() {
     let ii = 0, id, div;
-    [].forEach.call( document.querySelectorAll("input,textarea"), function(elem) {
+    document.querySelectorAll("input,textarea").forEach( (elem) => {
         //console.log("adding info for elem-id: " + elem.id);
 
         if (_isTextInputSubtype(elem.type) && _isDisplayed(elem)) {
@@ -87,7 +87,7 @@ function showformfields() {
         }
     });
 
-    [].forEach.call( document.querySelectorAll("html,div,iframe,body"), function(elem) {
+    document.querySelectorAll("html,div,iframe,body").forEach( (elem) => {
         if ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem)) {
             id = 'fhcFldInfo' + ++ii;
             //console.log("elem-id: " + elem.id + " of type ?");
