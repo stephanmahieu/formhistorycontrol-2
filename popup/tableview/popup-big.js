@@ -95,6 +95,7 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
 
 
 let dataRightClicked;
+let resizeTimer;
 
 $(document).ready(function() {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
@@ -205,6 +206,10 @@ $(document).ready(function() {
         ]
     } );
 
+    // populate tableview with data from the database
+    populateViewFromDatabase(table);
+    selectionChangedHandler();
+
 
     // Add event listener for opening and closing details
     tableElement.find('tbody').on('click', 'td.my-details-control', function() {
@@ -268,25 +273,27 @@ $(document).ready(function() {
         onKeyClicked(event);
     });
 
-    // populate tableview with data from the database
-    populateViewFromDatabase(table);
-    selectionChangedHandler();
+    $(window).on('beforeunload', function() {
+        console.log('Unloading window, notify child windows to also close!');
+        browser.runtime.sendMessage({eventType: 666});
+    });
+
+    $(window).on('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            // resizing has stopped
+            let buttonSpace = 160;
+            if (window.innerWidth < 768) {
+                // miscellaneous DataTable components will stack on top of each other, leave more room for the buttons
+                buttonSpace = 220;
+            }
+            $('.dataTables_scrollBody').css('height', window.innerHeight-buttonSpace+"px");
+            $('#fhcTable').DataTable().draw();
+        }, 250);
+    });
+
 });
 
-let resizeTimer;
-$(window).on('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-        // resizing has stopped
-        let buttonSpace = 160;
-        if (window.innerWidth < 768) {
-            // miscellaneous DataTable components will stack on top of each other, leave more room for the buttons
-            buttonSpace = 220;
-        }
-        $('.dataTables_scrollBody').css('height', window.innerHeight-buttonSpace+"px");
-        $('#fhcTable').DataTable().draw();
-    }, 250);
-});
 
 function selectAll() {
     let table = $('#fhcTable').DataTable();

@@ -89,6 +89,27 @@ class WindowUtil {
         });
     }
 
+    static closePopupByID(windowID) {
+        let allWindows = browser.windows.getAll();
+        let foundID = null;
+        allWindows.then((windows) => {
+            for (let item of windows) {
+                if (item.id === windowID) {
+                    let removing = browser.windows.remove(windowID);
+                    removing.onRemoved = function() {
+                        console.log("Window removed");
+                    };
+                    removing.onError = function() {
+                        console.error("Window remove error", this.error);
+                    }
+                }
+            }
+            if (foundID) {
+                browser.windows.remove(window.id);
+            }
+        });
+    }
+
     // snippet:
     // // add a listener once in order to close this popup if it loses focus
     // if (!currentIdWindowAboutFHC) {
