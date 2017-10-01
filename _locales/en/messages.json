@@ -20,6 +20,41 @@
   },
 
 
+
+  "fieldName": {
+    "message": "Fieldname",
+    "description": "The label for the formfield-name of a formfield entry."
+  },
+  "fieldValue": {
+    "message": "Content",
+    "description": "The label for the value/content of a formfield entry."
+  },
+  "fieldType": {
+    "message": "Type",
+    "description": "The label for the type of a formfield entry."
+  },
+  "fieldCount": {
+    "message": "Count",
+    "description": "The label for the number of times a formfield entry has been used."
+  },
+  "fieldFirstUsed": {
+    "message": "First used",
+    "description": "The label for the date a formfield entry was first used."
+  },
+  "fieldLastUsed": {
+    "message": "Last used",
+    "description": "The label for the date a formfield entry was last used."
+  },
+  "fieldAge": {
+    "message": "Age",
+    "description": "The label for the age of a formfield entry since it was last used."
+  },
+  "fieldHost": {
+    "message": "Host",
+    "description": "The label for the host where the formfield entry was used."
+  },
+
+
   "optionsLegend": {
     "message": "Options",
     "description": "The Options legend."
@@ -109,7 +144,6 @@
     "message": "Close",
     "description": "Label of close button."
   },
-
 
 
   "menuFile": {

@@ -20,6 +20,41 @@
   },
 
 
+
+  "fieldName": {
+    "message": "Veldnaam",
+    "description": "The label for the formfield-name of a formfield entry."
+  },
+  "fieldValue": {
+    "message": "Waarde",
+    "description": "The label for the value/content of a formfield entry."
+  },
+  "fieldType": {
+    "message": "Type",
+    "description": "The label for the type of a formfield entry."
+  },
+  "fieldCount": {
+    "message": "Aantal",
+    "description": "The label for the number of times a formfield entry has been used."
+  },
+  "fieldFirstUsed": {
+    "message": "Eerst gebruikt",
+    "description": "The label for the date a formfield entry was first used."
+  },
+  "fieldLastUsed": {
+    "message": "Laatst gebruikt",
+    "description": "The label for the date a formfield entry was last used."
+  },
+  "fieldAge": {
+    "message": "Oud",
+    "description": "The label for the age of a formfield entry since it was last used."
+  },
+  "fieldHost": {
+    "message": "Bron",
+    "description": "The label for the host where the formfield entry was used."
+  },
+
+
   "optionsLegend": {
     "message": "Opties",
     "description": "The Options legend."
@@ -200,5 +235,4 @@
     "message": "Laden...",
     "description": "Text displayed while data is being loaded."
   }
-
 }

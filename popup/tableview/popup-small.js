@@ -102,6 +102,16 @@ $(document).ready(function() {
 
     let languageURL = DataTableUtil.getLanguageURL();
 
+    // get language specific header titles
+    const hdrFieldname = browser.i18n.getMessage("fieldName");
+    const hdrFieldvalue = browser.i18n.getMessage("fieldValue");
+    const hdrFieldType = browser.i18n.getMessage("fieldType");
+    const hdrFieldCount = browser.i18n.getMessage("fieldCount");
+    const hdrFieldFirst = browser.i18n.getMessage("fieldFirstUsed");
+    const hdrFieldLast = browser.i18n.getMessage("fieldLastUsed");
+    const hdrFieldAge = browser.i18n.getMessage("fieldAge");
+    const hdrFieldHost = browser.i18n.getMessage("fieldHost");
+
     let table = $('#fhcTable').DataTable( {
         scrollY: 300,
         language: {url: languageURL},
@@ -124,14 +134,14 @@ $(document).ready(function() {
                 defaultContent: ''
             },
             { title: "Id", responsivePriority: 2 },
-            { title: "Veldnaam", responsivePriority: 3 },
-            { title: "Waarde", responsivePriority: 4  },
-            { title: "Type", responsivePriority: 10  },
-            { title: "Aantal", responsivePriority: 5  },
-            { title: "Eerst gebruikt", responsivePriority: 9  },
-            { title: "Laatst gebruikt", responsivePriority: 7  },
-            { title: "Oud", responsivePriority: 6 },
-            { title: "Bron", responsivePriority: 8  }
+            { title: hdrFieldname, responsivePriority: 3 },
+            { title: hdrFieldvalue, responsivePriority: 4  },
+            { title: hdrFieldType, responsivePriority: 10  },
+            { title: hdrFieldCount, responsivePriority: 5  },
+            { title: hdrFieldFirst, responsivePriority: 9  },
+            { title: hdrFieldLast, responsivePriority: 7  },
+            { title: hdrFieldAge, responsivePriority: 6 },
+            { title: hdrFieldHost, responsivePriority: 8  }
         ],
         columnDefs: [
             {
