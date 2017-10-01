@@ -55,20 +55,88 @@
   },
 
 
-  "optionsLegend": {
+  "buttonOkay": {
+    "message": "Okay",
+    "description": "Label of the okay button."
+  },
+  "buttonCancel": {
+    "message": "Cancel",
+    "description": "Label of the cancel button."
+  },
+  "buttonClose": {
+    "message": "Close",
+    "description": "Label of the close button."
+  },
+  "buttonApply": {
+    "message": "Apply",
+    "description": "Label of the apply button."
+  },
+  "buttonDelete": {
+    "message": "Delete",
+    "description": "Label of delete button."
+  },
+  "buttonCleanup": {
+    "message": "Cleanup",
+    "description": "Label of cleanup button."
+  },
+  "buttonModify": {
+    "message": "Modify",
+    "description": "Label of modify button."
+  },
+  "buttonAdd": {
+    "message": "Add",
+    "description": "Label of add button."
+  },
+  "buttonExport": {
+    "message": "Export",
+    "description": "Label of export button."
+  },
+
+
+  "importTitle": {
+    "message": "Import",
+    "description": "Title of import window."
+  },
+  "exportTitle": {
+    "message": "Export",
+    "description": "Title of the export window."
+  },
+  "exportNoOfTextEntries": {
+    "message": "Number of text entries",
+    "description": "Import/Export window: Number of text entries."
+  },
+  "exportNoOfdMultilineEntries": {
+    "message": "Number of multiline entries",
+    "description": "Import/Export window: Number of multiline entries."
+  },
+  "exportDownloadLink": {
+    "message": "Download link:",
+    "description": "Export window: Download link:"
+  },
+
+
+  "optionTitle": {
     "message": "Options",
-    "description": "The Options legend."
+    "description": "Title of the options window."
+  },
+  "optionsDisplayLegend": {
+    "message": "Display",
+    "description": "Options window: The Display legend."
+  },
+  "optionsThemeSelect": {
+    "message": "Select a theme",
+    "description": "Options window: The theme selection dropdown label"
+  },
+  "optionsCleanupLegend": {
+    "message": "Cleanup",
+    "description": "Options window: The Cleanup legend."
   },
   "optionsLabel": {
     "message": "This is my user preference",
     "description": "Label for my option."
   },
-  "optionsApplyButton": {
-    "message": "Apply",
-    "description": "Apply options button."
-  },
 
-  
+
   
   "popupHeader": {
     "message": "Form History Control (II)",
@@ -91,9 +159,9 @@
       }
     }
   },
-  
-  
-  
+
+
+
   "contextMenuItemManageHistory": {
     "message": "Manage History",
     "description": "Title of context menu item that starts the Manage history dialog."
@@ -121,28 +189,6 @@
   "contextMenuItemOptions": {
     "message": "Options",
     "description": "Title of context menu item that shows the preferences page."
-  },
-
-
-  "buttonDelete": {
-    "message": "Delete",
-    "description": "Label of delete button."
-  },
-  "buttonCleanup": {
-    "message": "Cleanup",
-    "description": "Label of cleanup button."
-  },
-  "buttonModify": {
-    "message": "Modify",
-    "description": "Label of modify button."
-  },
-  "buttonAdd": {
-    "message": "Add",
-    "description": "Label of add button."
-  },
-  "buttonClose": {
-    "message": "Close",
-    "description": "Label of close button."
   },
 
 

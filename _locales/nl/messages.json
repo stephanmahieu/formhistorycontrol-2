@@ -55,17 +55,85 @@
   },
 
 
-  "optionsLegend": {
+  "buttonOkay": {
+    "message": "OK",
+    "description": "Label of the okay button."
+  },
+  "buttonCancel": {
+    "message": "Annuleren",
+    "description": "Label of the cancel button."
+  },
+  "buttonClose": {
+    "message": "Sluiten",
+    "description": "Label of the close button."
+  },
+  "buttonApply": {
+    "message": "Toepassen",
+    "description": "Label of the apply button."
+  },
+  "buttonDelete": {
+    "message": "Verwijderen",
+    "description": "Label of delete button."
+  },
+  "buttonCleanup": {
+    "message": "Opschonen",
+    "description": "Label of cleanup button."
+  },
+  "buttonModify": {
+    "message": "Wijzigen",
+    "description": "Label of modify button."
+  },
+  "buttonAdd": {
+    "message": "Toevoegen",
+    "description": "Label of add button."
+  },
+  "buttonExport": {
+    "message": "Exporteren",
+    "description": "Label of export button."
+  },
+
+
+  "importTitle": {
+    "message": "Importeren",
+    "description": "Title of the import window."
+  },
+  "exportTitle": {
+    "message": "Exporteren",
+    "description": "Title of the export window."
+  },
+  "exportNoOfTextEntries": {
+    "message": "Aantal tekst velden",
+    "description": "Import/Export window: Number of text entries."
+  },
+  "exportNoOfdMultilineEntries": {
+    "message": "Aantal meerregelige velden",
+    "description": "Import/Export window: Number of multiline entries."
+  },
+  "exportDownloadLink": {
+    "message": "Download link:",
+    "description": "Export window: Download link:"
+  },
+
+
+  "optionTitle": {
     "message": "Opties",
-    "description": "The Options legend."
+    "description": "Title of the options window."
+  },
+  "optionsDisplayLegend": {
+    "message": "Weergave",
+    "description": "Options window: The Display legend."
+  },
+  "optionsThemeSelect": {
+    "message": "Selecteer een thema",
+    "description": "Options window: The theme selection dropdown label"
+  },
+  "optionsCleanupLegend": {
+    "message": "Opschonen",
+    "description": "Options window: The Cleanup legend."
   },
   "optionsLabel": {
     "message": "Dit is mijn optie",
     "description": "Label for my option."
-  },
-  "optionsApplyButton": {
-    "message": "Toepassen",
-    "description": "Apply options button."
   },
 
 
@@ -121,28 +189,6 @@
   "contextMenuItemOptions": {
     "message": "Voorkeuren",
     "description": "Title of context menu item that shows the preferences page."
-  },
-
-
-  "buttonDelete": {
-    "message": "Verwijderen",
-    "description": "Label of delete button."
-  },
-  "buttonCleanup": {
-    "message": "Opschonen",
-    "description": "Label of cleanup button."
-  },
-  "buttonModify": {
-    "message": "Wijzigien",
-    "description": "Label of modify button."
-  },
-  "buttonAdd": {
-    "message": "Toevoegen",
-    "description": "Label of add button."
-  },
-  "buttonClose": {
-    "message": "Sluiten",
-    "description": "Label of close button."
   },
 
 

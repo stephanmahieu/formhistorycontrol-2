@@ -2,6 +2,7 @@
 
 <html>
 <head>
+    <title data-fhc-i18n="optionTitle">Options</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/theme/formhistorycontrol-generic.css"/>
     <link rel="stylesheet" href="theme/options.css"/>
@@ -12,12 +13,12 @@
 <form>
     <div class="content">
         <fieldset>
-            <legend data-fhc-i18n="optionsLegend">Options</legend>
+            <legend data-fhc-i18n="optionTitle">Options</legend>
 
             <fieldset class="sub-fieldset">
-                <legend data-fhc-i18n="optionsXXX">Display</legend>
+                <legend data-fhc-i18n="optionsDisplayLegend">Display</legend>
 
-                <label for="themeSelect" data-fhc-i18n="optionsXXX">Select a theme</label>
+                <label for="themeSelect" data-fhc-i18n="optionsThemeSelect">Select a theme</label>
                 <select id="themeSelect">
                     <option value="default">default</option>
                 </select>
@@ -25,14 +26,14 @@
             </fieldset>
 
             <fieldset class="sub-fieldset">
-                <legend data-fhc-i18n="optionsXXX">Cleanup</legend>
+                <legend data-fhc-i18n="optionsCleanupLegend">Cleanup</legend>
                 <label for="myUserPref" data-fhc-i18n="optionsXXX">This is my user preference</label>
                 <input type="text" id="myUserPref"><br/>
             </fieldset>
         </fieldset>
     </div>
     <div id="buttons">
-        <button type="submit" data-fhc-i18n="optionsApplyButton">Apply</button>
+        <button type="submit" data-fhc-i18n="buttonApply">Apply</button>
         <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
     </div>
 </form>
