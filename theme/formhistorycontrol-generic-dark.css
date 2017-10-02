@@ -12,6 +12,10 @@ input, select, textarea, fieldset, legend {
 ::selection { background: #b36800; color: #24242d}
 ::-moz-selection { background: orange; color: #24242d}
 
+a {
+    color: #56bbff;
+}
+
 input:disabled,
 select:disabled,
 textarea:disabled {
