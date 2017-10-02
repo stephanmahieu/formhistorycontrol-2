@@ -5,7 +5,7 @@
 
 browser.runtime.onMessage.addListener(receiveEvents);
 
-function receiveEvents(fhcEvent) {
+function receiveEvents(fhcEvent, sender, sendResponse) {
     if (fhcEvent.action) {
         console.log("Received action event " + fhcEvent.action);
 
@@ -14,57 +14,65 @@ function receiveEvents(fhcEvent) {
                 showformfields();
                 break;
 
-            // case "getformfields":
-            //     getCurrentFields();
-            //     break;
+            case "getformfields":
+                let fields = [];
+                getCurrentFields(document, fields);
+                const thisHost = document.location.protocol === "file:" ? "localhost" :  document.location.host;
+                sendResponse({fields: fields, host: thisHost});
+                break;
         }
     }
 }
 
+function _getHost(aLocation) {
+    if (aLocation.protocol === "file:") {
+        return "localhost";
+    } else {
+        return aLocation.host;
+    }
+}
 
-// function getCurrentFields() {
-//     // TODO get the formfields for this (active) page and return in the form of a response event (array of fields)
-//     let fields = [];
-//
-//     document.querySelectorAll("input,textarea").forEach( (node) => {
-//         if (_isTextInputSubtype(node.type) && _isDisplayed(node)) {
-//             let name = (node.name) ? node.name : ((node.id) ? node.id : "");
-//             if (name) {
-//                 fields.push({
-//                     name: name,
-//                     type: node.nodeName.toLowerCase()
-//                 });
-//             }
-//         }
-//     });
-//
-//     document.querySelectorAll("html,div,iframe,body").forEach( (node) => {
-//         if ((_isContentEditable(node) && _isDisplayed(node)) || _isDesignModeOn(node)) {
-//             let name = (node.name) ? node.name : ((node.id) ? node.id : "");
-//             if (name) {
-//                 fields.push({
-//                     name: name,
-//                     type: node.nodeName.toLowerCase()
-//                 });
-//             }
-//         }
-//     });
-//
-//     let gettingCurrent = browser.tabs.getCurrent();
-//     gettingCurrent.then(
-//         (tabInfo) => {
-//             console.log('Sending getCurrentFields response message from tabID ' + tabInfo.id);
-//             browser.runtime.sendMessage({
-//                 eventType  : 6,
-//                 targetTabId: tabInfo.id,
-//                 fields     : fields
-//             });
-//         },
-//         (error) => {
-//             console.log(`Error getting current tab: ${error}`);
-//         }
-//     );
-// }
+/**
+ * Get the formfields for this page as an array of name + type objects.
+ */
+function getCurrentFields(aDocument, aFields) {
+
+    aDocument.querySelectorAll("input,textarea").forEach( (node) => {
+        if (_isTextInputSubtype(node.type) && _isDisplayed(node)) {
+            let name = (node.name) ? node.name : ((node.id) ? node.id : "");
+            if (name) {
+                aFields.push({
+                    name: name,
+                    type: node.nodeName.toLowerCase()
+                });
+            }
+        }
+    });
+
+    aDocument.querySelectorAll("html,div,iframe,body").forEach( (node) => {
+        if ((_isContentEditable(node) && _isDisplayed(node)) || _isDesignModeOn(node)) {
+            let name = (node.name) ? node.name : ((node.id) ? node.id : "");
+            if (name) {
+                aFields.push({
+                    name: name,
+                    type: node.nodeName.toLowerCase()
+                });
+            }
+        }
+    });
+
+    // need to visit iframes inside this method in order to return a single Array of all elements
+    aDocument.querySelectorAll('iframe').forEach( item => {
+        try {
+            getCurrentFields(item.contentWindow.document.body, aFields)
+        } catch (e) {
+            // probably: Permission denied to access property "document" on cross-origin object
+        }
+    });
+}
+
+
+
 
 function showformfields() {
     let ii = 0, id, div;

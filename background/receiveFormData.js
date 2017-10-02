@@ -2,7 +2,7 @@
 
 browser.runtime.onMessage.addListener(receiveEvents);
 
-function receiveEvents(fhcEvent) {
+function receiveEvents(fhcEvent, sender, sendResponse) {
     if (fhcEvent.eventType) {
         switch (fhcEvent.eventType) {
             case 1:
@@ -35,6 +35,8 @@ function receiveEvents(fhcEvent) {
             case 4:
                 console.log("Received an import dataRetrieval event for [" + fhcEvent.name + "] which is a " + fhcEvent.type);
                 importIfNotExist(fhcEvent);
+                break;
+
         }
     }
 

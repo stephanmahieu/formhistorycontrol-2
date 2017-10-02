@@ -7,99 +7,106 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
     }
 });
 
-//browser.runtime.onMessage.addListener(receiveEvents);
-//
-// function receiveEvents(fhcEvent) {
-//     if (fhcEvent.eventType) {
-//         switch (fhcEvent.eventType) {
-//             case 1:
-//                 fhcEvent.value = JSON.parse(fhcEvent.value);
-//                 console.log("Received a content event! for " + fhcEvent.id + " content is: " + fhcEvent.value);
-//                 break;
-//             case 2:
-//                 console.log("Received a formelement event! for " + fhcEvent.id + " which is a " + fhcEvent.type);
-//                 break;
-//         }
-//     }
-// }
-
-//const gettingItem = browser.storage.local.get();
-//gettingItem.then((results) => {
-//  document.querySelector("#panel-content").textContent = JSON.stringify(results, null, 2);
-//});
-
-
-// var dataSet = [
-//     [ 1,  "os_username", "mahies", 692, 1364453733248, 1487678983265, "http://www.dummy.net" ],
-//     [ 2,  "searchbar-history", "java ssl rsa rc4 128", 1, 1487662321458, 1487662321458, "http://www.dummy.net" ],
-//     [ 3,  "session[username]", "mahies", 26, 1460972197985, 1487600954650, "http://www.dummy.net" ],
-//     [ 4,  "j_username", "mahies", 563, 1364976724597, 1487664013000, "http://www.dummy.net" ],
-//     [ 5,  "searchbar-history", "slack formatting", 1, 1487587276769, 1487587276769, "http://www.dummy.net" ],
-//     [ 6,  "searchbar-history", "spring annotation-driven", 1, 1487584649085, 1487584649085, "http://www.dummy.net" ],
-//     [ 7,  "searchbar-history", "tx:annotation-driven t", 1, 1487584620969, 1487584620969, "http://www.dummy.net" ],
-//     [ 8,  "searchbar-history", "log request response servletfilter", 1, 1487583965434, 1487583965434, "http://www.dummy.net/page/another/here" ],
-//     [ 9,  "searchbar-history", "java [] add", 1, 1487578995966, 1487578995966, "http://www.dummy.net" ],
-//     [ 10, "searchbar-history", "PayloadLoggingInterceptor", 1, 1487573054408, 1487573054408, "http://www.dummy.net" ],
-//     [ 11, "searchbar-history", "spring-ws marshalSendAndReceive log xml", 1, 1487572977722, 1487572977722, "http://www.dummy.net" ],
-//     [ 12, "searchString", "timestamp", 1, 1487571865292, 1487571865292, "http://www.dummy.net" ],
-//     [ 13, "searchbar-history", "spooky fairy", 1, 1487416016680, 1487416016680, "http://www.dummy.net" ],
-//     [ 14, "email", "+31613277188", 1, 1487416335000, 1487416335000, "http://www.dummy.net" ],
-//     [ 15, "searchbar-history", "javascript test null", 1, 1487323353156, 1487323353156, "http://www.dummy.net" ],
-//     [ 16, "q", "java", 2, 1484581340242, 1487317384749, "http://www.dummy.net" ],
-//     [ 17, "q", "tomcat", 2, 1487317309190, 1487317333609, "http://www.dummy.net" ],
-//     [ 18, "q", "parent", 1, 1487317317078, 1487317317078, "http://www.dummy.net" ],
-//     [ 19, "searchbar-history", "fairy", 1, 1487315491640, 1487315491640, "http://www.dummy.net" ],
-//     [ 20, "searchbar-history", "facebook assign page role person can't be added", 1, 1487313184451, 1487313184451, "http://www.dummy.net" ],
-//     [ 21, "searchbar-history", "translate", 1, 1487311945033, 1487311945033, "http://www.dummy.net" ],
-//     [ 22, "code", "48184", 1, 1487311821827, 1487311821827, "http://www.dummy.net" ],
-//     [ 23, "reg_email_confirmation__", "+31613277188", 2, 1487311602827, 1487311629990, "http://www.dummy.net" ],
-//     [ 24, "reg_email__", "+31613277188", 2, 1487311602827, 1487311629990, "http://www.dummy.net" ],
-//     [ 25, "lastname", "Le Blanc", 2, 1487311602827, 1487311629990, "http://www.dummy.net" ],
-//     [ 26, "firstname", "Adv", 1, 1487311629990, 1487311629990, "http://www.dummy.net" ],
-//     [ 27, "firstname", "A", 1, 1487311602827, 1487311602827, "http://www.dummy.net" ],
-//     [ 28, "searchbar-history", "facebook", 1, 1487311351132, 1487311351132, "http://www.dummy.net" ],
-//     [ 29, "searchbar-history", "apache camel http", 1, 1487144358590, 1487144358590, "http://www.dummy.net" ],
-//     [ 30, "searchbar-history", "jaxbmarshaller threadsafe", 1, 1487070445816, 1487070445816, "http://www.dummy.net" ],
-//     [ 31, "searchbar-history", "javasctipt childnode text", 1, 1487058444395, 1487058444395, "http://www.dummy.net" ],
-//     [ 32, "searchbar-history", ".hasOwnProperty", 1, 1487057614461, 1487057614461, "http://www.dummy.net" ],
-//     [ 33, "searchbar-history", "querySelectorAll data", 1, 1487057465060, 1487057465060, "http://www.dummy.net" ],
-//     [ 34, "searchbar-history", "querySelector", 1, 1487056856567, 1487056856567, "http://www.dummy.net" ],
-//     [ 35, "searchbar-history", "inernationalize chrome etension html", 1, 1487056186412, 1487056186412, "http://www.dummy.net" ],
-//     [ 36, "searchbar-history", "mozilla webextensions locale", 1, 1487052533485, 1487052533485, "http://www.dummy.net" ],
-//     [ 37, "userReleaseDate", "13-02-2017", 1, 1486996272837, 1486996272837, "http://www.dummy.net" ],
-//     [ 38, "name", "klic-belangen-frontend_2.0.0.55", 1, 1486996259811, 1486996259811, "http://www.dummy.net" ],
-//     [ 39, "description", "Belangen frontend", 1, 1486996259811, 1486996259811, "http://www.dummy.net" ],
-//     [ 40, "searchbar-history", "geocat.net", 1, 1486993780756, 1486993780756, "http://www.dummy.net" ],
-//     [ 41, "searchbar-history", "swagger client create", 1, 1486993396001, 1486993396001, "http://www.dummy.net" ],
-//     [ 42, "searchbar-history", "swagger", 1, 1486993331945, 1486993331945, "http://www.dummy.net" ],
-//     [ 43, "rn", "gerlo", 1, 1486992561292, 1486992561292, "http://www.dummy.net" ],
-//     [ 44, "n", "gerlo", 1, 1486992555215, 1486992555215, "http://www.dummy.net" ],
-//     [ 45, "searchbar-history", "React.createElement", 1, 1486983888728, 1486983888728, "http://www.dummy.net" ],
-//     [ 46, "summary", "bmkl-api netinformatie-opvraagservice niet leveren via lokaal zipbestand", 1, 1486976259239, 1486976259239, "http://www.dummy.net" ],
-//     [ 47, "searchbar-history", "e10s list]", 1, 1486969575850, 1486969575850, "http://www.dummy.net" ],
-//     [ 48, "searchbar-history", "firefox add-ons", 1, 1486967537827, 1486967537827, "http://www.dummy.net" ],
-//     [ 49, "searchbar-history", "glasvezel bitengebied hof", 1, 1486966072050, 1486966072050, "http://www.dummy.net" ],
-//     [ 50, "wpName", "Stephan", 80, 1364547284740, 1486965771124, "http://www.dummy.net" ],
-//     [ 51, "mo", "11294535", 1, 1486711195375, 1486711195375, "http://www.dummy.net" ],
-//     [ 52, "n", "smit", 3, 1486641146194, 1486711164580, "http://www.dummy.net" ],
-//     [ 53, "searchbar-history", "Suppoort", 1, 1486709627992, 1486709627992, "http://www.dummy.net" ],
-//     [ 54, "searchbar-history", "regex tester", 1, 1486664576258, 1486664576258, "http://www.dummy.net" ],
-//     [ 55, "searchbar-history", "sjoerd smorenburg", 1, 1486643492535, 1486643492535, "http://www.dummy.net" ],
-//     [ 56, "session_key", "stephanmahieu@yahoo.com", 24, 1470832678961, 1486643382007, "http://www.dummy.net" ],
-//     [ 57, "n", "smo", 1, 1486642445396, 1486642445396, "http://www.dummy.net" ],
-//     [ 58, "n", "smoren", 1, 1486642433483, 1486642433483, "http://www.dummy.net" ],
-//     [ 59, "n", "hulleman", 2, 1486641880217, 1486642349361, "http://www.dummy.net" ],
-//     [ 60, "n", "hosper", 2, 1486641627271, 1486642280113, "http://www.dummy.net"  ]
-// ];
-
-
-
 let dataRightClicked;
 let resizeTimer;
 
 $(document).ready(function() {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
 
+    const tableElement = $('#fhcTable');
+    const table = createDataTable(tableElement);
+
+    // populate tableview with data from the database
+    populateViewFromDatabase(table);
+    selectionChangedHandler();
+
+
+    // Add event listener for opening and closing details
+    tableElement.find('tbody').on('click', 'td.my-details-control', function() {
+        DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
+    });
+
+    tableElement.find('tbody').on('dblclick', 'tr', function() {
+        DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
+    });
+
+    // Add event listener for select events
+    table.on('select', function (e, dt, type /*, indexes */) {
+        if (type === 'row') {
+            selectionChangedHandler();
+        }
+    });
+
+    // Add event listener for deselect events
+    table.on('deselect', function (e, dt, type /*, indexes*/) {
+        if (type === 'row') {
+            selectionChangedHandler();
+        }
+    });
+
+    // navigation menu animation
+    $('nav li').hover(
+        function() {
+            $('ul', this).stop().slideDown(200);
+        },
+        function() {
+            $('ul', this).stop().slideUp(200);
+        }
+    );
+
+    // // Prevent the default right-click contextmenu
+    // //document.oncontextmenu = function() {return false;};
+
+    // custom right-click menu
+    tableElement.find('tbody').on('contextmenu', 'tr', function() {
+        console.log("context menu should now display :-)");
+        let tr = $(this).closest('tr');
+        let row = table.row( tr );
+        dataRightClicked = row.data();
+    });
+    $('menuitem').on('click', function(event) {
+        onContextMenuClicked(event.currentTarget.id);
+    });
+
+    // Add event listeners for the buttons
+    $('#buttons').find('button').on('click', function (event) {
+        onButtonClicked(event.currentTarget.id);
+    });
+
+    // Add event listeners for the menu items
+    $('nav ul li ul li span').on('click', function (event) {
+        onMenuClicked(event.currentTarget.id);
+    });
+
+    // add keyhandler for menu
+    $('body').on('keyup', function(event) {
+        onKeyClicked(event);
+    });
+
+    $(window).on('beforeunload', function() {
+        console.log('Unloading window, notify child windows to also close!');
+        // this only works when the close-button is used
+        browser.runtime.sendMessage({eventType: 666}).then(null,
+            error=>console.log(`Error sending close event: ${error}`)
+        )
+    });
+
+    $(window).on('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            // resizing has stopped
+            let buttonSpace = 160;
+            if (window.innerWidth < 768) {
+                // miscellaneous DataTable components will stack on top of each other, leave more room for the buttons
+                buttonSpace = 220;
+            }
+            $('.dataTables_scrollBody').css('height', window.innerHeight-buttonSpace+"px");
+            $('#fhcTable').DataTable().draw();
+        }, 250);
+    });
+});
+
+function createDataTable(tableElement) {
     let languageURL = DataTableUtil.getLanguageURL();
 
     // get language specific header titles
@@ -112,8 +119,7 @@ $(document).ready(function() {
     const hdrFieldAge = browser.i18n.getMessage("fieldAge");
     const hdrFieldHost = browser.i18n.getMessage("fieldHost");
 
-    let tableElement = $('#fhcTable');
-    let table = tableElement.DataTable( {
+    return tableElement.DataTable( {
         responsive: {details: false},
         scrollY: '300px',
         language: {url: languageURL},
@@ -214,98 +220,8 @@ $(document).ready(function() {
                 }
             }
         ]
-    } );
-
-    // populate tableview with data from the database
-    populateViewFromDatabase(table);
-    selectionChangedHandler();
-
-
-    // Add event listener for opening and closing details
-    tableElement.find('tbody').on('click', 'td.my-details-control', function() {
-        DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
     });
-
-    tableElement.find('tbody').on('dblclick', 'tr', function() {
-        DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
-    });
-
-    // Add event listener for select events
-    table.on('select', function (e, dt, type /*, indexes */) {
-        if (type === 'row') {
-            selectionChangedHandler();
-        }
-    });
-
-    // Add event listener for deselect events
-    table.on('deselect', function (e, dt, type /*, indexes*/) {
-        if (type === 'row') {
-            selectionChangedHandler();
-        }
-    });
-
-    // navigation menu animation
-    $('nav li').hover(
-        function() {
-            $('ul', this).stop().slideDown(200);
-        },
-        function() {
-            $('ul', this).stop().slideUp(200);
-        }
-    );
-
-    // // Prevent the default right-click contextmenu
-    // //document.oncontextmenu = function() {return false;};
-
-    // custom right-click menu
-    tableElement.find('tbody').on('contextmenu', 'tr', function() {
-        console.log("context menu should now display :-)");
-        let tr = $(this).closest('tr');
-        let row = table.row( tr );
-        dataRightClicked = row.data();
-    });
-    $('menuitem').on('click', function(event) {
-        onContextMenuClicked(event.currentTarget.id);
-    });
-
-    // Add event listeners for the buttons
-    $('#buttons').find('button').on('click', function (event) {
-        onButtonClicked(event.currentTarget.id);
-    });
-
-    // Add event listeners for the menu items
-    $('nav ul li ul li span').on('click', function (event) {
-        onMenuClicked(event.currentTarget.id);
-    });
-
-    // add keyhandler for menu
-    $('body').on('keyup', function(event) {
-        onKeyClicked(event);
-    });
-
-    $(window).on('beforeunload', function() {
-        console.log('Unloading window, notify child windows to also close!');
-        // this only works when the close-button is used
-        browser.runtime.sendMessage({eventType: 666}).then(null,
-            (error)=>{console.log(`Error sending close event: ${error}`);}
-        );
-    });
-
-    $(window).on('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            // resizing has stopped
-            let buttonSpace = 160;
-            if (window.innerWidth < 768) {
-                // miscellaneous DataTable components will stack on top of each other, leave more room for the buttons
-                buttonSpace = 220;
-            }
-            $('.dataTables_scrollBody').css('height', window.innerHeight-buttonSpace+"px");
-            $('#fhcTable').DataTable().draw();
-        }, 250);
-    });
-
-});
+}
 
 
 function selectAll() {

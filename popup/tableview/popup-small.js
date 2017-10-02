@@ -1,220 +1,36 @@
 'use strict';
 
-//const gettingItem = browser.storage.local.get();
-//gettingItem.then((results) => {
-//  document.querySelector("#panel-content").textContent = JSON.stringify(results, null, 2);
-//});
-
-
-// var dataSet = [
-//     [ 1,  "os_username", "mahies", 692, 1364453733248, 1487678983265, "http://www.dummy.net" ],
-//     [ 2,  "searchbar-history", "java ssl rsa rc4 128", 1, 1487662321458, 1487662321458, "http://www.dummy.net" ],
-//     [ 3,  "session[username]", "mahies", 26, 1460972197985, 1487600954650, "http://www.dummy.net" ],
-//     [ 4,  "j_username", "mahies", 563, 1364976724597, 1487664013000, "http://www.dummy.net" ],
-//     [ 5,  "searchbar-history", "slack formatting", 1, 1487587276769, 1487587276769, "http://www.dummy.net" ],
-//     [ 6,  "searchbar-history", "spring annotation-driven", 1, 1487584649085, 1487584649085, "http://www.dummy.net" ],
-//     [ 7,  "searchbar-history", "tx:annotation-driven t", 1, 1487584620969, 1487584620969, "http://www.dummy.net" ],
-//     [ 8,  "searchbar-history", "log request response servletfilter", 1, 1487583965434, 1487583965434, "http://www.dummy.net/page/another/here" ],
-//     [ 9,  "searchbar-history", "java [] add", 1, 1487578995966, 1487578995966, "http://www.dummy.net" ],
-//     [ 10, "searchbar-history", "PayloadLoggingInterceptor", 1, 1487573054408, 1487573054408, "http://www.dummy.net" ],
-//     [ 11, "searchbar-history", "spring-ws marshalSendAndReceive log xml", 1, 1487572977722, 1487572977722, "http://www.dummy.net" ],
-//     [ 12, "searchString", "timestamp", 1, 1487571865292, 1487571865292, "http://www.dummy.net" ],
-//     [ 13, "searchbar-history", "spooky fairy", 1, 1487416016680, 1487416016680, "http://www.dummy.net" ],
-//     [ 14, "email", "+31613277188", 1, 1487416335000, 1487416335000, "http://www.dummy.net" ],
-//     [ 15, "searchbar-history", "javascript test null", 1, 1487323353156, 1487323353156, "http://www.dummy.net" ],
-//     [ 16, "q", "java", 2, 1484581340242, 1487317384749, "http://www.dummy.net" ],
-//     [ 17, "q", "tomcat", 2, 1487317309190, 1487317333609, "http://www.dummy.net" ],
-//     [ 18, "q", "parent", 1, 1487317317078, 1487317317078, "http://www.dummy.net" ],
-//     [ 19, "searchbar-history", "fairy", 1, 1487315491640, 1487315491640, "http://www.dummy.net" ],
-//     [ 20, "searchbar-history", "facebook assign page role person can't be added", 1, 1487313184451, 1487313184451, "http://www.dummy.net" ],
-//     [ 21, "searchbar-history", "translate", 1, 1487311945033, 1487311945033, "http://www.dummy.net" ],
-//     [ 22, "code", "48184", 1, 1487311821827, 1487311821827, "http://www.dummy.net" ],
-//     [ 23, "reg_email_confirmation__", "+31613277188", 2, 1487311602827, 1487311629990, "http://www.dummy.net" ],
-//     [ 24, "reg_email__", "+31613277188", 2, 1487311602827, 1487311629990, "http://www.dummy.net" ],
-//     [ 25, "lastname", "Le Blanc", 2, 1487311602827, 1487311629990, "http://www.dummy.net" ],
-//     [ 26, "firstname", "Adv", 1, 1487311629990, 1487311629990, "http://www.dummy.net" ],
-//     [ 27, "firstname", "A", 1, 1487311602827, 1487311602827, "http://www.dummy.net" ],
-//     [ 28, "searchbar-history", "facebook", 1, 1487311351132, 1487311351132, "http://www.dummy.net" ],
-//     [ 29, "searchbar-history", "apache camel http", 1, 1487144358590, 1487144358590, "http://www.dummy.net" ],
-//     [ 30, "searchbar-history", "jaxbmarshaller threadsafe", 1, 1487070445816, 1487070445816, "http://www.dummy.net" ],
-//     [ 31, "searchbar-history", "javasctipt childnode text", 1, 1487058444395, 1487058444395, "http://www.dummy.net" ],
-//     [ 32, "searchbar-history", ".hasOwnProperty", 1, 1487057614461, 1487057614461, "http://www.dummy.net" ],
-//     [ 33, "searchbar-history", "querySelectorAll data", 1, 1487057465060, 1487057465060, "http://www.dummy.net" ],
-//     [ 34, "searchbar-history", "querySelector", 1, 1487056856567, 1487056856567, "http://www.dummy.net" ],
-//     [ 35, "searchbar-history", "inernationalize chrome etension html", 1, 1487056186412, 1487056186412, "http://www.dummy.net" ],
-//     [ 36, "searchbar-history", "mozilla webextensions locale", 1, 1487052533485, 1487052533485, "http://www.dummy.net" ],
-//     [ 37, "userReleaseDate", "13-02-2017", 1, 1486996272837, 1486996272837, "http://www.dummy.net" ],
-//     [ 38, "name", "klic-belangen-frontend_2.0.0.55", 1, 1486996259811, 1486996259811, "http://www.dummy.net" ],
-//     [ 39, "description", "Belangen frontend", 1, 1486996259811, 1486996259811, "http://www.dummy.net" ],
-//     [ 40, "searchbar-history", "geocat.net", 1, 1486993780756, 1486993780756, "http://www.dummy.net" ],
-//     [ 41, "searchbar-history", "swagger client create", 1, 1486993396001, 1486993396001, "http://www.dummy.net" ],
-//     [ 42, "searchbar-history", "swagger", 1, 1486993331945, 1486993331945, "http://www.dummy.net" ],
-//     [ 43, "rn", "gerlo", 1, 1486992561292, 1486992561292, "http://www.dummy.net" ],
-//     [ 44, "n", "gerlo", 1, 1486992555215, 1486992555215, "http://www.dummy.net" ],
-//     [ 45, "searchbar-history", "React.createElement", 1, 1486983888728, 1486983888728, "http://www.dummy.net" ],
-//     [ 46, "summary", "bmkl-api netinformatie-opvraagservice niet leveren via lokaal zipbestand", 1, 1486976259239, 1486976259239, "http://www.dummy.net" ],
-//     [ 47, "searchbar-history", "e10s list]", 1, 1486969575850, 1486969575850, "http://www.dummy.net" ],
-//     [ 48, "searchbar-history", "firefox add-ons", 1, 1486967537827, 1486967537827, "http://www.dummy.net" ],
-//     [ 49, "searchbar-history", "glasvezel bitengebied hof", 1, 1486966072050, 1486966072050, "http://www.dummy.net" ],
-//     [ 50, "wpName", "Stephan", 80, 1364547284740, 1486965771124, "http://www.dummy.net" ],
-//     [ 51, "mo", "11294535", 1, 1486711195375, 1486711195375, "http://www.dummy.net" ],
-//     [ 52, "n", "smit", 3, 1486641146194, 1486711164580, "http://www.dummy.net" ],
-//     [ 53, "searchbar-history", "Suppoort", 1, 1486709627992, 1486709627992, "http://www.dummy.net" ],
-//     [ 54, "searchbar-history", "regex tester", 1, 1486664576258, 1486664576258, "http://www.dummy.net" ],
-//     [ 55, "searchbar-history", "sjoerd smorenburg", 1, 1486643492535, 1486643492535, "http://www.dummy.net" ],
-//     [ 56, "session_key", "stephanmahieu@yahoo.com", 24, 1470832678961, 1486643382007, "http://www.dummy.net" ],
-//     [ 57, "n", "smo", 1, 1486642445396, 1486642445396, "http://www.dummy.net" ],
-//     [ 58, "n", "smoren", 1, 1486642433483, 1486642433483, "http://www.dummy.net" ],
-//     [ 59, "n", "hulleman", 2, 1486641880217, 1486642349361, "http://www.dummy.net" ],
-//     [ 60, "n", "hosper", 2, 1486641627271, 1486642280113, "http://www.dummy.net"  ]
-// ];
-
-
-let openChildRow;
-let openTr;
-function closePrevChildIfOpen() {
-    if (openChildRow) {
-        openChildRow.child.hide();
-        openTr.removeClass('shown');
-        openChildRow = null;
-        openTr = null;
-
-        // $('div.detail-root', openChildRow.child()).slideUp( function () {
-        //     openChildRow.child.hide();
-        //     openTr.removeClass('shown');
-        //     openChildRow = null;
-        //     openTr = null;
-        // });
-    }
-}
-
 $(document).ready(function() {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
 
-    // console.log("Sending a getformfields request message to the background (receiveFormData.js)...");
-    // browser.runtime.sendMessage({
-    //     eventType: 5
-    // });
+    // create/initialize the dataTable
+    const table = createDataTable();
 
-    // UNDEFINED
-    // console.log("call getCurrentFields() function in content script showFormData.js...");
-    // getCurrentFields();
-
-    let languageURL = DataTableUtil.getLanguageURL();
-
-    // get language specific header titles
-    const hdrFieldname = browser.i18n.getMessage("fieldName");
-    const hdrFieldvalue = browser.i18n.getMessage("fieldValue");
-    const hdrFieldType = browser.i18n.getMessage("fieldType");
-    const hdrFieldCount = browser.i18n.getMessage("fieldCount");
-    const hdrFieldFirst = browser.i18n.getMessage("fieldFirstUsed");
-    const hdrFieldLast = browser.i18n.getMessage("fieldLastUsed");
-    const hdrFieldAge = browser.i18n.getMessage("fieldAge");
-    const hdrFieldHost = browser.i18n.getMessage("fieldHost");
-
-    let table = $('#fhcTable').DataTable( {
-        scrollY: 300,
-        language: {url: languageURL},
-        order: [[ 7, "desc" ]],
-        paging: true,
-        lengthMenu: [11, 20, 50, 100, 500],
-        pageLength: 11,
-        select: {
-            style: 'single',
-            info: false,
-            selector: 'td:not(.details-control)'
-        },
-
-        columns: [
-            {
-                responsivePriority: 1,
-                className: 'details-control',
-                orderable: false,
-                data: null,
-                defaultContent: ''
-            },
-            { title: "Id", responsivePriority: 2 },
-            { title: hdrFieldname, responsivePriority: 3 },
-            { title: hdrFieldvalue, responsivePriority: 4  },
-            { title: hdrFieldType, responsivePriority: 10  },
-            { title: hdrFieldCount, responsivePriority: 5  },
-            { title: hdrFieldFirst, responsivePriority: 9  },
-            { title: hdrFieldLast, responsivePriority: 7  },
-            { title: hdrFieldAge, responsivePriority: 6 },
-            { title: hdrFieldHost, responsivePriority: 8  }
-        ],
-        columnDefs: [
-            {
-                targets: [ 1 ],
-                visible: false,
-                searchable: false
-            },
-            {
-                targets: 2,
-                data: 1,
-                className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
-                    return DataTableUtil.ellipsis(data, type, 20, false, true);
-                }
-            },
-            {
-                targets: 3,
-                data: 2,
-                className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
-                    return DataTableUtil.ellipsis(data, type, 20, false, true);
-                }
-            },
-            {
-                targets: 4,
-                data: 3,
-                className: "dt-head-left"
-            },
-            {
-                targets: 5,
-                data: 4,
-                searchable: false,
-                type: "num",
-                className: "dt-right",
-                render: function ( data, /*type, full, meta */) {
-                    return (!data) ? "" : data;
-                }
-            },
-            {
-                targets: 6,
-                data: 5,
-                visible: false,
-                searchable: false,
-                render: function ( data, type, full, meta ) {
-                    return DataTableUtil.formatDate(data, type);
-                }
-            },
-            {
-                targets: 7,
-                data: 6,
-                className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
-                    return DataTableUtil.formatDate(data, type);
-                }
-            },
-            {
-                targets: 8,
-                data: 6,
-                className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
-                    return DataTableUtil.formatAge(data, type);
-                }
-            },
-            {
-                targets: 9,
-                data: 7,
-                className: "dt-head-left",
-                render: function ( data, type, full, meta ) {
-                    return DataTableUtil.ellipsis(data, type, 25, false, true);
-                }
+    browser.tabs.query({lastFocusedWindow: true, active: true}).then(
+        (tabs)=>{
+            if (tabs.length === 1) {
+                return tabs[0];
+            } else {
+                Promise.reject("found 0 or > 1 active tabs");
             }
-        ]
-    } );
+        }
+    ).then((tab)=> {
+        // console.log('popup-small:: Active tab: id: ' + tab.id + ' windowId: ' + tab.windowId);
+        // Send only a message to frameId 0 (the main window), inner frames won't receive an event. If the message
+        // was sent to all frames on the page multiple responses would arrive but still only one gets processed!
+        return browser.tabs.sendMessage(tab.id, {action: "getformfields", targetTabId: tab.id}, {frameId: 0}).then(
+            (message)=>{
+                //console.log(`popup-small::responseMessage: ${message.response}`);
+                return message;
+            }
+        );
+    }).then((fieldsMsg)=>{
+        console.log(`received ${fieldsMsg.fields.length} fields!`);
+        populateFromDatabase(table, fieldsMsg.fields, fieldsMsg.host);
+    }).catch((reason) => {
+        console.warn(`Could not get formfields from active tab, showing all instead. Error: ${reason}`);
+        populateFromDatabase(table, null, null);
+    });
 
     $('#fhcTable tbody').on('dblclick', 'tr', function () {
         DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
@@ -260,15 +76,149 @@ $(document).ready(function() {
     //     $(this).toggleClass('selected');
     // });
 
-    // populate the database
-    populateFromDatabase(table);
 });
 
-function populateFromDatabase(table) {
+let openChildRow;
+let openTr;
+function closePrevChildIfOpen() {
+    if (openChildRow) {
+        openChildRow.child.hide();
+        openTr.removeClass('shown');
+        openChildRow = null;
+        openTr = null;
+
+        // $('div.detail-root', openChildRow.child()).slideUp( function () {
+        //     openChildRow.child.hide();
+        //     openTr.removeClass('shown');
+        //     openChildRow = null;
+        //     openTr = null;
+        // });
+    }
+}
+
+function createDataTable() {
+    const languageURL = DataTableUtil.getLanguageURL();
+
+    // get language specific header titles
+    const hdrFieldname = browser.i18n.getMessage("fieldName");
+    const hdrFieldvalue = browser.i18n.getMessage("fieldValue");
+    const hdrFieldType = browser.i18n.getMessage("fieldType");
+    const hdrFieldCount = browser.i18n.getMessage("fieldCount");
+    const hdrFieldFirst = browser.i18n.getMessage("fieldFirstUsed");
+    const hdrFieldLast = browser.i18n.getMessage("fieldLastUsed");
+    const hdrFieldAge = browser.i18n.getMessage("fieldAge");
+    const hdrFieldHost = browser.i18n.getMessage("fieldHost");
+
+    return $('#fhcTable').DataTable( {
+        scrollY: 300,
+        language: {url: languageURL},
+        order: [[ 7, "desc" ]],
+        paging: true,
+        lengthMenu: [11, 20, 50, 100, 500],
+        pageLength: 11,
+        select: {
+            style: 'single',
+            info: false,
+            selector: 'td:not(.details-control)'
+        },
+
+        columns: [
+            {
+                responsivePriority: 1,
+                className: 'details-control',
+                orderable: false,
+                data: null,
+                defaultContent: ''
+            },
+            { title: "Id", responsivePriority: 2 },
+            { title: hdrFieldname, responsivePriority: 3 },
+            { title: hdrFieldvalue, responsivePriority: 4  },
+            { title: hdrFieldType, responsivePriority: 10  },
+            { title: hdrFieldCount, responsivePriority: 5  },
+            { title: hdrFieldFirst, responsivePriority: 9  },
+            { title: hdrFieldLast, responsivePriority: 7  },
+            { title: hdrFieldAge, responsivePriority: 6 },
+            { title: hdrFieldHost, responsivePriority: 8  }
+        ],
+        columnDefs: [
+            {
+                targets: [ 1 ],
+                visible: false,
+                searchable: false
+            },
+            {
+                targets: 2,
+                data: 1,
+                className: "dt-head-left",
+                render: function ( data, type/*, full, meta */) {
+                    return DataTableUtil.ellipsis(data, type, 20, false, true);
+                }
+            },
+            {
+                targets: 3,
+                data: 2,
+                className: "dt-head-left",
+                render: function ( data, type/*, full, meta */) {
+                    return DataTableUtil.ellipsis(data, type, 20, false, true);
+                }
+            },
+            {
+                targets: 4,
+                data: 3,
+                className: "dt-head-left"
+            },
+            {
+                targets: 5,
+                data: 4,
+                searchable: false,
+                type: "num",
+                className: "dt-right",
+                render: function ( data, /*type, full, meta */) {
+                    return (!data) ? "" : data;
+                }
+            },
+            {
+                targets: 6,
+                data: 5,
+                visible: false,
+                searchable: false,
+                render: function ( data, type/*, full, meta */) {
+                    return DataTableUtil.formatDate(data, type);
+                }
+            },
+            {
+                targets: 7,
+                data: 6,
+                className: "dt-head-left",
+                render: function ( data, type/*, full, meta */) {
+                    return DataTableUtil.formatDate(data, type);
+                }
+            },
+            {
+                targets: 8,
+                data: 6,
+                className: "dt-head-left",
+                render: function ( data, type/*, full, meta */) {
+                    return DataTableUtil.formatAge(data, type);
+                }
+            },
+            {
+                targets: 9,
+                data: 7,
+                className: "dt-head-left",
+                render: function ( data, type/*, full, meta */) {
+                    return DataTableUtil.ellipsis(data, type, 25, false, true);
+                }
+            }
+        ]
+    } );
+}
+
+function populateFromDatabase(table, forFields, forHost) {
     $("#overlaystatus").show();
 
     let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
-    req.onerror = function (event) {
+    req.onerror = function () {
         console.error("Database open error", this.error);
         $("#overlaystatus").hide();
     };
@@ -277,19 +227,29 @@ function populateFromDatabase(table) {
         let db = event.target.result;
         //console.log("Database opened successfully.");
 
+        // create a lookup map
+        let forFieldsMap;
+        if (forFields) {
+            forFieldsMap = new Map();
+            forFields.forEach((field)=>{forFieldsMap.set(field.name, field.type)});
+        }
+
         let count = 0;
         let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readonly").objectStore(DbConst.DB_STORE_TEXT);
         let cursorReq = objStore.index("by_last").openCursor(null, "prev");
         cursorReq.onsuccess = function(evt) {
-            var cursor = evt.target.result;
+            let cursor = evt.target.result;
             if (cursor) {
                 let fhcEntry = cursor.value;
                 //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
 
-                table.row.add([cursor.key, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]);
+                // either show all entries or show only the fields/host requested
+                if (!forFields || fhcEntry.name === "" || forFieldsMap.has(fhcEntry.name) || fhcEntry.host === forHost) {
+                    table.row.add([cursor.key, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]);
+                    count += 1;
+                }
 
                 // only update display after 15 rows and when finished
-                count += 1;
                 if (count === 15) {
                     table.draw();
                 }

@@ -4,7 +4,7 @@ let eventQueue = [];
 
 browser.runtime.onMessage.addListener(receiveEvents);
 
-function receiveEvents(fhcActionEvent) {
+function receiveEvents(fhcActionEvent, sender, sendResponse) {
     if (fhcActionEvent.action) {
         switch (fhcActionEvent.action) {
 
