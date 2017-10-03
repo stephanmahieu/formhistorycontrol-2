@@ -91,6 +91,10 @@
     "message": "Export",
     "description": "Label of export button."
   },
+  "buttonImport": {
+    "message": "Import",
+    "description": "Label of import button."
+  },
 
 
   "importTitle": {
@@ -101,12 +105,16 @@
     "message": "Export",
     "description": "Title of the export window."
   },
+  "exportStatus": {
+    "message": "Status",
+    "description": "Import/Export window: Status header"
+  },
   "exportNoOfTextEntries": {
-    "message": "Number of text entries",
+    "message": "Number of text entries:",
     "description": "Import/Export window: Number of text entries."
   },
   "exportNoOfdMultilineEntries": {
-    "message": "Number of multiline entries",
+    "message": "Number of multiline entries:",
     "description": "Import/Export window: Number of multiline entries."
   },
   "exportDownloadLink": {

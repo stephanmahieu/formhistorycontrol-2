@@ -91,6 +91,10 @@
     "message": "Exporteren",
     "description": "Label of export button."
   },
+  "buttonImport": {
+    "message": "Importeren",
+    "description": "Label of import button."
+  },
 
 
   "importTitle": {
@@ -101,12 +105,16 @@
     "message": "Exporteren",
     "description": "Title of the export window."
   },
+  "exportStatus": {
+    "message": "Status",
+    "description": "Import/Export window: Status header"
+  },
   "exportNoOfTextEntries": {
-    "message": "Aantal tekst velden",
+    "message": "Aantal tekst velden:",
     "description": "Import/Export window: Number of text entries."
   },
   "exportNoOfdMultilineEntries": {
-    "message": "Aantal meerregelige velden",
+    "message": "Aantal meerregelige velden:",
     "description": "Import/Export window: Number of multiline entries."
   },
   "exportDownloadLink": {

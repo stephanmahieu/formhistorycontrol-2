@@ -23,12 +23,23 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
 
     document.getElementById('files').addEventListener('change', handleFileSelect);
+    document.getElementById("buttonImport").addEventListener("click", handleImport);
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
 });
 
 
 function handleFileSelect(evt) {
-    let fileList = evt.target.files;
+    if (evt.target.files && evt.target.files.length > 0) {
+        document.getElementById("buttonImport").removeAttribute("disabled");
+    } else {
+        document.getElementById("buttonImport").setAttribute("disabled", "disabled");
+    }
+}
+
+function handleImport() {
+    document.getElementById("buttonImport").setAttribute("disabled", "disabled");
+
+    let fileList = document.getElementById('files').files;
     for (let i = 0, f; f = fileList[i]; i++) {
         console.log(
             "Selected file: " + f.name + ", " +

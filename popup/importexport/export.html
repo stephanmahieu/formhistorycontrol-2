@@ -10,21 +10,26 @@
 </head>
 <body>
 <div class="content">
-    <button id="buttonExport" data-fhc-i18n="buttonExport">Export</button>
-    <p>
-        <div>
-            <div id="count-text-label" data-fhc-i18n="exportNoOfTextEntries">Number of text entries</div>: <div id="count-text">-</div>
-        </div>
-        <div>
-            <div id="count-multiline-label" data-fhc-i18n="exportNoOfdMultilineEntries">Number of multiline entries</div>: <div id="count-multiline">-</div>
-        </div>
-        <div>
-            <div id="download-label" data-fhc-i18n="exportDownloadLink">Download link:</div>
-            <a id="link" target="_blank" download="formhistory.xml">formhistory.xml</a>
-        </div>
-    </p>
+
+    <table>
+        <tr>
+            <td colspan="2" class="status-header">Status</td>
+        </tr>
+        <tr>
+            <td id="count-text-label" data-fhc-i18n="exportNoOfTextEntries">Number of text entries:</td>
+            <td id="count-text" class="right-aligned">-</td>
+        </tr><tr>
+            <td id="count-multiline-label" data-fhc-i18n="exportNoOfdMultilineEntries">Number of multiline entries:</td>
+            <td id="count-multiline" class="right-aligned">-</td>
+        </tr>
+    </table>
+    <div>
+        <div id="download-label" data-fhc-i18n="exportDownloadLink">Download link:</div>
+        <a id="link" target="_blank" download="formhistory.xml">formhistory.xml</a>
+    </div>
 </div>
 <div id="buttons">
+    <button id="buttonExport" data-fhc-i18n="buttonExport">Export</button>
     <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
 </div>
 <script src="../../common/OptionsUtil.js"></script>
