@@ -20,7 +20,6 @@ $(document).ready(function() {
     populateViewFromDatabase(table);
     selectionChangedHandler();
 
-
     // Add event listener for opening and closing details
     tableElement.find('tbody').on('click', 'td.my-details-control', function() {
         DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
@@ -110,14 +109,14 @@ function createDataTable(tableElement) {
     let languageURL = DataTableUtil.getLanguageURL();
 
     // get language specific header titles
-    const hdrFieldname = browser.i18n.getMessage("fieldName");
-    const hdrFieldvalue = browser.i18n.getMessage("fieldValue");
-    const hdrFieldType = browser.i18n.getMessage("fieldType");
-    const hdrFieldCount = browser.i18n.getMessage("fieldCount");
-    const hdrFieldFirst = browser.i18n.getMessage("fieldFirstUsed");
-    const hdrFieldLast = browser.i18n.getMessage("fieldLastUsed");
-    const hdrFieldAge = browser.i18n.getMessage("fieldAge");
-    const hdrFieldHost = browser.i18n.getMessage("fieldHost");
+    const hdrFieldname = browser.i18n.getMessage("fieldName") || 'Fieldname';
+    const hdrFieldvalue = browser.i18n.getMessage("fieldValue") || 'Content';
+    const hdrFieldType = browser.i18n.getMessage("fieldType") || 'Type';
+    const hdrFieldCount = browser.i18n.getMessage("fieldCount") || 'Count';
+    const hdrFieldFirst = browser.i18n.getMessage("fieldFirstUsed") || 'First used';
+    const hdrFieldLast = browser.i18n.getMessage("fieldLastUsed") || 'Last used';
+    const hdrFieldAge = browser.i18n.getMessage("fieldAge") || 'Age';
+    const hdrFieldHost = browser.i18n.getMessage("fieldHost") || 'Host';
 
     return tableElement.DataTable( {
         responsive: {details: false},

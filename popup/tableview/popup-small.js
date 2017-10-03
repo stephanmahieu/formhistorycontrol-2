@@ -66,16 +66,6 @@ $(document).ready(function() {
             $('div.detail-root', row.child()).slideDown('fast');
         }
     } );
-
-    // table.on('page.dt', function () {
-    //     closePrevChildIfOpen();
-    // });
-
-    // Handled by select plugin?
-    // $('#fhcTable tbody').on( 'click', 'tr', function () {
-    //     $(this).toggleClass('selected');
-    // });
-
 });
 
 let openChildRow;
@@ -86,13 +76,6 @@ function closePrevChildIfOpen() {
         openTr.removeClass('shown');
         openChildRow = null;
         openTr = null;
-
-        // $('div.detail-root', openChildRow.child()).slideUp( function () {
-        //     openChildRow.child.hide();
-        //     openTr.removeClass('shown');
-        //     openChildRow = null;
-        //     openTr = null;
-        // });
     }
 }
 
@@ -100,14 +83,14 @@ function createDataTable() {
     const languageURL = DataTableUtil.getLanguageURL();
 
     // get language specific header titles
-    const hdrFieldname = browser.i18n.getMessage("fieldName");
-    const hdrFieldvalue = browser.i18n.getMessage("fieldValue");
-    const hdrFieldType = browser.i18n.getMessage("fieldType");
-    const hdrFieldCount = browser.i18n.getMessage("fieldCount");
-    const hdrFieldFirst = browser.i18n.getMessage("fieldFirstUsed");
-    const hdrFieldLast = browser.i18n.getMessage("fieldLastUsed");
-    const hdrFieldAge = browser.i18n.getMessage("fieldAge");
-    const hdrFieldHost = browser.i18n.getMessage("fieldHost");
+    const hdrFieldname = browser.i18n.getMessage("fieldName") || 'Fieldname';
+    const hdrFieldvalue = browser.i18n.getMessage("fieldValue") || 'Content';
+    const hdrFieldType = browser.i18n.getMessage("fieldType") || 'Type';
+    const hdrFieldCount = browser.i18n.getMessage("fieldCount") || 'Count';
+    const hdrFieldFirst = browser.i18n.getMessage("fieldFirstUsed") || 'First used';
+    const hdrFieldLast = browser.i18n.getMessage("fieldLastUsed") || 'Last used';
+    const hdrFieldAge = browser.i18n.getMessage("fieldAge") || 'Age';
+    const hdrFieldHost = browser.i18n.getMessage("fieldHost") || 'Host';
 
     return $('#fhcTable').DataTable( {
         scrollY: 300,
