@@ -54,9 +54,11 @@ div.detail-root > table {
 }
 div.detail-root > table td {
   padding: 1px 5px !important;
+  vertical-align: top;
 }
 div.detail-root .label {
   font-weight: bold;
+  color: black;
 }
 table.dataTable tbody td.no-padding {
   padding: 0;

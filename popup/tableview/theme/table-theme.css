@@ -1,5 +1,16 @@
 /* common styles for table view */
 
+#fhcTable_filter input[type=search] {
+    width: 100px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+#fhcTable_filter input[type=search]:focus {
+    width: 200px;
+}
+
 /* Disable select (might accidentally occur when double clicking) */
 table.dataTable tbody tr {
     user-select: none;
