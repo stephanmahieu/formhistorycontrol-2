@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
 
 
 function handleFileSelect(evt) {
+    document.getElementById('import-progress').value = 0;
     if (evt.target.files && evt.target.files.length > 0) {
         document.getElementById("buttonImport").removeAttribute("disabled");
     } else {
@@ -73,14 +74,16 @@ function handleImport() {
         };
 
         reader.onloadstart = function(/*evt*/) {
+            document.getElementById('import-progress').value = 0;
             console.log("- loading...");
         };
 
-        reader.onprogress = function(/*evt*/){
+        reader.onprogress = function(evt){
             let percentLoaded = 0;
             if (evt.lengthComputable) {
                 percentLoaded = Math.round((evt.loaded / evt.total) * 100);
             }
+            document.getElementById('import-progress').value = percentLoaded;
             console.log("- progress ", percentLoaded, "%");
         };
 

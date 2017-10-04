@@ -9,6 +9,13 @@ table {
 
 td.right-aligned {
     text-align: right;
+    min-width: 3.0em;
+}
+
+progress {
+    margin-top: 10px;
+    width: 100%;
+    height: 10px;
 }
 
 .content {
