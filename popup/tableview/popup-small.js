@@ -97,8 +97,8 @@ function createDataTable() {
         language: {url: languageURL},
         order: [[ 7, "desc" ]],
         paging: true,
-        lengthMenu: [11, 20, 50, 100, 500],
-        pageLength: 11,
+        lengthMenu: [10, 12, 20, 50, 100, 500],
+        pageLength: 12,
         select: {
             style: 'single',
             info: false,
@@ -198,7 +198,7 @@ function createDataTable() {
 }
 
 function populateFromDatabase(table, forFields, forHost) {
-    $("#overlaystatus").show();
+    $("#overlaystatus").addClass('spinner').show();
 
     let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
     req.onerror = function () {
@@ -242,7 +242,7 @@ function populateFromDatabase(table, forFields, forHost) {
             else {
                 //console.log("No more entries!");
                 table.draw();
-                $("#overlaystatus").hide();
+                $("#overlaystatus").removeClass('spinner').hide();
             }
         }
     };

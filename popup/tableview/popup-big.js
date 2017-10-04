@@ -298,7 +298,7 @@ function refreshView() {
 }
 
 function populateViewFromDatabase(table) {
-    $("#overlaystatus").show();
+    $("#overlaystatus").addClass('spinner').show();
 
     let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
     req.onerror = function (/*event*/) {
@@ -333,7 +333,7 @@ function populateViewFromDatabase(table) {
             else {
                 //console.log("No more entries!");
                 table.draw();
-                $("#overlaystatus").hide();
+                $("#overlaystatus").removeClass('spinner').hide();
             }
         }
     };
