@@ -7,14 +7,15 @@ browser.runtime.onMessage.addListener(receiveEvents);
 
 function receiveEvents(fhcEvent, sender, sendResponse) {
     if (fhcEvent.action) {
-        console.log("Received action event " + fhcEvent.action);
 
         switch (fhcEvent.action) {
             case "showformfields":
+                console.log("Received action event " + fhcEvent.action);
                 showformfields();
                 break;
 
             case "getformfields":
+                console.log("Received action event " + fhcEvent.action);
                 let fields = [];
                 getCurrentFields(document, fields);
                 const thisHost = document.location.protocol === "file:" ? "localhost" :  document.location.host;
