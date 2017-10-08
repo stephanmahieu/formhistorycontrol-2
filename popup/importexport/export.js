@@ -42,7 +42,7 @@ function handleExport(evt) {
 
         let count = 0;
         let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readonly").objectStore(DbConst.DB_STORE_TEXT);
-        let cursorReq = objStore.index("by_last").openCursor(null, "prev");
+        let cursorReq = objStore.index(DbConst.DB_TEXT_IDX_LAST).openCursor(null, "prev");
         cursorReq.onsuccess = function(evt) {
             var cursor = evt.target.result;
             if (cursor) {
