@@ -1,9 +1,16 @@
 'use strict';
 
 browser.runtime.onMessage.addListener(fhcEvent=>{
-    if (fhcEvent.eventType && fhcEvent.eventType===888) {
-        // options have changed, reload
-        OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+    if (fhcEvent.eventType) {
+        switch (fhcEvent.eventType) {
+            case 888:
+                OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+                break;
+
+            case 777:
+                refreshView();
+                break;
+        }
     }
 });
 

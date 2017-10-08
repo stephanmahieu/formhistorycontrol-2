@@ -101,6 +101,11 @@ function handleImport() {
 
             _storeTextEntries(result.entries);
             _storeMultilineEntries(result.multiline);
+
+            // notify popup(s) that new data has been added
+            browser.runtime.sendMessage({
+                eventType: 777
+            });
         };
 
         reader.readAsText(f, "utf-8");
