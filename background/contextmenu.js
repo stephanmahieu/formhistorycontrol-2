@@ -83,7 +83,7 @@ browser.contextMenus.create({
 function showformfields(tabId) {
     // send without checking response
     // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/sendMessage
-    console.log('Sending a message to tab ' + tabId);
+    //console.log('Sending a message to tab ' + tabId);
     browser.tabs.sendMessage(tabId, {
         action: "showformfields",
         targetTabId: tabId
@@ -93,7 +93,7 @@ function showformfields(tabId) {
 function fillformfields(tabId, action) {
     // send without checking response
     // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/sendMessage
-    console.log('Sending a message to tab ' + tabId);
+    //console.log('Sending a message to tab ' + tabId);
     browser.tabs.sendMessage(tabId, {
         action: action,
         targetTabId: tabId
