@@ -11,12 +11,12 @@ function receiveEvents(fhcActionEvent, sender, sendResponse) {
             case "fillMostRecent":
             case "fillMostUsed":
             case "clearFields":
-                console.log("Received action event " + fhcActionEvent.action);
+                //console.log("Received action event " + fhcActionEvent.action);
                 _fillformfields(fhcActionEvent.action, fhcActionEvent.targetTabId);
                 break;
 
             case "formfieldValueResponse":
-                console.log("Received action event " + fhcActionEvent.action);
+                //console.log("Received action event " + fhcActionEvent.action);
                 _findFieldAndSetValue(fhcActionEvent);
                 break;
         }
@@ -28,22 +28,38 @@ function receiveEvents(fhcActionEvent, sender, sendResponse) {
 //----------------------------------------------------------------------------
 
 function _findFieldAndSetValue(fhcEvent) {
-    let field = null;
-    document.querySelectorAll("input,textarea").forEach( (elem) => {
-        if (_isTextInputSubtype(elem.type) && _isDisplayed(elem)) {
-            if (!field) {
-                field = _ifMatchSetValue(elem, fhcEvent);
-            }
-        }
-    });
+    let found = false;
 
-    document.querySelectorAll("html,div,iframe,body").forEach( (elem) => {
-        if ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem)) {
-            if (!field) {
-                field = _ifMatchSetValue(elem, fhcEvent);
-            }
+    // try to find the element directly by id
+    if (fhcEvent.id) {
+        let elem = document.getElementById(fhcEvent.id);
+        if (elem) {
+            found = _ifMatchSetValue(elem, fhcEvent);
+            //if (found) console.log("1. Just filled field by id: " + fhcEvent.id);
         }
-    });
+    }
+
+    // try to match by name
+    if (!found && fhcEvent.name) {
+        Array.from(document.getElementsByName(fhcEvent.name)).forEach( elem => {
+            if (!found) {
+                found = _ifMatchSetValue(elem, fhcEvent);
+                //if (found) console.log("2. Just filled field by name: " + fhcEvent.id);
+            }
+        });
+    }
+
+    // try all elements matching the nodeName one by one
+    if (!found) {
+        document.querySelectorAll(fhcEvent.nodeName).forEach( elem => {
+            if (_isDisplayed(elem)) {
+                if (!found) {
+                    found = _ifMatchSetValue(elem, fhcEvent);
+                    //if (found) console.log("3. Just filled field by nodeName: " + fhcEvent.id);
+                }
+            }
+        });
+    }
 }
 
 
@@ -52,48 +68,98 @@ function _isDesignModeOn(elem) {
 }
 
 function _ifMatchSetValue(node, fhcEvent) {
-    let type = node.nodeName.toLowerCase();
+    let nodeName = node.nodeName.toLowerCase();
     //let location = node.ownerDocument.location;
     //let pagetitle = node.ownerDocument.title;
-    let formid = "";
-    let id = (node.id) ? node.id : ((node.name) ? node.name : "");
-    //let name = (node.name) ? node.name : ((node.id) ? node.id : "");
+    //let formid = "";
+    //let name = (node.name) ? node.name : ((node.id) ? node.id : "");\
 
-    switch(type) {
-        case "textarea":
-        case "input":
-            // if id is empty, ditch it, it can never be used for restore
-            if (id === "") return;
-            formid = _getFormId(node);
-            break;
+    let id = (node.id) ? node.id : ((node.name) ? node.name : "");
+    if (id === "") {
+        // node without a id or name, skip
+        return false;
+    }
+
+    // switch(nodeName) {
+    //     case "textarea":
+    //     case "input":
+    //         // if id is empty, ditch it, it can never be used for restore
+    //         if (id === "") return;
+    //         //formid = _getFormId(node);
+    //         break;
+    // }
+
+    //console.log("## testing " + fhcEvent.id + " for a match");
+
+    // TODO test if additional properties are equal (location, pagetitle, formid)???
+    if (fhcEvent.nodeName !== nodeName || fhcEvent.id !== id) {
+        //console.log("## missing id, skipping!" + fhcEvent.name);
+        return false;
+    }
+
+    //console.log("#### node id matches " + fhcEvent.id + "  nodeName:" + nodeName + "  type: " + node.type);
+
+    // node.type undefined
+    switch(nodeName) {
         case "html":
         case "div":
         case "iframe":
-            // noop
+            // FIXME innerHTML: Unsafe assignment to innerHTML. Warning: Due to both security and performance concerns, this may not be set using dynamic values which have not been adequately sanitized.
+            node.innerHTML = fhcEvent.value;
+            //console.log("###### setting " + nodeName + " id:" + fhcEvent.id);
+            return true;
             break;
     }
 
-    // TODO test if additional properties are equal???
-    if (fhcEvent.type === type && fhcEvent.id === id) {
-
-        // TODO only set a new value when the current value is empty?
-        // we have found a match, set the new value
-        switch(type) {
+    if (node.type) {
+        switch(node.type) {
             case "textarea":
-            case "input":
+            case "text":
+            case "number":
+            case "range":
+            case "color":
+            case "search":
+            case "tel":
+            case "url":
+            case "email":
+            case "date":
                 // TODO is json stringified?
                 node.value = fhcEvent.value;
+                //console.log("###### setting " + node.type + " id:" + fhcEvent.id);
+                return true;
                 break;
-            case "html":
-            case "div":
-            case "iframe":
-                // FIXME innerHTML: Unsafe assignment to innerHTML. Warning: Due to both security and performance concerns, this may not be set using dynamic values which have not been adequately sanitized.
-                node.innerHTML = fhcEvent.value;
+
+            case "radio":
+            case "checkbox":
+                if (fhcEvent.selected !== node.checked) {
+                    // only check a radiobutton, never uncheck
+                    //console.log("###### setting " + node.type + " id:" + fhcEvent.id);
+                    if (!(node.type === "radio" && !fhcEvent.selected)) {
+                        node.checked = fhcEvent.selected;
+                    }
+                } else {
+                    //console.log("###### skipping " + node.type + "(same state) id:" + fhcEvent.id);
+                }
+                return true;
+                break;
+
+            case "select":
+            case "select-multiple":
+            case "select-one":
+                //console.log("###### setting " + node.type + "!!!! " + fhcEvent.id);
+                if (node.options) {
+                    Array.from(node.options).forEach( optionElem => {
+                        if (optionElem.value === fhcEvent.name && fhcEvent.selected !== optionElem.selected) {
+                            optionElem.selected = fhcEvent.selected;
+                        }
+                    });
+                }
+                return true;
                 break;
         }
-        return node;
     }
-    return null;
+
+    return false;
 }
 
 
@@ -103,57 +169,93 @@ function _ifMatchSetValue(node, fhcEvent) {
 
 function _fillformfields(action, targetTabId) {
     document.querySelectorAll("input,textarea").forEach( (elem) => {
+        // text types
         if (_isTextInputSubtype(elem.type) && _isDisplayed(elem)) {
-            console.log("requesting text content for elem-id: " + elem.id);
-            _requestHistoricValue(elem, action, targetTabId);
+            _requestHistoricValue(elem, action, targetTabId, "text");
+        }
+    });
+
+    document.querySelectorAll("input,textarea").forEach( (elem) => {
+        // form element (state) types
+        if (_isFormElementInputSubtype(elem.type) && _isDisplayed(elem)) {
+            _requestHistoricValue(elem, action, targetTabId, "state");
         }
     });
 
     document.querySelectorAll("html,div,iframe,body").forEach( (elem) => {
         if ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem)) {
-            console.log("requesting editable content for elem-id: " + elem.id);
-            _requestHistoricValue(elem, action, targetTabId);
+            _requestHistoricValue(elem, action, targetTabId, "text");
+        }
+    });
+
+    document.querySelectorAll("select,select-multiple,select-one").forEach( (elem) => {
+        if (_isDisplayed(elem)) {
+            _requestHistoricValue(elem, action, targetTabId, "state");
         }
     });
 }
 
-function _requestHistoricValue(node, action, targetTabId) {
-    let type = node.nodeName.toLowerCase();
+function _requestHistoricValue(node, action, targetTabId, textOrState) {
+    let nodeName = node.nodeName.toLowerCase();
     let location = node.ownerDocument.location;
     let pagetitle = node.ownerDocument.title;
-    let formid = "";
-    let id = (node.id) ? node.id : ((node.name) ? node.name : "");
-    let name = (node.name) ? node.name : ((node.id) ? node.id : "");
-    switch(type) {
+    let formid = _getFormId(node);
+    let id = _getId(node);
+
+    //let name = (node.name) ? node.name : ((node.id) ? node.id : "");
+    let name;
+    if (textOrState === "text") {
+        name  = (node.name) ? node.name : ((node.id) ? node.id : "");
+    } else {
+        name  = (node.name) ? node.name : "";
+    }
+
+    // html,div,body have no type
+    let type = (node.type) ? node.type : "";
+
+    switch(nodeName) {
         case "textarea":
         case "input":
             // if id is empty, ditch it, it can never be used for restore
             if (id === "") return;
-            formid = _getFormId(node);
             break;
-        case "html":
-        case "div":
-        case "iframe":
-            // noop
+
+        case "select":
+        case "select-multiple":
+        case "select-one":
+            // need the options
+            if (node.options) {
+                Array.from(node.options).forEach( optionElem => {
+                    //console.log("requesting content for select option value: " + optionElem.value + " type: " + type + "  id: " + id);
+                    let dataRetrievalEvent = _createHistoricValueRetrievalEvent(optionElem.value, nodeName, type, id, formid, location, pagetitle, textOrState, action, targetTabId);
+                    browser.runtime.sendMessage(dataRetrievalEvent);
+                });
+                return;
+            }
             break;
     }
 
-    let dataRetrievalEvent = _createHistoricValueRetrievalEvent(name, type, id, formid, location, pagetitle, action, targetTabId);
+
+    //console.log("requesting formelement content for elem-id: " + id + " type: " + type + "  nodename: " + nodeName);
+
+    let dataRetrievalEvent = _createHistoricValueRetrievalEvent(name, nodeName, type, id, formid, location, pagetitle, textOrState, action, targetTabId);
     browser.runtime.sendMessage(dataRetrievalEvent);
 }
 
-function _createHistoricValueRetrievalEvent(name, type, id, formid, location, pagetitle, action, targetTabId) {
+function _createHistoricValueRetrievalEvent(name, nodeName, aType, id, formid, location, pagetitle, textOrState, action, targetTabId) {
     return {
         eventType:   3,
         node:        null,
-        type:        type,
+        type:        aType,
         id:          id,
+        nodeName:    nodeName,
         name:        name,
         formid:      formid,
         url:         location.href,
         host:        _getHost(location),
         pagetitle:   pagetitle,
         value:       null,
+        textOrState: textOrState,
         action:      action,
         targetTabId: targetTabId
     };
@@ -242,7 +344,6 @@ function onFormSubmit(event) {
                 case "range":
                 case "color":
                     allFormElements.push({
-                        eventType: 2,
                         node: "",
                         id: _getId(formField),
                         name: (formField.name) ? formField.name : "",
@@ -259,7 +360,6 @@ function onFormSubmit(event) {
                 case "checkbox":
                     //console.log("field id=" + formField.id + " type=" + formField.type + " checked=" + formField.checked);
                     allFormElements.push({
-                        eventType: 2,
                         node: "",
                         id: _getId(formField),
                         name: (formField.name) ? formField.name : "",
@@ -283,7 +383,6 @@ function onFormSubmit(event) {
                             // option may contain attribute label and/or value, if both missing use the text-content
                             //console.log("- option id=" + option.id + " value=" + option.value + " selected=" + option.selected);
                             allFormElements.push({
-                                eventType: 2,
                                 node: "",
                                 id: _getId(formField),
                                 name: option.value,
@@ -301,10 +400,10 @@ function onFormSubmit(event) {
             }
         }
 
-        for (let i=0; i < allFormElements.length; i++) {
-            // send immediately because submitting will reload the page and the background-connection will be lost
-            _processFormElementEvent(allFormElements[i]);
-        }
+        _processFormElementEvent({
+            eventType: 2,
+            formElements: allFormElements
+        });
     }
     //console.log("collectFormData::onFormSubmit done.");
 }
@@ -392,6 +491,12 @@ function _isTextInputSubtype(type) {
     // and exclude the not fully supported: date, datetime-local, month, time, week
     return ("text" === type || "search" === type || "tel" === type || "url" === type || "email" === type || "textarea" === type);
 }
+
+function _isFormElementInputSubtype(type) {
+    return ("radio" === type || "checkbox" === type || "color" === type || "date" === type || "datetime" === type || "datetime-local" === type
+         || "number" === type || "month" === type || "week" === type || "time" === type || "range" === type);
+}
+
 
 /**
  * Get the editor (multiline) content from a HTML element.
