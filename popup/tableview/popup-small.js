@@ -80,6 +80,8 @@ function closePrevChildIfOpen() {
 
 function showContextMenu(event) {
     event.preventDefault();
+
+    // keep a margin between the edge of the menu and the window
     const edgeMargin = 10;
 
     const winRect = document.getElementById('root').getBoundingClientRect();
@@ -88,8 +90,8 @@ function showContextMenu(event) {
     const menuRect = document.getElementById('context-menu-wrapper').getBoundingClientRect();
 
     // get the mouse position and apply an offset to get the mouse-pointer on the first item
-    let x = Math.max(0, event.pageX - 60);
-    let y = Math.max(0, event.pageY - 20);
+    let x = Math.max(edgeMargin, event.pageX - 60);
+    let y = Math.max(edgeMargin, event.pageY - 20);
 
     // check if we're near the right edge of the window
     if (x > winRect.width - (menuRect.width + edgeMargin)) {
