@@ -33,22 +33,18 @@ $(document).ready(function() {
     });
 
     $('#fhcTable tbody').on('dblclick', 'tr', function () {
+        // show details in a separate window
         DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
-    });
-
-    // Prevent the default right-click contextmenu
-    document.oncontextmenu = function() {return false;};
-
-    // custom right-click menu
-    $('#fhcTable').find('tbody').on('contextmenu', 'tr', function() {
-        console.log("context menu should now display :-)");
-    });
-
-
-    // Add event listener for opening and closing details
-    $('#fhcTable tbody').on('click', 'td.details-control', function () {
-        let tr = $(this).closest('tr');
-        let row = table.row( tr );
+    }).on('contextmenu', 'tr', function(event) {
+        // custom right-click menu
+        showContextMenu(event);
+    }).on('click', 'tr', function(event) {
+        // Event listener for closing the context menu when clicked outside the menu
+        hideContextMenuOnClick(event);
+    }).on('click', 'td.details-control', function () {
+        // show inline details
+        const tr = $(this).closest('tr');
+        const row = table.row( tr );
 
         if (row.child.isShown()) {
             // This row is already open - close it
@@ -65,7 +61,10 @@ $(document).ready(function() {
             tr.addClass('shown');
             $('div.detail-root', row.child()).slideDown('fast');
         }
-    } );
+    });
+
+    // Prevent the default right-click contextmenu
+    document.oncontextmenu = function() {return false;};
 });
 
 let openChildRow;
@@ -78,6 +77,50 @@ function closePrevChildIfOpen() {
         openTr = null;
     }
 }
+
+function showContextMenu(event) {
+    event.preventDefault();
+    const edgeMargin = 10;
+
+    const winRect = document.getElementById('root').getBoundingClientRect();
+
+    document.getElementById('context-menu-container').style.display = 'block';
+    const menuRect = document.getElementById('context-menu-wrapper').getBoundingClientRect();
+
+    // get the mouse position and apply an offset to get the mouse-pointer on the first item
+    let x = Math.max(0, event.pageX - 60);
+    let y = Math.max(0, event.pageY - 20);
+
+    // check if we're near the right edge of the window
+    if (x > winRect.width - (menuRect.width + edgeMargin)) {
+        x = winRect.width - (menuRect.width + edgeMargin);
+    }
+
+    // check if we're near the bottom edge of the window
+    if (y > winRect.height - (menuRect.height + edgeMargin)) {
+        y = winRect.height - (menuRect.height + edgeMargin);
+    }
+
+    const mnu = document.getElementById('context-menu-wrapper');
+    mnu.style.top = y + "px";
+    mnu.style.left = x + "px";
+
+    // trigger the transition
+    document.getElementById('context-menu-wrapper').classList.add('show');
+}
+
+function hideContextMenuOnClick(event) {
+    // only close the context-menu if clicked outside
+    if (!document.getElementById('context-menu-wrapper').contains(event.target)) {
+        hideContextMenu();
+    }
+}
+
+function hideContextMenu() {
+    document.getElementById('context-menu-wrapper').classList.remove('show');
+    window.setTimeout(()=>{document.getElementById('context-menu-container').style.display = 'none';}, 800);
+}
+
 
 function createDataTable() {
     const languageURL = DataTableUtil.getLanguageURL();

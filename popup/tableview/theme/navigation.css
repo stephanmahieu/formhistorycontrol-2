@@ -113,3 +113,43 @@ nav ul li ul li span:hover {
 .icon-help:before         { content: url("../../../theme/icons/menu/help.png")}
 .icon-releasenotes:before { content: url("../../../theme/icons/menu/releasenotes.png")}
 .icon-about:before        { content: url("../../../theme/icons/menu/about.png")}
+
+
+/* Context menu */
+#context-menu-container {
+    display: none;
+}
+#context-menu-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    opacity: 0;
+    transition: opacity .8s ease, top .2s ease, left .2s ease;
+}
+#context-menu-wrapper.show {
+    opacity: 1;
+}
+.context-menu {
+    background-color: #fff;
+    border-radius: 3px;
+    margin: 0;
+    min-width: 160px;
+    padding: 5px 0;
+    box-shadow: 0 0 10px 2px #aaa;
+}
+.context-menu li {
+    list-style: none;
+}
+.context-menu span {
+    box-sizing: border-box;
+    display: block;
+    padding: 5px 15px;
+}
+.context-menu span:hover {
+    background-color: #0a0d5f;
+    color: #fff;
+}
+.context-separator {
+    border-bottom: 1px solid #aaa;
+    margin: 5px;
+}

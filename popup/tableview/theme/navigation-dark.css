@@ -46,3 +46,18 @@ nav ul li ul li span:hover {
     background-color: #4e4e4e;
     color: #8f8f8f;
 }
+
+
+/* Context menu */
+.context-menu {
+    color: #e6e6e6;
+    background-color: #3d3d3d;
+    box-shadow: 0 0 10px 2px #191919;
+}
+.context-menu span:hover {
+    background-color: #4c505b;
+    color: #fff;
+}
+.context-separator {
+    border-bottom: 1px solid #aaa;
+}
