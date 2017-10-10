@@ -1,5 +1,7 @@
 'use strict';
 
+let dataRightClicked;
+
 $(document).ready(function() {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
 
@@ -37,10 +39,14 @@ $(document).ready(function() {
         DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
     }).on('contextmenu', 'tr', function(event) {
         // custom right-click menu
-        showContextMenu(event);
+        console.log("context menu should now display :-)");
+        let tr = $(this).closest('tr');
+        let row = table.row( tr );
+        dataRightClicked = row.data();
+        DataTableUtil.showContextMenu(event, 'root');
     }).on('click', 'tr', function(event) {
         // Event listener for closing the context menu when clicked outside the menu
-        hideContextMenuOnClick(event);
+        DataTableUtil.hideContextMenuOnClick(event);
     }).on('click', 'td.details-control', function () {
         // show inline details
         const tr = $(this).closest('tr');
@@ -65,6 +71,10 @@ $(document).ready(function() {
 
     // Prevent the default right-click contextmenu
     document.oncontextmenu = function() {return false;};
+
+    $('.context-menu-item').on('click', function(event) {
+        onContextMenuClicked(event.currentTarget.id);
+    });
 });
 
 let openChildRow;
@@ -78,49 +88,52 @@ function closePrevChildIfOpen() {
     }
 }
 
-function showContextMenu(event) {
-    event.preventDefault();
 
-    // keep a margin between the edge of the menu and the window
-    const edgeMargin = 10;
+function onContextMenuClicked(menuItemId) {
+    console.log("context menuItemId " + menuItemId + " clicked...");
+    console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
+    switch (menuItemId) {
 
-    const winRect = document.getElementById('root').getBoundingClientRect();
+        case "add-ctx":
+            DataTableUtil.openDetailViewEntry({}, "add");
+            DataTableUtil.hideContextMenu();
+            break;
 
-    document.getElementById('context-menu-container').style.display = 'block';
-    const menuRect = document.getElementById('context-menu-wrapper').getBoundingClientRect();
+        case "modify-ctx":
+            DataTableUtil.openDetailViewEntry(dataRightClicked, "edit");
+            DataTableUtil.hideContextMenu();
+            break;
 
-    // get the mouse position and apply an offset to get the mouse-pointer on the first item
-    let x = Math.max(edgeMargin, event.pageX - 60);
-    let y = Math.max(edgeMargin, event.pageY - 20);
+        case "delete-ctx":
+            // method expects the primary key
+            DataTableUtil.deleteItemFromDatabase(dataRightClicked[0], onDeleteSuccess);
+            DataTableUtil.hideContextMenu();
+            break;
 
-    // check if we're near the right edge of the window
-    if (x > winRect.width - (menuRect.width + edgeMargin)) {
-        x = winRect.width - (menuRect.width + edgeMargin);
+        case "copy2clipboard-ctx":
+            DataTableUtil.copyEntryToClipboard(dataRightClicked);
+            DataTableUtil.hideContextMenu();
+            break;
     }
 
-    // check if we're near the bottom edge of the window
-    if (y > winRect.height - (menuRect.height + edgeMargin)) {
-        y = winRect.height - (menuRect.height + edgeMargin);
-    }
-
-    const mnu = document.getElementById('context-menu-wrapper');
-    mnu.style.top = y + "px";
-    mnu.style.left = x + "px";
-
-    // trigger the transition
-    document.getElementById('context-menu-wrapper').classList.add('show');
 }
 
-function hideContextMenuOnClick(event) {
-    // only close the context-menu if clicked outside
-    if (!document.getElementById('context-menu-wrapper').contains(event.target)) {
-        hideContextMenu();
-    }
-}
+function onDeleteSuccess(primaryKey) {
+    console.log(`Entry successful deleted, removing ${primaryKey} from the dataTable view`);
+    const table = $('#fhcTable').DataTable();
 
-function hideContextMenu() {
-    document.getElementById('context-menu-wrapper').classList.remove('show');
-    window.setTimeout(()=>{document.getElementById('context-menu-container').style.display = 'none';}, 800);
+    // find row which have the primaryKey in the first column and remove it
+    let rowIndexes = [];
+    table.rows().every( function (rowIdx) {
+        let rowData = this.data();
+        if (rowData[0] === primaryKey) {
+            rowIndexes.push(rowIdx);
+        }
+    });
+    if (rowIndexes.length === 1) {
+        console.log('Removing row with index ' + rowIndexes[0] + ' from table-data');
+        table.rows(rowIndexes[0]).remove().draw();
+    }
 }
 
 
@@ -273,7 +286,7 @@ function populateFromDatabase(table, forFields, forHost) {
 
                 // either show all entries or show only the fields/host requested
                 if (!forFields || fhcEntry.name === "" || forFieldsMap.has(fhcEntry.name) || fhcEntry.host === forHost) {
-                    table.row.add([cursor.key, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]);
+                    table.row.add([cursor.primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]);
                     count += 1;
                 }
 

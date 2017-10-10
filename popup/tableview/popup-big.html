@@ -63,7 +63,7 @@
 
     <div id="content">
         <!-- h2 data-fhc-i18n="popupHeader">Test, show myUserPref</h2 -->
-        <table id="fhcTable" class="dataTable display compact nowrap" width="100%" cellspacing="0" contextmenu="context-menu">
+        <table id="fhcTable" class="dataTable display compact nowrap" width="100%" cellspacing="0">
         </table>
     </div>
     <div id="buttons">
@@ -74,17 +74,21 @@
         <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
     </div>
 
-    <menu type="context" id="context-menu">
-        <menuitem id="add-ctx" data-fhc-i18n="menuItemEditAdd" icon="../../theme/icons/menu/insert.png" label="Add"></menuitem>
-        <menuitem id="modify-ctx" data-fhc-i18n="menuItemEditModify" icon="../../theme/icons/menu/edit.png" label="Modify"></menuitem>
-        <menuitem id="delete-ctx" data-fhc-i18n="menuItemEditDelete" icon="../../theme/icons/menu/delete.png" label="Delete"></menuitem>
-        <hr>
-        <menuitem id="copy2clipboard-ctx" data-fhc-i18n="menuItemEditClipboard" icon="../../theme/icons/menu/copy.png" label="Copy to clipboard"></menuitem>
-        <hr>
-        <menuitem id="selectall-ctx" data-fhc-i18n="menuItemEditSelectAll" icon="../../theme/icons/menu/selectall.png" label="Select all"></menuitem>
-        <menuitem id="selectnone-ctx" data-fhc-i18n="menuItemEditSelectNone" icon="../../theme/icons/menu/selectnone.png" label="Select none"></menuitem>
-        <menuitem id="selectinvert-ctx" data-fhc-i18n="menuItemEditSelectInvert" icon="../../theme/icons/menu/selectinvert.png" label="Invert selection"></menuitem>
-    </menu>
+    <div id="context-menu-container">
+        <div id="context-menu-wrapper">
+            <ul class="context-menu">
+                <li><span id="add-ctx" data-fhc-i18n="menuItemEditAdd" class="context-menu-item icon-item icon-insert">Add</span></li>
+                <li><span id="modify-ctx" data-fhc-i18n="menuItemEditModify" class="context-menu-item icon-item icon-edit">Modify</span></li>
+                <li><span id="delete-ctx" data-fhc-i18n="menuItemEditDelete" class="context-menu-item icon-item icon-delete">Delete</span></li>
+                <li class="context-separator"></li>
+                <li><span id="copy2clipboard-ctx" data-fhc-i18n="menuItemEditClipboard" class="context-menu-item icon-item icon-copy">Copy to clipboard</span></li>
+                <li class="context-separator"></li>
+                <li><span id="selectall-ctx" data-fhc-i18n="menuItemEditSelectAll" class="context-menu-item icon-item icon-selectall">Select all</span></li>
+                <li><span id="selectnone-ctx" data-fhc-i18n="menuItemEditSelectNone" class="context-menu-item icon-item icon-selectnone">Select none</span></li>
+                <li><span id="selectinvert-ctx" data-fhc-i18n="menuItemEditSelectInvert" class="context-menu-item icon-item icon-selectinvert">Invert selection</span></li>
+            </ul>
+        </div>
+    </div>
 
     <script src="../../common/jquery-3.2.1.min.js"></script>
     <script src="../../common/OptionsUtil.js"></script>

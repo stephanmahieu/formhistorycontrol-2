@@ -122,7 +122,7 @@ class DataTableUtil {
                     rowIdxFirst = rowIdx;
                 }
             }
-        )
+        );
         console.log('No of entries to edit is: ' + primaryKeys.length + ', rowIdxFirst is: ' + rowIdxFirst);
 
         // get the data of the one entry to edit
@@ -160,7 +160,7 @@ class DataTableUtil {
 
         // store data in local storage so it can be retrieved by the view
         browser.storage.local.set(
-            this.createEntryObject(data, "view", [data[0]])
+            this.createEntryObject(data, doWhat, [data[0]])
         );
 
         // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
@@ -211,6 +211,75 @@ class DataTableUtil {
         }
     }
 
+    static deleteItemFromDatabase(primaryKey, callback) {
+        let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
+        req.onerror = function (/*event*/) {
+            console.error("Database open error", this.error);
+        };
+        req.onsuccess = function (event) {
+            let db = event.target.result;
+            //console.log("Database opened successfully.");
+
+            let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readwrite").objectStore(DbConst.DB_STORE_TEXT);
+
+            let reqDel = objStore.delete(primaryKey);
+            reqDel.onsuccess = function(/*evt*/) {
+                console.log("primaryKey " + primaryKey + " deleted from the object store.");
+                if (callback) {
+                    callback(primaryKey);
+                }
+            };
+            reqDel.onerror = function(/*evt*/) {
+                console.error("delete error for key " + primaryKey, this.error);
+            };
+        }
+    }
+
+
+    static showContextMenu(event, idContentElement) {
+        event.preventDefault();
+
+        // keep a margin between the edge of the menu and the window
+        const edgeMargin = 10;
+
+        const winRect = document.getElementById(idContentElement).getBoundingClientRect();
+
+        document.getElementById('context-menu-container').style.display = 'block';
+        const menuRect = document.getElementById('context-menu-wrapper').getBoundingClientRect();
+
+        // get the mouse position and apply an offset to get the mouse-pointer on the first item
+        let x = Math.max(edgeMargin, event.pageX - 60);
+        let y = Math.max(edgeMargin, event.pageY - 20);
+
+        // check if we're near the right edge of the window
+        if (x > winRect.width - (menuRect.width + edgeMargin)) {
+            x = winRect.width - (menuRect.width + edgeMargin);
+        }
+
+        // check if we're near the bottom edge of the window
+        if (y > winRect.height - (menuRect.height + edgeMargin)) {
+            y = winRect.height - (menuRect.height + edgeMargin);
+        }
+
+        const mnu = document.getElementById('context-menu-wrapper');
+        mnu.style.top = y + "px";
+        mnu.style.left = x + "px";
+
+        // trigger the transition
+        document.getElementById('context-menu-wrapper').classList.add('show');
+    }
+
+    static hideContextMenuOnClick(event) {
+        // only close the context-menu if clicked outside
+        if (!document.getElementById('context-menu-wrapper').contains(event.target)) {
+            DataTableUtil.hideContextMenu();
+        }
+    }
+
+    static hideContextMenu() {
+        document.getElementById('context-menu-wrapper').classList.remove('show');
+        window.setTimeout(()=>{document.getElementById('context-menu-container').style.display = 'none';}, 800);
+    }
 }
 
 

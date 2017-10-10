@@ -64,13 +64,22 @@ $(document).ready(function() {
     // //document.oncontextmenu = function() {return false;};
 
     // custom right-click menu
-    tableElement.find('tbody').on('contextmenu', 'tr', function() {
+    tableElement.find('tbody')
+      .on('contextmenu', 'tr', function(event) {
         console.log("context menu should now display :-)");
         let tr = $(this).closest('tr');
         let row = table.row( tr );
         dataRightClicked = row.data();
+        DataTableUtil.showContextMenu(event, 'content');
+    }).on('click', 'tr', function(event) {
+        // Event listener for closing the context menu when clicked outside the menu
+        DataTableUtil.hideContextMenuOnClick(event);
     });
-    $('menuitem').on('click', function(event) {
+
+    // Prevent the default right-click contextmenu
+    document.oncontextmenu = function() {return false;};
+
+    $('.context-menu-item').on('click', function(event) {
         onContextMenuClicked(event.currentTarget.id);
     });
 
@@ -79,7 +88,7 @@ $(document).ready(function() {
         onButtonClicked(event.currentTarget.id);
     });
 
-    // Add event listeners for the menu items
+    // Add event listeners for the menu-bar items
     $('nav ul li ul li span').on('click', function (event) {
         onMenuClicked(event.currentTarget.id);
     });
@@ -253,35 +262,12 @@ function deleteSelectedItems() {
         function (/* rowIdx, tableLoop, rowLoop */) {
             let primaryKey = this.data()[0];
             console.log('primaryKey database (delete) is: ' + primaryKey);
-            deleteItemFromDatabase(primaryKey);
+            DataTableUtil.deleteItemFromDatabase(primaryKey);
         }
     );
 
     // assume db deletes succeed, remove selected entries en redraw table
     rows.remove().draw();
-}
-
-
-function deleteItemFromDatabase(primaryKey) {
-    // TODO open db only once?
-    let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
-    req.onerror = function (/*event*/) {
-        console.error("Database open error", this.error);
-    };
-    req.onsuccess = function (event) {
-        let db = event.target.result;
-        //console.log("Database opened successfully.");
-
-        let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readwrite").objectStore(DbConst.DB_STORE_TEXT);
-
-        let reqDel = objStore.delete(primaryKey);
-        reqDel.onsuccess = function(/*evt*/) {
-            console.log("key " + primaryKey + " deleted from the object store.");
-        };
-        reqDel.onerror = function(/*evt*/) {
-            console.error("delete error for key " + primaryKey, this.error);
-        };
-    }
 }
 
 function editSelectedEntries() {
@@ -409,10 +395,12 @@ function onContextMenuClicked(menuItemId) {
 
         case "add-ctx":
             addNewEntry();
+            DataTableUtil.hideContextMenu();
             break;
 
         case "modify-ctx":
             editEntry(dataRightClicked);
+            DataTableUtil.hideContextMenu();
             break;
 
         case "delete-ctx":
@@ -421,18 +409,22 @@ function onContextMenuClicked(menuItemId) {
 
         case "copy2clipboard-ctx":
             DataTableUtil.copyEntryToClipboard(dataRightClicked);
+            DataTableUtil.hideContextMenu();
             break;
 
         case "selectall-ctx":
             selectAll();
+            DataTableUtil.hideContextMenu();
             break;
 
         case "selectnone-ctx":
             selectNone();
+            DataTableUtil.hideContextMenu();
             break;
 
         case "selectinvert-ctx":
             selectInvert();
+            DataTableUtil.hideContextMenu();
             break;
     }
 }
