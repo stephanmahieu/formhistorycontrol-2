@@ -51,6 +51,10 @@ h1 {
     font-weight: bold;
 }
 
+#app-properties {
+    font-variant-position: sub;
+}
+
 #description {
     margin-top: 10px;
     line-height: 18px;

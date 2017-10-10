@@ -37,7 +37,6 @@ nav ul li ul li span:hover {
     color: #fff;
 }
 
-
 .menu-disabled {
     color: #8f8f8f;
     filter: grayscale(70%);
@@ -55,7 +54,7 @@ nav ul li ul li span:hover {
     box-shadow: 0 0 10px 2px #191919;
 }
 .context-menu span:hover {
-    background-color: #4c505b;
+    background-color: #5675b9;
     color: #fff;
 }
 .context-separator {

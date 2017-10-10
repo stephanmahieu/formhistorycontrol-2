@@ -53,7 +53,7 @@ nav ul li ul li:first-child {
 nav ul li ul li span,
 span.menu-spacer,
 span.menu-spacer:hover {
-    background-color: #d5d5d5;
+    background-color: #fff;
     display: block;
     padding: 4px 10px;
     z-index: 10;
