@@ -404,7 +404,8 @@ function onContextMenuClicked(menuItemId) {
             break;
 
         case "delete-ctx":
-            // TODO deleteCurrentItem();
+            DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
+            DataTableUtil.hideContextMenu();
             break;
 
         case "copy2clipboard-ctx":

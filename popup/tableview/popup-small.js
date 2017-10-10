@@ -106,7 +106,7 @@ function onContextMenuClicked(menuItemId) {
 
         case "delete-ctx":
             // method expects the primary key
-            DataTableUtil.deleteItemFromDatabase(dataRightClicked[0], onDeleteSuccess);
+            DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
             DataTableUtil.hideContextMenu();
             break;
 
@@ -114,25 +114,6 @@ function onContextMenuClicked(menuItemId) {
             DataTableUtil.copyEntryToClipboard(dataRightClicked);
             DataTableUtil.hideContextMenu();
             break;
-    }
-
-}
-
-function onDeleteSuccess(primaryKey) {
-    console.log(`Entry successful deleted, removing ${primaryKey} from the dataTable view`);
-    const table = $('#fhcTable').DataTable();
-
-    // find row which have the primaryKey in the first column and remove it
-    let rowIndexes = [];
-    table.rows().every( function (rowIdx) {
-        let rowData = this.data();
-        if (rowData[0] === primaryKey) {
-            rowIndexes.push(rowIdx);
-        }
-    });
-    if (rowIndexes.length === 1) {
-        console.log('Removing row with index ' + rowIndexes[0] + ' from table-data');
-        table.rows(rowIndexes[0]).remove().draw();
     }
 }
 

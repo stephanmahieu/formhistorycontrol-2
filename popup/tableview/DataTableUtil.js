@@ -211,7 +211,7 @@ class DataTableUtil {
         }
     }
 
-    static deleteItemFromDatabase(primaryKey, callback) {
+    static deleteItemFromDatabase(primaryKey) {
         let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
         req.onerror = function (/*event*/) {
             console.error("Database open error", this.error);
@@ -225,13 +225,29 @@ class DataTableUtil {
             let reqDel = objStore.delete(primaryKey);
             reqDel.onsuccess = function(/*evt*/) {
                 console.log("primaryKey " + primaryKey + " deleted from the object store.");
-                if (callback) {
-                    callback(primaryKey);
-                }
+                DataTableUtil.removeRowFromTable(primaryKey);
             };
             reqDel.onerror = function(/*evt*/) {
                 console.error("delete error for key " + primaryKey, this.error);
             };
+        }
+    };
+
+    static removeRowFromTable(primaryKey) {
+        console.log(`Entry successful deleted, removing ${primaryKey} from the dataTable view`);
+        const table = $('#fhcTable').DataTable();
+
+        // find row which has the primaryKey in the first column and remove it
+        let rowIndexes = [];
+        table.rows().every( function(rowIdx) {
+            let rowData = this.data();
+            if (rowData[0] === primaryKey) {
+                rowIndexes.push(rowIdx);
+            }
+        });
+        if (rowIndexes.length === 1) {
+            console.log('Removing row with index ' + rowIndexes[0] + ' from table-data');
+            table.rows(rowIndexes[0]).remove().draw('page');
         }
     }
 
