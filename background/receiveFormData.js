@@ -35,6 +35,12 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 importIfNotExist(fhcEvent);
                 break;
 
+            case 555:
+                // console.log('Getting choices from datastore for field ' + fhcEvent.fieldName + ', search term: ' + fhcEvent.searchTerm);
+
+                getValuesMatchingSearchtermFromDatabaseAndRespond(fhcEvent.fieldName, fhcEvent.searchTerm, sendResponse);
+                // Tell the browser we intend to use the sendResponse argument after the listener has returned
+                return true;
         }
     }
 
@@ -221,6 +227,43 @@ function getTextFieldFromStoreAndNotify(fhcEvent) {
     };
 }
 
+function getValuesMatchingSearchtermFromDatabaseAndRespond(fieldname, searchterm, sendResponse) {
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readonly");
+
+    let fieldValues = [];
+    const term = searchterm.toLowerCase();
+
+    // console.log("Looking up values for textfield with name: " + fieldname);
+
+    let index = objStore.index(DbConst.DB_TEXT_IDX_NAME);
+    let singleKeyRange = IDBKeyRange.only(fieldname);
+
+    let req = index.openCursor(singleKeyRange);
+    req.onsuccess = function(evt) {
+        let cursor = evt.target.result;
+        if (cursor) {
+            const fhcEntry = cursor.value;
+            const value = fhcEntry.value;
+
+            if (value) {
+                if (searchterm) {
+                    if (~value.toLowerCase().indexOf(term)) {
+                        fieldValues.push(value);
+                    }
+                } else {
+                    fieldValues.push(value);
+                }
+            }
+
+            cursor.continue();
+        }
+        else {
+            // console.log("Returning response with " + fieldValues.length + " items");
+            sendResponse({choices: fieldValues});
+        }
+    };
+}
+
 
 function saveOrUpdateFormElements(formElements) {
     formElements.forEach(formElement=>{
@@ -299,7 +342,7 @@ function importIfNotExist(fhcEvent) {
     // entry already exists? (index = host + type + name + value)
     let lookupKey = getLookupKey(fhcEvent);
 
-    let index = objStore.index("by_fieldkey");
+    let index = objStore.index(DbConst.DB_TEXT_IDX_FIELD);
     let req = index.getKey(lookupKey);
 
     req.onsuccess = function(event) {
