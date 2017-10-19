@@ -120,16 +120,7 @@ function onContextMenuClicked(menuItemId) {
 
 function createDataTable() {
     const languageURL = DataTableUtil.getLanguageURL();
-
-    // get language specific header titles
-    const hdrFieldname = browser.i18n.getMessage("fieldName") || 'Fieldname';
-    const hdrFieldvalue = browser.i18n.getMessage("fieldValue") || 'Content';
-    const hdrFieldType = browser.i18n.getMessage("fieldType") || 'Type';
-    const hdrFieldCount = browser.i18n.getMessage("fieldCount") || 'Count';
-    const hdrFieldFirst = browser.i18n.getMessage("fieldFirstUsed") || 'First used';
-    const hdrFieldLast = browser.i18n.getMessage("fieldLastUsed") || 'Last used';
-    const hdrFieldAge = browser.i18n.getMessage("fieldAge") || 'Age';
-    const hdrFieldHost = browser.i18n.getMessage("fieldHost") || 'Host';
+    const i18nFld = DataTableUtil.getLocaleFieldNames();
 
     return $('#fhcTable').DataTable( {
         scrollY: 300,
@@ -153,14 +144,14 @@ function createDataTable() {
                 defaultContent: ''
             },
             { title: "Id", responsivePriority: 2 },
-            { title: hdrFieldname, responsivePriority: 3 },
-            { title: hdrFieldvalue, responsivePriority: 4  },
-            { title: hdrFieldType, responsivePriority: 10  },
-            { title: hdrFieldCount, responsivePriority: 5  },
-            { title: hdrFieldFirst, responsivePriority: 9  },
-            { title: hdrFieldLast, responsivePriority: 7  },
-            { title: hdrFieldAge, responsivePriority: 6 },
-            { title: hdrFieldHost, responsivePriority: 8  }
+            { title: i18nFld.name, responsivePriority: 3 },
+            { title: i18nFld.value, responsivePriority: 4  },
+            { title: i18nFld.type, responsivePriority: 10  },
+            { title: i18nFld.count, responsivePriority: 5  },
+            { title: i18nFld.first, responsivePriority: 9  },
+            { title: i18nFld.last, responsivePriority: 7  },
+            { title: i18nFld.age, responsivePriority: 6 },
+            { title: i18nFld.host, responsivePriority: 8  }
         ],
         columnDefs: [
             {

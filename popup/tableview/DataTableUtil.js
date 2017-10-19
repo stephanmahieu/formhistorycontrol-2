@@ -16,21 +16,38 @@ class DataTableUtil {
     }
 
     /**
+     * Get the fieldnames for the current locale.
+     */
+    static getLocaleFieldNames() {
+        return {
+            name: browser.i18n.getMessage("fieldName") || 'Fieldname',
+            value: browser.i18n.getMessage("fieldValue") || 'Content',
+            type: browser.i18n.getMessage("fieldType") || 'Type',
+            count: browser.i18n.getMessage("fieldCount") || 'Count',
+            first: browser.i18n.getMessage("fieldFirstUsed") || 'First used',
+            last: browser.i18n.getMessage("fieldLastUsed") || 'Last used',
+            age: browser.i18n.getMessage("fieldAge") || 'Age',
+            host: browser.i18n.getMessage("fieldHost") || 'Host'
+        }
+    }
+
+    /**
      * Formatting function for row details.
      *
      * @param d
      * @returns {string}
      */
     static formatDetail( d ) {
+        const i18n = DataTableUtil.getLocaleFieldNames();
         // `d` is the original data object for the row
         return '<div class="detail-root"><table>'+
-            '<tr><td><span class="label">Veldnaam:</span></td><td>'+d[1]+'</td></tr>'+
-            '<tr><td><span class="label">Waarde:</span></td><td>'+d[2]+'</td></tr>'+
-            '<tr><td><span class="label">Type:</span></td><td>'+d[3]+'</td></tr>'+
-            '<tr><td><span class="label">Aantal:</span></td><td>'+d[4]+'</td></tr>'+
-            '<tr><td><span class="label">Eerst gebruikt:</span></td><td>'+this.formatDate(d[5], 'display')+'</td></tr>'+
-            '<tr><td><span class="label">Laatst gebruikt:</span></td><td>'+this.formatDate(d[6], 'display')+'</td></tr>'+
-            '<tr><td><span class="label">Bron:</span></td><td>'+d[7]+'</td></tr>'+
+            '<tr><td><span class="label">'+i18n.name+':</span></td><td>'+d[1]+'</td></tr>'+
+            '<tr><td><span class="label">'+i18n.value+':</span></td><td>'+d[2]+'</td></tr>'+
+            '<tr><td><span class="label">'+i18n.type+':</span></td><td>'+d[3]+'</td></tr>'+
+            (d[4]?('<tr><td><span class="label">'+i18n.count+':</span></td><td>'+d[4]+'</td></tr>'):'')+
+            '<tr><td><span class="label">'+i18n.first+':</span></td><td>'+this.formatDate(d[5], 'display')+'</td></tr>'+
+            '<tr><td><span class="label">'+i18n.last+':</span></td><td>'+this.formatDate(d[6], 'display')+'</td></tr>'+
+            (d[7]?('<tr><td><span class="label">'+i18n.host+':</span></td><td>'+d[7]+'</td></tr>'):'')+
             '</table></div>';
     }
 
