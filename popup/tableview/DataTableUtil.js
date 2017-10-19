@@ -314,10 +314,3 @@ class DataTableUtil {
         window.setTimeout(()=>{document.getElementById('context-menu-container').style.display = 'none';}, 800);
     }
 }
-
-
-
-
-
-
-
