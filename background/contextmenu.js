@@ -12,21 +12,29 @@ function onMenuCreated() {
 Create the context menu items.
 */
 browser.contextMenus.create({
-  id: "manage",
-  title: browser.i18n.getMessage("contextMenuItemManageHistory"),
-  contexts: ["all"]
+    id: "manage",
+    title: browser.i18n.getMessage("contextMenuItemManageHistory"),
+    contexts: ["all"],
+    icons: {
+        "16": "theme/icons/fhc-16.png",
+        "32": "theme/icons/fhc-32.png"
+    }
 }, onMenuCreated);
 
 browser.contextMenus.create({
-  id: "separator-1",
-  type: "separator",
-  contexts: ["all"]
+    id: "separator-1",
+    type: "separator",
+    contexts: ["all"]
 }, onMenuCreated);
 
 browser.contextMenus.create({
     id: "restoreEditorField",
     title: browser.i18n.getMessage("contextMenuItemRestoreEditorField"),
-    contexts: ["all"]
+    contexts: ["all"],
+    icons: {
+        "16": "theme/icons/menu/16/refresh.png",
+        "32": "theme/icons/menu/32/refresh.png"
+    }
 }, onMenuCreated);
 
 browser.contextMenus.create({
@@ -38,19 +46,31 @@ browser.contextMenus.create({
 browser.contextMenus.create({
     id: "fillMostRecent",
     title: browser.i18n.getMessage("contextMenuItemFillMostRecent"),
-    contexts: ["all"]
+    contexts: ["all"],
+    icons: {
+        "16": "theme/icons/menu/16/fillfields.png",
+        "32": "theme/icons/menu/32/fillfields.png"
+    }
 }, onMenuCreated);
 
 browser.contextMenus.create({
     id: "fillMostUsed",
     title: browser.i18n.getMessage("contextMenuItemFillMostUsed"),
-    contexts: ["all"]
+    contexts: ["all"],
+    icons: {
+        "16": "theme/icons/menu/16/fillfields.png",
+        "32": "theme/icons/menu/32/fillfields.png"
+    }
 }, onMenuCreated);
 
 browser.contextMenus.create({
     id: "clearFields",
     title: browser.i18n.getMessage("contextMenuItemClearFields"),
-    contexts: ["all"]
+    contexts: ["all"],
+    icons: {
+        "16": "theme/icons/menu/16/emptyfields.png",
+        "32": "theme/icons/menu/32/emptyfields.png"
+    }
 }, onMenuCreated);
 
 browser.contextMenus.create({
@@ -62,7 +82,11 @@ browser.contextMenus.create({
 browser.contextMenus.create({
     id: "showformfields",
     title: browser.i18n.getMessage("contextMenuItemShowformfields"),
-    contexts: ["all"]
+    contexts: ["all"],
+    icons: {
+        "16": "theme/icons/menu/16/showfields.png",
+        "32": "theme/icons/menu/32/showfields.png"
+    }
 }, onMenuCreated);
 
 browser.contextMenus.create({
@@ -74,7 +98,10 @@ browser.contextMenus.create({
 browser.contextMenus.create({
     id: "options",
     title: browser.i18n.getMessage("contextMenuItemOptions"),
-    contexts: ["all"]
+    contexts: ["all"],
+    icons: {
+        "16": "theme/icons/menu/16/preferences.png",        "32": "theme/icons/menu/32/preferences.png"
+    }
 }, onMenuCreated);
 
 
