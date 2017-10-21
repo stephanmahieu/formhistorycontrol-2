@@ -8,6 +8,14 @@ body {
     margin: 8px;
 }
 
+#operationInfo {
+    font-weight: bold;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-variant: small-caps;
+    font-style: italic;
+}
+
 #buttons {
     height: 35px;
     display: flex;
@@ -45,7 +53,7 @@ select:disabled {
 
 
 textarea {
-    height: calc(100vh - 230px);
+    height: calc(100vh - 265px);
     width: 100%;
     min-height: 18px;
 }
@@ -55,4 +63,8 @@ textarea {
 #value-label,
 #value {
     display: inline-block;
+}
+
+.missing-value {
+    border: 1px solid #ff0000;
 }

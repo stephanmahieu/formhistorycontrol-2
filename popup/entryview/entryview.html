@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Form field</title>
+    <title data-fhc-i18n="operationWindowTile">Formfield</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/theme/formhistorycontrol-generic.css"/>
     <link rel="stylesheet" href="theme/ewntryview.css"/>
     <link rel="alternate stylesheet" href="/theme/formhistorycontrol-generic-dark.css" title="Dark"/>
-    <link rel="alternate stylesheet" href=theme/ewntryview-dark.css" title="Dark"/>
+    <link rel="alternate stylesheet" href="theme/ewntryview-dark.css" title="Dark"/>
 </head>
 <body>
 <div class="content">
     <table>
         <tbody>
+            <div id="operationInfo"></div>
             <tr>
                 <th data-fhc-i18n="fieldName">Fieldname</th>
                 <td><input id="name" type="text" disabled/></td>
@@ -34,15 +35,19 @@
             </tr>
             <tr>
                 <th data-fhc-i18n="fieldCount">Used count</th>
-                <td><input id="used" type="text" disabled/></td>
+                <td><input id="used" type="text" disabled pattern="^(\d{1,9})$"/></td>
             </tr>
             <tr>
                 <th data-fhc-i18n="fieldFirstUsed">First used</th>
-                <td><input id="first" type="text" disabled/></td>
+                <td><input id="first" type="text" disabled
+                           pattern="^(\d{2}(-)\d{2}(-)\d{4} \d{2}(:)\d{2}(:)\d{2})$"
+                           placeholder="dd-mm-yyyy hh:mm:ss"/></td>
             </tr>
             <tr>
                 <th data-fhc-i18n="fieldLastUsed">Last used</th>
-                <td><input id="last" type="text" disabled/></td>
+                <td><input id="last" type="text" disabled
+                           pattern="^(\d{2}(-)\d{2}(-)\d{4} \d{2}(:)\d{2}(:)\d{2})$"
+                           placeholder="dd-mm-yyyy hh:mm:ss"/></td>
             </tr>
             <tr id="urlRow">
                 <th data-fhc-i18n="fieldHost">URL</th>

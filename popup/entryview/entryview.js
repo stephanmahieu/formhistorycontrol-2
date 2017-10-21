@@ -25,8 +25,25 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     populateView();
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
     document.getElementById("buttonCancel").addEventListener("click", WindowUtil.closeThisPopup);
+    document.getElementById("buttonOkay").addEventListener("click", onOkayButton);
 });
 
+function onOkayButton() {
+    // validate
+    let newName = document.getElementById('name').value;
+    let newValue = document.getElementById('value').value;
+    let newType = document.getElementById('typeSelect').value;
+
+    switch (objEntryData.doWhat) {
+        case 'add':
+            // fields non-empty
+            let valueFieldId = newType==='input' ? 'value' : 'multiline-value';
+            if (!validateRequiredFields(['name',valueFieldId,'typeSelect','used','first','last'])) {
+                WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorMissingRequired');
+            }
+            break;
+    }
+}
 
 function populateView() {
     console.log("Populating view using local storage");
@@ -35,39 +52,44 @@ function populateView() {
     gettingData.then(onDataRetrieved, onDataRetrieveError);
 }
 
+let objEntryData;
 function onDataRetrieved(data) {
     console.log("Data retrieved", data);
 
     let removingData = browser.storage.local.remove("entryObject");
     removingData.then(onDataRemoved, onDataRemoveError);
 
-    let entryObject = data.entryObject;
-    let doWhat = entryObject.doWhat;
-    let multiKeys = entryObject.multiKeys;
-    let primaryKey = entryObject.primaryKey;
-    let name = entryObject.name;
-    let value = entryObject.value;
-    let type = entryObject.type;
-    let used = entryObject.used;
-    let first = entryObject.first;
-    let last = entryObject.last;
-    let url = entryObject.url;
+    objEntryData = {
+        doWhat: data.entryObject.doWhat,
+        multiKeys: data.entryObject.multiKeys,
+        primaryKey: data.entryObject.primaryKey,
+        name: data.entryObject.name,
+        value: data.entryObject.value,
+        type: data.entryObject.type,
+        used: data.entryObject.used,
+        first: data.entryObject.first,
+        last: data.entryObject.last,
+        url: data.entryObject.url,
+        isMultiple: (data.entryObject.multiKeys.length > 1)
+    };
 
-    if (doWhat === "view" || (doWhat === "edit" && multiKeys.length === 1)) {
-        document.getElementById('name').value = name;
-        document.getElementById('value').value = value;
-        document.getElementById('typeSelect').value = type;
-        document.getElementById('used').value = used;
-        document.getElementById('first').value = DateUtil.dateToDateString(new Date(first));
-        document.getElementById('last').value = DateUtil.dateToDateString(new Date(last));
-        if (type === 'input') {
-            document.getElementById('value').value = value;
+    document.getElementById('operationInfo').innerText = getOperationInfo(objEntryData.doWhat, objEntryData.isMultiple);
+
+    if (objEntryData.doWhat === "view" || (objEntryData.doWhat === "edit" && !objEntryData.isMultiple)) {
+        document.getElementById('name').value = objEntryData.name;
+        document.getElementById('value').value = objEntryData.value;
+        document.getElementById('typeSelect').value = objEntryData.type;
+        document.getElementById('used').value = objEntryData.used;
+        document.getElementById('first').value = DateUtil.dateToDateString(new Date(objEntryData.first));
+        document.getElementById('last').value = DateUtil.dateToDateString(new Date(objEntryData.last));
+        if (objEntryData.type === 'input') {
+            document.getElementById('value').value = objEntryData.value;
         } else {
-            document.getElementById('url').value = url;
-            document.getElementById('multiline-value').value = value;
+            document.getElementById('url').value = objEntryData.url;
+            document.getElementById('multiline-value').value = objEntryData.value;
         }
     }
-    if (doWhat === "add") {
+    if (objEntryData.doWhat === "add") {
         // populate with defaults
         document.getElementById('used').value = '1';
         const nowDateString = DateUtil.getCurrentDateString();
@@ -75,39 +97,69 @@ function onDataRetrieved(data) {
         document.getElementById('last').value = nowDateString;
     }
 
-    if (doWhat === "edit" || doWhat === "add") {
+    if (objEntryData.doWhat === "edit" || objEntryData.doWhat === "add") {
         // enable fields
         document.getElementById('name').removeAttribute('disabled');
-        if (type === 'input') {
+        if (objEntryData.type === 'input') {
             document.getElementById('value').removeAttribute('disabled');
         } else {
             document.getElementById('multiline-value').removeAttribute('disabled');
         }
         document.getElementById('typeSelect').removeAttribute('disabled');
         document.getElementById('used').removeAttribute('disabled');
-        document.getElementById('first').removeAttribute('disabled');
-        document.getElementById('last').removeAttribute('disabled');
+        //document.getElementById('first').removeAttribute('disabled');
+        //document.getElementById('last').removeAttribute('disabled');
         document.getElementById('url').removeAttribute('disabled');
     }
 
-    if (type === 'input') {
+    if (objEntryData.type === 'input') {
         document.getElementById('urlRow').style.display = 'none';
         document.getElementById('multiline-value').style.display = 'none';
     } else {
         document.getElementById('value').style.display = 'none';
     }
 
-    if (doWhat !== "view") {
+    if (objEntryData.doWhat !== "view") {
         document.getElementById('buttonClose').style.display = 'none';
         document.getElementById('buttonOkay').style.display = 'block';
         document.getElementById('buttonCancel').style.display = 'block';
     }
 }
 
+function getOperationInfo(doWhat, multiple) {
+    let operationInfoId = '';
+    switch (doWhat) {
+        case 'view':
+            operationInfoId = 'operationViewField';
+            break;
+        case 'add':
+            operationInfoId = 'operationAddField';
+            break;
+        case 'edit':
+            operationInfoId = multiple ? 'operationEditMultipleFields' : 'operationEditOneField';
+            break;
+    }
+    return operationInfoId ? browser.i18n.getMessage(operationInfoId) : '';
+}
+
+function validateRequiredFields(fieldIds) {
+    let isOkay = true;
+    fieldIds.forEach(id => {
+        let elem = document.getElementById(id);
+        if (!elem.value) {
+            elem.classList.add('missing-value');
+            isOkay = false;
+        } else {
+            elem.classList.remove('missing-value');
+        }
+    });
+    return isOkay;
+}
+
+
 function onDataRemoved() {
     console.log('Data removed');
 }
-
 function onDataRetrieveError(error) {
     console.error(`Error retrieving data from local storage: ${error}`);
 }
