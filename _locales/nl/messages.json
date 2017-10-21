@@ -55,8 +55,63 @@
   },
 
 
+  "operationWindowTile": {
+    "message": "Formulier veld",
+    "description": "Window title of the formfield edit window."
+  },
+  "operationViewField": {
+    "message": "Inzien formulier waarde",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditOneField": {
+    "message": "Wijzig een bestaande formulier waarde",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditMultipleFields": {
+    "message": "Wijzig meerdere formulier waarden",
+    "description": "Edit multiple fields at once, info displayed in edit window."
+  },
+  "operationAddField": {
+    "message": "Voeg een nieuwe formulier waarde toe",
+    "description": "Add a new field, info displayed in edit window."
+  },
+
+
+  "dialogErrorTitle": {
+    "message": "Fout",
+    "description": "Title of error dialog."
+  },
+  "dialogWarningTitle": {
+    "message": "Waarschuwing",
+    "description": "Title of warning dialog."
+  },
+  "dialogInformationTitle": {
+    "message": "Informatie",
+    "description": "Title of information dialog."
+  },
+  "dialogQuestionTitle": {
+    "message": "Vraag",
+    "description": "Title of question dialog."
+  },
+
+
+  "confirmDeleteMultipleTitle": {
+    "message": "Verwijder alle geselecteerde items?",
+    "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
+  },
+  "confirmDeleteMultipleMessage": {
+    "message": "Meerdere items zijn geselecteerd, verwijder ALLE geselecteerde waarden?",
+    "description": "Message asking confirmation for deleting multiple selected item."
+  },
+
+  "validationErrorMissingRequired": {
+    "message": "Niet alle verplichte velden zijn ingevuld",
+    "description": "Validation message for missing mandatory values."
+  },
+
+
   "buttonOkay": {
-    "message": "OK",
+    "message": "Akkoord",
     "description": "Label of the okay button."
   },
   "buttonCancel": {
@@ -94,6 +149,14 @@
   "buttonImport": {
     "message": "Importeren",
     "description": "Label of import button."
+  },
+  "buttonYes": {
+    "message": "Ja",
+    "description": "Label of okay button."
+  },
+  "buttonNo": {
+    "message": "Nee",
+    "description": "Label of no button."
   },
 
 

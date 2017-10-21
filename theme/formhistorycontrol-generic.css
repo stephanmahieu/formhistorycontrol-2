@@ -41,3 +41,138 @@ legend {
     font-weight: bold;
     font-size: 125%;
 }
+
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background: hsla(0, 0%, 93%, 0.85);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 3px 30px black;
+    border-radius: 4px;
+    border: 1px solid #ffffff;
+    min-width: 250px;
+    max-width: 450px;
+    min-height: 60px;
+    color: black;
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 100%;
+}
+
+.modal-header {
+    border-radius: 4px 4px 0 0;
+    width: 100%;
+    height: 25px;
+    background-color: rgba(16, 50, 101, 0.92);
+    padding-top: 9px;
+}
+
+.modal-icon {
+    margin: 15px 6px 8px 15px;
+    width: 32px;
+    height: 32px;
+    animation: flip 5s infinite linear;
+    animation-delay: 5s;
+    order: 1;
+}
+@keyframes flip {
+    from {transform: rotateY(0deg);}
+    to {transform: rotateY(360deg);}
+}
+
+.modal-message {
+    margin: 15px;
+    overflow: hidden;
+    color: black;
+    text-align: left;
+    flex: 1;
+    order: 2;
+}
+
+.modal-buttons {
+    margin-right: 15px;
+    flex: 1 100%;
+    order: 3;
+}
+
+.modal-title {
+    margin-left: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: url("/theme/icons/dialog/close.png") no-repeat top left;
+    height: 16px;
+    width: 16px;
+    z-index: 2;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    transform: rotate(180deg);
+    transform-origin: 50% 45% 0;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.modal-buttons button {
+    float: right;
+    min-width: 5em;
+    height: 23px;
+    margin: 8px 4px 12px 8px;
+}
+
+.modal-error {
+    background: url("/theme/icons/dialog/error.png") no-repeat top left;
+}
+.modal-warning {
+    background: url("/theme/icons/dialog/warning.png") no-repeat top left;
+}
+.modal-information {
+    background: url("/theme/icons/dialog/information.png") no-repeat top left;
+}
+.modal-question {
+    background: url("/theme/icons/dialog/question.png") no-repeat top left;
+}
+
+.modal-button {
+    color: white;
+}
+
+.modal-yes,
+.modal-okay {
+    background-color: #009b00;
+}
+
+.modal-no,
+.modal-cancel {
+    background-color: #9b0000;
+}
+
+.modal-yes:hover,
+.modal-okay:hover {
+    background-color: #00c300;
+}
+
+.modal-no:hover,
+.modal-cancel:hover {
+    background-color: #c30000;
+}

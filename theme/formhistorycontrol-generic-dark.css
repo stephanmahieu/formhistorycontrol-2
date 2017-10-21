@@ -55,3 +55,32 @@ legend {
     background-color: #36363f;
     color: #acacac;
 }
+
+
+.modal-content {
+    background: hsla(0, 0%, 13%, 0.91);
+    border-color: #515151;
+    color: white;
+}
+
+.modal-header {
+    background-color: rgba(15, 58, 120, 0.51);
+}
+
+.modal-title {
+    color: white;
+}
+
+.modal-message {
+    color: white;
+}
+
+.modal-yes,
+.modal-okay {
+    background-color: #009b00;
+}
+
+.modal-no,
+.modal-cancel {
+    background-color: #9b0000;
+}

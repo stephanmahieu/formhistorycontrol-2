@@ -55,6 +55,61 @@
   },
 
 
+  "operationWindowTile": {
+    "message": "Form field",
+    "description": "Window title of the formfield edit window."
+  },
+  "operationViewField": {
+    "message": "View formhistory entry",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditOneField": {
+    "message": "Edit an existing formhistory entry",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditMultipleFields": {
+    "message": "Edit multiple formhistory entries",
+    "description": "Edit multiple fields at once, info displayed in edit window."
+  },
+  "operationAddField": {
+    "message": "Insert a new formhistory entry",
+    "description": "Add a new field, info displayed in edit window."
+  },
+
+
+  "dialogErrorTitle": {
+    "message": "Error",
+    "description": "Title of error dialog."
+  },
+  "dialogWarningTitle": {
+    "message": "Warning",
+    "description": "Title of warning dialog."
+  },
+  "dialogInformationTitle": {
+    "message": "Information",
+    "description": "Title of information dialog."
+  },
+  "dialogQuestionTitle": {
+    "message": "Question",
+    "description": "Title of question dialog."
+  },
+
+
+  "confirmDeleteMultipleTitle": {
+    "message": "Delete all selected items?",
+    "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
+  },
+  "confirmDeleteMultipleMessage": {
+    "message": "Multiple items have been selected, delete ALL selected items?",
+    "description": "Message asking confirmation for deleting multiple selected item."
+  },
+
+  "validationErrorMissingRequired": {
+    "message": "Not all required fields are populated",
+    "description": "Validation message for missing mandatory values."
+  },
+
+
   "buttonOkay": {
     "message": "Okay",
     "description": "Label of the okay button."
@@ -94,6 +149,14 @@
   "buttonImport": {
     "message": "Import",
     "description": "Label of import button."
+  },
+  "buttonYes": {
+    "message": "Yes",
+    "description": "Label of yes button."
+  },
+  "buttonNo": {
+    "message": "No",
+    "description": "Label of no button."
   },
 
 
