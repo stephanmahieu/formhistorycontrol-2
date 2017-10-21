@@ -247,8 +247,29 @@ function selectInvert() {
     table.rows(curSelected).deselect();
 }
 
+
+function deleteSelectedItemsAsk() {
+    let rows = $('#fhcTable').DataTable().rows('.selected');
+
+    if (rows.data().length > 1) {
+        // multiple items to be deleted, ask confirmation
+        try {
+            WindowUtil.showModalYesNo('confirmDeleteMultipleTitle', 'confirmDeleteMultipleMessage').then(
+                value=>{deleteSelectedItems(value);},
+                reason=>{console.log('rejected ' + reason);}
+            );
+        } catch(err){
+            // suppress TypeError: WindowUtil.showModalYesNo(...) is undefined
+        }
+    } else {
+        // delete a single item
+        deleteSelectedItems()
+    }
+}
+
 function deleteSelectedItems() {
     let rows = $('#fhcTable').DataTable().rows('.selected');
+
     rows.every(
         function (/* rowIdx, tableLoop, rowLoop */) {
             let primaryKey = this.data()[0];
@@ -357,7 +378,7 @@ function onButtonClicked(buttonId) {
     console.log("buttonId " + buttonId + " clicked...");
     switch (buttonId) {
         case "buttonDelete":
-            deleteSelectedItems();
+            deleteSelectedItemsAsk();
             break;
 
         case "buttonCleanup":
@@ -448,7 +469,7 @@ function onMenuClicked(menuItemId) {
 
         case "delete":
             if (isMenuItemEnabled(menuItemId)) {
-                deleteSelectedItems();
+                deleteSelectedItemsAsk();
             }
             break;
 
