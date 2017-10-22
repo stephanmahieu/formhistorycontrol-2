@@ -68,3 +68,88 @@ textarea {
 .missing-value {
     border: 1px solid #ff0000;
 }
+
+
+.datetime-modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+#datetimeContent {
+    max-width: 200px;
+}
+
+#datetimeContent .modal-header {
+    height: 18px;
+}
+
+#datetimeContent .modal-title {
+    margin-left: 6px;
+}
+
+#datetimeContent table {
+    padding: 4px;
+}
+
+#datetimeContent th {
+    max-width: 3.0em;
+}
+
+.timeseparator {
+    width: 12px;
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#year {
+    width: 2.8em;
+    display: inline-block;
+}
+#hour,#minute,#second {
+    width: 1.7em;
+    display: inline-block;
+}
+
+.modal-buttons {
+    margin-right: 3px;
+}
+
+.modal-buttons button {
+    margin-bottom: 6px;
+}
+
+.datetime-controls {
+    display: inline-block;
+    text-align: right;
+    width: 50px;
+}
+
+#btnErase,
+#btnNowdate {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-left: 4px;
+}
+
+#btnErase {
+    background: url("icons/eraser.png") no-repeat top left;
+}
+
+#btnNowdate {
+    background: url("icons/time.png") no-repeat top left;
+}
+
+#btnErase:hover,
+#btnNowdate:hover {
+    transform: rotate(360deg);
+    transition: all .3s ease;
+    cursor: pointer;
+}

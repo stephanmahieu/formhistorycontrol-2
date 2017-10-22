@@ -22,10 +22,23 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
 document.addEventListener("DOMContentLoaded", function(/*event*/) {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
 
+    // make sure the popup overlay is hidden
+    document.getElementById('datetimeOverlay').style.display = 'none';
+
     populateView();
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
     document.getElementById("buttonCancel").addEventListener("click", WindowUtil.closeThisPopup);
     document.getElementById("buttonOkay").addEventListener("click", onOkayButton);
+
+    document.getElementById("buttonTimeOkay").addEventListener("click", onDatetimeOkayButton);
+    document.getElementById("buttonTimeCancel").addEventListener("click", onDatetimeAbort);
+    document.getElementById("buttonTimeClose").addEventListener("click", onDatetimeAbort);
+    document.getElementById("btnNowdate").addEventListener("click", onDatetimeNowdate);
+    document.getElementById("btnErase").addEventListener("click", onDatetimeErase);
+
+    // tooltips
+    document.getElementById("btnNowdate").setAttribute('title', browser.i18n.getMessage('tooltipNowDatetimeButton'));
+    document.getElementById("btnErase").setAttribute('title', browser.i18n.getMessage('tooltipEraseDatetimeButton'));
 });
 
 function onOkayButton() {
@@ -37,10 +50,19 @@ function onOkayButton() {
     switch (objEntryData.doWhat) {
         case 'add':
             // fields non-empty
-            let valueFieldId = newType==='input' ? 'value' : 'multiline-value';
-            if (!validateRequiredFields(['name',valueFieldId,'typeSelect','used','first','last'])) {
-                WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorMissingRequired');
+            const checkFields = ['name','typeSelect','used','first','last'];
+            let valueFieldId = /*newType==='input' ? 'value' :*/ 'multiline-value';
+            checkFields.push(valueFieldId);
+            if (newType !== 'input') {
+                checkFields.push('url');
             }
+            if (!validateRequiredFields(checkFields)) {
+                WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorMissingRequired');
+                return;
+            }
+            setNewValuesToObjEntryData();
+            storeNewEntry();
+            WindowUtil.closeThisPopup();
             break;
     }
 }
@@ -81,7 +103,9 @@ function onDataRetrieved(data) {
         document.getElementById('typeSelect').value = objEntryData.type;
         document.getElementById('used').value = objEntryData.used;
         document.getElementById('first').value = DateUtil.dateToDateString(new Date(objEntryData.first));
+        document.getElementById('first').setAttribute('data-time', objEntryData.first);
         document.getElementById('last').value = DateUtil.dateToDateString(new Date(objEntryData.last));
+        document.getElementById('last').setAttribute('data-time', objEntryData.last);
         if (objEntryData.type === 'input') {
             document.getElementById('value').value = objEntryData.value;
         } else {
@@ -91,10 +115,13 @@ function onDataRetrieved(data) {
     }
     if (objEntryData.doWhat === "add") {
         // populate with defaults
+        objEntryData.used = 1;
+        objEntryData.first = objEntryData.last = DateUtil.getCurrentDate();
         document.getElementById('used').value = '1';
-        const nowDateString = DateUtil.getCurrentDateString();
-        document.getElementById('first').value = nowDateString;
-        document.getElementById('last').value = nowDateString;
+        document.getElementById('first').value = DateUtil.dateToDateString(new Date(objEntryData.first));
+        document.getElementById('first').setAttribute('data-time', objEntryData.first);
+        document.getElementById('last').value = DateUtil.dateToDateString(new Date(objEntryData.last));
+        document.getElementById('last').setAttribute('data-time', objEntryData.last);
     }
 
     if (objEntryData.doWhat === "edit" || objEntryData.doWhat === "add") {
@@ -107,8 +134,13 @@ function onDataRetrieved(data) {
         }
         document.getElementById('typeSelect').removeAttribute('disabled');
         document.getElementById('used').removeAttribute('disabled');
-        //document.getElementById('first').removeAttribute('disabled');
-        //document.getElementById('last').removeAttribute('disabled');
+
+        document.getElementById('first').removeAttribute('disabled');
+        document.getElementById('last').removeAttribute('disabled');
+        document.getElementById('first').addEventListener('focus', showModalDatetimeDialog);
+        document.getElementById('last').addEventListener('focus', showModalDatetimeDialog);
+        populateDatetimeSelect();
+
         document.getElementById('url').removeAttribute('disabled');
     }
 
@@ -142,6 +174,89 @@ function getOperationInfo(doWhat, multiple) {
     return operationInfoId ? browser.i18n.getMessage(operationInfoId) : '';
 }
 
+function showModalDatetimeDialog(event) {
+    let elemId = event.target.id;
+    document.getElementById('modalTitle').setAttribute('data-which', elemId);
+    let i18nTitle = (elemId === 'first') ? 'fieldFirstUsed' : 'fieldLastUsed';
+    document.getElementById('modalTitle').firstChild.nodeValue = browser.i18n.getMessage(i18nTitle);
+
+    let time = (elemId === 'first') ? objEntryData.first : objEntryData.last;
+    let date;
+    if (time) {
+        date = new Date(time);
+    } else {
+        date = new Date();
+    }
+    setDatetimeDialog(date);
+
+    document.getElementById('datetimeOverlay').style.display = 'block';
+}
+
+function onDatetimeAbort() {
+    document.getElementById('datetimeOverlay').style.display = 'none';
+}
+
+function onDatetimeNowdate() {
+    setDatetimeDialog(new Date());
+}
+
+function onDatetimeErase() {
+    eraseDatetimeDialog();
+}
+
+function onDatetimeOkayButton() {
+    let elemId = document.getElementById('modalTitle').getAttribute('data-which');
+
+    let date = new Date();
+
+    let year = document.getElementById('year').value;
+    let month = document.getElementById('month').value;
+    let day = document.getElementById('day').value;
+
+    if (year && month && day) {
+        date.setFullYear(document.getElementById('year').value);
+        date.setMonth(document.getElementById('month').value - 1);
+        date.setDate(document.getElementById('day').value);
+
+        let hour = document.getElementById('hour').value;
+        let minute = document.getElementById('minute').value;
+        let seconds = document.getElementById('second').value;
+        hour = 0 || hour;
+        minute = 0 || minute;
+        seconds = 0 || seconds;
+        date.setHours(hour);
+        date.setMinutes(minute);
+        date.setSeconds(seconds);
+
+        document.getElementById(elemId).value = DateUtil.dateToDateString(date);
+        document.getElementById(elemId).setAttribute('data-time', ''+date.getTime());
+    } else {
+        date = null;
+        document.getElementById(elemId).value = '';
+        document.getElementById(elemId).setAttribute('data-time', '');
+    }
+
+    document.getElementById('datetimeOverlay').style.display = 'none';
+}
+
+function setDatetimeDialog(date) {
+    document.getElementById('year').value = date.getFullYear();
+    document.getElementById('month').value = leftpadZero(date.getMonth()+1,2);
+    document.getElementById('day').value = leftpadZero(date.getDate(),2);
+    document.getElementById('hour').value = leftpadZero(date.getHours(),2);
+    document.getElementById('minute').value = leftpadZero(date.getMinutes(),2);
+    document.getElementById('second').value = leftpadZero(date.getSeconds(),2);
+}
+
+function eraseDatetimeDialog() {
+    document.getElementById('year').value = '';
+    document.getElementById('month').value = '';
+    document.getElementById('day').value = '';
+    document.getElementById('hour').value = '';
+    document.getElementById('minute').value = '';
+    document.getElementById('second').value = '';
+}
+
 function validateRequiredFields(fieldIds) {
     let isOkay = true;
     fieldIds.forEach(id => {
@@ -165,4 +280,73 @@ function onDataRetrieveError(error) {
 }
 function onDataRemoveError(error) {
     console.warn(`Error removing data from local storage: ${error}`);
+}
+
+function populateDatetimeSelect() {
+    populateSelect('month', 1, 12);
+    populateSelect('day', 1, 31);
+}
+
+function populateSelect(target, min, max){
+    const select = document.getElementById(target);
+
+    let optEmpty = document.createElement('option');
+    optEmpty.value = '';
+    optEmpty.innerText = '-';
+    select.appendChild(optEmpty);
+
+    for (let i = min; i<=max; i++) {
+        let opt = document.createElement('option');
+        let val = leftpadZero(i,2);
+        opt.value = val;
+        opt.innerText = val;
+        select.appendChild(opt);
+    }
+}
+function leftpadZero(aValue, maxLength) {
+    let result = "" + aValue;
+    while (result.length < maxLength) {
+        result = "0" + result;
+    }
+    return result;
+}
+
+/**
+ * Send entry to the background handler for adding to the datastore.
+ */
+function storeNewEntry() {
+    // FIXME use a different eventType (4 is for import new ) en use response so we can update the tableview
+    browser.runtime.sendMessage({
+        eventType: 4,
+        type     : objEntryData.type,
+        name     : objEntryData.name,
+        value    : objEntryData.value,
+        host     : objEntryData.host,
+        url      : objEntryData.url,
+        pagetitle: "",
+        used     : objEntryData.used,
+        first    : objEntryData.first,
+        last     : objEntryData.last,
+        id       : ''
+    });
+}
+
+function setNewValuesToObjEntryData() {
+    let value;
+    //if (document.getElementById('typeSelect').value === 'input') {
+    //    value = document.getElementById('value').value;
+    //} else {
+        value = document.getElementById('multiline-value').value;
+    //}
+
+    let url = document.getElementById('url').value;
+    url = url === '' ? undefined : url;
+
+    objEntryData.name = document.getElementById('name').value;
+    objEntryData.value = value;
+    objEntryData.type = document.getElementById('typeSelect').value;
+    objEntryData.used = Number(document.getElementById('used').value);
+    objEntryData.first = Number(document.getElementById('first').getAttribute('data-time'));
+    objEntryData.last = Number(document.getElementById('last').getAttribute('data-time'));
+    objEntryData.url = url;
 }

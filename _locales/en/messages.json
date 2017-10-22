@@ -160,6 +160,34 @@
   },
 
 
+  "tooltipEraseDatetimeButton": {
+    "message": "Erase the date and time",
+    "description": "Tooltip for the erase button: erase date and time"
+  },
+  "tooltipNowDatetimeButton": {
+    "message": "Set the current date and time",
+    "description": "Tooltip for the time button: set the current date and time"
+  },
+
+
+  "labelYesr": {
+    "message": "Year",
+    "description": "Label for Year."
+  },
+  "labelMonth": {
+    "message": "Month",
+    "description": "Label for Month."
+  },
+  "labelDay": {
+    "message": "Day",
+    "description": "Label for Day."
+  },
+  "labelTime": {
+    "message": "Time",
+    "description": "Label for Time."
+  },
+
+
   "importTitle": {
     "message": "Import",
     "description": "Title of import window."

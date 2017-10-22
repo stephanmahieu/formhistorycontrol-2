@@ -61,6 +61,42 @@
     <button id="buttonCancel" data-fhc-i18n="buttonCancel" class="button-right" style="display: none">Cancel</button>
     <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
 </div>
+<div id="datetimeOverlay" class="datetime-modal" style="display: none">
+    <div id="datetimeContent" class="modal-content">
+        <div class="modal-header"><div id="modalTitle" class="modal-title">Titel</div><span id="buttonTimeClose" class="modal-close modal-button"></span></div>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <th><label for="year" data-fhc-i18n="labelYesr">Year</label></th>
+                    <th><label for="month" data-fhc-i18n="labelMonth">Month</label></th>
+                    <th><label for="day" data-fhc-i18n="labelDay">Day</label></th>
+                </tr>
+                <tr>
+                    <td><input id="year" type="text" pattern="^(\d{4})$" placeholder="yyyy"/></td>
+                    <td><select id="month"/></td>
+                    <td><select id="day"/></td>
+                </tr>
+                <tr>
+                    <th colspan="3"><label data-fhc-i18n="labelTime">Time</label></th>
+                </tr>
+                <tr>
+                    <td colspan="3"><input id="hour" type="text" pattern="^(\d{2})$" placeholder="hh"/><div class="timeseparator">:</div>
+                        <input id="minute" type="text" pattern="^(\d{2})$" placeholder="mm"/><div class="timeseparator">:</div>
+                        <input id="second" type="text" pattern="^(\d{2})$" placeholder="ss"/>
+                        <div class="datetime-controls">
+                            <div id="btnNowdate"></div>
+                            <div id="btnErase"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="modal-buttons">
+            <button id="buttonTimeCancel" data-fhc-i18n="buttonCancel" class="button-right">Cancel</button>
+            <button id="buttonTimeOkay" data-fhc-i18n="buttonOkay" class="button-right">Okay</button>
+        </div>
+    </div>
+</div>
 <script src="../../common/OptionsUtil.js"></script>
 <script src="../../common/ThemeUtil.js"></script>
 <script src="../../common/DateUtil.js"></script>
