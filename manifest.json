@@ -53,12 +53,12 @@
         "content/collectFormData.js",
         "content/showFormData.js",
         "content/auto-complete.js",
-        "content/addAutocomplete.js"
+        "content/add-auto-complete.js"
       ],
       "css": [
         "content/auto-complete.css"
       ],
-      "matches": [ "*://*/*", "file:///*"],
+      "matches": ["*://*/*", "file:///*"],
       "run_at": "document_end",
       "all_frames" : true
     }
