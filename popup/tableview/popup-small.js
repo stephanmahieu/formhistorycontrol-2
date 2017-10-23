@@ -91,7 +91,6 @@ function closePrevChildIfOpen() {
 
 function onContextMenuClicked(menuItemId) {
     console.log("context menuItemId " + menuItemId + " clicked...");
-    console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
     switch (menuItemId) {
 
         case "add-ctx":
@@ -100,17 +99,20 @@ function onContextMenuClicked(menuItemId) {
             break;
 
         case "modify-ctx":
+            console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
             DataTableUtil.openDetailViewEntry(dataRightClicked, "edit");
             DataTableUtil.hideContextMenu();
             break;
 
         case "delete-ctx":
+            console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
             // method expects the primary key
             DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
             DataTableUtil.hideContextMenu();
             break;
 
         case "copy2clipboard-ctx":
+            console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
             DataTableUtil.copyEntryToClipboard(dataRightClicked);
             DataTableUtil.hideContextMenu();
             break;
