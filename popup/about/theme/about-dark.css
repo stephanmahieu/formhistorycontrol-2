@@ -3,7 +3,7 @@
 }
 
 #app-name {
-    color: #fcfcfc;
+    color: #a4b8dd;
 }
 
 #developer {
@@ -12,4 +12,8 @@
 
 #app-developer-url {
     color: #739ef3;
+}
+
+.tilt img {
+    filter: drop-shadow(5px 5px 9px rgba(0, 0, 0, 0.7));
 }
