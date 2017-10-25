@@ -1,5 +1,15 @@
 'use strict';
 
+
+browser.tabs.onActivated.addListener(handleActivated);
+
+function handleActivated(activeInfo) {
+    console.log("Tab " + activeInfo.tabId + " was activated");
+    // TODO pre-populate restore EditorField menu with submenu-items from db
+    // maybe use sendMessage to get data from collectFormData.js, also update submenu-items on each editorfield db update
+}
+
+
 function onMenuCreated() {
   if (browser.runtime.lastError) {
     console.error(`Error: ${browser.runtime.lastError}`);
@@ -183,6 +193,8 @@ browser.menus.onClicked.addListener(function(info, tab) {
             break;
 
         case "restoreEditorField":
+            // TODO implement restoreEditorField (need to pre-populate with submenu-items)
+            // populate with the last 5 updated/inserted items + last 5 items from the current domain, need to do this after each tab/focus change
             WindowUtil.notify("Not implemented yet!");
             break;
 
