@@ -85,7 +85,7 @@ function initDatabase() {
             objStore.createIndex(DbConst.DB_TEXT_IDX_FIELD, "fieldkey", {unique: true});
             objStore.createIndex(DbConst.DB_TEXT_IDX_NAME, "name", {unique: false});
             objStore.createIndex(DbConst.DB_TEXT_IDX_LAST, "last", {unique: false});
-            //objStore.createIndex("by_host", "host", {unique: false});
+            objStore.createIndex(DbConst.DB_TEXT_IDX_HOST, "host", {unique: false});
             //objStore.createIndex("by_uri", "uri", {unique: false});
 
             objStore = db.createObjectStore(DbConst.DB_STORE_ELEM, {autoIncrement: true});

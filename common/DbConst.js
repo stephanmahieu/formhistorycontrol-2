@@ -9,6 +9,7 @@ DbConst.DB_STORE_ELEM = 'elem_history';
 DbConst.DB_TEXT_IDX_FIELD = 'by_fieldkey';
 DbConst.DB_TEXT_IDX_NAME = 'by_name';
 DbConst.DB_TEXT_IDX_LAST = 'by_last';
+DbConst.DB_TEXT_IDX_HOST = 'by_host';
 
 DbConst.DB_ELEM_IDX_FIELD = 'by_fieldkey';
 DbConst.DB_ELEM_IDX_SAVED = 'by_saved';

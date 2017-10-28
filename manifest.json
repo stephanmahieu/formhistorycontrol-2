@@ -21,7 +21,8 @@
     "menus",
     "notifications",
     "storage",
-    "activeTab"
+    "activeTab",
+    "tabs"
   ],
 
   "icons": {
@@ -42,6 +43,7 @@
     "scripts": [
       "common/DbConst.js",
       "common/WindowUtil.js",
+      "common/DateUtil.js",
       "background/contextmenu.js",
       "background/receiveFormData.js"
     ]

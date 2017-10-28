@@ -269,6 +269,18 @@
     "message": "Restore editor field",
     "description": "Title of context menu item that displays the editor (wysiwyg) field values."
   },
+  "contextMenuItemRestoreEditorFieldSubmenuHostname": {
+    "message": "Matching Hostname",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuLastused": {
+    "message": "Most Recent Entries",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuMore": {
+    "message": "More...",
+    "description": "Last Submenu-item in ontext-menu 'Restore Edit field' indicating more items."
+  },
   "contextMenuItemFillMostRecent": {
     "message": "Fill fields with most recent entries",
     "description": "Title of context menu item that fills formfields with the most recent used value."

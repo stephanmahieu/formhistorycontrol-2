@@ -269,6 +269,18 @@
     "message": "Herstel editor veld",
     "description": "Title of context menu item that displays the editor (wysiwyg) field values."
   },
+  "contextMenuItemRestoreEditorFieldSubmenuHostname": {
+    "message": "Zelfde Hostnaam",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuLastused": {
+    "message": "Meest Recent",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuMore": {
+    "message": "Meer...",
+    "description": "Last Submenu-item in ontext-menu 'Restore Edit field' indicating more items."
+  },
   "contextMenuItemFillMostRecent": {
     "message": "Vul velden met meest recente waarden",
     "description": "Title of context menu item that fills formfields with the most recent used value."
