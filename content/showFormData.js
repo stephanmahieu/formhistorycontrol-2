@@ -25,14 +25,6 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
     }
 }
 
-function _getHost(aLocation) {
-    if (aLocation.protocol === "file:") {
-        return "localhost";
-    } else {
-        return aLocation.host;
-    }
-}
-
 /**
  * Get the formfields for this page as an array of name + type objects.
  */
