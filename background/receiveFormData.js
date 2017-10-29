@@ -147,33 +147,24 @@ function getFormElementFromStoreAndNotify(fhcEvent) {
 
     //console.log("Looking up formfield with key: " + key);
 
-    let req = index.getKey(key);
+    let req = index.get(key);
+    req.onerror = function (/*event*/) {
+        console.error("Get failed for key " + key, this.error);
+    };
     req.onsuccess = function(event) {
-        let key = event.target.result;
-        if (key) {
-            //console.log("formelement with key " + key + " found");
+        let formElement = event.target.result;
+        if (formElement) {
+            fhcEvent.action = "formfieldValueResponse";
+            fhcEvent.value = formElement.value;
+            fhcEvent.selected = formElement.selected;
 
-            // now get the complete record by key
-            let getReq = objStore.get(key);
-            getReq.onerror = function (/*event*/) {
-                console.error("Get failed for record-key " + key, this.error);
-            };
-            getReq.onsuccess = function (event) {
-                let formElement = event.target.result;
-                fhcEvent.action = "formfieldValueResponse";
-                fhcEvent.value = formElement.value;
-                fhcEvent.selected = formElement.selected;
-
-                //console.log("Sending a " + fhcEvent.action + " message to tab " + fhcEvent.targetTabId + " for fieldname " + fhcEvent.name + " id " + fhcEvent.id);
-                browser.tabs.sendMessage(fhcEvent.targetTabId, fhcEvent);
-                // TODO Does this mean this value is used now and used-count and lastused-date should be updated?
-                //      In any case only if the host and or uri matches?
-                //      Maybe we should trigger an update from the page itself by firing a change event (input. textarea)
-
-            };
+            //console.log("Sending a " + fhcEvent.action + " message to tab " + fhcEvent.targetTabId + " for fieldname " + fhcEvent.name + " id " + fhcEvent.id);
+            browser.tabs.sendMessage(fhcEvent.targetTabId, fhcEvent);
+            // TODO Does this mean this value is used now and used-count and lastused-date should be updated?
+            //      In any case only if the host and or uri matches?
+            //      Maybe we should trigger an update from the page itself by firing a change event (input. textarea)
         }
     }
-
 }
 
 function getTextFieldFromStoreAndNotify(fhcEvent) {
