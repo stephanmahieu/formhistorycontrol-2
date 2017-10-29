@@ -11,11 +11,13 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 //console.log("Received a content event for " + fhcEvent.id + " content is: " + fhcEvent.value);
                 saveOrUpdateTextField(fhcEvent);
                 break;
+
             case 2:
                 // Process non-text like radiobuttons, checkboxes etcetera
                 //console.log("Received a formelement event with " + fhcEvent.formElements.length + " form elements ");
                 saveOrUpdateFormElements(fhcEvent.formElements);
                 break;
+
             case 3:
                 //console.log("Received a dataRetrieval event! for " + fhcEvent.id + " type " + fhcEvent.type + " for tab " + fhcEvent.targetTabId + " textOrState: " + fhcEvent.textOrState);
                 // retrieve value and send it back
@@ -42,7 +44,6 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
 
             case 555:
                 // console.log('Getting choices from datastore for field ' + fhcEvent.fieldName + ', search term: ' + fhcEvent.searchTerm);
-
                 getValuesMatchingSearchtermFromDatabaseAndRespond(fhcEvent.fieldName, fhcEvent.searchTerm, sendResponse);
                 // Tell the browser we intend to use the sendResponse argument after the listener has returned
                 return true;
@@ -190,6 +191,9 @@ function getTextFieldFromStoreAndNotify(fhcEvent) {
     let singleKeyRange = IDBKeyRange.only(fhcEvent.name);
 
     let req = index.openCursor(singleKeyRange);
+    req.onerror = function (/*event*/) {
+        console.error("Get failed for name " + fhcEvent.name, this.error);
+    };
     req.onsuccess = function(evt) {
         let cursor = evt.target.result;
         if (cursor) {
@@ -244,6 +248,9 @@ function getValuesMatchingSearchtermFromDatabaseAndRespond(fieldname, searchterm
     let singleKeyRange = IDBKeyRange.only(fieldname);
 
     let req = index.openCursor(singleKeyRange);
+    req.onerror = function (/*event*/) {
+        console.error("Get failed for name " + fieldname, this.error);
+    };
     req.onsuccess = function(evt) {
         let cursor = evt.target.result;
         if (cursor) {
@@ -285,6 +292,9 @@ function _saveOrUpdateFormElement(formElement) {
     let index = objStore.index(DbConst.DB_ELEM_IDX_FIELD);
     let req = index.getKey(key);
 
+    req.onerror = function (/*event*/) {
+        console.error("Get failed for key " + key, this.error);
+    };
     req.onsuccess = function(event) {
         let key = event.target.result;
         // let now = (new Date()).getTime();
@@ -312,25 +322,18 @@ function saveOrUpdateTextField(fhcEvent) {
 
     // entry already exists? (index = host + type + name + value)
     let key = getLookupKey(fhcEvent);
-
     let index = objStore.index("by_fieldkey");
-    let req = index.getKey(key);
+    let req = index.get(key);
 
+    req.onerror = function (/*event*/) {
+        console.error("Get failed for key " + key, this.error);
+    };
     req.onsuccess = function(event) {
-        let key = event.target.result;
-        // let now = (new Date()).getTime();
-        if (key) {
+        // let key = event.target.result;
+        let fhcEntry = event.target.result;
+        if (fhcEntry) {
             //console.log("entry exist, updating value for key " + key);
-
-            // now get the complete record by key
-            let getReq = objStore.get(key);
-            getReq.onerror = function(/*event*/) {
-                console.error("Get (for update) failed for record-key " + key, this.error);
-            };
-            getReq.onsuccess = function(event) {
-                let fhcEntry = event.target.result;
-                _updateEntry(objStore, key, fhcEntry, fhcEvent);
-            };
+            _updateEntry(objStore, key, fhcEntry, fhcEvent);
         } else {
             //console.log("entry does not exist, adding...");
             _insertNewEntry(objStore, fhcEvent);
@@ -350,6 +353,9 @@ function importIfNotExist(fhcEvent) {
     let index = objStore.index(DbConst.DB_TEXT_IDX_FIELD);
     let req = index.getKey(lookupKey);
 
+    req.onerror = function (/*event*/) {
+        console.error("Get failed for lookupKey " + lookupKey, this.error);
+    };
     req.onsuccess = function(event) {
         let key = event.target.result;
         if (key) {
@@ -403,7 +409,7 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
         addReq.onerror = function(/*addEvent*/) {
             console.error("Add (for update) failed for original record with record-key " + key, this.error);
         };
-        addReq.onsuccess = function(addEvent) {
+        addReq.onsuccess = function(/*addEvent*/) {
             //console.log("Update succeeded for record-key " + key + ", new record-key is " + addEvent.target.result);
             if ("input" !== fhcEvent.type) {
                 browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
@@ -445,7 +451,7 @@ function _insertNewEntry(objStore, fhcEvent) {
     insertReq.onerror = function(/*insertEvent*/) {
         console.error("Insert failed!", this.error);
     };
-    insertReq.onsuccess = function(insertEvent) {
+    insertReq.onsuccess = function(/*insertEvent*/) {
         //console.log("Insert succeeded, new record-key is " + insertEvent.target.result);
         if ("input" !== fhcEvent.type) {
             browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
