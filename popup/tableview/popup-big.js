@@ -277,6 +277,7 @@ function deleteSelectedItems() {
             DataTableUtil.deleteItemFromDatabase(primaryKey);
         }
     );
+    DataTableUtil.broadcastItemDeletedFromDatabase();
 
     // assume db deletes succeed, remove selected entries en redraw table
     rows.remove().draw();
@@ -417,6 +418,7 @@ function onContextMenuClicked(menuItemId) {
 
         case "delete-ctx":
             DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
+            DataTableUtil.broadcastItemDeletedFromDatabase();
             DataTableUtil.hideContextMenu();
             break;
 

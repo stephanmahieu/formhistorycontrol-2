@@ -35,6 +35,11 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 importIfNotExist(fhcEvent);
                 break;
 
+            case 444:
+                // item(s) have been deleted from the database (by popup script)
+                browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
+                return true;
+
             case 555:
                 // console.log('Getting choices from datastore for field ' + fhcEvent.fieldName + ', search term: ' + fhcEvent.searchTerm);
 

@@ -108,6 +108,7 @@ function onContextMenuClicked(menuItemId) {
             console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
             // method expects the primary key
             DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
+            DataTableUtil.broadcastItemDeletedFromDatabase();
             DataTableUtil.hideContextMenu();
             break;
 

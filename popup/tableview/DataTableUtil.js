@@ -250,6 +250,11 @@ class DataTableUtil {
         }
     };
 
+    static broadcastItemDeletedFromDatabase() {
+        // tell background script
+        browser.runtime.sendMessage({eventType: 444});
+    }
+
     static removeRowFromTable(primaryKey) {
         console.log(`Entry successful deleted, removing ${primaryKey} from the dataTable view`);
         const table = $('#fhcTable').DataTable();
