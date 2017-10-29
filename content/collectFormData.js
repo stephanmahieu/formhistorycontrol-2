@@ -80,6 +80,8 @@ function _isDesignModeOn(elem) {
 }
 
 function _ifMatchSetValue(node, fhcEvent) {
+    let doErase = (fhcEvent.value === "");
+
     let nodeName = node.nodeName.toLowerCase();
     //let location = node.ownerDocument.location;
     //let pagetitle = node.ownerDocument.title;
@@ -123,7 +125,7 @@ function _ifMatchSetValue(node, fhcEvent) {
             node.innerHTML = fhcEvent.value;
 
             // indicate changed value backgroundColor
-            _setStyle(node, 'backgroundColor', '#ffffcc');
+            _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
 
             //console.log("###### setting " + nodeName + " id:" + fhcEvent.id);
             return true;
@@ -146,7 +148,7 @@ function _ifMatchSetValue(node, fhcEvent) {
                 node.value = fhcEvent.value;
 
                 // indicate changed value backgroundColor
-                _setStyle(node, 'backgroundColor', '#ffffcc');
+                _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
 
                 //console.log("###### setting " + node.type + " id:" + fhcEvent.id);
                 return true;
@@ -165,7 +167,7 @@ function _ifMatchSetValue(node, fhcEvent) {
                 }
 
                 // indicate changed value backgroundColor
-                _setStyle(node, 'backgroundColor', '#ffffcc');
+                _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
 
                 return true;
                 break;
@@ -183,7 +185,7 @@ function _ifMatchSetValue(node, fhcEvent) {
                 }
 
                 // indicate changed value backgroundColor
-                _setStyle(node, 'backgroundColor', '#ffffcc');
+                _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
 
                 return true;
                 break;
@@ -193,9 +195,14 @@ function _ifMatchSetValue(node, fhcEvent) {
     return false;
 }
 
-function _setStyle(node, styleProperty, styleValue) {
+function _setStyle(node, styleProperty, styleValue, doErase) {
     const orgAttribute = 'data-fhc-orgstyle-' + styleProperty;
-    if (!node.hasAttribute(orgAttribute)) {
+    if (doErase) {
+        if (node.hasAttribute(orgAttribute)) {
+            node.style[styleProperty] = node.getAttribute(orgAttribute);
+            node.removeAttribute(orgAttribute);
+        }
+    } else if (!node.hasAttribute(orgAttribute)) {
         // store current value
         node.setAttribute(orgAttribute, node.style[styleProperty]);
         // apply new style
