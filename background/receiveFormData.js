@@ -400,6 +400,9 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
         };
         addReq.onsuccess = function(addEvent) {
             //console.log("Update succeeded for record-key " + key + ", new record-key is " + addEvent.target.result);
+            if ("input" !== fhcEvent.type) {
+                browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
+            }
         };
     };
 }
@@ -439,6 +442,9 @@ function _insertNewEntry(objStore, fhcEvent) {
     };
     insertReq.onsuccess = function(insertEvent) {
         //console.log("Insert succeeded, new record-key is " + insertEvent.target.result);
+        if ("input" !== fhcEvent.type) {
+            browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
+        }
     };
 }
 

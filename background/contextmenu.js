@@ -2,19 +2,23 @@
 
 browser.tabs.onActivated.addListener(handleActivated);
 
+// initially set the EditorFieldRestoreMenu for the current active tab
+updateEditorFieldRestoreMenuForActiveTab();
+
 function handleActivated(activeInfo) {
     // console.log("Tab " + activeInfo.tabId + " was activated");
     // create submenu-items for multiline restore
     updateEditorFieldRestoreMenu(activeInfo.tabId);
 }
 
-// initially set the EditorFieldRestoreMenu for the current active tab
-browser.tabs.query({active: true}).then(tabInfo=>{
-    if (tabInfo.length === 1) {
-        //console.log('Init: updateEditorFieldRestoreMenu for tabId ' + tabInfo[0].id);
-        updateEditorFieldRestoreMenu(tabInfo[0].id);
-    }
-});
+function updateEditorFieldRestoreMenuForActiveTab() {
+    browser.tabs.query({active: true}).then(tabInfo=>{
+        if (tabInfo.length === 1) {
+            // console.log('Init: updateEditorFieldRestoreMenu for tabId ' + tabInfo[0].id);
+            updateEditorFieldRestoreMenu(tabInfo[0].id);
+        }
+    });
+}
 
 
 const MAX_LENGTH_EDITFIELD_ITEM = 35;
@@ -27,10 +31,7 @@ function updateEditorFieldRestoreMenu(tabId) {
             setTimeout(()=>{ updateEditorFieldRestoreMenu(tabId); }, 1000);
         } else {
             const hostname = getHostnameFromUrlString(tabInfo.url);
-            console.log('TabId ' + tabId + ' was activated and has url: ' + tabInfo.url + '  (' + hostname + ')');
-
-            // pre-populate restore EditorField menu with submenu-items from db
-            // TODO update submenu-items on each editorfield db update?
+            // console.log('TabId ' + tabId + ' was activated and has url: ' + tabInfo.url + '  (' + hostname + ')');
 
             removeCurrentMenuItems(editorFieldsMenuItemsIds)
             .then(() => {
@@ -42,9 +43,7 @@ function updateEditorFieldRestoreMenu(tabId) {
             }).then(lastusedItemsArray => {
                 lastusedItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
             }).then(()=>{
-                // editorFieldsMenuItemsIds.forEach(item => {
-                //     console.log('- ' + item.type + ' ' + item.pKey + '  ' + item.value);
-                // });
+                // editorFieldsMenuItemsIds.forEach(item => { console.log('- ' + item.type + ' ' + item.pKey + '  ' + item.value); });
                 return addNewMenuItems(editorFieldsMenuItemsIds);
             });
         }
