@@ -281,26 +281,15 @@ function _saveOrUpdateFormElement(formElement) {
     let key = getFormElementLookupKey(formElement);
 
     let index = objStore.index(DbConst.DB_ELEM_IDX_FIELD);
-    let req = index.getKey(key);
+    let req = index.get(key);
 
     req.onerror = function (/*event*/) {
         console.error("Get failed for key " + key, this.error);
     };
     req.onsuccess = function(event) {
-        let key = event.target.result;
-        // let now = (new Date()).getTime();
-        if (key) {
-            //console.log("formelement exist, updating value for key " + key);
-
-            // now get the complete record by key
-            let getReq = objStore.get(key);
-            getReq.onerror = function (/*event*/) {
-                console.error("Get (for update) failed for record-key " + key, this.error);
-            };
-            getReq.onsuccess = function (event) {
-                let formElementFromDB = event.target.result;
-                _updateFormElement(objStore, key, formElementFromDB, formElement);
-            };
+        let formElementFromDB = event.target.result;
+        if (formElementFromDB) {
+            _updateFormElement(objStore, key, formElementFromDB, formElement);
         } else {
             //console.log("formelement does not exist, adding...");
             _insertNewFormElement(objStore, formElement);
