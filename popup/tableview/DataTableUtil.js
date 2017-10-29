@@ -140,7 +140,7 @@ class DataTableUtil {
                 }
             }
         );
-        console.log('No of entries to edit is: ' + primaryKeys.length + ', rowIdxFirst is: ' + rowIdxFirst);
+        // console.log('No of entries to edit is: ' + primaryKeys.length + ', rowIdxFirst is: ' + rowIdxFirst);
 
         // get the data of the one entry to edit
         let data = table.row( rowIdxFirst ).data();
@@ -198,7 +198,7 @@ class DataTableUtil {
     static copyEntryToClipboard(data) {
         //const type = data[3];
         const value = data[2];
-        console.log('Trying to copy value: ' + value);
+        // console.log('Trying to copy value: ' + value);
 
         // create invisible textarea to set value and copy to clipboard (only works for popup scripts)
         const input = document.createElement('textarea');
@@ -241,7 +241,7 @@ class DataTableUtil {
 
             let reqDel = objStore.delete(primaryKey);
             reqDel.onsuccess = function(/*evt*/) {
-                console.log("primaryKey " + primaryKey + " deleted from the object store.");
+                // console.log("primaryKey " + primaryKey + " deleted from the object store.");
                 DataTableUtil.removeRowFromTable(primaryKey);
             };
             reqDel.onerror = function(/*evt*/) {
@@ -256,7 +256,7 @@ class DataTableUtil {
     }
 
     static removeRowFromTable(primaryKey) {
-        console.log(`Entry successful deleted, removing ${primaryKey} from the dataTable view`);
+        // console.log(`Entry successful deleted, removing ${primaryKey} from the dataTable view`);
         const table = $('#fhcTable').DataTable();
 
         // find row which has the primaryKey in the first column and remove it
@@ -268,7 +268,7 @@ class DataTableUtil {
             }
         });
         if (rowIndexes.length === 1) {
-            console.log('Removing row with index ' + rowIndexes[0] + ' from table-data');
+            // console.log('Removing row with index ' + rowIndexes[0] + ' from table-data');
             table.rows(rowIndexes[0]).remove().draw('page');
         }
     }

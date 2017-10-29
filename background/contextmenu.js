@@ -450,13 +450,13 @@ browser.menus.onClicked.addListener(function(info, tab) {
     switch (info.menuItemId) {
         case "manage":
         case "manageTools":
-            console.log("Manage history from context menu clicked...");
+            // console.log("Manage history from context menu clicked...");
             WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
             break;
 
         case "options":
         case "optionsTools":
-            console.log("Options from context menu clicked...");
+            // console.log("Options from context menu clicked...");
             WindowUtil.createOrFocusWindow(FHC_WINDOW_OPTIONS);
             break;
 

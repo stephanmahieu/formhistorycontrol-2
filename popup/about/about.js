@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
 
 
 function openDeveloperURL() {
-    console.log("Opening developer URL in new window...");
+    // console.log("Opening developer URL in new window...");
     let developerURL = browser.runtime.getManifest().developer.url;
     browser.windows.create({
         url: developerURL,

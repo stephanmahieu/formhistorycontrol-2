@@ -66,7 +66,7 @@ $(document).ready(function() {
     // custom right-click menu
     tableElement.find('tbody')
       .on('contextmenu', 'tr', function(event) {
-        console.log("context menu should now display :-)");
+        // console.log("context menu should now display :-)");
         let tr = $(this).closest('tr');
         let row = table.row( tr );
         dataRightClicked = row.data();
@@ -99,7 +99,7 @@ $(document).ready(function() {
     });
 
     $(window).on('beforeunload', function() {
-        console.log('Unloading window, notify child windows to also close!');
+        // console.log('Unloading window, notify child windows to also close!');
         // this only works when the close-button is used
         browser.runtime.sendMessage({eventType: 666}).then(null,
             error=>console.log(`Error sending close event: ${error}`)
@@ -273,7 +273,7 @@ function deleteSelectedItems() {
     rows.every(
         function (/* rowIdx, tableLoop, rowLoop */) {
             let primaryKey = this.data()[0];
-            console.log('primaryKey database (delete) is: ' + primaryKey);
+            // console.log('primaryKey database (delete) is: ' + primaryKey);
             DataTableUtil.deleteItemFromDatabase(primaryKey);
         }
     );
@@ -348,7 +348,7 @@ function populateViewFromDatabase(table) {
 function selectionChangedHandler() {
     let table = $('#fhcTable').DataTable();
     let noSelected = table.rows('.selected').indexes().length;
-    console.log("Selection has changed! (" + noSelected + " selected)");
+    // console.log("Selection has changed! (" + noSelected + " selected)");
 
     // enable/disable buttons
     setButtonEnabled('buttonDelete', (noSelected !== 0));
@@ -376,7 +376,7 @@ function isMenuItemEnabled(id) {
 }
 
 function onButtonClicked(buttonId) {
-    console.log("buttonId " + buttonId + " clicked...");
+    // console.log("buttonId " + buttonId + " clicked...");
     switch (buttonId) {
         case "buttonDelete":
             deleteSelectedItemsAsk();
@@ -401,8 +401,8 @@ function onButtonClicked(buttonId) {
 }
 
 function onContextMenuClicked(menuItemId) {
-    console.log("context menuItemId " + menuItemId + " clicked...");
-    console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
+    // console.log("context menuItemId " + menuItemId + " clicked...");
+    // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
 
     switch (menuItemId) {
 
@@ -445,7 +445,7 @@ function onContextMenuClicked(menuItemId) {
 }
 
 function onMenuClicked(menuItemId) {
-    console.log("menuItemId " + menuItemId + " clicked...");
+    // console.log("menuItemId " + menuItemId + " clicked...");
     switch (menuItemId) {
         case "import":
             WindowUtil.createOrFocusWindow(FHC_WINDOW_IMPORT);
@@ -521,7 +521,7 @@ function onMenuClicked(menuItemId) {
 function onKeyClicked(event) {
     const keyName = event.key;
     if (event.altKey && !event.ctrlKey && !event.shiftKey && isAlpha(keyName)) {
-        console.log("We have an Alt-key event: " + keyName);
+        // console.log("We have an Alt-key event: " + keyName);
 
         // try to find a matching menu-item
         const menuItems = $("span[data-access-key='" + keyName +"']");

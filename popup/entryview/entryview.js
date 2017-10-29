@@ -68,7 +68,7 @@ function onOkayButton() {
 }
 
 function populateView() {
-    console.log("Populating view using local storage");
+    // console.log("Populating view using local storage");
 
     let gettingData = browser.storage.local.get("entryObject");
     gettingData.then(onDataRetrieved, onDataRetrieveError);
@@ -76,7 +76,7 @@ function populateView() {
 
 let objEntryData;
 function onDataRetrieved(data) {
-    console.log("Data retrieved", data);
+    // console.log("Data retrieved", data);
 
     let removingData = browser.storage.local.remove("entryObject");
     removingData.then(onDataRemoved, onDataRemoveError);
@@ -273,7 +273,7 @@ function validateRequiredFields(fieldIds) {
 
 
 function onDataRemoved() {
-    console.log('Data removed');
+    // console.log('Data removed');
 }
 function onDataRetrieveError(error) {
     console.error(`Error retrieving data from local storage: ${error}`);

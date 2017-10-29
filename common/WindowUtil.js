@@ -56,7 +56,7 @@ class WindowUtil {
         });
         creating.then(
             (windowInfo) => {
-                console.log(`Created window: ${windowInfo.id} (${fhcWindowObject.path})`);
+                // console.log(`Created window: ${windowInfo.id} (${fhcWindowObject.path})`);
                 fhcWindowObject.currentId = windowInfo.id;
                 this.optionsCloseButton(fhcWindowObject);
             },
@@ -69,7 +69,7 @@ class WindowUtil {
     static optionsCloseButton(fhcWindowObject) {
         if (fhcWindowObject.path.includes('options.html')) {
             // send a notification to this window so it knows it has been invoked from the app and must add a close-button
-            console.log('sending an event intended for options.html popup');
+            // console.log('sending an event intended for options.html popup');
             browser.runtime.sendMessage({
                 eventType: 999
             });
@@ -81,7 +81,7 @@ class WindowUtil {
         getting.then((window) => {
             let removing = browser.windows.remove(window.id);
             removing.onRemoved = function() {
-                console.log("Window removed");
+                // console.log("Window removed");
             };
             removing.onError = function() {
                 console.error("Window remove error", this.error);
@@ -97,7 +97,7 @@ class WindowUtil {
                 if (item.id === windowID) {
                     let removing = browser.windows.remove(windowID);
                     removing.onRemoved = function() {
-                        console.log("Window removed");
+                        // console.log("Window removed");
                     };
                     removing.onError = function() {
                         console.error("Window remove error", this.error);

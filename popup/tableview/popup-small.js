@@ -27,10 +27,10 @@ $(document).ready(function() {
             }
         );
     }).then((fieldsMsg)=>{
-        console.log(`received ${fieldsMsg.fields.length} fields!`);
+        // console.log(`received ${fieldsMsg.fields.length} fields!`);
         populateFromDatabase(table, fieldsMsg.fields, fieldsMsg.host);
     }).catch((reason) => {
-        console.warn(`Could not get formfields from active tab, showing all instead. Error: ${reason}`);
+        // console.warn(`Could not get formfields from active tab, showing all instead. Error: ${reason}`);
         populateFromDatabase(table, null, null);
     });
 
@@ -39,7 +39,7 @@ $(document).ready(function() {
         DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
     }).on('contextmenu', 'tr', function(event) {
         // custom right-click menu
-        console.log("context menu should now display :-)");
+        // console.log("context menu should now display :-)");
         let tr = $(this).closest('tr');
         let row = table.row( tr );
         dataRightClicked = row.data();
@@ -90,7 +90,7 @@ function closePrevChildIfOpen() {
 
 
 function onContextMenuClicked(menuItemId) {
-    console.log("context menuItemId " + menuItemId + " clicked...");
+    // console.log("context menuItemId " + menuItemId + " clicked...");
     switch (menuItemId) {
 
         case "add-ctx":
@@ -99,13 +99,13 @@ function onContextMenuClicked(menuItemId) {
             break;
 
         case "modify-ctx":
-            console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
+            // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
             DataTableUtil.openDetailViewEntry(dataRightClicked, "edit");
             DataTableUtil.hideContextMenu();
             break;
 
         case "delete-ctx":
-            console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
+            // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
             // method expects the primary key
             DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
             DataTableUtil.broadcastItemDeletedFromDatabase();
@@ -113,7 +113,7 @@ function onContextMenuClicked(menuItemId) {
             break;
 
         case "copy2clipboard-ctx":
-            console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
+            // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
             DataTableUtil.copyEntryToClipboard(dataRightClicked);
             DataTableUtil.hideContextMenu();
             break;
