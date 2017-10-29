@@ -346,6 +346,7 @@ function _processContentEvent(event) {
     let theContent = _getContent(event);
     if (theContent.length > 0)  {
         event.value = JSON.stringify(theContent);
+        event.last = (new Date()).getTime();
         event.node = null;
 
         //console.log("Send content-event for " + event.id + " to background-script: " + event.content);
@@ -695,6 +696,7 @@ function _enqueueContentEvent(name, type, id, formid, location, pagetitle, node)
         url:        location.href,
         host:       _getHost(location),
         pagetitle:  pagetitle,
+        last:       null,
         value:      null
     };
     if (!_alreadyQueued(event)) {

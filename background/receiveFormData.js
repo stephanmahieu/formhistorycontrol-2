@@ -92,6 +92,7 @@ function initDatabase() {
             objStore.createIndex(DbConst.DB_TEXT_IDX_NAME, "name", {unique: false});
             objStore.createIndex(DbConst.DB_TEXT_IDX_LAST, "last", {unique: false});
             objStore.createIndex(DbConst.DB_TEXT_IDX_HOST, "host", {unique: false});
+            objStore.createIndex(DbConst.DB_TEXT_IDX_HOST_NAME, "host_name", {unique: false});
             //objStore.createIndex("by_uri", "uri", {unique: false});
 
             objStore = db.createObjectStore(DbConst.DB_STORE_ELEM, {autoIncrement: true});
@@ -298,27 +299,97 @@ function _saveOrUpdateFormElement(formElement) {
 }
 
 function saveOrUpdateTextField(fhcEvent) {
+    if (fhcEvent.type === 'input') {
+        saveOrUpdateTextInputField(fhcEvent);
+    } else {
+        saveOrUpdateMultilineField(fhcEvent);
+    }
+}
+
+function saveOrUpdateTextInputField(fhcEvent) {
     let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
 
     // entry already exists? (index = host + type + name + value)
     let key = getLookupKey(fhcEvent);
-    let index = objStore.index("by_fieldkey");
-    let req = index.get(key);
 
-    req.onerror = function (/*event*/) {
-        console.error("Get failed for key " + key, this.error);
-    };
+    let index = objStore.index(DbConst.DB_TEXT_IDX_FIELD);
+    let req = index.getKey(key);
+
     req.onsuccess = function(event) {
-        // let key = event.target.result;
-        let fhcEntry = event.target.result;
-        if (fhcEntry) {
-            //console.log("entry exist, updating value for key " + key);
-            _updateEntry(objStore, key, fhcEntry, fhcEvent);
+        let key = event.target.result;
+        if (key) {
+            console.log("entry exist, updating value for key " + key);
+
+            // now get the complete record by key
+            let getReq = objStore.get(key);
+            getReq.onerror = function(/*event*/) {
+                console.error("Get (for update) failed for record-key " + key, this.error);
+            };
+            getReq.onsuccess = function(event) {
+                let fhcEntry = event.target.result;
+                _updateEntry(objStore, key, fhcEntry, fhcEvent);
+            };
         } else {
             //console.log("entry does not exist, adding...");
             _insertNewEntry(objStore, fhcEvent);
         }
     };
+}
+
+function saveOrUpdateMultilineField(fhcEvent) {
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
+
+    let found = {
+        fhcEntry: null,
+        last: 0
+    };
+
+    let index = objStore.index(DbConst.DB_TEXT_IDX_HOST_NAME);
+    let singleKeyRange = IDBKeyRange.only(getHostNameKey(fhcEvent));
+    let req = index.openCursor(singleKeyRange);
+
+    req.onerror = function (/*event*/) {
+        console.error("Get failed for name " + fhcEvent.name, this.error);
+    };
+    req.onsuccess = function(evt) {
+        let cursor = evt.target.result;
+        if (cursor) {
+            let fhcEntry = cursor.value;
+            // console.log("Multiline Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type +
+            //     "} KEY=[" + fhcEntry.fieldkey + "] first:[" + fhcEntry.first + "] last:[" + fhcEntry.last + "]");
+
+            // keep the most recent entry
+            if (fhcEntry.last > found.last) {
+                found.last = fhcEntry.last;
+                found.fhcEntry = fhcEntry;
+                found.primaryKey = cursor.primaryKey;
+            }
+
+            cursor.continue();
+        }
+        else {
+            // no more entries
+            let hasFoundEntry = (found.last !== 0);
+            if (hasFoundEntry && !createNewMultilineEntry(fhcEvent, found.fhcEntry)) {
+                _updateEntry(objStore, found.primaryKey, found.fhcEntry, fhcEvent);
+            } else {
+                _insertNewEntry(objStore, fhcEvent);
+            }
+        }
+    };
+}
+
+/**
+ * Determine when to create a new entry or update an existing entry in the database for a multiline field.
+ * Create a new multiline entry when a certain amount of characters in the value has changed or when a
+ * certain amount of time has passed.
+ */
+function createNewMultilineEntry(currentEntry, lastStoredEntry) {
+    // create a new entry if the current version is 10 min. older or length changes more than 500 chars.
+    let now = DateUtil.getCurrentDate();
+    let isOlderThan10min = ((now - lastStoredEntry.last) > (10 * 60 * 1000));
+    let gtThan500 = (Math.abs(currentEntry.value.length - lastStoredEntry.value.length) > 500);
+    return (gtThan500 || isOlderThan10min);
 }
 
 function importIfNotExist(fhcEvent) {
@@ -349,17 +420,6 @@ function importIfNotExist(fhcEvent) {
 
 
 function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
-    // fhcEntry.used++;
-    // fhcEntry.last = now;
-    // fhcEntry.uri = fhcEvent.url;
-    // fhcEntry.pagetitle = fhcEvent.pagetitle;
-    // var updateReq = objStore.put(fhcEntry);
-    // updateReq.onsuccess = function(updateEvent) {
-    //     console.log("Update okay, id: " + updateEvent.target.result);
-    // };
-    // updateReq.onerror = function(updateEvent) {
-    //     console.error("Update failed! " + updateReq.error.name + ": " + updateReq.error.message);
-    // };
     let deleteReq = objStore.delete(key);
 
     deleteReq.onerror = function(/*deleteEvent*/) {
@@ -417,6 +477,7 @@ function _insertNewEntry(objStore, fhcEvent) {
 
     let fhcEntry = {
         fieldkey: getLookupKey(fhcEvent),
+        host_name: getHostNameKey(fhcEvent),
         name: fhcEvent.name,
         value: fhcEvent.value,
         type: fhcEvent.type,
@@ -515,6 +576,7 @@ function _importNewEntry(objStore, fhcEvent) {
 
     let fhcEntry = {
         fieldkey: getLookupKey(fhcEvent),
+        host_name: getHostNameKey(fhcEvent),
         name: fhcEvent.name,
         value: fhcEvent.value,
         type: fhcEvent.type,
@@ -535,6 +597,9 @@ function _importNewEntry(objStore, fhcEvent) {
 }
 
 
+/**
+ * Create a unique key for looking up entries (input types)
+ */
 function getLookupKey(fhcEvent) {
     let key = fhcEvent.type + "|" + fhcEvent.name;
 
@@ -543,8 +608,20 @@ function getLookupKey(fhcEvent) {
         key = "|" + key + "|" + fhcEvent.value;
     } else {
         // bind multiline fields to a specific host
-        // do not add the value, we keep one or more versions per host
-        key = fhcEvent.host + "|" + key;
+        // do not add the value but the lastUsed date, we want to store one or more versions per host
+        key = fhcEvent.host + "|" + key + "|" + fhcEvent.last;
+    }
+    return key;
+}
+
+/**
+ *  Create a non unique key for looking-up multiline entries
+ */
+function getHostNameKey(fhcEvent) {
+    let key = "";
+    if ("input" !== fhcEvent.type) {
+        // this allows for multiple versions of a field per host
+        key = fhcEvent.host + "|" + fhcEvent.type + "|" + fhcEvent.name;
     }
     return key;
 }
