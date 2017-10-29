@@ -111,16 +111,16 @@ class WindowUtil {
     }
 
     static showModalInformation(titleId, messageId) {
-        WindowUtil.showModalDialog(titleId, messageId, 'modal-information');
+        return WindowUtil.showModalDialog(titleId, messageId, 'modal-information');
     }
     static showModalWarning(titleId, messageId) {
-        WindowUtil.showModalDialog(titleId, messageId, 'modal-warning');
+        return WindowUtil.showModalDialog(titleId, messageId, 'modal-warning');
     }
     static showModalError(titleId, messageId) {
-        WindowUtil.showModalDialog(titleId, messageId, 'modal-error');
+        return WindowUtil.showModalDialog(titleId, messageId, 'modal-error');
     }
     static showModalYesNo(titleId, messageId) {
-        WindowUtil.showModalDialog(titleId, messageId, 'modal-question', 'YesNo');
+        return WindowUtil.showModalDialog(titleId, messageId, 'modal-question', 'YesNo');
     }
 
     static showModalDialog(titleId, messageId, iconClass, buttons) {
