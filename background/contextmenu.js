@@ -235,7 +235,7 @@ function getEditorFieldsByLastused(hostname, maxItems) {
 
 function removeTagsAndShorten(value) {
     // remove tags and replace newlines/tabs with spaces
-    let str = value.replace(/<\/?[^>]+(>|$)/g, "").replace(/[\t\r\n]+/g,' ').replace(/\s\s+/g, ' ').trim();
+    let str = value.replace(/<\/?[^>]+(>|$)/g, "").replace(/[\t\r\n]+/g,' ').replace('&nbsp;',' ').replace(/\s\s+/g, ' ').trim();
     if (str.length > MAX_LENGTH_EDITFIELD_ITEM) {
         str = str.substring(0, MAX_LENGTH_EDITFIELD_ITEM-3) + '...';
     }
