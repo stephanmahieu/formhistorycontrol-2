@@ -49,13 +49,25 @@ function _findFieldAndSetValue(fhcEvent) {
         });
     }
 
+    // still not found, if id was empty but we have a name, use the name as id
+    if (!found && fhcEvent.name && !fhcEvent.id) {
+        const fhcEventClone = Object.assign({}, fhcEvent);
+        fhcEventClone.id = fhcEvent.name;
+        fhcEventClone.name = '';
+        let elem = document.getElementById(fhcEventClone.id);
+        if (elem) {
+            found = _ifMatchSetValue(elem, fhcEventClone);
+            //if (found) console.log("3. Just filled field by id: " + fhcEvent.id);
+        }
+    }
+
     // try all elements matching the nodeName one by one
     if (!found) {
         document.querySelectorAll(fhcEvent.nodeName).forEach( elem => {
             if (_isDisplayed(elem)) {
                 if (!found) {
                     found = _ifMatchSetValue(elem, fhcEvent);
-                    //if (found) console.log("3. Just filled field by nodeName: " + fhcEvent.id);
+                    //if (found) console.log("4. Just filled field by nodeName: " + fhcEvent.id);
                 }
             }
         });
@@ -92,7 +104,9 @@ function _ifMatchSetValue(node, fhcEvent) {
     //console.log("## testing " + fhcEvent.id + " for a match");
 
     // TODO test if additional properties are equal (location, pagetitle, formid)???
-    if (fhcEvent.nodeName !== nodeName || fhcEvent.id !== id) {
+    if (fhcEvent.nodeName === 'iframe' && nodeName === 'body' && fhcEvent.id === id) {
+        // special case, stored as iframe, but node is actually body
+    } else if (fhcEvent.nodeName !== nodeName || fhcEvent.id !== id) {
         //console.log("## missing id, skipping!" + fhcEvent.name);
         return false;
     }
@@ -103,9 +117,14 @@ function _ifMatchSetValue(node, fhcEvent) {
     switch(nodeName) {
         case "html":
         case "div":
-        case "iframe":
+        //case "iframe":
+        case "body":
             // FIXME innerHTML: Unsafe assignment to innerHTML. Warning: Due to both security and performance concerns, this may not be set using dynamic values which have not been adequately sanitized.
             node.innerHTML = fhcEvent.value;
+
+            // indicate changed value backgroundColor
+            _setStyle(node, 'backgroundColor', '#ffffcc');
+
             //console.log("###### setting " + nodeName + " id:" + fhcEvent.id);
             return true;
             break;
@@ -125,6 +144,10 @@ function _ifMatchSetValue(node, fhcEvent) {
             case "date":
                 // TODO is json stringified?
                 node.value = fhcEvent.value;
+
+                // indicate changed value backgroundColor
+                _setStyle(node, 'backgroundColor', '#ffffcc');
+
                 //console.log("###### setting " + node.type + " id:" + fhcEvent.id);
                 return true;
                 break;
@@ -140,6 +163,10 @@ function _ifMatchSetValue(node, fhcEvent) {
                 } else {
                     //console.log("###### skipping " + node.type + "(same state) id:" + fhcEvent.id);
                 }
+
+                // indicate changed value backgroundColor
+                _setStyle(node, 'backgroundColor', '#ffffcc');
+
                 return true;
                 break;
 
@@ -154,6 +181,10 @@ function _ifMatchSetValue(node, fhcEvent) {
                         }
                     });
                 }
+
+                // indicate changed value backgroundColor
+                _setStyle(node, 'backgroundColor', '#ffffcc');
+
                 return true;
                 break;
         }
@@ -162,6 +193,15 @@ function _ifMatchSetValue(node, fhcEvent) {
     return false;
 }
 
+function _setStyle(node, styleProperty, styleValue) {
+    const orgAttribute = 'data-fhc-orgstyle-' + styleProperty;
+    if (!node.hasAttribute(orgAttribute)) {
+        // store current value
+        node.setAttribute(orgAttribute, node.style[styleProperty]);
+        // apply new style
+        node.style[styleProperty] = styleValue;
+    }
+}
 
 //----------------------------------------------------------------------------
 // fill formfields request handling methods

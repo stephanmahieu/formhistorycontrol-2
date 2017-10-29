@@ -393,7 +393,6 @@ browser.menus.create({
 
 function showformfields(tabId) {
     // send without checking response
-    // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/sendMessage
     //console.log('Sending a message to tab ' + tabId);
     browser.tabs.sendMessage(tabId, {
         action: "showformfields",
@@ -403,7 +402,6 @@ function showformfields(tabId) {
 
 function fillformfields(tabId, action) {
     // send without checking response
-    // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/sendMessage
     //console.log('Sending a message to tab ' + tabId);
     browser.tabs.sendMessage(tabId, {
         action: action,
@@ -411,6 +409,40 @@ function fillformfields(tabId, action) {
     });
 }
 
+function getElementByPrimaryKeyAndNotify(primaryKey, tabId) {
+    const reqOpen = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
+    reqOpen.onerror = function (/*event*/) {
+        console.error("Database open error", this.error);
+    };
+    reqOpen.onsuccess = function (event) {
+        const pKey = (typeof primaryKey === 'string') ? parseInt(primaryKey) : primaryKey;
+
+        const db = event.target.result;
+        const objStore = db.transaction(DbConst.DB_STORE_TEXT, "readonly").objectStore(DbConst.DB_STORE_TEXT);
+        const reqFind = objStore.get(pKey);
+        reqFind.onsuccess = function(evt) {
+            const fhcEntry = evt.target.result;
+            if (fhcEntry) {
+                //console.log("primaryKey " + primaryKey + " found in the object store.");
+                //console.log("Sending a " + fhcEvent.action + " message to tab " + fhcEvent.targetTabId + " for fieldname " + fhcEvent.name + " id " + fhcEvent.id);
+                const fhcEvent = {
+                    action:   "formfieldValueResponse",
+                    id:       "",
+                    name:     fhcEntry.name,
+                    nodeName: fhcEntry.type,
+                    value:    fhcEntry.value
+                };
+                browser.tabs.sendMessage(tabId, fhcEvent);
+                // TODO Does this mean this value is used now and used-count and lastused-date should be updated?
+            } else {
+                console.log("did not find primary key " + primaryKey);
+            }
+        };
+        reqFind.onerror = function(/*evt*/) {
+            console.error("error getting primary key " + primaryKey, this.error);
+        };
+    }
+}
 
 /**
  * Menu item click event listener, perform action given the ID of the menu item that was clicked.
@@ -451,8 +483,8 @@ browser.menus.onClicked.addListener(function(info, tab) {
         default:
             if (info.menuItemId.startsWith('editfld')) {
                 const pKey = info.menuItemId.replace('editfld','');
-                // TODO implement Restore editorfield request with pKey
-                console.log('Restore editorfield request with pKey ' + pKey + ' from context menu');
+                //console.log('Restore editorfield request with pKey ' + pKey + ' from context menu for tabId ' + tab.id);
+                getElementByPrimaryKeyAndNotify(pKey, tab.id);
             }
     }
 });
