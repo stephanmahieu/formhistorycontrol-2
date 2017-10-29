@@ -49,6 +49,23 @@ class DateUtil {
     }
 
     /**
+     * Convert date in milliseconds to string according to current locale, parts
+     * are left padded with 0 in order to align nicely when used in columns and
+     * seconds and century is excluded.
+     *
+     * @param   milliseconds {Number}
+     *          the date/time in milliseconds (internal javascript representation)
+     *
+     * @returns {String}
+     *          date+time according to current locale (ie 15-07-17 12:01)
+     */
+    static toDateStringShorter(milliseconds) {
+        if (!milliseconds) return "";
+        let d = new Date(milliseconds);
+        return this.dateToDateStringShorter(d);
+    }
+
+    /**
      * Convert date to string according to current locale, parts
      * are left padded with 0 in order to align nicely when used in columns and
      * fractional seconds are excluded.
@@ -61,6 +78,21 @@ class DateUtil {
      */
     static dateToDateString(aDate) {
         return this._getShortDateString(aDate) + " " + this._getTimeStringShort(aDate);
+    }
+
+    /**
+     * Convert date to string according to current locale, parts
+     * are left padded with 0 in order to align nicely when used in columns and
+     * century, seconds and fractional seconds are excluded.
+     *
+     * @param  aDate {Date}
+     *         the date/time
+     *
+     * @return {String}
+     *         date+time according to current locale (ie 15-07-17 12:01)
+     */
+    static dateToDateStringShorter(aDate) {
+        return this._getShortDateStringShorter(aDate) + " " + this._getTimeStringShorter(aDate);
     }
 
     /**
@@ -213,6 +245,33 @@ class DateUtil {
     }
 
     /**
+     * Get short date formatted as string without century (20-12-17 or 12/20/17).
+     *
+     * @param  aDate {Date}
+     *         the date to convert
+     *
+     * @return {String}
+     *         date converted to string (15-01-17)
+     */
+    static _getShortDateStringShorter(aDate) {
+        let strLocaleDate = aDate.toLocaleDateString();
+        let dateSeparator = strLocaleDate.replace(/[0-9]/g,'').charAt(0);
+        let dateParts = strLocaleDate.split(dateSeparator);
+        let strPaddedDate = '';
+        for(let i=0; i<dateParts.length; i++) {
+            if (dateParts[i].length === 4) {
+                strPaddedDate += dateParts[i].substring(2,4);
+            } else {
+                strPaddedDate += this._padZero(dateParts[i], 2);
+            }
+            if (i<dateParts.length-1) {
+                strPaddedDate += dateSeparator;
+            }
+        }
+        return strPaddedDate;
+    }
+
+    /**
      * Get time formatted as string in 24hr format without milliseconds.
      *
      * @param  aDate {Date}
@@ -222,9 +281,22 @@ class DateUtil {
      *         date converted to time string (13:05:59)
      */
     static _getTimeStringShort(aDate) {
-        return this._padZero(aDate.getHours(), 2) + ":"
-             + this._padZero(aDate.getMinutes(), 2) + ":"
+        return this._getTimeStringShorter(aDate) + ":"
              + this._padZero(aDate.getSeconds(), 2);
+    }
+
+    /**
+     * Get time formatted as string in 24hr format without seconds.
+     *
+     * @param  aDate {Date}
+     *         the date to convert
+     *
+     * @return {String}
+     *         date converted to time string (13:05)
+     */
+    static _getTimeStringShorter(aDate) {
+        return this._padZero(aDate.getHours(), 2) + ":"
+            + this._padZero(aDate.getMinutes(), 2);
     }
 
     /**

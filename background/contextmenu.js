@@ -72,7 +72,7 @@ function addNewMenuItems(menuItemsIds) {
                 );
             }
             promisesArray.push(
-                createSubmenuItem("editfld" + item.pKey, '[' + DateUtil.toDateString(item.last) + ']  ' + item.value, true)
+                createSubmenuItem("editfld" + item.pKey, '[' + DateUtil.toDateStringShorter(item.last) + '] ' + item.value, true)
             );
         });
 
@@ -181,13 +181,20 @@ function getEditorFieldsByHostname(hostname, maxItems) {
                         type: 'hostname',
                         pKey: primaryKey,
                         last: fhcEntry.last,
+                        name: fhcEntry.name,
                         value: removeTagsAndShorten(fhcEntry.value)
                     });
                 }
                 cursor.continue();
             }
             else {
-                // no more items
+                // no more items sort by name and date
+                result.sort((a,b)=> {
+                    if (a.name === b.name) return a.last - b.last;
+                    let nameA = a.name.toLowerCase();
+                    let nameB = b.name.toLowerCase();
+                    return (nameA === nameB) ? 0 : ((nameA < nameB) ? -1 : 1);
+                });
                 resolve(result);
             }
         };
@@ -215,6 +222,7 @@ function getEditorFieldsByLastused(hostname, maxItems) {
                     result.push({
                         type: 'lastused',
                         pKey: primaryKey,
+                        name: fhcEntry.name,
                         last: fhcEntry.last,
                         value: removeTagsAndShorten(fhcEntry.value)
                     });
