@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
 
 
 
-function handleExport(evt) {
+function handleExport(/*evt*/) {
     let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
-    req.onerror = function (event) {
+    req.onerror = function (/*event*/) {
         console.error("Database open error", this.error);
     };
     req.onsuccess = function (event) {
@@ -44,14 +44,14 @@ function handleExport(evt) {
         let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readonly").objectStore(DbConst.DB_STORE_TEXT);
         let cursorReq = objStore.index(DbConst.DB_TEXT_IDX_LAST).openCursor(null, "prev");
         cursorReq.onsuccess = function(evt) {
-            var cursor = evt.target.result;
+            let cursor = evt.target.result;
             if (cursor) {
                 let fhcEntry = cursor.value;
                 //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
 
                 count += 1;
                 if (fhcEntry.type === 'input' || fhcEntry.type === 'input') {
-                    // TODO add extra properties
+                    // TODO add extra export properties (host -> 1:n)
                     textEntries.push({
                         name: fhcEntry.name,
                         value: fhcEntry.value,
