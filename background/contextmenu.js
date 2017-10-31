@@ -219,13 +219,16 @@ function getEditorFieldsByLastused(hostname, maxItems) {
                 // console.log("Entry most recent [" + cursor.key + "] primaryKey:[" + primaryKey + "] name:[" + fhcEntry.name + "] type:[" + fhcEntry.type + "}");
 
                 if (fhcEntry.type !== 'input' && fhcEntry.host !== hostname) {
-                    result.push({
-                        type: 'lastused',
-                        pKey: primaryKey,
-                        name: fhcEntry.name,
-                        last: fhcEntry.last,
-                        value: removeTagsAndShorten(fhcEntry.value)
-                    });
+                    let value = removeTagsAndShorten(fhcEntry.value);
+                    if (value) {
+                        result.push({
+                            type: 'lastused',
+                            pKey: primaryKey,
+                            name: fhcEntry.name,
+                            last: fhcEntry.last,
+                            value:value
+                        });
+                    }
                 }
                 cursor.continue();
             }
@@ -241,8 +244,8 @@ function getEditorFieldsByLastused(hostname, maxItems) {
 }
 
 function removeTagsAndShorten(value) {
-    // remove tags and replace newlines/tabs with spaces
-    let str = value.replace(/<\/?[^>]+(>|$)/g, "").replace(/[\t\r\n]+/g,' ').replace('&nbsp;',' ').replace(/\s\s+/g, ' ').trim();
+    // remove tags, replace newlines/tabs with spaces, remove non-printable chars, replace consecutive spaces with one space
+    let str = value.replace(/<\/?[^>]+(>|$)/g, "").replace(/[\t\r\n]+/g,' ').replace('&nbsp;',' ').replace(/[^\x20-\x7E]/g, '').replace(/\s\s+/g, ' ').trim();
     if (str.length > MAX_LENGTH_EDITFIELD_ITEM) {
         str = str.substring(0, MAX_LENGTH_EDITFIELD_ITEM-3) + '...';
     }
@@ -317,7 +320,7 @@ browser.menus.create({
 
 browser.menus.create({
     type: "separator",
-    contexts: ["all"]
+    contexts: ["page","editable","frame"]
 }, onMenuCreated);
 
 browser.menus.create({
@@ -332,7 +335,7 @@ browser.menus.create({
 
 browser.menus.create({
     type: "separator",
-    contexts: ["all"]
+    contexts: ["page","editable","frame"]
 }, onMenuCreated);
 
 browser.menus.create({
@@ -367,7 +370,7 @@ browser.menus.create({
 
 browser.menus.create({
     type: "separator",
-    contexts: ["all"]
+    contexts: ["page","editable","frame"]
 }, onMenuCreated);
 
 browser.menus.create({
@@ -382,7 +385,7 @@ browser.menus.create({
 
 browser.menus.create({
     type: "separator",
-    contexts: ["all"]
+    contexts: ["page","editable","frame"]
 }, onMenuCreated);
 
 browser.menus.create({
@@ -416,7 +419,7 @@ function fillformfields(tabId, action) {
     });
 }
 
-function getElementByPrimaryKeyAndNotify(primaryKey, tabId) {
+function getSingleElementByPrimaryKeyAndNotify(primaryKey, tabId) {
     const reqOpen = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
     reqOpen.onerror = function (/*event*/) {
         console.error("Database open error", this.error);
@@ -433,7 +436,7 @@ function getElementByPrimaryKeyAndNotify(primaryKey, tabId) {
                 //console.log("primaryKey " + primaryKey + " found in the object store.");
                 //console.log("Sending a " + fhcEvent.action + " message to tab " + fhcEvent.targetTabId + " for fieldname " + fhcEvent.name + " id " + fhcEvent.id);
                 const fhcEvent = {
-                    action:   "formfieldValueResponse",
+                    action:   "formfieldValueResponseSingle",
                     id:       "",
                     name:     fhcEntry.name,
                     nodeName: fhcEntry.type,
@@ -491,7 +494,7 @@ browser.menus.onClicked.addListener(function(info, tab) {
             if (info.menuItemId.startsWith('editfld')) {
                 const pKey = info.menuItemId.replace('editfld','');
                 //console.log('Restore editorfield request with pKey ' + pKey + ' from context menu for tabId ' + tab.id);
-                getElementByPrimaryKeyAndNotify(pKey, tab.id);
+                getSingleElementByPrimaryKeyAndNotify(pKey, tab.id);
             }
     }
 });

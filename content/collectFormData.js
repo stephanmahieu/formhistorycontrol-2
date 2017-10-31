@@ -15,6 +15,12 @@ function receiveEvents(fhcActionEvent, sender, sendResponse) {
                 _fillformfields(fhcActionEvent.action, fhcActionEvent.targetTabId);
                 break;
 
+            case "formfieldValueResponseSingle":
+                //console.log("Received action event " + fhcActionEvent.action);
+                _findMultilineFieldAndSetValueSingle(fhcActionEvent);
+                break;
+
+
             case "formfieldValueResponse":
                 //console.log("Received action event " + fhcActionEvent.action);
                 _findFieldAndSetValue(fhcActionEvent);
@@ -26,6 +32,26 @@ function receiveEvents(fhcActionEvent, sender, sendResponse) {
 //----------------------------------------------------------------------------
 // fill formfields response handling methods
 //----------------------------------------------------------------------------
+
+function _findMultilineFieldAndSetValueSingle(fhcEvent) {
+    // try to set the value in the field it came from (same name/type)
+    let found = _findFieldAndSetValue(fhcEvent);
+
+    if (!found && document.activeElement) {
+        // if activated from a focused element, try to insert value there
+        found = _setMultilineTextValue(document.activeElement, fhcEvent.value);
+    }
+
+    if (!found) {
+        // if all failed try to put the value in the first field it may fit
+        let firstElm = _findFirstMultilineTextField();
+        if (firstElm) {
+            found = _setMultilineTextValue(firstElm, fhcEvent.value);
+        }
+    }
+
+    return found;
+}
 
 function _findFieldAndSetValue(fhcEvent) {
     let found = false;
@@ -72,11 +98,40 @@ function _findFieldAndSetValue(fhcEvent) {
             }
         });
     }
+    return found;
 }
 
+function _findFirstMultilineTextField() {
+    document.querySelectorAll("textarea").forEach( (elem) => {
+        // text types
+        if (_isTextInputSubtype(elem.type) && _isDisplayed(elem)) {
+            return elem;
+        }
+    });
+    document.querySelectorAll("html,div,iframe,body").forEach( (elem) => {
+        if ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem)) {
+            return elem;
+        }
+    });
+}
 
 function _isDesignModeOn(elem) {
     return (elem.contentDocument && ("on" === elem.contentDocument.designMode));
+}
+
+function _setMultilineTextValue(element, value) {
+    let found = false;
+    if (element.nodeName.toLowerCase()==='textarea') {
+        element.value = value;
+        found = true;
+    } else if (_isContentEditable(element)) {
+        element.innerHTML = value;
+        found = true;
+    }
+    if (found && value !== "") {
+        _setStyle(element, 'backgroundColor', '#ffffcc', false);
+    }
+    return found;
 }
 
 function _ifMatchSetValue(node, fhcEvent) {
