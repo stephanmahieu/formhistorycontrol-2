@@ -49,9 +49,10 @@ function handleImport() {
             "last modified: " + (f.lastModified ? new Date(f.lastModified).toISOString() : "n/a")
         );
 
-        // Only process image files.
+        // only process xml files
         if ('text/xml' !== f.type) {
             console.log("Not an xml file, skipping...");
+            WindowUtil.showModalError("importErrorTitle", "importErrorNotXml");
             continue;
         }
 
@@ -61,15 +62,15 @@ function handleImport() {
         reader.onerror = function(evt) {
             switch(evt.target.error.code) {
                 case evt.target.error.NOT_FOUND_ERR:
-                    alert('File Not Found!');
+                    WindowUtil.showModalError("importErrorTitle", "importErrorNotFound");
                     break;
                 case evt.target.error.NOT_READABLE_ERR:
-                    alert('File is not readable');
+                    WindowUtil.showModalError("importErrorTitle", "importErrorNotReadable");
                     break;
                 case evt.target.error.ABORT_ERR:
                     break; // noop
                 default:
-                    alert('An error occurred reading this file.');
+                    WindowUtil.showModalError("importErrorTitle", "importErrorUnknown");
             }
         };
 
@@ -89,7 +90,7 @@ function handleImport() {
 
         reader.onabort = function(/*evt*/) {
             console.log("- cancelled");
-            alert('File read cancelled');
+            WindowUtil.showModalError("importErrorTitle", "importErrorUnknown");
         };
 
         reader.onload = function(/*evt*/) {
@@ -98,11 +99,12 @@ function handleImport() {
 
             document.getElementById('count-text').textContent = result.entries.length;
             document.getElementById('count-multiline').textContent = result.multiline.length;
+            document.getElementById('import-progress').value = 100;
 
             _storeTextEntries(result.entries);
             _storeMultilineEntries(result.multiline);
 
-            // notify popup(s) that new data has been added
+            // notify popup(s) that new data has been added so they can update their view
             browser.runtime.sendMessage({
                 eventType: 777
             });
@@ -157,7 +159,7 @@ function _storeMultilineEntries(multilineEntries) {
             host     : multilineEntry.host,
             url      : multilineEntry.url,
             pagetitle: "",
-            used     : undefined,
+            used     : multilineEntry.used,
             first    : multilineEntry.firstsaved,
             last     : multilineEntry.lastsaved,
             /* Extra */

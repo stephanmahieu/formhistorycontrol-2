@@ -160,6 +160,32 @@
   },
 
 
+  "importErrorTitle": {
+    "message": "Import error.",
+    "description": "Title of modal error dialog for import errors."
+  },
+  "importErrorNotXml": {
+    "message": "Not an xml file, import aborted.",
+    "description": "Error message when trying to import a file which is not XML."
+  },
+  "importErrorNotFound": {
+    "message": "Import file not found.",
+    "description": "Error message when import file is not found."
+  },
+  "importErrorNotReadable": {
+    "message": "Import file is not readable.",
+    "description": "Error message when import file is not readable."
+  },
+  "importErrorUnknown": {
+    "message": "An error occurred reading the import file.",
+    "description": "Error message when an error occurred reading the import file."
+  },
+  "importErrorCancelled": {
+    "message": "Reading import file was cancelled.",
+    "description": "Error message when reading import file was cancelled."
+  },
+
+
   "tooltipEraseDatetimeButton": {
     "message": "Erase the date and time",
     "description": "Tooltip for the erase button: erase date and time"

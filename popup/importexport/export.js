@@ -76,6 +76,7 @@ function handleExport(evt) {
                         last: fhcEntry.last,
                         content: fhcEntry.value,
                         /* new */
+                        used: fhcEntry.used,
                         pagetitle: fhcEntry.pagetitle
                     });
                 }

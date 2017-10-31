@@ -66,6 +66,7 @@ class XmlUtil {
                             firstsaved:                    this._getElemenDate(edFldElem, "firstsaved", ""),
                             lastsaved:                     this._getElemenDate(edFldElem, "lastsaved", ""),
                             /* new since 2.0.0. */
+                            used:                          this._getElementValue(edFldElem, "timesUsed", 1),
                             pagetitle:  decodeURIComponent(this._getElementValue(edFldElem, "pagetitle", ""))
                         });
                     }
@@ -371,6 +372,7 @@ class XmlUtil {
         this._appendDateElement(editorElem, doc.createElement("lastsaved"), editorField.last);
         this._appendElement(    editorElem, doc.createElement("content"), this._encode(editorField.content));
         /* Extra since 2.0.0 */
+        this._appendElement(    editorElem, doc.createElement("timesUsed"), editorField.used);
         this._appendElement(    editorElem, doc.createElement("pagetitle"), editorField.pagetitle);
 
         return editorElem;

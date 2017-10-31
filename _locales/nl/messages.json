@@ -160,6 +160,32 @@
   },
 
 
+  "importErrorTitle": {
+    "message": "Importeer fout.",
+    "description": "Title of modal error dialog for import errors."
+  },
+  "importErrorNotXml": {
+    "message": "Bestand is niet van het type xml, importeren is afgebroken.",
+    "description": "Error message when trying to import a file which is not XML."
+  },
+  "importErrorNotFound": {
+    "message": "Import bestand niet gevonden.",
+    "description": "Error message when import file is not found."
+  },
+  "importErrorNotReadable": {
+    "message": "Import bestand is niet leesbaar.",
+    "description": "Error message when import file is not readable."
+  },
+  "importErrorUnknown": {
+    "message": "Er is een fout opgetreden tijdens het lezen van het import bestand.",
+    "description": "Error message when an error occurred reading the import file."
+  },
+  "importErrorCancelled": {
+    "message": "Het lezen van het import bestand is afgebroken.",
+    "description": "Error message when reading import file was cancelled."
+  },
+
+
   "tooltipEraseDatetimeButton": {
     "message": "Wis de datum en tijd",
     "description": "Tooltip for the erase button: erase date and time"
