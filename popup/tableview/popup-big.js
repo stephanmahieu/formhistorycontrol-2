@@ -47,6 +47,7 @@ $(document).ready(function() {
         browser.storage.local.set({
             pageSizeBig: len
         });
+        $('#fhcTable_paginate').toggle((len !== -1));
         // console.log( 'New page length: '+len);
     });
 
@@ -149,13 +150,14 @@ $(document).ready(function() {
 function createDataTable(tableElement) {
     let languageURL = DataTableUtil.getLanguageURL();
     const i18nFld = DataTableUtil.getLocaleFieldNames();
+    const i18nAll = browser.i18n.getMessage("pagingAll") || 'All';
 
     return tableElement.DataTable( {
         responsive: {details: false},
         scrollY: '300px',
         language: {url: languageURL},
         paging: true,
-        lengthMenu: [100, 500, 1000, 2000, 5000],
+        lengthMenu: [[100, 500, 1000, 2000, -1], [100, 500, 1000, 2000, i18nAll]],
         pageLength: 500,
         select: {
             style: 'multi+shift',

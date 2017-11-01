@@ -53,6 +53,10 @@
     "message": "Host",
     "description": "The label for the host where the formfield entry was used."
   },
+  "pagingAll": {
+    "message": "All",
+    "description": "For the paging list, indicates All values displayed in one single page."
+  },
 
 
   "operationWindowTile": {
