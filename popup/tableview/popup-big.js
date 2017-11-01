@@ -27,9 +27,28 @@ $(document).ready(function() {
     const tableElement = $('#fhcTable');
     const table = createDataTable(tableElement);
 
-    // populate tableview with data from the database
-    populateViewFromDatabase(table);
-    selectionChangedHandler();
+    let gettingPageSize = browser.storage.local.get({
+        pageSizeBig: 500
+    });
+    gettingPageSize.then(
+        result => {
+            // set the pagesize to the last used value
+            table.page.len(result.pageSizeBig);
+
+            // populate tableview with data from the database
+            populateViewFromDatabase(table);
+            selectionChangedHandler();
+        },
+        () => {console.error("Get last used pagesize error", this.error);}
+    );
+
+    // add event listener for saving changed pageSize
+    table.on('length.dt', function(e, settings, len) {
+        browser.storage.local.set({
+            pageSizeBig: len
+        });
+        // console.log( 'New page length: '+len);
+    });
 
     // Add event listener for opening and closing details
     tableElement.find('tbody').on('click', 'td.my-details-control', function() {
@@ -136,7 +155,7 @@ function createDataTable(tableElement) {
         scrollY: '300px',
         language: {url: languageURL},
         paging: true,
-        lengthMenu: [100, 500, 1000, 2000],
+        lengthMenu: [100, 500, 1000, 2000, 5000],
         pageLength: 500,
         select: {
             style: 'multi+shift',
@@ -365,6 +384,9 @@ function populateViewFromDatabase(table) {
             }
             else {
                 //console.log("No more entries!");
+
+                console.log();
+
                 table.draw();
                 $("#overlaystatus").removeClass('spinner').hide();
             }

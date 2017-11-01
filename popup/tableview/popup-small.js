@@ -8,15 +8,16 @@ $(document).ready(function() {
     // create/initialize the dataTable
     const table = createDataTable();
 
-    browser.tabs.query({lastFocusedWindow: true, active: true}).then(
-        (tabs)=>{
+    browser.tabs.query(
+        {lastFocusedWindow: true, active: true}
+    ).then(tabs => {
             if (tabs.length === 1) {
                 return tabs[0];
             } else {
                 Promise.reject("found 0 or > 1 active tabs");
             }
         }
-    ).then((tab)=> {
+    ).then(tab => {
         // console.log('popup-small:: Active tab: id: ' + tab.id + ' windowId: ' + tab.windowId);
         // Send only a message to frameId 0 (the main window), inner frames won't receive an event. If the message
         // was sent to all frames on the page multiple responses would arrive but still only one gets processed!
@@ -26,12 +27,29 @@ $(document).ready(function() {
                 return message;
             }
         );
-    }).then((fieldsMsg)=>{
+    }).then(fieldsMsg => {
         // console.log(`received ${fieldsMsg.fields.length} fields!`);
         populateFromDatabase(table, fieldsMsg.fields, fieldsMsg.host);
-    }).catch((reason) => {
+    }).catch(reason => {
         // console.warn(`Could not get formfields from active tab, showing all instead. Error: ${reason}`);
         populateFromDatabase(table, null, null);
+    });
+
+    browser.storage.local.get(
+        {pageSizeSmall: 12}
+    ).then(result => {
+            // set the pagesize to the last used value
+            table.page.len(result.pageSizeSmall);
+        },
+        () => {console.error("Get last used pagesize error", this.error);}
+    );
+
+    // add event listener for saving changed pageSize
+    table.on('length.dt', function(e, settings, len) {
+        browser.storage.local.set({
+            pageSizeSmall: len
+        });
+        // console.log( 'New page length: ' + len);
     });
 
     $('#fhcTable tbody').on('dblclick', 'tr', function () {
