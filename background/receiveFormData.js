@@ -420,41 +420,38 @@ function importIfNotExist(fhcEvent) {
 
 
 function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
-    let deleteReq = objStore.delete(key);
 
-    deleteReq.onerror = function(/*deleteEvent*/) {
-        console.error("Delete (for update) failed for record-key " + key, this.error);
+    // multiline fields are updated while you type, so only update the used count for input fields
+    if ("input" === fhcEvent.type) {
+        fhcEntry.used++;
+        // TODO input -> host should be a 1 to many relation, update related hosts
+    } else {
+        // for multiline fields update value and other properties that may have changed
+        fhcEntry.value = fhcEvent.value;
+        fhcEntry.uri = fhcEvent.url;
+        fhcEntry.pagetitle = fhcEvent.pagetitle;
+    }
+    fhcEntry.last = (new Date()).getTime();
+
+    let updateReq = objStore.put(fhcEntry, key);
+    updateReq.onsuccess = function(/*updateEvent*/) {
+        // console.log("Update okay, id: " + updateEvent.target.result);
+        if ("input" !== fhcEvent.type) {
+            browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
+        }
+
+        // notify change
+        browser.runtime.sendMessage({
+            eventType: 111,
+            primaryKey: key,
+            fhcEntry: fhcEntry,
+            what: 'update'
+        }).then(null,
+            error=>console.log(`Error sending update event: ${error}`)
+        )
     };
-    deleteReq.onsuccess = function(/*deleteEvent*/) {
-        //console.log("Delete (for update) okay");
-        let now = (new Date()).getTime();
-
-        // now add the modified record
-        if (fhcEntry.used) {
-            // multiline has no used count
-            fhcEntry.used++;
-        }
-        fhcEntry.last = now;
-
-        // if it is a multiline field (not input) value must be updated too
-        if ("input" === fhcEvent.type) {
-            // TODO input -> host should be a 1 to many relation, update related hosts
-        } else {
-            fhcEntry.uri = fhcEvent.url;
-            fhcEntry.value = fhcEvent.value;
-            fhcEntry.pagetitle = fhcEvent.pagetitle;
-        }
-
-        let addReq = objStore.add(fhcEntry);
-        addReq.onerror = function(/*addEvent*/) {
-            console.error("Add (for update) failed for original record with record-key " + key, this.error);
-        };
-        addReq.onsuccess = function(/*addEvent*/) {
-            //console.log("Update succeeded for record-key " + key + ", new record-key is " + addEvent.target.result);
-            if ("input" !== fhcEvent.type) {
-                browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
-            }
-        };
+    updateReq.onerror = function(/*updateEvent*/) {
+        console.error("Update failed for record with record-key " + key, this.error);
     };
 }
 
@@ -492,11 +489,21 @@ function _insertNewEntry(objStore, fhcEvent) {
     insertReq.onerror = function(/*insertEvent*/) {
         console.error("Insert failed!", this.error);
     };
-    insertReq.onsuccess = function(/*insertEvent*/) {
+    insertReq.onsuccess = function(insertEvent) {
         //console.log("Insert succeeded, new record-key is " + insertEvent.target.result);
         if ("input" !== fhcEvent.type) {
             browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
         }
+
+        // notify change
+        browser.runtime.sendMessage({
+            eventType: 111,
+            primaryKey: insertEvent.target.result,
+            fhcEntry: fhcEntry,
+            what: 'add'
+        }).then(null,
+            error=>console.log(`Error sending update event: ${error}`)
+        )
     };
 }
 

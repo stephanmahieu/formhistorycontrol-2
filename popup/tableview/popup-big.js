@@ -10,6 +10,10 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
             case 777:
                 refreshView();
                 break;
+
+            case 111:
+                databaseChangeSingleItem(fhcEvent.what, fhcEvent.primaryKey, fhcEvent.fhcEntry);
+                break;
         }
     }
 });
@@ -279,7 +283,7 @@ function deleteSelectedItems() {
     );
     DataTableUtil.broadcastItemDeletedFromDatabase();
 
-    // assume db deletes succeed, remove selected entries en redraw table
+    // assume db deletes succeed, remove selected entries and redraw table
     rows.remove().draw();
 }
 
@@ -343,6 +347,37 @@ function populateViewFromDatabase(table) {
             }
         }
     };
+}
+
+function databaseChangeSingleItem(what, primaryKey, fhcEntry) {
+    let table = $('#fhcTable').DataTable();
+    switch(what) {
+        case 'add':
+            table.row
+                .add([primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host])
+                .draw();
+            break;
+
+        case 'update':
+            table.rows().every(
+                function (/* rowIdx, tableLoop, rowLoop */) {
+                    if (this.data()[0] === primaryKey) {
+                        let d = this.data();
+                        d[1] = fhcEntry.name;
+                        d[2] = fhcEntry.value;
+                        d[3] = fhcEntry.type;
+                        d[4] = fhcEntry.used;
+                        d[5] = fhcEntry.first;
+                        d[6] = fhcEntry.last;
+                        d[7] = fhcEntry.host;
+                        this.invalidate();
+                        table.draw();
+                    }
+                }
+            );
+            break;
+    }
+
 }
 
 function selectionChangedHandler() {
