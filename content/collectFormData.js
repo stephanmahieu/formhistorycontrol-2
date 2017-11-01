@@ -399,7 +399,7 @@ function _processContentEvent(event) {
 
     // get current content (lazily load)
     let theContent = _getContent(event);
-    if (theContent.length > 0)  {
+    if (theContent.length > 0 && _containsPrintableContent(theContent))  {
         event.value = JSON.stringify(theContent);
         event.last = (new Date()).getTime();
         event.node = null;
@@ -418,7 +418,9 @@ function _processFormElementEvent(event) {
     browser.runtime.sendMessage(event);
 }
 
-
+function _containsPrintableContent(value) {
+    return value.replace('&nbsp;','').replace(/[^\x20-\x7E]/g, '').replace(/\s/g,'').length > 0;
+}
 
 //----------------------------------------------------------------------------
 // Event listeners
@@ -561,7 +563,7 @@ function _contentChangedHandler(type, node) {
         case "textarea":
         case "input":
              // if id is empty, ditch it, it can never be used for restore
-             if (id === "") return;
+             // if (id === "") return;
              formid = _getFormId(node);
              break;
         case "html":
