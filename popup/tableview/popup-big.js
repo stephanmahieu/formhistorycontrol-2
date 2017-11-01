@@ -123,6 +123,8 @@ $(document).ready(function() {
             $('#fhcTable').DataTable().draw();
         }, 250);
     });
+
+    setInterval(updateTableRowsAgeColumn, 60*1000);
 });
 
 function createDataTable(tableElement) {
@@ -305,6 +307,27 @@ function refreshView() {
     table.clear();
     selectionChangedHandler();
     populateViewFromDatabase(table);
+}
+
+function updateTableRowsAgeColumn() {
+    let table = $('#fhcTable').DataTable();
+    let now = (new Date()).getTime();
+    let redraw = false;
+
+    table.rows().every(
+        function (/* rowIdx, tableLoop, rowLoop */) {
+            let last = this.data()[6];
+            let timePassedSec = (now - last) / 1000;
+            if (timePassedSec <= 3660) {
+                // if age < 1 hour update each invocation (every minute)
+                this.invalidate();
+                redraw = true;
+            }
+        }
+    );
+    if (redraw) {
+        table.draw();
+    }
 }
 
 function populateViewFromDatabase(table) {
