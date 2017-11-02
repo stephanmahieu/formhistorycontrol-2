@@ -501,9 +501,7 @@ function _insertNewEntry(objStore, fhcEvent) {
             primaryKey: insertEvent.target.result,
             fhcEntry: fhcEntry,
             what: 'add'
-        }).then(null,
-            error=>console.log(`Error sending update event: ${error}`)
-        )
+        });
     };
 }
 
