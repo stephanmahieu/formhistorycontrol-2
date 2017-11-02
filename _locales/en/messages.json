@@ -260,11 +260,18 @@
     "message": "Cleanup",
     "description": "Options window: The Cleanup legend."
   },
-  "optionsLabel": {
+  "optionsXXX": {
     "message": "This is my user preference",
     "description": "Label for my option."
   },
-
+  "optionsMiscellaneousLegend": {
+    "message": "Miscellaneous",
+    "description": "Options window: The Miscellaneous legend."
+  },
+  "optionsOverrideAutocomplete": {
+    "message": "Override the built-in autocomplete",
+    "description": "Options window: The Override autocomplete checkbox Label."
+  },
 
   
   "popupHeader": {

@@ -54,7 +54,7 @@
     "description": "The label for the host where the formfield entry was used."
   },
   "pagingAll": {
-    "message": "Alles",
+    "message": "Alle",
     "description": "For the paging list, indicates All values displayed in one single page."
   },
 
@@ -260,11 +260,18 @@
     "message": "Opschonen",
     "description": "Options window: The Cleanup legend."
   },
-  "optionsLabel": {
+  "optionsXXX": {
     "message": "Dit is mijn optie",
     "description": "Label for my option."
   },
-
+  "optionsMiscellaneousLegend": {
+    "message": "Diversen",
+    "description": "Options window: The Miscellaneous legend."
+  },
+  "optionsOverrideAutocomplete": {
+    "message": "Vervang de ingebouwde auto-aanvullen functie",
+    "description": "Options window: The Override autocomplete checkbox Label."
+  },
 
   
   "popupHeader": {
