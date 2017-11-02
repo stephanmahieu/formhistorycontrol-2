@@ -11,6 +11,10 @@
     width: 200px;
 }
 
+#fhcTable_length option {
+    text-align: right;
+}
+
 /* Disable select (might accidentally occur when double clicking) */
 table.dataTable tbody tr {
     user-select: none;
