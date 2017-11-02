@@ -4,7 +4,7 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
     if (fhcEvent.eventType) {
         switch (fhcEvent.eventType) {
             case 888:
-                OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+                OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
                 break;
 
             case 777:
@@ -22,7 +22,7 @@ let dataRightClicked;
 let resizeTimer;
 
 $(document).ready(function() {
-    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
 
     const tableElement = $('#fhcTable');
     const table = createDataTable(tableElement);

@@ -3,7 +3,7 @@
 let dataRightClicked;
 
 $(document).ready(function() {
-    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
 
     // create/initialize the dataTable
     const table = createDataTable();

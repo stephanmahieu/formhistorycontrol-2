@@ -8,7 +8,7 @@ browser.runtime.onMessage.addListener( (fhcEvent)=> {
                 break;
             case 888:
                 // options have changed, reload
-                OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+                OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
                 break;
             case 666:
                 browser.windows.getCurrent({populate: false, windowTypes: ["popup"]}).then((window)=>{
@@ -20,7 +20,7 @@ browser.runtime.onMessage.addListener( (fhcEvent)=> {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
 
     addStylesheetThemesToSelect();
 
@@ -32,25 +32,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 function saveOptions(e) {
+    console.log('checkbox value is [' + document.querySelector("#overrideAutocomplete").checked + ']');
     browser.storage.local.set({
-        interfaceTheme : document.querySelector("#themeSelect").value,
-        testvalue      : document.querySelector("#myUserPref").value
+        prefInterfaceTheme      : document.querySelector("#themeSelect").value,
+        prefOverrideAutocomplete: document.querySelector("#overrideAutocomplete").checked
     });
     e.preventDefault();
 
+    // inform popups
     browser.runtime.sendMessage({
         eventType: 888
+    });
+
+    // inform all content scripts (all tabs)
+    browser.tabs.query({status: "complete"}).then(tabs => {
+        tabs.forEach(tab => {
+            browser.tabs.sendMessage(tab.id, {
+                eventType: 888
+            });
+        });
     });
 }
 
 function restoreOptions() {
     let gettingItem = browser.storage.local.get({
-        interfaceTheme: "default",
-        testvalue: "<empty>"
+        prefInterfaceTheme      : "default",
+        prefOverrideAutocomplete: true
     });
     gettingItem.then((res) => {
-        document.querySelector('#themeSelect').value = res.interfaceTheme;
-        document.querySelector("#myUserPref").value = res.testvalue;
+        console.log('checkbox value got from storage is [' + res.prefOverrideAutocomplete + ']');
+        document.querySelector('#themeSelect').value = res.prefInterfaceTheme;
+        document.querySelector("#overrideAutocomplete").checked = res.prefOverrideAutocomplete;
     });
 }
 
@@ -72,7 +84,7 @@ function addStylesheetThemesToSelect() {
     });
 }
 
-function themeSelectionChanged(event) {
+function themeSelectionChanged(/*event*/) {
     // theme selection changed, apply directly to this window to preview the theme
     const selectedTheme = document.querySelector("#themeSelect").value;
     ThemeUtil.switchTheme(selectedTheme === 'default' ? '' : selectedTheme);

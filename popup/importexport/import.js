@@ -8,7 +8,7 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
         switch (fhcEvent.eventType) {
             case 888:
                 // options have changed, reload
-                OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+                OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
                 break;
             case 666:
                 browser.windows.getCurrent({populate: false, windowTypes: ["popup"]}).then((window)=>{
@@ -20,7 +20,7 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
 });
 
 document.addEventListener("DOMContentLoaded", function(/*event*/) {
-    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res.interfaceTheme);});
+    OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
 
     document.getElementById('files').addEventListener('change', handleFileSelect);
     document.getElementById("buttonImport").addEventListener("click", handleImport);

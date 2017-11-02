@@ -1,6 +1,16 @@
 class OptionsUtil {
 
     static getInterfaceTheme() {
-        return browser.storage.local.get({interfaceTheme: "default"});
+        const defaultValue = "default";
+        return new Promise((resolve, reject) => {
+            browser.storage.local.get({prefInterfaceTheme: defaultValue}).then(
+                result => {
+                    resolve(result.prefInterfaceTheme);
+                },
+                () => {
+                    resolve(defaultValue);
+                }
+            );
+        });
     }
 }
