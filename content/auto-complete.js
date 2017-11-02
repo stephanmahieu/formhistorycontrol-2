@@ -221,6 +221,8 @@ class AutoComplete {
                     if (sel && elem.sc.style.display !== 'none') {
                         options.onSelect(event, sel.getAttribute('data-val'), sel);
                         setTimeout(()=>{ elem.sc.style.display = 'none'; }, 20);
+                        // prevent submit when selecting a value
+                        event.preventDefault();
                     }
                 }
             };
