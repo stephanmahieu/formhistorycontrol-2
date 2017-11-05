@@ -269,16 +269,12 @@
     "description": "Options window: The Display legend."
   },
   "optionsThemeSelect": {
-    "message": "Selecteer een thema",
+    "message": "Kies een thema",
     "description": "Options window: The theme selection dropdown label"
   },
   "optionsCleanupLegend": {
     "message": "Opschonen",
     "description": "Options window: The Cleanup legend."
-  },
-  "optionsXXX": {
-    "message": "Dit is mijn optie",
-    "description": "Label for my option."
   },
   "optionsMiscellaneousLegend": {
     "message": "Diversen",
@@ -287,6 +283,10 @@
   "optionsOverrideAutocomplete": {
     "message": "Vervang de ingebouwde auto-aanvullen functie",
     "description": "Options window: The Override autocomplete checkbox Label."
+  },
+  "optionsDateformatSelect": {
+    "message": "Kies het datum formaat",
+    "description": "Options window: The date format selection dropdown label"
   },
 
   

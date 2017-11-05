@@ -66,8 +66,8 @@ class DataTableUtil {
      * @param type
      * @returns {String}
      */
-    static formatDate(data, type) {
-        return (type === 'display' || type === 'filter') ? DateUtil.dateToDateString(new Date(data)) : data;
+    static formatDate(data, type, dateformat) {
+        return (type === 'display' || type === 'filter') ? DateUtil.dateToDateString(new Date(data), dateformat) : data;
     }
 
     /**
@@ -159,7 +159,7 @@ class DataTableUtil {
             this.createEntryObject(data, doWhat, primaryKeys)
         );
 
-        if (data[3] === 'input' && primaryKeys.length === 1) {
+        if (data[3] === 'input' && primaryKeys.length === 1 && doWhat === 'view') {
             WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
         } else {
             WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
@@ -172,7 +172,7 @@ class DataTableUtil {
             this.createEntryObject(data, doWhat, [data[0]])
         );
 
-        if (data[3] === 'input') {
+        if (data[3] === 'input' && doWhat === 'view') {
             WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
         } else {
             WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
@@ -190,7 +190,7 @@ class DataTableUtil {
         );
 
         // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
-        if (data[3] === 'input') {
+        if (data[3] === 'input' && doWhat === 'view') {
             WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
         } else {
             WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);

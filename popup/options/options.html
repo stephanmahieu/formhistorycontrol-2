@@ -23,17 +23,27 @@
                     <option value="default">default</option>
                 </select>
 
-            </fieldset>
+                <br/><br/>
 
-            <fieldset class="sub-fieldset">
-                <legend data-fhc-i18n="optionsCleanupLegend">Cleanup</legend>
-                <label for="myUserPref" data-fhc-i18n="optionsXXX">This is my user preference</label>
-                <input type="text" id="myUserPref"><br/>
+                <label for="dateformatSelect" data-fhc-i18n="optionsDateformatSelect">Select date format</label>
+                <select id="dateformatSelect">
+                    <option value="automatic">automatic</option>
+                    <option>dd-MM-yyyy HH:mm:ss</option>
+                    <option>dd-MM-yy HH:mm:ss</option>
+                    <option>dd-MM-yy HH:mm</option>
+                    <option>MM/dd/yyyy HH:mm:ss</option>
+                    <option>MM/dd/yyyy hh:mm:ss A</option>
+                    <option>MM/dd/yy HH:mm:ss</option>
+                    <option>MM/dd/yy hh:mm:ss A</option>
+                    <option>MM/dd/yy HH:mm</option>
+                    <option>MM/dd/yy hh:mm A</option>
+                </select>
+
             </fieldset>
 
             <fieldset class="sub-fieldset">
                 <legend data-fhc-i18n="optionsMiscellaneousLegend">Miscellaneous</legend>
-                <label for="myUserPref" data-fhc-i18n="optionsOverrideAutocomplete">Override the built-in autocomplete</label>
+                <label for="overrideAutocomplete" data-fhc-i18n="optionsOverrideAutocomplete">Override the built-in autocomplete</label>
                 <input type="checkbox" id="overrideAutocomplete"><br/>
             </fieldset>
         </fieldset>

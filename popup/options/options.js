@@ -39,10 +39,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 function saveOptions(e) {
-    console.log('checkbox value is [' + document.querySelector("#overrideAutocomplete").checked + ']');
+    //console.log('checkbox value is [' + document.querySelector("#overrideAutocomplete").checked + ']');
     browser.storage.local.set({
         prefInterfaceTheme      : document.querySelector("#themeSelect").value,
-        prefOverrideAutocomplete: document.querySelector("#overrideAutocomplete").checked
+        prefOverrideAutocomplete: document.querySelector("#overrideAutocomplete").checked,
+        prefDateFormat          : document.querySelector("#dateformatSelect").value,
     });
     e.preventDefault();
 
@@ -64,12 +65,14 @@ function saveOptions(e) {
 function restoreOptions() {
     let gettingItem = browser.storage.local.get({
         prefInterfaceTheme      : "default",
-        prefOverrideAutocomplete: true
+        prefOverrideAutocomplete: true,
+        prefDateFormat          : "automatic"
     });
     gettingItem.then((res) => {
-        console.log('checkbox value got from storage is [' + res.prefOverrideAutocomplete + ']');
+        //console.log('checkbox value got from storage is [' + res.prefOverrideAutocomplete + ']');
         document.querySelector('#themeSelect').value = res.prefInterfaceTheme;
         document.querySelector("#overrideAutocomplete").checked = res.prefOverrideAutocomplete;
+        document.querySelector("#dateformatSelect").value = res.prefDateFormat;
     });
 }
 

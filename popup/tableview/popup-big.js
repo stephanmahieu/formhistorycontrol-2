@@ -32,79 +32,82 @@ $(document).ready(function() {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
 
     const tableElement = $('#fhcTable');
-    const table = createDataTable(tableElement);
+    let table;
 
-    let gettingPageSize = browser.storage.local.get({
-        pageSizeBig: 500
-    });
-    gettingPageSize.then(
-        result => {
-            // set the pagesize to the last used value
-            table.page.len(result.pageSizeBig);
+    // const table = createDataTable(tableElement);
+    OptionsUtil.getDateFormat(
+    ).then(dateformat => {
+        table = createDataTable(tableElement, dateformat);
 
-            // populate tableview with data from the database
-            populateViewFromDatabase(table);
-            selectionChangedHandler();
-        },
-        () => {console.error("Get last used pagesize error", this.error);}
-    );
-
-    // add event listener for saving changed pageSize
-    table.on('length.dt', function(e, settings, len) {
-        browser.storage.local.set({
-            pageSizeBig: len
+        // add event listener for saving changed pageSize
+        table.on('length.dt', function(e, settings, len) {
+            browser.storage.local.set({
+                pageSizeBig: len
+            });
+            $('#fhcTable_paginate').toggle((len !== -1));
+            // console.log( 'New page length: '+len);
         });
-        $('#fhcTable_paginate').toggle((len !== -1));
-        // console.log( 'New page length: '+len);
-    });
 
-    // Add event listener for opening and closing details
-    tableElement.find('tbody').on('click', 'td.my-details-control', function() {
-        DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
-    });
+        // Add event listener for opening and closing details
+        tableElement.find('tbody').on('click', 'td.my-details-control', function() {
+            DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
+        });
 
-    tableElement.find('tbody').on('dblclick', 'tr', function() {
-        DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
-    });
+        tableElement.find('tbody').on('dblclick', 'tr', function() {
+            DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
+        });
 
-    // Add event listener for select events
-    table.on('select', function (e, dt, type /*, indexes */) {
-        if (type === 'row') {
-            selectionChangedHandler();
-        }
-    });
+        // Add event listener for select events
+        table.on('select', function (e, dt, type /*, indexes */) {
+            if (type === 'row') {
+                selectionChangedHandler();
+            }
+        });
 
-    // Add event listener for deselect events
-    table.on('deselect', function (e, dt, type /*, indexes*/) {
-        if (type === 'row') {
-            selectionChangedHandler();
-        }
-    });
+        // Add event listener for deselect events
+        table.on('deselect', function (e, dt, type /*, indexes*/) {
+            if (type === 'row') {
+                selectionChangedHandler();
+            }
+        });
 
-    // navigation menu animation
-    $('nav li').hover(
-        function() {
-            $('ul', this).stop().slideDown(200);
-        },
-        function() {
-            $('ul', this).stop().slideUp(200);
-        }
-    );
+        // navigation menu animation
+        $('nav li').hover(
+            function() {
+                $('ul', this).stop().slideDown(200);
+            },
+            function() {
+                $('ul', this).stop().slideUp(200);
+            }
+        );
 
-    // // Prevent the default right-click contextmenu
-    // //document.oncontextmenu = function() {return false;};
+        // custom right-click menu
+        tableElement.find('tbody')
+            .on('contextmenu', 'tr', function(event) {
+                // console.log("context menu should now display :-)");
+                let tr = $(this).closest('tr');
+                let row = table.row( tr );
+                dataRightClicked = row.data();
+                DataTableUtil.showContextMenu(event, 'content');
+            }).on('click', 'tr', function(event) {
+            // Event listener for closing the context menu when clicked outside the menu
+            DataTableUtil.hideContextMenuOnClick(event);
+        });
+    }).then(() => {
+        browser.storage.local.get(
+            {pageSizeBig: 500}
+        ).then(result => {
+                // set the pagesize to the last used value
+                table.page.len(result.pageSizeBig);
 
-    // custom right-click menu
-    tableElement.find('tbody')
-      .on('contextmenu', 'tr', function(event) {
-        // console.log("context menu should now display :-)");
-        let tr = $(this).closest('tr');
-        let row = table.row( tr );
-        dataRightClicked = row.data();
-        DataTableUtil.showContextMenu(event, 'content');
-    }).on('click', 'tr', function(event) {
-        // Event listener for closing the context menu when clicked outside the menu
-        DataTableUtil.hideContextMenuOnClick(event);
+                // populate tableview with data from the database
+                populateViewFromDatabase(table);
+                selectionChangedHandler();
+            },
+            () => {
+                console.error("Get last used pagesize error", this.error);
+            }
+        );
     });
 
     // Prevent the default right-click contextmenu
@@ -154,7 +157,7 @@ $(document).ready(function() {
     setInterval(updateTableRowsAgeColumn, 60*1000);
 });
 
-function createDataTable(tableElement) {
+function createDataTable(tableElement, dateformat) {
     let languageURL = DataTableUtil.getLanguageURL();
     const i18nFld = DataTableUtil.getLocaleFieldNames();
     const i18nAll = browser.i18n.getMessage("pagingAll") || 'All';
@@ -232,7 +235,7 @@ function createDataTable(tableElement) {
                 data: 5,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
-                    return DataTableUtil.formatDate(data, type);
+                    return DataTableUtil.formatDate(data, type, dateformat);
                 }
             },
             {
@@ -240,7 +243,7 @@ function createDataTable(tableElement) {
                 data: 6,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
-                    return DataTableUtil.formatDate(data, type);
+                    return DataTableUtil.formatDate(data, type, dateformat);
                 }
             },
             {

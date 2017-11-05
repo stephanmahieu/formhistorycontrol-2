@@ -83,7 +83,10 @@ class DateUtil {
      * @return {String}
      *         date+time according to current locale (ie 15-07-2009 12:01:59)
      */
-    static dateToDateString(aDate) {
+    static dateToDateString(aDate, dateformat) {
+        if (dateformat && dateformat != 'automatic') {
+            return this._getCustomDateTimeString(aDate, dateformat);
+        }
         return this._getShortDateString(aDate) + " " + this._getTimeStringShort(aDate);
     }
 
@@ -344,5 +347,44 @@ class DateUtil {
         return result;
     }
 
+    /**
+     * Get date + time formatted as string according to a custom DateFormat.
+     *
+     * yy, yyyy Year                 (96; 1996)
+     * M, MM    Month in year        (7; 07; Jul; July)
+     * d, dd    Day in month         {1; 01; Sun; Sunday)
+     * H, HH    Hour in day (0-23)   (6; 06)
+     * h, hh    Hour in am/pm (1-12) (9; 08)
+     * a, A     am/pm marker         (am; AM)
+     * m, mm    Minute in hour       (3; 03)
+     * s, ss    Second in minute     (5; 05)
+     * SSS      Millisecond          (978)
+     */
+    static _getCustomDateTimeString(aDate, customDateFormat)  {
+        return customDateFormat.replace(/(yyyy|yy|MMMM|MMM|MM|M|dddd|ddd|dd|d|HH|H|hh|h|mm|m|ss|s|SSS|a|A)/g,
+            function($1) {
+                let h;
+                switch ($1) {
+                    case 'yyyy':return aDate.getFullYear();
+                    case 'yy':return DateUtil._padZero(aDate.getFullYear() % 100, 2);
+                    case 'MM':return DateUtil._padZero(aDate.getMonth()+1, 2);
+                    case 'M':return aDate.getMonth()+1;
+                    case 'dd':return DateUtil._padZero(aDate.getDate(), 2);
+                    case 'd':return aDate.getDate();
+                    case 'H':return aDate.getHours();
+                    case 'HH':return DateUtil._padZero(aDate.getHours(), 2);
+                    case 'h':return ((h = aDate.getHours() % 12) ? h : 12);
+                    case 'hh':return DateUtil._padZero(((h = aDate.getHours() % 12) ? h : 12), 2);
+                    case 'm':return aDate.getMinutes();
+                    case 'mm':return DateUtil._padZero(aDate.getMinutes(), 2);
+                    case 's':return aDate.getSeconds();
+                    case 'ss':return DateUtil._padZero(aDate.getSeconds(), 2);
+                    case 'SSS':return DateUtil._padZero(aDate.getMilliseconds(), 3);
+                    case 'a':return aDate.getHours() < 12 ? 'am' : 'pm';
+                    case 'A':return aDate.getHours() < 12 ? 'AM' : 'PM';
+                }
+                return "";
+            }
+        );
+    }
 }
-

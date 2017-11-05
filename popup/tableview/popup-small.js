@@ -12,19 +12,74 @@ let dataRightClicked;
 $(document).ready(function() {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
 
-    // create/initialize the dataTable
-    const table = createDataTable();
+    let table;
 
-    browser.tabs.query(
-        {lastFocusedWindow: true, active: true}
-    ).then(tabs => {
-            if (tabs.length === 1) {
-                return tabs[0];
-            } else {
-                Promise.reject("found 0 or > 1 active tabs");
+    // create/initialize the dataTable
+    OptionsUtil.getDateFormat(
+    ).then(dateformat => {
+        table = createDataTable(dateformat);
+
+        // add event listener for saving changed pageSize
+        table.on('length.dt', function(e, settings, len) {
+            browser.storage.local.set({
+                pageSizeSmall: len
+            });
+            // console.log( 'New page length: ' + len);
+        });
+
+        $('#fhcTable tbody').on('dblclick', 'tr', function () {
+            // show details in a separate window
+            DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
+        }).on('contextmenu', 'tr', function(event) {
+            // custom right-click menu
+            // console.log("context menu should now display :-)");
+            let tr = $(this).closest('tr');
+            let row = table.row( tr );
+            dataRightClicked = row.data();
+            DataTableUtil.showContextMenu(event, 'root');
+        }).on('click', 'tr', function(event) {
+            // Event listener for closing the context menu when clicked outside the menu
+            DataTableUtil.hideContextMenuOnClick(event);
+        }).on('click', 'td.details-control', function () {
+            // show inline details
+            const tr = $(this).closest('tr');
+            const row = table.row( tr );
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                $('div.detail-root', row.child()).slideUp('fast', function () {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                });
             }
+            else {
+                closePrevChildIfOpen();
+                openChildRow = row.child( DataTableUtil.formatDetail(row.data()), 'no-padding');
+                openChildRow.show();
+                openTr = tr;
+                tr.addClass('shown');
+                $('div.detail-root', row.child()).slideDown('fast');
+            }
+        });
+    }).then(() => {
+        browser.storage.local.get(
+            {pageSizeSmall: 12}
+        ).then(result => {
+            // set the pagesize to the last used value
+            table.page.len(result.pageSizeSmall);
+        },
+        () => {console.error("Get last used pagesize error", this.error);}
+        );
+    }).then(() => {
+        return browser.tabs.query(
+            {lastFocusedWindow: true, active: true}
+        );
+    }).then(tabs => {
+        if (tabs.length === 1) {
+            return tabs[0];
+        } else {
+            Promise.reject("found 0 or > 1 active tabs");
         }
-    ).then(tab => {
         // console.log('popup-small:: Active tab: id: ' + tab.id + ' windowId: ' + tab.windowId);
         // Send only a message to frameId 0 (the main window), inner frames won't receive an event. If the message
         // was sent to all frames on the page multiple responses would arrive but still only one gets processed!
@@ -42,57 +97,6 @@ $(document).ready(function() {
         populateFromDatabase(table, null, null);
     });
 
-    browser.storage.local.get(
-        {pageSizeSmall: 12}
-    ).then(result => {
-            // set the pagesize to the last used value
-            table.page.len(result.pageSizeSmall);
-        },
-        () => {console.error("Get last used pagesize error", this.error);}
-    );
-
-    // add event listener for saving changed pageSize
-    table.on('length.dt', function(e, settings, len) {
-        browser.storage.local.set({
-            pageSizeSmall: len
-        });
-        // console.log( 'New page length: ' + len);
-    });
-
-    $('#fhcTable tbody').on('dblclick', 'tr', function () {
-        // show details in a separate window
-        DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
-    }).on('contextmenu', 'tr', function(event) {
-        // custom right-click menu
-        // console.log("context menu should now display :-)");
-        let tr = $(this).closest('tr');
-        let row = table.row( tr );
-        dataRightClicked = row.data();
-        DataTableUtil.showContextMenu(event, 'root');
-    }).on('click', 'tr', function(event) {
-        // Event listener for closing the context menu when clicked outside the menu
-        DataTableUtil.hideContextMenuOnClick(event);
-    }).on('click', 'td.details-control', function () {
-        // show inline details
-        const tr = $(this).closest('tr');
-        const row = table.row( tr );
-
-        if (row.child.isShown()) {
-            // This row is already open - close it
-            $('div.detail-root', row.child()).slideUp('fast', function () {
-                row.child.hide();
-                tr.removeClass('shown');
-            });
-        }
-        else {
-            closePrevChildIfOpen();
-            openChildRow = row.child( DataTableUtil.formatDetail(row.data()), 'no-padding');
-            openChildRow.show();
-            openTr = tr;
-            tr.addClass('shown');
-            $('div.detail-root', row.child()).slideDown('fast');
-        }
-    });
 
     // Prevent the default right-click contextmenu
     document.oncontextmenu = function() {return false;};
@@ -146,7 +150,7 @@ function onContextMenuClicked(menuItemId) {
 }
 
 
-function createDataTable() {
+function createDataTable(dateformat) {
     const languageURL = DataTableUtil.getLanguageURL();
     const i18nFld = DataTableUtil.getLocaleFieldNames();
 
@@ -224,7 +228,7 @@ function createDataTable() {
                 visible: false,
                 searchable: false,
                 render: function ( data, type/*, full, meta */) {
-                    return DataTableUtil.formatDate(data, type);
+                    return DataTableUtil.formatDate(data, type, dateformat);
                 }
             },
             {
@@ -232,7 +236,7 @@ function createDataTable() {
                 data: 6,
                 className: "dt-head-left",
                 render: function ( data, type/*, full, meta */) {
-                    return DataTableUtil.formatDate(data, type);
+                    return DataTableUtil.formatDate(data, type, dateformat);
                 }
             },
             {
