@@ -499,9 +499,6 @@ function createNewMultilineEntry(currentEntry, lastStoredEntry) {
 function importIfNotExist(fhcEvent) {
     let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
 
-    // FIXME the lookupKey is not sufficient for multiple versions of multiline fields
-    // TODO  import-lookupkey should include date so maybe use a cursor to match multiple versions
-
     // entry already exists? (index = host + type + name + value)
     let lookupKey = getLookupKey(fhcEvent);
 
