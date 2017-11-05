@@ -6,7 +6,7 @@
  */
 
 const FHC_WINDOW_MANAGE  = { path:"popup/tableview/popup-big.html", width:1000, height:500, type:"popup", currentId: -1 };
-const FHC_WINDOW_OPTIONS = { path:"popup/options/options.html",     width: 400, height:340, type:"popup", currentId: -1 };
+const FHC_WINDOW_OPTIONS = { path:"popup/options/options.html",     width: 400, height:360, type:"popup", currentId: -1 };
 const FHC_WINDOW_ABOUT   = { path:"popup/about/about.html",         width: 600, height:300, type:"popup", currentId: -1 };
 const FHC_WINDOW_IMPORT  = { path:"popup/importexport/import.html", width: 310, height:250, type:"popup", currentId: -1 };
 const FHC_WINDOW_EXPORT  = { path:"popup/importexport/export.html", width: 310, height:250, type:"popup", currentId: -1 };
@@ -74,11 +74,13 @@ class WindowUtil {
 
     static optionsCloseButton(fhcWindowObject) {
         if (fhcWindowObject.path.includes('options.html')) {
-            // send a notification to this window so it knows it has been invoked from the app and must add a close-button
+            // send a notification to this popup window and should add a close-button (give it some time to finish loading)
             // console.log('sending an event intended for options.html popup');
-            browser.runtime.sendMessage({
-                eventType: 999
-            });
+            setTimeout(() => {
+                browser.runtime.sendMessage({
+                    eventType: 999
+                });
+            }, 250);
         }
     }
 
