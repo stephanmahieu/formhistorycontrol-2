@@ -279,7 +279,7 @@ function populateFromDatabase(table, forFields, forHost) {
 
                 // either show all entries or show only the fields/host requested
                 if (!forFields || fhcEntry.name === "" || forFieldsMap.has(fhcEntry.name) || fhcEntry.host === forHost) {
-                    table.row.add([cursor.primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]);
+                    table.row.add([cursor.primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host, fhcEntry.uri]);
                     count += 1;
                 }
 

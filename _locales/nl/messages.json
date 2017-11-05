@@ -112,6 +112,22 @@
     "message": "Niet alle verplichte velden zijn ingevuld",
     "description": "Validation message for missing mandatory values."
   },
+  "validationErrorLastBeforeFirst": {
+    "message": "De 'Laatst gebruikt' datum moet op of na de 'Eerst gebruikt' datum liggen.",
+    "description": "Validation message for last date being before first date."
+  },
+  "validationErrorAtLastOneField": {
+    "message": "Tenminste één veld moet worden ingevuld.",
+    "description": "Validation message for no fields having a value."
+  },
+  "validationErrorNotNumeric": {
+    "message": "Waarde is niet numeriek.",
+    "description": "Validation message for value not being a numeric value."
+  },
+  "validationErrorInvalidURL": {
+    "message": "Waarde is geen correcte URL.",
+    "description": "Validation message for value not being a valid URL."
+  },
 
 
   "buttonOkay": {

@@ -39,18 +39,18 @@
             </tr>
             <tr>
                 <th data-fhc-i18n="fieldFirstUsed">First used</th>
-                <td><input id="first" type="text" disabled
-                           pattern="^(\d{2}(-)\d{2}(-)\d{4} \d{2}(:)\d{2}(:)\d{2})$"
-                           placeholder="dd-mm-yyyy hh:mm:ss"/></td>
+                <td><input id="first" type="text" disabled/></td>
             </tr>
             <tr>
                 <th data-fhc-i18n="fieldLastUsed">Last used</th>
-                <td><input id="last" type="text" disabled
-                           pattern="^(\d{2}(-)\d{2}(-)\d{4} \d{2}(:)\d{2}(:)\d{2})$"
-                           placeholder="dd-mm-yyyy hh:mm:ss"/></td>
+                <td><input id="last" type="text" disabled/></td>
+            </tr>
+            <tr id="hostRow">
+                <th data-fhc-i18n="fieldHost">URL</th>
+                <td><input id="host" type="text" disabled/></td>
             </tr>
             <tr id="urlRow">
-                <th data-fhc-i18n="fieldHost">URL</th>
+                <th>URL</th>
                 <td><input id="url" type="text" disabled/></td>
             </tr>
         </tbody>
@@ -76,6 +76,7 @@
                     <td><select id="month"/></td>
                     <td><select id="day"/></td>
                 </tr>
+                <tr class="datetime-separator"><td colspan="3"/></tr>
                 <tr>
                     <th colspan="3"><label data-fhc-i18n="labelTime">Time</label></th>
                 </tr>

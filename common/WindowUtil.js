@@ -4,8 +4,8 @@ const FHC_WINDOW_OPTIONS = { path:"popup/options/options.html",     width: 400, 
 const FHC_WINDOW_ABOUT   = { path:"popup/about/about.html",         width: 600, height:300, type:"popup", currentId: -1 };
 const FHC_WINDOW_IMPORT  = { path:"popup/importexport/import.html", width: 310, height:250, type:"popup", currentId: -1 };
 const FHC_WINDOW_EXPORT  = { path:"popup/importexport/export.html", width: 310, height:250, type:"popup", currentId: -1 };
-const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 400, height:300, type:"popup", currentId: -1 };
-const FHC_WINDOW_EDITRVW = { path:"popup/entryview/entryview.html", width: 500, height:400, type:"popup", currentId: -1 };
+const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 400, height:315, type:"popup", currentId: -1 };
+const FHC_WINDOW_EDITRVW = { path:"popup/entryview/entryview.html", width: 500, height:415, type:"popup", currentId: -1 };
 
 class WindowUtil {
 

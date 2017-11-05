@@ -374,7 +374,7 @@ function populateViewFromDatabase(table) {
                 let fhcEntry = cursor.value;
                 //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
 
-                table.row.add([cursor.primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host]);
+                table.row.add([cursor.primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host, fhcEntry.uri]);
 
                 // only update display after 25 rows and when finished
                 count += 1;
@@ -401,7 +401,7 @@ function databaseChangeSingleItem(what, primaryKey, fhcEntry) {
     switch(what) {
         case 'add':
             table.row
-                .add([primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host])
+                .add([primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host, fhcEntry.uri])
                 .draw();
             break;
 
@@ -417,6 +417,7 @@ function databaseChangeSingleItem(what, primaryKey, fhcEntry) {
                         d[5] = fhcEntry.first;
                         d[6] = fhcEntry.last;
                         d[7] = fhcEntry.host;
+                        d[8] = fhcEntry.uri;
                         this.invalidate();
                         table.draw();
                     }

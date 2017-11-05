@@ -27,7 +27,8 @@ class DataTableUtil {
             first: browser.i18n.getMessage("fieldFirstUsed") || 'First used',
             last: browser.i18n.getMessage("fieldLastUsed") || 'Last used',
             age: browser.i18n.getMessage("fieldAge") || 'Age',
-            host: browser.i18n.getMessage("fieldHost") || 'Host'
+            host: browser.i18n.getMessage("fieldHost") || 'Host',
+            uri: 'URL'
         }
     }
 
@@ -48,6 +49,7 @@ class DataTableUtil {
             '<tr><td><span class="label">'+i18n.first+':</span></td><td>'+this.formatDate(d[5], 'display')+'</td></tr>'+
             '<tr><td><span class="label">'+i18n.last+':</span></td><td>'+this.formatDate(d[6], 'display')+'</td></tr>'+
             (d[7]?('<tr><td><span class="label">'+i18n.host+':</span></td><td>'+d[7]+'</td></tr>'):'')+
+            (d[8]?('<tr><td><span class="label">'+i18n.uri+':</span></td><td>'+d[8]+'</td></tr>'):'')+
             '</table></div>';
     }
 
@@ -223,7 +225,8 @@ class DataTableUtil {
                 used: data[4],
                 first: data[5],
                 last: data[6],
-                url: data[7]
+                host: data[7],
+                url: data[8]
             }
         }
     }

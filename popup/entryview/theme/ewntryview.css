@@ -53,7 +53,7 @@ select:disabled {
 
 
 textarea {
-    height: calc(100vh - 265px);
+    height: calc(100vh - 280px);
     width: 100%;
     min-height: 18px;
 }
@@ -65,7 +65,7 @@ textarea {
     display: inline-block;
 }
 
-.missing-value {
+.invalid-value {
     border: 1px solid #ff0000;
 }
 
@@ -106,6 +106,10 @@ textarea {
     text-align: center;
     font-weight: bold;
     display: inline-block;
+}
+
+.datetime-separator {
+    height: 6px;
 }
 
 #year {

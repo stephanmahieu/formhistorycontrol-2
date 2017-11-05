@@ -112,6 +112,22 @@
     "message": "Not all required fields are populated",
     "description": "Validation message for missing mandatory values."
   },
+  "validationErrorLastBeforeFirst": {
+    "message": "The 'Last used' date should be equal to or after the 'First used' date.",
+    "description": "Validation message for last date being before first date."
+  },
+  "validationErrorAtLastOneField": {
+    "message": "At least one field must have a value.",
+    "description": "Validation message for no fields having a value."
+  },
+  "validationErrorNotNumeric": {
+    "message": "Value is not numeric.",
+    "description": "Validation message for value not being a numeric value."
+  },
+  "validationErrorInvalidURL": {
+    "message": "Value is not a valid URL.",
+    "description": "Validation message for value not being a valid URL."
+  },
 
 
   "buttonOkay": {

@@ -37,6 +37,17 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 importIfNotExist(fhcEvent);
                 break;
 
+            case 5:
+                // console.log("Received an import dataRetrieval event for [" + fhcEvent.name + "] which is a " + fhcEvent.type);
+                updateMultipleValues(fhcEvent);
+                break;
+
+            case 6:
+                // console.log("Received an update event for [" + fhcEvent.name + "] which is a " + fhcEvent.type);
+                fhcEvent.value = JSON.parse(fhcEvent.value);
+                updateSingleValue(fhcEvent);
+                break;
+
             case 444:
                 // item(s) have been deleted from the database (by popup script)
                 browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
@@ -268,6 +279,92 @@ function getValuesMatchingSearchtermFromDatabaseAndRespond(fieldname, searchterm
     };
 }
 
+function updateSingleValue(fhcEvent) {
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
+
+    let primaryKey = fhcEvent.primaryKey;
+    let getReq = objStore.get(primaryKey);
+    getReq.onerror = function(/*event*/) {
+        console.error("Get (for update) failed for record-key " + primaryKey, this.error);
+    };
+    getReq.onsuccess = function(event) {
+        let fhcEntry = event.target.result;
+
+        fhcEntry.name = fhcEvent.name;
+        fhcEntry.value = fhcEvent.value;
+        fhcEntry.type  = fhcEvent.type;
+        fhcEntry.used  = fhcEvent.used;
+        fhcEntry.first = fhcEvent.first;
+        fhcEntry.last = fhcEvent.last;
+        fhcEntry.host = fhcEvent.host;
+        fhcEntry.uri = fhcEvent.url;
+
+        let updateReq = objStore.put(fhcEntry, primaryKey);
+        updateReq.onsuccess = function(/*updateEvent*/) {
+            // console.log("Update okay, id: " + updateEvent.target.result);
+            // notify change
+            browser.runtime.sendMessage({
+                eventType: 111,
+                primaryKey: primaryKey,
+                fhcEntry: fhcEntry,
+                what: 'update'
+            }).then(null,
+                error=>console.log(`Error sending update event: ${error}`)
+            )
+        };
+        updateReq.onerror = function(/*updateEvent*/) {
+            console.error("Update failed for record with record-key " + key, this.error);
+        };
+    }
+}
+
+function updateMultipleValues(fhcEvent) {
+    let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
+
+    fhcEvent.multiKeys.forEach(primaryKey => {
+
+        let getReq = objStore.get(primaryKey);
+        getReq.onerror = function(/*event*/) {
+            console.error("Get (for update) failed for record-key " + primaryKey, this.error);
+        };
+        getReq.onsuccess = function(event) {
+            let fhcEntry = event.target.result;
+
+            if (fhcEvent.used) {
+                fhcEntry.used = fhcEvent.used;
+            }
+            if (fhcEvent.first && fhcEvent.last) {
+                fhcEntry.first = fhcEvent.first;
+                fhcEntry.last = fhcEvent.last;
+            } else {
+                // keep dates consistent: first <= last
+                if (fhcEvent.first && (fhcEvent.first <= fhcEntry.last)) {
+                    fhcEntry.first = fhcEvent.first;
+                }
+                if (fhcEvent.last && (fhcEvent.last >= fhcEntry.first)) {
+                    fhcEntry.last = fhcEvent.last;
+                }
+            }
+
+            let updateReq = objStore.put(fhcEntry, primaryKey);
+            updateReq.onsuccess = function(/*updateEvent*/) {
+                // console.log("Update okay, id: " + updateEvent.target.result);
+                // notify change
+                browser.runtime.sendMessage({
+                    eventType: 111,
+                    primaryKey: primaryKey,
+                    fhcEntry: fhcEntry,
+                    what: 'update'
+                }).then(null,
+                    error=>console.log(`Error sending update event: ${error}`)
+                )
+            };
+            updateReq.onerror = function(/*updateEvent*/) {
+                console.error("Update failed for record with record-key " + key, this.error);
+            };
+        };
+    });
+}
 
 function saveOrUpdateFormElements(formElements) {
     formElements.forEach(formElement=>{
@@ -472,15 +569,19 @@ function _insertNewEntry(objStore, fhcEvent) {
         pagetitle = fhcEvent.pagetitle;
     }
 
+    let first = (fhcEvent.first) ? fhcEvent.first : now;
+    let last = (fhcEvent.last) ? fhcEvent.last : now;
+    let used = (fhcEvent.used) ? fhcEvent.used : 1;
+
     let fhcEntry = {
         fieldkey: getLookupKey(fhcEvent),
         host_name: getHostNameKey(fhcEvent),
         name: fhcEvent.name,
         value: fhcEvent.value,
         type: fhcEvent.type,
-        first: now,
-        last: now,
-        used: 1,
+        first: first,
+        last: last,
+        used: used,
         host: host,
         uri: uri,
         pagetitle: pagetitle
