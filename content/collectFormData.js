@@ -206,7 +206,6 @@ function _ifMatchSetValue(node, fhcEvent) {
             case "url":
             case "email":
             case "date":
-                // TODO is json stringified?
                 node.value = fhcEvent.value;
 
                 // indicate changed value backgroundColor
