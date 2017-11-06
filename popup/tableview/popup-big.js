@@ -11,7 +11,14 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
     if (fhcEvent.eventType) {
         switch (fhcEvent.eventType) {
             case 888:
-                OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
+                if (fhcEvent.interfaceThemeChanged) {
+                    OptionsUtil.getInterfaceTheme().then(res => {
+                        ThemeUtil.switchTheme(res);
+                    });
+                }
+                if (fhcEvent.dateFormatChanged) {
+                    // there is no way (yet) to alter the render function adter initialization
+                }
                 break;
 
             case 777:
@@ -37,6 +44,7 @@ $(document).ready(function() {
     // const table = createDataTable(tableElement);
     OptionsUtil.getDateFormat(
     ).then(dateformat => {
+        DataTableUtil.dateformat = dateformat;
         table = createDataTable(tableElement, dateformat);
 
         // add event listener for saving changed pageSize

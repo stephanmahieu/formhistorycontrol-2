@@ -11,8 +11,12 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
     if (fhcEvent.eventType) {
         switch (fhcEvent.eventType) {
             case 888:
-                // options have changed, reload
-                OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
+                if (fhcEvent.interfaceThemeChanged) {
+                    // options have changed, reload
+                    OptionsUtil.getInterfaceTheme().then(res => {
+                        ThemeUtil.switchTheme(res);
+                    });
+                }
                 break;
             case 666:
                 browser.windows.getCurrent({populate: false, windowTypes: ["popup"]}).then((window)=>{

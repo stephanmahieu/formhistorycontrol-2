@@ -76,19 +76,18 @@ $(document).ready(function() {
         );
     }).then(tabs => {
         if (tabs.length === 1) {
-            return tabs[0];
+            let tab = tabs[0];
+            // console.log('popup-small:: Active tab: id: ' + tab.id + ' windowId: ' + tab.windowId);
+            // Send only a message to frameId 0 (the main window), inner frames won't receive an event. If the message
+            // was sent to all frames on the page multiple responses would arrive but still only one gets processed!
+            return browser.tabs.sendMessage(tab.id, {action: "getformfields", targetTabId: tab.id}, {frameId: 0}).then(
+                message => {
+                    //console.log(`popup-small::responseMessage: ${message.response}`);
+                    return message;
+                });
         } else {
-            Promise.reject("found 0 or > 1 active tabs");
+            return Promise.reject("found 0 or > 1 active tabs");
         }
-        // console.log('popup-small:: Active tab: id: ' + tab.id + ' windowId: ' + tab.windowId);
-        // Send only a message to frameId 0 (the main window), inner frames won't receive an event. If the message
-        // was sent to all frames on the page multiple responses would arrive but still only one gets processed!
-        return browser.tabs.sendMessage(tab.id, {action: "getformfields", targetTabId: tab.id}, {frameId: 0}).then(
-            (message)=>{
-                //console.log(`popup-small::responseMessage: ${message.response}`);
-                return message;
-            }
-        );
     }).then(fieldsMsg => {
         // console.log(`received ${fieldsMsg.fields.length} fields!`);
         populateFromDatabase(table, fieldsMsg.fields, fieldsMsg.host);

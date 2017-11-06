@@ -12,7 +12,9 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
         switch (fhcEvent.eventType) {
             case 888:
                 // options have changed
-                resetAutocompleteListeners();
+                if (fhcEvent.overrideAutocompleteChanged) {
+                    resetAutocompleteListeners();
+                }
                 break;
         }
     }
