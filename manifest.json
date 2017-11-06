@@ -52,6 +52,7 @@
   "content_scripts": [
     {
       "js": [
+        "common/purify.js",
         "content/collectFormData.js",
         "content/showFormData.js",
         "content/auto-complete.js",

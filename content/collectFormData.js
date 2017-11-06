@@ -132,7 +132,10 @@ function _setMultilineTextValue(element, value) {
         element.value = value;
         found = true;
     } else if (_isContentEditable(element)) {
-        element.innerHTML = value;
+        while (element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
+        element.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
         found = true;
     }
     if (found && value !== "") {
@@ -183,8 +186,10 @@ function _ifMatchSetValue(node, fhcEvent) {
         case "div":
         //case "iframe":
         case "body":
-            // FIXME innerHTML: Unsafe assignment to innerHTML. Warning: Due to both security and performance concerns, this may not be set using dynamic values which have not been adequately sanitized.
-            node.innerHTML = fhcEvent.value;
+            while (node.firstChild) {
+                node.removeChild(node.firstChild);
+            }
+            node.appendChild(DOMPurify.sanitize(fhcEvent.value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
 
             // indicate changed value backgroundColor
             _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
