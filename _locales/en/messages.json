@@ -79,6 +79,10 @@
     "message": "Insert a new formhistory entry",
     "description": "Add a new field, info displayed in edit window."
   },
+  "labelHtmlview": {
+    "message": "HTML view",
+    "description": "Label for the checkbox which toggles the HTML preview window."
+  },
 
 
   "dialogErrorTitle": {

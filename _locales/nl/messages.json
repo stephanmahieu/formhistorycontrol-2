@@ -79,6 +79,10 @@
     "message": "Voeg een nieuwe formulier waarde toe",
     "description": "Add a new field, info displayed in edit window."
   },
+  "labelHtmlview": {
+    "message": "HTML blik",
+    "description": "Label for the checkbox which toggles the HTML preview window."
+  },
 
 
   "dialogErrorTitle": {

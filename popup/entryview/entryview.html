@@ -55,12 +55,17 @@
             </tr>
         </tbody>
     </table>
+    <div id="htmlViewOverlay" style="display: none"></div><div id="htmlViewOverlayLabel" style="display: none" data-fhc-i18n="labelHtmlview">HTML view</div>
 </div>
 <div id="buttons">
     <button id="buttonOkay" data-fhc-i18n="buttonOkay" class="button-right" style="display: none">Okay</button>
     <button id="buttonCancel" data-fhc-i18n="buttonCancel" class="button-right" style="display: none">Cancel</button>
     <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
 </div>
+<table id="toggleHTML"><tbody><tr>
+    <td><input id="html-view" type="checkbox"/></td>
+    <td><label for="html-view" data-fhc-i18n="labelHtmlview">HTML view</label></td>
+</tr></tbody></table>
 <div id="datetimeOverlay" class="datetime-modal" style="display: none">
     <div id="datetimeContent" class="modal-content">
         <div class="modal-header"><div id="modalTitle" class="modal-title">Titel</div><span id="buttonTimeClose" class="modal-close modal-button"></span></div>
@@ -103,6 +108,7 @@
 <script src="../../common/DateUtil.js"></script>
 <script src="../../common/WindowUtil.js"></script>
 <script src="../../common/translation.js"></script>
+<script src="../../common/purify.js"></script>
 <script src="entryview.js"></script>
 </body>
 </html>

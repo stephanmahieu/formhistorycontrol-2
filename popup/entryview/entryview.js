@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     document.getElementById("typeSelect").addEventListener("change", showHideFields);
     document.getElementById("url").addEventListener("keyup", updateHostvalue);
 
+    document.getElementById("toggleHTML").addEventListener("click", toggleHTMLView);
+
     // tooltips
     document.getElementById("btnNowdate").setAttribute('title', browser.i18n.getMessage('tooltipNowDatetimeButton'));
     document.getElementById("btnErase").setAttribute('title', browser.i18n.getMessage('tooltipEraseDatetimeButton'));
@@ -241,6 +243,7 @@ function showHideFields() {
         if (document.getElementById('value').value === '') {
             swapValues('value', 'multiline-value');
         }
+        document.getElementById('toggleHTML').style.display = 'none';
     } else {
         if (document.getElementById('value').value !== '') {
             swapValues('value', 'multiline-value');
@@ -249,6 +252,30 @@ function showHideFields() {
         document.getElementById('multiline-value').style.display = '';
         document.getElementById('urlRow').style.display = '';
         document.getElementById('hostRow').style.display = '';
+        document.getElementById('toggleHTML').style.display = '';
+    }
+}
+
+function toggleHTMLView(event) {
+    const checkbox = event.target;
+    const htmlOverlay = document.getElementById('htmlViewOverlay');
+    const overlayLabel = document.getElementById('htmlViewOverlayLabel');
+    if (checkbox.checked) {
+        // show HTML overlay
+        _removeChildren(htmlOverlay);
+        const value = document.getElementById('multiline-value').value;
+        htmlOverlay.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
+        overlayLabel.style.display = htmlOverlay.style.display = '';
+    } else {
+        // remove HTML overlay
+        overlayLabel.style.display = htmlOverlay.style.display = 'none';
+        _removeChildren(htmlOverlay);
+    }
+}
+
+function _removeChildren(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
     }
 }
 
