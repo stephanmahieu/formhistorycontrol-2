@@ -453,15 +453,15 @@ function selectionChangedHandler() {
     setButtonEnabled('buttonModify', (noSelected !== 0));
 
     // enable/disable menu-item
-    seMenuItemEnabled('delete', (noSelected !== 0));
-    seMenuItemEnabled('modify', (noSelected !== 0));
-    seMenuItemEnabled('copy2clipboard', (noSelected === 1));
+    setMenuItemEnabled('delete', (noSelected !== 0));
+    setMenuItemEnabled('modify', (noSelected !== 0));
+    setMenuItemEnabled('copy2clipboard', (noSelected === 1));
 }
 
 function setButtonEnabled(id, enabled) {
     $('#'+id).prop( "disabled", !enabled);
 }
-function seMenuItemEnabled(id, enabled) {
+function setMenuItemEnabled(id, enabled) {
     let mnuItem = $('#'+id);
     if (enabled) {
         mnuItem.removeClass('menu-disabled');
