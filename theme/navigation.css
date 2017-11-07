@@ -114,6 +114,8 @@ nav ul li ul li span:hover {
 .icon-releasenotes:before { content: url("icons/menu/16/releasenotes.png")}
 .icon-about:before        { content: url("icons/menu/16/about.png")}
 
+.icon-fhc:before          { content: url("icons/fhc-16.png")}
+
 
 /* Context menu */
 #context-menu-container {
@@ -152,4 +154,11 @@ nav ul li ul li span:hover {
 .context-separator {
     border-bottom: 1px solid #aaa;
     margin: 5px;
+}
+
+.menu-title {
+    font-weight: bold;
+    padding: 5px 15px;
+    font-style: italic;
+    font-size: 110%;
 }

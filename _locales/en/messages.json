@@ -83,6 +83,18 @@
     "message": "HTML view",
     "description": "Label for the checkbox which toggles the HTML preview window."
   },
+  "menuItemTitleClipboard": {
+    "message": "Clipboard:",
+    "description": "Contextmenu clipboard title."
+  },
+  "menuItemText2Clipboard": {
+    "message": "Copy clean text only",
+    "description": "Contextmenu item: Copy only clean text to clipboard."
+  },
+  "menuItemHtml2Clipboard": {
+    "message": "Copy entire (HTML) content",
+    "description": "Contextmenu item: Copy entire HTML to clipboard."
+  },
 
 
   "dialogErrorTitle": {

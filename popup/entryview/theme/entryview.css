@@ -58,6 +58,12 @@ textarea {
     min-height: 18px;
 }
 
+/* workaround to enable (contextmenu-)events on disabled input */
+input[disabled],
+textarea[disabled] {
+    pointer-events:none;
+}
+
 #name-label,
 #name,
 #value-label,

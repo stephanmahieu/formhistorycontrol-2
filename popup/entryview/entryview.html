@@ -4,9 +4,11 @@
     <title data-fhc-i18n="operationWindowTile">Formfield</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/theme/formhistorycontrol-generic.css"/>
-    <link rel="stylesheet" href="theme/ewntryview.css"/>
+    <link rel="stylesheet" href="/theme/navigation.css"/>
+    <link rel="stylesheet" href="theme/entryview.css"/>
     <link rel="alternate stylesheet" href="/theme/formhistorycontrol-generic-dark.css" title="Dark"/>
-    <link rel="alternate stylesheet" href="theme/ewntryview-dark.css" title="Dark"/>
+    <link rel="alternate stylesheet" href="/theme/navigation-dark.css" title="Dark"/>
+    <link rel="alternate stylesheet" href="theme/entryview-dark.css" title="Dark"/>
 </head>
 <body>
 <div class="content">
@@ -66,6 +68,19 @@
     <td><input id="html-view" type="checkbox"/></td>
     <td><label for="html-view" data-fhc-i18n="labelHtmlview">HTML view</label></td>
 </tr></tbody></table>
+
+<div id="context-menu-container">
+    <div id="context-menu-wrapper">
+        <ul class="context-menu">
+            <!--<li><span data-fhc-i18n="menuItemTitleClipboard" class="context-menu-title icon-none">Clipboard actions</span></li>-->
+            <li class="menu-title"><div data-fhc-i18n="menuItemTitleClipboard" class="">Clipboard:</div></li>
+            <li class="context-separator"></li>
+            <li><span id="copy2clipboardText-ctx" data-fhc-i18n="menuItemText2Clipboard" class="context-menu-item icon-item icon-copy">Copy clean text only</span></li>
+            <li><span id="copy2clipboardAll-ctx" data-fhc-i18n="menuItemHtml2Clipboard" class="context-menu-item icon-item icon-copy">Copy complete HTML</span></li>
+        </ul>
+    </div>
+</div>
+
 <div id="datetimeOverlay" class="datetime-modal" style="display: none">
     <div id="datetimeContent" class="modal-content">
         <div class="modal-header"><div id="modalTitle" class="modal-title">Titel</div><span id="buttonTimeClose" class="modal-close modal-button"></span></div>
@@ -103,6 +118,7 @@
         </div>
     </div>
 </div>
+
 <script src="../../common/OptionsUtil.js"></script>
 <script src="../../common/ThemeUtil.js"></script>
 <script src="../../common/DateUtil.js"></script>

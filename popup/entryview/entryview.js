@@ -55,7 +55,56 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     // tooltips
     document.getElementById("btnNowdate").setAttribute('title', browser.i18n.getMessage('tooltipNowDatetimeButton'));
     document.getElementById("btnErase").setAttribute('title', browser.i18n.getMessage('tooltipEraseDatetimeButton'));
+
+    // context menu
+    document.querySelector("body").addEventListener("contextmenu", showContextMenu);
+    document.querySelector("body").addEventListener("click", hideContextMenu);
+    document.querySelectorAll(".context-menu-item").forEach(menuItem => {menuItem.addEventListener("click", onContextMenuItemClicked)});
 });
+
+function hideContextMenu(event) {
+    WindowUtil.hideContextMenu(event);
+}
+
+function showContextMenu(event) {
+    WindowUtil.showContextMenu(event, 'body');
+}
+
+function onContextMenuItemClicked(event) {
+    switch(event.target.id) {
+        case 'copy2clipboardText-ctx':
+            copyToClipboardText();
+            break;
+
+        case 'copy2clipboardAll-ctx':
+            copyToClipboardAll();
+            break;
+    }
+}
+
+function copyToClipboardText() {
+    const input = document.getElementById('multiline-value');
+    const curContent = input.value;
+    const cleanContent = DOMPurify.sanitize(curContent, {ALLOWED_TAGS: []});
+    const isDisabled = input.disabled;
+    input.disabled = false;
+    input.value = cleanContent;
+    input.select();
+    document.execCommand('copy');
+    input.value = curContent;
+    input.selectionStart = input.selectionEnd = 0;
+    input.disabled = isDisabled;
+}
+
+function copyToClipboardAll() {
+    const input = document.getElementById('multiline-value');
+    const isDisabled = input.disabled;
+    input.disabled = false;
+    input.select();
+    document.execCommand('copy');
+    input.selectionStart = input.selectionEnd = 0;
+    input.disabled = isDisabled;
+}
 
 function onOkayButton() {
     // validate
