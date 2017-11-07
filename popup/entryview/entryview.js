@@ -85,7 +85,8 @@ function onContextMenuItemClicked(event) {
 function copyToClipboardText() {
     const input = document.getElementById('multiline-value');
     const curContent = input.value;
-    const cleanContent = DOMPurify.sanitize(curContent, {ALLOWED_TAGS: []});
+    let cleanContent = decodeURIComponent(DOMPurify.sanitize(curContent, {ALLOWED_TAGS: []}));
+    cleanContent = replaceHtmlEntites(cleanContent);
     const isDisabled = input.disabled;
     input.disabled = false;
     input.value = cleanContent;
@@ -94,6 +95,21 @@ function copyToClipboardText() {
     input.value = curContent;
     input.selectionStart = input.selectionEnd = 0;
     input.disabled = isDisabled;
+}
+
+function replaceHtmlEntites(val) {
+    const translate_re = /&(nbsp|amp|quot|lt|gt);/g;
+    const translate = {
+            'nbsp': ' ',
+            'amp' : '&',
+            'quot': '"',
+            'lt'  : '<',
+            'gt'  : '>'
+        };
+    const translator = function($0, $1) {
+        return translate[$1];
+    };
+    return val.replace(translate_re, translator);
 }
 
 function copyToClipboardAll() {
