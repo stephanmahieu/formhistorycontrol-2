@@ -404,9 +404,6 @@ function populateViewFromDatabase(table) {
             }
             else {
                 //console.log("No more entries!");
-
-                console.log();
-
                 table.draw();
                 $("#overlaystatus").removeClass('spinner').hide();
             }
