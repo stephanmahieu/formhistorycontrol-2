@@ -17,14 +17,9 @@ a {
 }
 
 input:disabled,
-select:disabled,
-textarea:disabled {
-    color: #949494;
-}
-
-input:disabled,
 textarea:disabled,
 select:disabled {
+    color: #afafaf;
     background-color: #4c4e57;
 }
 
