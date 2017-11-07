@@ -96,10 +96,10 @@ $(document).ready(function() {
                 let tr = $(this).closest('tr');
                 let row = table.row( tr );
                 dataRightClicked = row.data();
-                DataTableUtil.showContextMenu(event, 'content');
+                WindowUtil.showContextMenu(event, '#content');
             }).on('click', 'tr', function(event) {
             // Event listener for closing the context menu when clicked outside the menu
-            DataTableUtil.hideContextMenuOnClick(event);
+            WindowUtil.hideContextMenuOnClick(event);
         });
     }).then(() => {
         browser.storage.local.get(
@@ -509,38 +509,38 @@ function onContextMenuClicked(menuItemId) {
 
         case "add-ctx":
             addNewEntry();
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
 
         case "modify-ctx":
             editEntry(dataRightClicked);
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
 
         case "delete-ctx":
             DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
             DataTableUtil.broadcastItemDeletedFromDatabase();
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
 
         case "copy2clipboard-ctx":
             DataTableUtil.copyEntryToClipboard(dataRightClicked);
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
 
         case "selectall-ctx":
             selectAll();
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
 
         case "selectnone-ctx":
             selectNone();
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
 
         case "selectinvert-ctx":
             selectInvert();
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
     }
 }

@@ -36,10 +36,10 @@ $(document).ready(function() {
             let tr = $(this).closest('tr');
             let row = table.row( tr );
             dataRightClicked = row.data();
-            DataTableUtil.showContextMenu(event, 'root');
+            WindowUtil.showContextMenu(event, '#root');
         }).on('click', 'tr', function(event) {
             // Event listener for closing the context menu when clicked outside the menu
-            DataTableUtil.hideContextMenuOnClick(event);
+            WindowUtil.hideContextMenuOnClick(event);
         }).on('click', 'td.details-control', function () {
             // show inline details
             const tr = $(this).closest('tr');
@@ -123,13 +123,13 @@ function onContextMenuClicked(menuItemId) {
 
         case "add-ctx":
             DataTableUtil.openDetailViewEntry({}, "add");
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
 
         case "modify-ctx":
             // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
             DataTableUtil.openDetailViewEntry(dataRightClicked, "edit");
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
 
         case "delete-ctx":
@@ -137,13 +137,13 @@ function onContextMenuClicked(menuItemId) {
             // method expects the primary key
             DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
             DataTableUtil.broadcastItemDeletedFromDatabase();
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
 
         case "copy2clipboard-ctx":
             // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
             DataTableUtil.copyEntryToClipboard(dataRightClicked);
-            DataTableUtil.hideContextMenu();
+            WindowUtil.hideContextMenu();
             break;
     }
 }

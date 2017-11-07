@@ -227,4 +227,50 @@ class WindowUtil {
     //     });
     // }
 
+
+    static showContextMenu(event, queryContainerElement) {
+        event.preventDefault();
+
+        // keep a margin between the edge of the menu and the window
+        const edgeMargin = 10;
+
+        const winRect = document.querySelector(queryContainerElement).getBoundingClientRect();
+
+        document.getElementById('context-menu-container').style.display = 'block';
+        const menuRect = document.getElementById('context-menu-wrapper').getBoundingClientRect();
+
+        // get the mouse position and apply an offset to get the mouse-pointer on the first item
+        let x = Math.max(edgeMargin, event.pageX - 60);
+        let y = Math.max(edgeMargin, event.pageY - 20);
+
+        // check if we're near the right edge of the window
+        if (x > winRect.width - (menuRect.width + edgeMargin)) {
+            x = winRect.width - (menuRect.width + edgeMargin);
+        }
+
+        // check if we're near the bottom edge of the window
+        if (y > winRect.height - (menuRect.height + edgeMargin)) {
+            y = winRect.height - (menuRect.height + edgeMargin);
+        }
+
+        const mnu = document.getElementById('context-menu-wrapper');
+        mnu.style.top = y + "px";
+        mnu.style.left = x + "px";
+
+        // trigger the transition
+        document.getElementById('context-menu-wrapper').classList.add('show');
+    }
+
+    static hideContextMenuOnClick(event) {
+        // only close the context-menu if clicked outside
+        if (!document.getElementById('context-menu-wrapper').contains(event.target)) {
+            WindowUtil.hideContextMenu();
+        }
+    }
+
+    static hideContextMenu() {
+        document.getElementById('context-menu-wrapper').classList.remove('show');
+        window.setTimeout(()=>{document.getElementById('context-menu-container').style.display = 'none';}, 800);
+    }
+
 }

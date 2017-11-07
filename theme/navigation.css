@@ -93,26 +93,26 @@ nav ul li ul li span:hover {
 }
 
 /* File menu */
-.icon-none:before         { content: url("../../../theme/icons/menu/16/empty.png")}
-.icon-import:before       { content: url("../../../theme/icons/menu/16/import.png")}
-.icon-export:before       { content: url("../../../theme/icons/menu/16/export.png")}
-.icon-close:before        { content: url("../../../theme/icons/menu/16/close.png")}
+.icon-none:before         { content: url("icons/menu/16/empty.png")}
+.icon-import:before       { content: url("icons/menu/16/import.png")}
+.icon-export:before       { content: url("icons/menu/16/export.png")}
+.icon-close:before        { content: url("icons/menu/16/close.png")}
 /* Edit menu */
-.icon-insert:before       { content: url("../../../theme/icons/menu/16/insert.png")}
-.icon-edit:before         { content: url("../../../theme/icons/menu/16/edit.png")}
-.icon-delete:before       { content: url("../../../theme/icons/menu/16/delete.png")}
-.icon-copy:before         { content: url("../../../theme/icons/menu/16/copy.png")}
-.icon-selectall:before    { content: url("../../../theme/icons/menu/16/selectall.png")}
-.icon-selectnone:before   { content: url("../../../theme/icons/menu/16/selectnone.png")}
-.icon-selectinvert:before { content: url("../../../theme/icons/menu/16/selectinvert.png")}
+.icon-insert:before       { content: url("icons/menu/16/insert.png")}
+.icon-edit:before         { content: url("icons/menu/16/edit.png")}
+.icon-delete:before       { content: url("icons/menu/16/delete.png")}
+.icon-copy:before         { content: url("icons/menu/16/copy.png")}
+.icon-selectall:before    { content: url("icons/menu/16/selectall.png")}
+.icon-selectnone:before   { content: url("icons/menu/16/selectnone.png")}
+.icon-selectinvert:before { content: url("icons/menu/16/selectinvert.png")}
 /* Display menu */
-.icon-refresh:before      { content: url("../../../theme/icons/menu/16/refresh.png")}
+.icon-refresh:before      { content: url("icons/menu/16/refresh.png")}
 /* Extra menu */
-.icon-preferences:before  { content: url("../../../theme/icons/menu/16/preferences.png")}
+.icon-preferences:before  { content: url("icons/menu/16/preferences.png")}
 /* Help menu */
-.icon-help:before         { content: url("../../../theme/icons/menu/16/help.png")}
-.icon-releasenotes:before { content: url("../../../theme/icons/menu/16/releasenotes.png")}
-.icon-about:before        { content: url("../../../theme/icons/menu/16/about.png")}
+.icon-help:before         { content: url("icons/menu/16/help.png")}
+.icon-releasenotes:before { content: url("icons/menu/16/releasenotes.png")}
+.icon-about:before        { content: url("icons/menu/16/about.png")}
 
 
 /* Context menu */
