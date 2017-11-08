@@ -297,6 +297,8 @@ function updateSingleValue(fhcEvent) {
     getReq.onsuccess = function(event) {
         let fhcEntry = event.target.result;
 
+        fhcEntry.fieldkey = getLookupKey(fhcEvent);
+        fhcEntry.host_name = getHostNameKey(fhcEvent);
         fhcEntry.name = fhcEvent.name;
         fhcEntry.value = fhcEvent.value;
         fhcEntry.type  = fhcEvent.type;
@@ -320,7 +322,7 @@ function updateSingleValue(fhcEvent) {
             )
         };
         updateReq.onerror = function(/*updateEvent*/) {
-            console.error("Update failed for record with record-key " + key, this.error);
+            console.error("Update failed for text record with record-key " + key, this.error);
         };
     }
 }
@@ -367,7 +369,7 @@ function updateMultipleValues(fhcEvent) {
                 )
             };
             updateReq.onerror = function(/*updateEvent*/) {
-                console.error("Update failed for record with record-key " + key, this.error);
+                console.error("Update failed for text record (loop) with record-key " + key, this.error);
             };
         };
     });
@@ -386,15 +388,22 @@ function _saveOrUpdateFormElement(formElement) {
     let key = getFormElementLookupKey(formElement);
 
     let index = objStore.index(DbConst.DB_ELEM_IDX_FIELD);
-    let req = index.get(key);
+    let req = index.getKey(key);
 
     req.onerror = function (/*event*/) {
         console.error("Get failed for key " + key, this.error);
     };
     req.onsuccess = function(event) {
-        let formElementFromDB = event.target.result;
-        if (formElementFromDB) {
-            _updateFormElement(objStore, key, formElementFromDB, formElement);
+        let primaryKey = event.target.result;
+        if (primaryKey) {
+            let getReq = objStore.get(primaryKey);
+            getReq.onerror = function(/*event*/) {
+                console.error("Get (for update) failed for record-key " + primaryKey, this.error);
+            };
+            getReq.onsuccess = function(event) {
+                let formElementFromDB = event.target.result;
+                _updateFormElement(objStore, primaryKey, formElementFromDB, formElement);
+            }
         } else {
             //console.log("formelement does not exist, adding...");
             _insertNewFormElement(objStore, formElement);
@@ -521,7 +530,6 @@ function importIfNotExist(fhcEvent) {
 
 
 function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
-
     // multiline fields are updated while you type, so only update the used count for input fields
     if ("input" === fhcEvent.type) {
         fhcEntry.used++;
@@ -530,8 +538,11 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
         // for multiline fields update value and other properties that may have changed
         fhcEntry.value = fhcEvent.value;
         fhcEntry.uri = fhcEvent.url;
+        fhcEntry.host = fhcEvent.host;
         fhcEntry.pagetitle = fhcEvent.pagetitle;
     }
+    fhcEntry.fieldkey = getLookupKey(fhcEvent);
+    fhcEntry.host_name = getHostNameKey(fhcEvent);
     fhcEntry.last = (new Date()).getTime();
 
     let updateReq = objStore.put(fhcEntry, key);
@@ -552,7 +563,7 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
         )
     };
     updateReq.onerror = function(/*updateEvent*/) {
-        console.error("Update failed for record with record-key " + key, this.error);
+        console.error("Update failed for text record with record-key " + key, this.error);
     };
 }
 
@@ -612,32 +623,24 @@ function _insertNewEntry(objStore, fhcEvent) {
 
 
 function _updateFormElement(objStore, key, formElementFromDB, formElement) {
-    let deleteReq = objStore.delete(key);
+    let now = (new Date()).getTime();
 
-    deleteReq.onerror = function(/*deleteEvent*/) {
-        console.error("Delete (for update) failed for record-key " + key, this.error);
+    // update modified record
+    formElementFromDB.used++;
+    formElementFromDB.saved = now;
+    formElementFromDB.selected = formElement.selected;
+    formElementFromDB.value = formElement.value;
+
+    // may have changed, store the latest value:
+    formElementFromDB.uri = formElement.uri;
+    formElementFromDB.pagetitle = formElement.pagetitle;
+
+    let updateReq = objStore.put(formElementFromDB, key);
+    updateReq.onerror = function(/*addEvent*/) {
+        console.error("Update failed for form record with record-key " + key, this.error);
     };
-    deleteReq.onsuccess = function(/*deleteEvent*/) {
-        //console.log("Delete (for update) okay");
-        let now = (new Date()).getTime();
-
-        // now add the modified record
-        formElementFromDB.used++;
-        formElementFromDB.saved = now;
-        formElementFromDB.selected = formElement.selected;
-        formElementFromDB.value = formElement.value;
-
-        // may have changed, store the latest value:
-        formElementFromDB.uri = formElement.uri;
-        formElementFromDB.pagetitle = formElement.pagetitle;
-
-        let addReq = objStore.add(formElementFromDB);
-        addReq.onerror = function(/*addEvent*/) {
-            console.error("Add (for update) failed for original record with record-key " + key, this.error);
-        };
-        addReq.onsuccess = function(addEvent) {
-            //console.log("Update succeeded for record-key " + key + ", new record-key is " + addEvent.target.result);
-        };
+    updateReq.onsuccess = function(addEvent) {
+        //console.log("Update succeeded for record-key " + key);
     };
 }
 
