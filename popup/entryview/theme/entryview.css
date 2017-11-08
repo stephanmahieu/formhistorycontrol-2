@@ -51,9 +51,8 @@ select:disabled {
     border-style: solid;
 }
 
-
 textarea {
-    height: calc(100vh - 290px);
+    height: calc(100vh - 300px);
     width: 100%;
     min-height: 18px;
 }
