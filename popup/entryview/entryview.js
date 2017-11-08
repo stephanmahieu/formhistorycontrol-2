@@ -124,8 +124,6 @@ function copyToClipboardAll() {
 
 function onOkayButton() {
     // validate
-    let newName = document.getElementById('name').value;
-    let newValue = document.getElementById('value').value;
     let newType = document.getElementById('typeSelect').value;
 
     switch (objEntryData.doWhat) {
@@ -149,7 +147,7 @@ function onOkayButton() {
                 WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorLastBeforeFirst');
                 return;
             }
-            if (!validateURL('url')) {
+            if (newType !== 'input' && !validateURL('url')) {
                 WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorInvalidURL');
                 return;
             }
@@ -179,7 +177,7 @@ function onOkayButton() {
                     WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorLastBeforeFirst');
                     return;
                 }
-                if (!validateURL('url')) {
+                if (newType !== 'input' && !validateURL('url')) {
                     WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorInvalidURL');
                     return;
                 }
@@ -580,15 +578,13 @@ function storeModifiedEntries() {
 function setNewValuesToObjEntryData() {
     let value;
     let url = '';
-    let host = '';
     if (document.getElementById('typeSelect').value === 'input') {
        value = document.getElementById('value').value;
     } else {
         value = document.getElementById('multiline-value').value;
         url = document.getElementById('url').value;
     }
-    url = url === '' ? undefined : url;
-    host = (url) ? getHostnameFromUrlString(url) : undefined;
+    let host = (url) ? getHostnameFromUrlString(url) : '';
     let used = (document.getElementById('used').value !== '') ? parseInt(document.getElementById('used').value) : undefined;
     let first = (document.getElementById('first').value !== '') ? parseInt(document.getElementById('first').getAttribute('data-time')) : undefined;
     let last = (document.getElementById('last').value !== '') ? parseInt(document.getElementById('last').getAttribute('data-time')) : undefined;
