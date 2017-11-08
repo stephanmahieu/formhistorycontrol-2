@@ -80,7 +80,7 @@
     "description": "Add a new field, info displayed in edit window."
   },
   "labelHtmlview": {
-    "message": "HTML blik",
+    "message": "Toon HTML",
     "description": "Label for the checkbox which toggles the HTML preview window."
   },
   "menuItemTitleClipboard": {
