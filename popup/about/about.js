@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     //console.log("manifest is:" + manifest);
 
     document.getElementById("app-developer-url").addEventListener("click", openDeveloperURL);
+
+    // key handler
+    document.addEventListener("keyup", onKeyClicked);
 });
 
 
@@ -53,4 +56,11 @@ function openDeveloperURL() {
         url: developerURL,
         type: "normal"
     });
+}
+
+function onKeyClicked(event) {
+    const keyName = event.key;
+    if (keyName === 'Escape') {
+        WindowUtil.closeThisPopup();
+    }
 }

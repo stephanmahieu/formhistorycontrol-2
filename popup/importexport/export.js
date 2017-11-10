@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
 
     document.getElementById("buttonExport").addEventListener("click", handleExport);
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
+    document.addEventListener("keyup", onKeyClicked);
 });
 
 
@@ -107,6 +108,18 @@ function handleExport(/*evt*/) {
         }
     };
 
+}
+
+function onKeyClicked(event) {
+    const keyName = event.key;
+
+    if (keyName === 'Escape') {
+        if (WindowUtil.isModalDialogActive()) {
+            WindowUtil.doCancelModalDialog();
+        } else {
+            WindowUtil.closeThisPopup();
+        }
+    }
 }
 
 

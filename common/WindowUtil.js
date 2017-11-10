@@ -183,6 +183,7 @@ class WindowUtil {
         if (!buttons) {
             dlgClose.addEventListener('click', WindowUtil.removeModalDialog);
             dialog.addEventListener('click', WindowUtil.removeModalDialog);
+            document.addEventListener('keyup', WindowUtil.doCancelModalDialog);
         } else  {
             return new Promise(function(resolve, reject) {
                 Array.from(document.getElementsByClassName('modal-button')).forEach(elem => {
@@ -202,9 +203,13 @@ class WindowUtil {
     }
 
     static removeModalDialog() {
-        const dialog = document.getElementsByClassName('modal').item(0);
-        dialog.removeEventListener('click', WindowUtil.removeModalDialog);
-        document.body.removeChild(dialog);
+        const dialogs = document.getElementsByClassName('modal');
+        if (dialogs.length > 0 ) {
+            const dialog = dialogs.item(0);
+            dialog.removeEventListener('click', WindowUtil.removeModalDialog);
+            document.removeEventListener('keyup', WindowUtil.doCancelModalDialog);
+            document.body.removeChild(dialog);
+        }
     }
 
     static _createDialogButton(i18nNameId, classname) {
@@ -212,6 +217,24 @@ class WindowUtil {
         dlgButton.appendChild(document.createTextNode(browser.i18n.getMessage(i18nNameId)));
         dlgButton.classList.add(classname, 'modal-button');
         return dlgButton;
+    }
+
+    static isModalDialogActive() {
+        return (document.getElementsByClassName('modal').length > 0);
+    }
+
+    static doCancelModalDialog() {
+        let closeElem;
+        Array.from(document.getElementsByClassName('modal-button')).forEach(elem => {
+            if (elem.classList.contains('modal-cancel') || elem.classList.contains('modal-no')) {
+                elem.click();
+            } else if (elem.classList.contains('modal-close')) {
+                closeElem = elem;
+            }
+        });
+        if (closeElem) {
+            closeElem.click();
+        }
     }
 
     // snippet:

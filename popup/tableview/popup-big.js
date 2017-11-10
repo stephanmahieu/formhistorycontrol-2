@@ -618,6 +618,12 @@ function onMenuClicked(menuItemId) {
 
 function onKeyClicked(event) {
     const keyName = event.key;
+
+    if (keyName === 'Escape' && WindowUtil.isModalDialogActive()) {
+        WindowUtil.doCancelModalDialog();
+        return;
+    }
+
     if (event.altKey && !event.ctrlKey && !event.shiftKey && isAlpha(keyName)) {
         // console.log("We have an Alt-key event: " + keyName);
 

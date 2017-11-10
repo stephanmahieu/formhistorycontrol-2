@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#dateformatSelect").addEventListener("change", checkPropertiesChanged);
 
     document.querySelector("#buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
+    document.addEventListener("keyup", onKeyClicked);
 });
 
 let currentOptions;
@@ -139,4 +140,11 @@ function themeSelectionChanged(/*event*/) {
     const selectedTheme = document.querySelector("#themeSelect").value;
     ThemeUtil.switchTheme(selectedTheme === 'default' ? '' : selectedTheme);
     checkPropertiesChanged();
+}
+
+function onKeyClicked(event) {
+    const keyName = event.key;
+    if (keyName === 'Escape') {
+        WindowUtil.closeThisPopup();
+    }
 }

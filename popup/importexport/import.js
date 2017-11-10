@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     document.getElementById('files').addEventListener('change', handleFileSelect);
     document.getElementById("buttonImport").addEventListener("click", handleImport);
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
+    document.addEventListener("keyup", onKeyClicked);
 });
 
 
@@ -122,6 +123,18 @@ function handleImport() {
         };
 
         reader.readAsText(f, "utf-8");
+    }
+}
+
+function onKeyClicked(event) {
+    const keyName = event.key;
+
+    if (keyName === 'Escape') {
+        if (WindowUtil.isModalDialogActive()) {
+            WindowUtil.doCancelModalDialog();
+        } else {
+            WindowUtil.closeThisPopup();
+        }
     }
 }
 

@@ -60,6 +60,9 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     document.querySelector("body").addEventListener("contextmenu", showContextMenu);
     document.querySelector("body").addEventListener("click", hideContextMenu);
     document.querySelectorAll(".context-menu-item").forEach(menuItem => {menuItem.addEventListener("click", onContextMenuItemClicked)});
+
+    // key handler
+    document.addEventListener("keyup", onKeyClicked);
 });
 
 function hideContextMenu(event) {
@@ -79,6 +82,20 @@ function onContextMenuItemClicked(event) {
         case 'copy2clipboardAll-ctx':
             copyToClipboardAll();
             break;
+    }
+}
+
+function onKeyClicked(event) {
+    const keyName = event.key;
+
+    if (keyName === 'Escape') {
+        if (WindowUtil.isModalDialogActive()) {
+            WindowUtil.doCancelModalDialog();
+        } else if (isModalDatetimeDialogActive()) {
+            hideModalDatetimeDialog();
+        } else {
+            WindowUtil.closeThisPopup();
+        }
     }
 }
 
@@ -382,6 +399,14 @@ function showModalDatetimeDialog(event) {
     document.getElementById('datetimeOverlay').style.display = 'block';
 }
 
+function hideModalDatetimeDialog() {
+    document.getElementById('datetimeOverlay').style.display = 'none';
+}
+
+function isModalDatetimeDialogActive() {
+    return (document.getElementById('datetimeOverlay').style.display !== 'none');
+}
+
 function onDatetimeAbort() {
     document.getElementById('datetimeOverlay').style.display = 'none';
 }
@@ -426,7 +451,7 @@ function onDatetimeOkayButton() {
         document.getElementById(elemId).setAttribute('data-time', '');
     }
 
-    document.getElementById('datetimeOverlay').style.display = 'none';
+    hideModalDatetimeDialog();
 }
 
 function setDatetimeDialog(date) {
