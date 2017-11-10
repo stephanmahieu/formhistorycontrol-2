@@ -310,7 +310,10 @@
     "message": "Form History Control (II)",
     "description": "Header title of the small popup."
   },
-  
+  "popupHeaderInfo": {
+    "message": "showing history for this page only",
+    "description": "Extra info next to the header title of the small popup."
+  },
   
   
   "notificationTitle": {

@@ -3,7 +3,6 @@
 <head>
     <title data-fhc-i18n="contextMenuItemManageHistory">Manage history</title>
     <meta charset="utf-8">
-    <!-- link rel="stylesheet" href="lib/jquery.dataTables.min.css"/ -->
     <link rel="stylesheet" href="lib/datatables.min.css"/>
     <link rel="stylesheet" href="/theme/formhistorycontrol-generic.css"/>
     <link rel="stylesheet" href="/theme/navigation.css"/>
@@ -19,7 +18,10 @@
 <body>
     <div id="overlaystatus"><div data-fhc-i18n="loading-status">Loading...</div></div>
     <div id="root">
-        <div id="popup-header" data-fhc-i18n="popupHeader">Form History Control (II)</div>
+        <div id="popup-header">
+            <span class="header-title" data-fhc-i18n="popupHeader">Form History Control (II)</span>
+            <span class="header-info" data-fhc-i18n="popupHeaderInfo">showing history for this page only</span>
+        </div>
         <table id="fhcTable" class="dataTable display responsive compact nowrap" width="100%" cellspacing="0">
         </table>
     </div>
