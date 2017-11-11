@@ -22,7 +22,7 @@
 
 
   "fieldName": {
-    "message": "Fieldname",
+    "message": "Field name",
     "description": "The label for the formfield-name of a formfield entry."
   },
   "fieldValue": {
@@ -446,6 +446,10 @@
   "menuHelp": {
     "message": "Help",
     "description": "Label of Help menu."
+  },
+  "menuItemInfoSubmenu": {
+    "message": "Info",
+    "description": "Label of Info submenu in the context menu."
   },
   "menuItemHelpOverview": {
     "message": "Help Overview",

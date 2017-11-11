@@ -279,6 +279,8 @@ function onMenuCreated() {
 
 /*
  * Create the Tools context menu items.
+ *
+ * ===============================(tools_menu)================================
  */
 browser.menus.create({
     id: "FHCToolsParentMenu",
@@ -309,12 +311,16 @@ browser.menus.create({
         "32": "/theme/icons/menu/32/preferences.png"
     }
 }, onMenuCreated);
+/* =============================(tools_menu end)============================== */
 
 
 /*
- * Create the context menu items.
+ * Create the right-click context menu.
+ * Hide the menu separators for the browser-action, we may only show 6 items
+ * including the separators.
+ *
+ * ==============================(context menu)===============================
  */
-// console.log('The max no of menu-items is: ' + browser.menus.ACTION_MENU_TOP_LEVEL_LIMIT);
 browser.menus.create({
     id: "manage",
     title: browser.i18n.getMessage("contextMenuItemManageHistory"),
@@ -324,12 +330,10 @@ browser.menus.create({
         "32": "/theme/icons/fhc-32.png"
     }
 }, onMenuCreated);
-
 browser.menus.create({
     type: "separator",
     contexts: ["page","editable","frame"]
 }, onMenuCreated);
-
 browser.menus.create({
     id: "restoreEditorField",
     title: browser.i18n.getMessage("contextMenuItemRestoreEditorField"),
@@ -339,12 +343,10 @@ browser.menus.create({
         "32": "/theme/icons/menu/32/refresh.png"
     }
 }, onMenuCreated);
-
 browser.menus.create({
     type: "separator",
     contexts: ["page","editable","frame"]
 }, onMenuCreated);
-
 browser.menus.create({
     id: "fillMostRecent",
     title: browser.i18n.getMessage("contextMenuItemFillMostRecent"),
@@ -354,7 +356,6 @@ browser.menus.create({
         "32": "/theme/icons/menu/32/fillfields.png"
     }
 }, onMenuCreated);
-
 browser.menus.create({
     id: "fillMostUsed",
     title: browser.i18n.getMessage("contextMenuItemFillMostUsed"),
@@ -364,7 +365,6 @@ browser.menus.create({
         "32": "/theme/icons/menu/32/fillfields.png"
     }
 }, onMenuCreated);
-
 browser.menus.create({
     id: "clearFields",
     title: browser.i18n.getMessage("contextMenuItemClearFields"),
@@ -374,14 +374,99 @@ browser.menus.create({
         "32": "/theme/icons/menu/32/emptyfields.png"
     }
 }, onMenuCreated);
-
 browser.menus.create({
     type: "separator",
     contexts: ["page","editable","frame"]
 }, onMenuCreated);
-
+/*
+ * Remainder only for page_action (max 6 are shown for browser-action).
+ * ============================(context menu page)============================
+ */
 browser.menus.create({
     id: "showformfields",
+    title: browser.i18n.getMessage("contextMenuItemShowformfields"),
+    contexts: ["page","editable","frame"],
+    icons: {
+        "16": "/theme/icons/menu/16/showfields.png",
+        "32": "/theme/icons/menu/32/showfields.png"
+    }
+}, onMenuCreated);
+browser.menus.create({
+    type: "separator",
+    contexts: ["page","editable","frame"]
+}, onMenuCreated);
+browser.menus.create({
+    id: "submenuInfo",
+    title: browser.i18n.getMessage("menuItemInfoSubmenu"),
+    contexts: ["page","editable","frame"],
+    icons: {
+        "16": "/theme/icons/menu/16/submenu.png",
+        "32": "/theme/icons/menu/32/submenu.png"
+    }
+}, onMenuCreated);
+browser.menus.create({
+    id: "helpoverview",
+    parentId: "submenuInfo",
+    title: browser.i18n.getMessage("menuItemHelpOverview"),
+    contexts: ["page","editable","frame"],
+    icons: {
+        "16": "/theme/icons/menu/16/help.png",
+        "32": "/theme/icons/menu/32/help.png"
+    }
+}, onMenuCreated);
+browser.menus.create({
+    id: "releasenotes",
+    parentId: "submenuInfo",
+    title: browser.i18n.getMessage("menuItemHelpReleasenotes"),
+    contexts: ["page","editable","frame"],
+    icons: {
+        "16": "/theme/icons/menu/16/releasenotes.png",
+        "32": "/theme/icons/menu/32/releasenotes.png"
+    }
+}, onMenuCreated);
+browser.menus.create({
+    id: "about",
+    parentId: "submenuInfo",
+    title: browser.i18n.getMessage("menuItemHelpAbout"),
+    contexts: ["page","editable","frame"],
+    icons: {
+        "16": "/theme/icons/menu/16/about.png",
+        "32": "/theme/icons/menu/32/about.png"
+    }
+}, onMenuCreated);
+browser.menus.create({
+    type: "separator",
+    contexts: ["page","editable","frame"]
+}, onMenuCreated);
+browser.menus.create({
+    id: "preferences",
+    title: browser.i18n.getMessage("contextMenuItemOptions"),
+    contexts: ["page","editable","frame"],
+    icons: {
+        "16": "/theme/icons/menu/16/preferences.png",
+        "32": "/theme/icons/menu/32/preferences.png"
+    }
+}, onMenuCreated);
+/* ==========================(context menu page end)========================== */
+
+/*
+ * Browser action (click on icon in menu-bar) may only show 6 items,
+ * put remainder in a submenu (browser.menus.ACTION_MENU_TOP_LEVEL_LIMIT)
+ *
+ * =========================(browser_action submenu)==========================
+ */
+browser.menus.create({
+    id: "submenuExtra",
+    title: browser.i18n.getMessage("contextMenuItemRestoreEditorFieldSubmenuMore"),
+    contexts: ["browser_action"],
+    icons: {
+        "16": "/theme/icons/menu/16/submenu.png",
+        "32": "/theme/icons/menu/32/submenu.png"
+    }
+}, onMenuCreated);
+browser.menus.create({
+    id: "showformfieldsBA",
+    parentId: "submenuExtra",
     title: browser.i18n.getMessage("contextMenuItemShowformfields"),
     contexts: ["all"],
     icons: {
@@ -389,14 +474,49 @@ browser.menus.create({
         "32": "/theme/icons/menu/32/showfields.png"
     }
 }, onMenuCreated);
-
 browser.menus.create({
+    parentId: "submenuExtra",
     type: "separator",
-    contexts: ["page","editable","frame"]
+    contexts: ["all"]
 }, onMenuCreated);
-
 browser.menus.create({
-    id: "options",
+    id: "helpoverviewBA",
+    parentId: "submenuExtra",
+    title: browser.i18n.getMessage("menuItemHelpOverview"),
+    contexts: ["all"],
+    icons: {
+        "16": "/theme/icons/menu/16/help.png",
+        "32": "/theme/icons/menu/32/help.png"
+    }
+}, onMenuCreated);
+browser.menus.create({
+    id: "releasenotesBA",
+    parentId: "submenuExtra",
+    title: browser.i18n.getMessage("menuItemHelpReleasenotes"),
+    contexts: ["all"],
+    icons: {
+        "16": "/theme/icons/menu/16/releasenotes.png",
+        "32": "/theme/icons/menu/32/releasenotes.png"
+    }
+}, onMenuCreated);
+browser.menus.create({
+    id: "aboutBA",
+    parentId: "submenuExtra",
+    title: browser.i18n.getMessage("menuItemHelpAbout"),
+    contexts: ["all"],
+    icons: {
+        "16": "/theme/icons/menu/16/about.png",
+        "32": "/theme/icons/menu/32/about.png"
+    }
+}, onMenuCreated);
+browser.menus.create({
+    parentId: "submenuExtra",
+    type: "separator",
+    contexts: ["all"]
+}, onMenuCreated);
+browser.menus.create({
+    id: "preferencesBA",
+    parentId: "submenuExtra",
     title: browser.i18n.getMessage("contextMenuItemOptions"),
     contexts: ["all"],
     icons: {
@@ -404,7 +524,7 @@ browser.menus.create({
         "32": "/theme/icons/menu/32/preferences.png"
     }
 }, onMenuCreated);
-
+/* ===========================(browser_action end)============================ */
 
 
 
@@ -490,11 +610,32 @@ browser.menus.onClicked.addListener(function(info, tab) {
             break;
 
         case "showformfields":
+        case "showformfieldsBA":
             showformfields(tab.id);
             break;
 
         case "editfldMore":
             WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
+            break;
+
+        case "preferences":
+        case "preferencesBA":
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_OPTIONS);
+            break;
+
+        case "about":
+        case "aboutBA":
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_ABOUT);
+            break;
+
+        case "helpoverview":
+        case "helpoverviewBA":
+            // TODO helpoverview
+            break;
+
+        case "releasenotes":
+        case "releasenotesBA":
+            // TODO releasenotes
             break;
 
         default:

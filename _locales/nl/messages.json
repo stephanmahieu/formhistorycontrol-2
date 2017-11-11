@@ -447,6 +447,10 @@
     "message": "Help",
     "description": "Label of Help menu."
   },
+  "menuItemInfoSubmenu": {
+    "message": "Info",
+    "description": "Label of Info submenu in the context menu."
+  },
   "menuItemHelpOverview": {
     "message": "Help overzicht",
     "description": "Label of Invert menuitem in the Help menu."
