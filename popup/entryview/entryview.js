@@ -93,6 +93,8 @@ function onKeyClicked(event) {
             WindowUtil.doCancelModalDialog();
         } else if (isModalDatetimeDialogActive()) {
             hideModalDatetimeDialog();
+        } else if (isHTMLViewActive()) {
+            toggleHtmlViewCheckbox();
         } else {
             WindowUtil.closeThisPopup();
         }
@@ -336,6 +338,10 @@ function showHideFields() {
     }
 }
 
+function toggleHtmlViewCheckbox(){
+    document.getElementById("html-view").click();
+}
+
 function toggleHTMLView(event) {
     const checkbox = event.target;
     const htmlOverlay = document.getElementById('htmlViewOverlay');
@@ -351,6 +357,10 @@ function toggleHTMLView(event) {
         overlayLabel.style.display = htmlOverlay.style.display = 'none';
         _removeChildren(htmlOverlay);
     }
+}
+
+function isHTMLViewActive() {
+    return (document.getElementById('html-view').checked);
 }
 
 function _removeChildren(element) {

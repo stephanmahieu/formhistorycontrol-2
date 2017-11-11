@@ -175,14 +175,16 @@ textarea[disabled] {
 #htmlViewOverlay {
     all: initial;
     box-shadow: 5px 3px 30px black;
-    border-radius: 4px;
+    border: 2px solid #3a87e0;
+    border-radius: 6px;
     top: 12px;
     left: 12px;
     right: 12px;
     bottom: 45px;
     position: absolute;
-    background-color: white;
+    background-color: #eeeeee;
     overflow: auto;
+    padding: 8px;
 }
 #htmlViewOverlayLabel {
     position: absolute;
@@ -193,6 +195,7 @@ textarea[disabled] {
     border-left: 1px solid #292929;
     border-right: 1px solid #292929;
     border-bottom: 1px solid #292929;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
     padding: 0 2px;
     color: black;
     font-size: 10px;
