@@ -1,6 +1,6 @@
 #overlaystatus div {
     color: #46719f;
-    text-shadow: 1px 1px 1px #282828, 4px 3px 0px rgba(0,0,0,0.15);
+    text-shadow: 1px 1px 1px #282828, 4px 3px 0 rgba(0,0,0,0.15);
 }
 
 .spinner:before {

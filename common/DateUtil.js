@@ -19,16 +19,6 @@ class DateUtil {
     }
 
     /**
-     * Get current date/time as string, formatted according to the system locale.
-     *
-     * @return {String}
-     *         the date/time formatted according to the system locale.
-     */
-    static getCurrentDateString() {
-        return this.toDateString(this.getCurrentDate());
-    }
-
-    /**
      * Get current date/time as ISO formatted string.
      *
      * @return {String}
@@ -80,11 +70,14 @@ class DateUtil {
      * @param  aDate {Date}
      *         the date/time
      *
+     * @param dateformat (String)
+     *        the dateformat (see _getCustomDateTimeString)
+     *
      * @return {String}
      *         date+time according to current locale (ie 15-07-2009 12:01:59)
      */
     static dateToDateString(aDate, dateformat) {
-        if (dateformat && dateformat != 'automatic') {
+        if (dateformat && dateformat !== 'automatic') {
             return this._getCustomDateTimeString(aDate, dateformat);
         }
         return this._getShortDateString(aDate) + " " + this._getTimeStringShort(aDate);

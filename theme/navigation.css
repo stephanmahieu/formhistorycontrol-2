@@ -35,7 +35,7 @@ nav ul li ul {
     position: absolute;
     width: 190px;
     z-index: 10;
-    box-shadow: 0px 5px 5px #444;
+    box-shadow: 0 5px 5px #444;
 }
 
 nav ul li ul li {

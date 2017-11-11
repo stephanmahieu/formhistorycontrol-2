@@ -14,7 +14,7 @@ fieldset.sub-fieldset {
 
 fieldset.sub-fieldset> legend {
     font-size: 100%;
-    border: 0px;
+    border: 0;
     background-color: transparent;
 }
 

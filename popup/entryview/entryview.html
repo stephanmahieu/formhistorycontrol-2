@@ -12,19 +12,19 @@
 </head>
 <body>
 <div class="content">
+    <div id="operationInfo"></div>
     <table>
         <tbody>
-            <div id="operationInfo"></div>
             <tr>
-                <th data-fhc-i18n="fieldName">Fieldname</th>
+                <th><label for="name" data-fhc-i18n="fieldName">Fieldname</label></th>
                 <td><input id="name" type="text" disabled/></td>
             </tr>
             <tr>
-                <th data-fhc-i18n="fieldValue">Value</th>
+                <th><label data-fhc-i18n="fieldValue">Value</label></th>
                 <td><input id="value" type="text" disabled/><textarea id="multiline-value" cols="30" rows="6" disabled></textarea></td>
             </tr>
             <tr>
-                <th data-fhc-i18n="fieldType">Type</th>
+                <th><label for="typeSelect" data-fhc-i18n="fieldType">Type</label></th>
                 <td>
                     <select id="typeSelect" disabled>
                         <option value="input">input</option>
@@ -36,23 +36,23 @@
                 </td>
             </tr>
             <tr>
-                <th data-fhc-i18n="fieldCount">Used count</th>
+                <th><label for="used" data-fhc-i18n="fieldCount">Used count</label></th>
                 <td><input id="used" type="text" disabled pattern="^(\d{1,9})$"/></td>
             </tr>
             <tr>
-                <th data-fhc-i18n="fieldFirstUsed">First used</th>
+                <th><label for="first" data-fhc-i18n="fieldFirstUsed">First used</label></th>
                 <td><input id="first" type="text" disabled/></td>
             </tr>
             <tr>
-                <th data-fhc-i18n="fieldLastUsed">Last used</th>
+                <th><label for="last" data-fhc-i18n="fieldLastUsed">Last used</label></th>
                 <td><input id="last" type="text" disabled/></td>
             </tr>
             <tr id="hostRow">
-                <th data-fhc-i18n="fieldHost">URL</th>
+                <th><label for="host" data-fhc-i18n="fieldHost">Host</label></th>
                 <td><input id="host" type="text" disabled/></td>
             </tr>
             <tr id="urlRow">
-                <th>URL</th>
+                <th><label for="url">URL</label></th>
                 <td><input id="url" type="text" disabled/></td>
             </tr>
         </tbody>
@@ -92,10 +92,10 @@
                 </tr>
                 <tr>
                     <td><input id="year" type="text" pattern="^(\d{4})$" placeholder="yyyy"/></td>
-                    <td><select id="month"/></td>
-                    <td><select id="day"/></td>
+                    <td><select id="month"></select></td>
+                    <td><select id="day"></select></td>
                 </tr>
-                <tr class="datetime-separator"><td colspan="3"/></tr>
+                <tr class="datetime-separator"><td colspan="3"></td></tr>
                 <tr>
                     <th colspan="3"><label data-fhc-i18n="labelTime">Time</label></th>
                 </tr>

@@ -64,6 +64,7 @@ class DataTableUtil {
      *
      * @param data
      * @param type
+     * @param dateformat
      * @returns {String}
      */
     static formatDate(data, type, dateformat) {
