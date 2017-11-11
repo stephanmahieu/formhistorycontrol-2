@@ -33,9 +33,14 @@ fieldset {
     background-color: #f1f5ff;
 }
 
+fieldset:nth-child(1) > legend {
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.51);
+}
+
 legend {
     padding: 0.2em 0.5em;
     border: 1px solid #4b74ff;
+    border-radius: 4px;
     color: #1d2063;
     background-color: #fafaff;
     font-weight: bold;

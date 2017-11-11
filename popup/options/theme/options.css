@@ -4,7 +4,7 @@ body {
 }
 
 html {
-    font-family: Tahoma;
+    font-family: Arial, Verdana, sans-serif;
     font-style: normal;
 }
 
@@ -23,13 +23,13 @@ fieldset.sub-fieldset> legend {
 }
 
 .content {
-    max-width: 600px;
+    max-width: 450px;
     flex: 1 0 auto;
     margin: 8px;
 }
 
 #buttons {
-    max-width: 600px;
+    max-width: 450px;
     height: 30px;
     display: flex;
     justify-content: flex-end;
@@ -37,3 +37,6 @@ fieldset.sub-fieldset> legend {
     margin: 10px;
 }
 
+.rightalign{
+    float: right;
+}
