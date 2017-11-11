@@ -1,0 +1,471 @@
+{
+  "extensionName": {
+    "message": "Form History Control (II)",
+    "description": "The title of this extension"
+  },
+
+  "extensionDescriptionLabel": {
+    "message": "Περιγραφή",
+    "description": "Label for description."
+  },
+
+  "extensionDescription": {
+    "message": "Διαχείρηση καταχωρήσεων ιστορικού φορμών (αναζήτηση, επεξεργασία, καθαρισμός, εξαγωγή/εισαγωγή) και εύκολος εισαγωγέας κειμένου, συμβατό με Multiprocess (e10s) και WebExtensions!",
+    "description": "Description of this extension."
+  },
+
+  "extensionDeveloperLabel": {
+    "message": "Προγραμματιστής",
+    "description": "Label for developer."
+  },
+
+
+
+  "fieldName": {
+    "message": "Όνομα Πεδίου",
+    "description": "The label for the formfield-name of a formfield entry."
+  },
+  "fieldValue": {
+    "message": "Περιεχόμενο",
+    "description": "The label for the value/content of a formfield entry."
+  },
+  "fieldType": {
+    "message": "Τύπος",
+    "description": "The label for the type of a formfield entry."
+  },
+  "fieldCount": {
+    "message": "Χρησιμοποιήθηκε",
+    "description": "The label for the number of times a formfield entry has been used."
+  },
+  "fieldFirstUsed": {
+    "message": "Πρώτη Χρήση",
+    "description": "The label for the date a formfield entry was first used."
+  },
+  "fieldLastUsed": {
+    "message": "Τελευταία Χρήση",
+    "description": "The label for the date a formfield entry was last used."
+  },
+  "fieldAge": {
+    "message": "Ηλικία",
+    "description": "The label for the age of a formfield entry since it was last used."
+  },
+  "fieldHost": {
+    "message": "Εξυπηρετητής",
+    "description": "The label for the host where the formfield entry was used."
+  },
+  "pagingAll": {
+    "message": "Όλα",
+    "description": "For the paging list, indicates All values displayed in one single page."
+  },
+
+
+  "operationWindowTile": {
+    "message": "Πεδίο Φόρμας",
+    "description": "Window title of the formfield edit window."
+  },
+  "operationViewField": {
+    "message": "Προβολή ιστορικού καταχωρήσεων",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditOneField": {
+    "message": "Επεξεργασία υπάρχουσας εγγραφής καταχώρησης",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditMultipleFields": {
+    "message": "Επεξεργασία πολλαπλών καταχωρήσεων",
+    "description": "Edit multiple fields at once, info displayed in edit window."
+  },
+  "operationAddField": {
+    "message": "Προσθήκη μιας νεας καταχώρησης",
+    "description": "Add a new field, info displayed in edit window."
+  },
+  "labelHtmlview": {
+    "message": "Προβολή HTML",
+    "description": "Label for the checkbox which toggles the HTML preview window."
+  },
+  "menuItemTitleClipboard": {
+    "message": "Πρόχειρο:",
+    "description": "Contextmenu clipboard title."
+  },
+  "menuItemText2Clipboard": {
+    "message": "Αντιγραφή καθαρού κειμένου μόνο",
+    "description": "Contextmenu item: Copy only clean text to clipboard."
+  },
+  "menuItemHtml2Clipboard": {
+    "message": "Αντιγραφή ολόκληρου περιεχομένου (HTML)",
+    "description": "Contextmenu item: Copy entire HTML to clipboard."
+  },
+
+
+  "dialogErrorTitle": {
+    "message": "Σφάλμα",
+    "description": "Title of error dialog."
+  },
+  "dialogWarningTitle": {
+    "message": "Ειδοποίηση",
+    "description": "Title of warning dialog."
+  },
+  "dialogInformationTitle": {
+    "message": "Πληροφορίες",
+    "description": "Title of information dialog."
+  },
+  "dialogQuestionTitle": {
+    "message": "Ερώτηση",
+    "description": "Title of question dialog."
+  },
+
+
+  "confirmDeleteMultipleTitle": {
+    "message": "Διαγραφή όλων των επιλεγμένων αντικειμένων;",
+    "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
+  },
+  "confirmDeleteMultipleMessage": {
+    "message": "Πολλαπλά αντικείμενα έχουν επιλεχτεί, διαγραφή ΟΛΩΝ των επιλεγμένων αντικειμένων;",
+    "description": "Message asking confirmation for deleting multiple selected item."
+  },
+
+  "validationErrorMissingRequired": {
+    "message": "Δεν έχουν συμπληρωθεί όλα τα απαραίτητα πεδία",
+    "description": "Validation message for missing mandatory values."
+  },
+  "validationErrorLastBeforeFirst": {
+    "message": "Η 'Χρησιμοποιήθηκε τελευταία φορά' ημερομηνία πρέπει να είναι ίση ή μεταγενέστερη απο την 'Χρησιμοποιήθηκε πρώτη φορά' ημερομηνία.",
+    "description": "Validation message for last date being before first date."
+  },
+  "validationErrorAtLastOneField": {
+    "message": "Τουλάχιστον ένα πεδίο πρέπει να έχει μια τιμή",
+    "description": "Validation message for no fields having a value."
+  },
+  "validationErrorNotNumeric": {
+    "message": "Η τιμή δεν είναι νούμερο",
+    "description": "Validation message for value not being a numeric value."
+  },
+  "validationErrorInvalidURL": {
+    "message": "Η τιμή δεν είναι έγκυρο URL.",
+    "description": "Validation message for value not being a valid URL."
+  },
+
+
+  "buttonOkay": {
+    "message": "Εντάξει",
+    "description": "Label of the okay button."
+  },
+  "buttonCancel": {
+    "message": "Ακύρωση",
+    "description": "Label of the cancel button."
+  },
+  "buttonClose": {
+    "message": "Κλείσιμο",
+    "description": "Label of the close button."
+  },
+  "buttonApply": {
+    "message": "Εφαρμογή",
+    "description": "Label of the apply button."
+  },
+  "buttonDelete": {
+    "message": "Διαγραφή",
+    "description": "Label of delete button."
+  },
+  "buttonCleanup": {
+    "message": "Καθαρισμός",
+    "description": "Label of cleanup button."
+  },
+  "buttonModify": {
+    "message": "Μετατροπή",
+    "description": "Label of modify button."
+  },
+  "buttonAdd": {
+    "message": "Προσθήκη",
+    "description": "Label of add button."
+  },
+  "buttonExport": {
+    "message": "Εξαγωγή",
+    "description": "Label of export button."
+  },
+  "buttonImport": {
+    "message": "Εισαγωγή",
+    "description": "Label of import button."
+  },
+  "buttonYes": {
+    "message": "Ναι",
+    "description": "Label of yes button."
+  },
+  "buttonNo": {
+    "message": "Όχι",
+    "description": "Label of no button."
+  },
+
+
+  "importErrorTitle": {
+    "message": "Σφάλμα εισαγωγής.",
+    "description": "Title of modal error dialog for import errors."
+  },
+  "importErrorNotXml": {
+    "message": "Μη έγκυρο αρχείο XML, η εισαγωγή ακυρώθηκε.",
+    "description": "Error message when trying to import a file which is not XML."
+  },
+  "importErrorNotFound": {
+    "message": "Το αρχείο εισαγωγής δεν βρέθηκε.",
+    "description": "Error message when import file is not found."
+  },
+  "importErrorNotReadable": {
+    "message": "Το αρχείο εισαγωγής δεν είναι αναγνώσιμο.",
+    "description": "Error message when import file is not readable."
+  },
+  "importErrorUnknown": {
+    "message": "Ένα σφάλμα συνέβη κατά την ανάγνωση του αρχείου.",
+    "description": "Error message when an error occurred reading the import file."
+  },
+  "importErrorCancelled": {
+    "message": "Η ανάγνωση του αρεχίου εισαγωγής ακυρώθηκε.",
+    "description": "Error message when reading import file was cancelled."
+  },
+
+
+  "tooltipEraseDatetimeButton": {
+    "message": "Διαγραφή της ημέρας/ώρας",
+    "description": "Tooltip for the erase button: erase date and time"
+  },
+  "tooltipNowDatetimeButton": {
+    "message": "Ρύθμιση της ημέρας/ώρας",
+    "description": "Tooltip for the time button: set the current date and time"
+  },
+
+
+  "labelYesr": {
+    "message": "Έτος",
+    "description": "Label for Year."
+  },
+  "labelMonth": {
+    "message": "Μήνας",
+    "description": "Label for Month."
+  },
+  "labelDay": {
+    "message": "Ημέρα",
+    "description": "Label for Day."
+  },
+  "labelTime": {
+    "message": "Ώρα",
+    "description": "Label for Time."
+  },
+
+
+  "importTitle": {
+    "message": "Εισαγωγή",
+    "description": "Title of import window."
+  },
+  "exportTitle": {
+    "message": "Εξαγωγή",
+    "description": "Title of the export window."
+  },
+  "exportStatus": {
+    "message": "Κατάσταση",
+    "description": "Import/Export window: Status header"
+  },
+  "exportNoOfTextEntries": {
+    "message": "Αριθμός καταχωρήσεων:",
+    "description": "Import/Export window: Number of text entries."
+  },
+  "exportNoOfdMultilineEntries": {
+    "message": "Αριθμός πολλαπλών καταχωρήσεων:",
+    "description": "Import/Export window: Number of multiline entries."
+  },
+  "exportDownloadLink": {
+    "message": "Σύνδεσμος λήψης:",
+    "description": "Export window: Download link:"
+  },
+
+
+  "optionTitle": {
+    "message": "Επιλογές",
+    "description": "Title of the options window."
+  },
+  "optionsDisplayLegend": {
+    "message": "Προβολή",
+    "description": "Options window: The Display legend."
+  },
+  "optionsThemeSelect": {
+    "message": "Επιλογή θέματος",
+    "description": "Options window: The theme selection dropdown label"
+  },
+  "optionsCleanupLegend": {
+    "message": "Καθαρισμός",
+    "description": "Options window: The Cleanup legend."
+  },
+  "optionsMiscellaneousLegend": {
+    "message": "Διάφορα",
+    "description": "Options window: The Miscellaneous legend."
+  },
+  "optionsOverrideAutocomplete": {
+    "message": "Παράκαμψη του ενσωματωμένου αυτόματου εισαγωγέα",
+    "description": "Options window: The Override autocomplete checkbox Label."
+  },
+  "optionsDateformatSelect": {
+    "message": "Διάλεξε μορφή ημερομηνίας",
+    "description": "Options window: The date format selection dropdown label"
+  },
+
+  
+  "popupHeader": {
+    "message": "Form History Control (II)",
+    "description": "Header title of the small popup."
+  },
+  "popupHeaderInfo": {
+    "message": "Προβολή ιστορικού για αυτή τη σελίδα μόνο",
+    "description": "Extra info next to the header title of the small popup."
+  },
+  
+  
+  "notificationTitle": {
+    "message": "Δοκιμαστική ειδοποίηση",
+    "description": "Title of the test notification."
+  },
+  "notificationContent": {
+    "message": "Δοκιμαστικό μήνυμα: $ΜΗΝΥΜΑ$.",
+    "description": "Just a test notification.",
+    "placeholders": {
+      "message" : {
+        "content" : "$1",
+        "example" : "Hello world!"
+      }
+    }
+  },
+
+
+
+  "contextMenuItemManageHistory": {
+    "message": "Διαχείρηση Ιστορικού",
+    "description": "Title of context menu item that starts the Manage history dialog."
+  },
+  "contextMenuItemRestoreEditorField": {
+    "message": "Επαναφορά πεδίου επεξεργασίας",
+    "description": "Title of context menu item that displays the editor (wysiwyg) field values."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuHostname": {
+    "message": "Ταιριαστό Όνομα Εξυπηρετητή",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuLastused": {
+    "message": "Πιο πρόσφατες καταχωρήσεις",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuMore": {
+    "message": "Περισσότερα...",
+    "description": "Last Submenu-item in ontext-menu 'Restore Edit field' indicating more items."
+  },
+  "contextMenuItemFillMostRecent": {
+    "message": "Γέμισμα πεδίων με τις πιο πρόσφατες καταχωρήσεις",
+    "description": "Title of context menu item that fills formfields with the most recent used value."
+  },
+  "contextMenuItemFillMostUsed": {
+    "message": "Γέμισμα πεδίων με τις πιο συχνά χρησιμοποιημένες καταχωρήσεις",
+    "description": "Title of context menu item that fills formfields with the most used value."
+  },
+  "contextMenuItemClearFields": {
+    "message": "Καθαρισμός των πεδίων",
+    "description": "Title of context menu item that clears all filled fields."
+  },
+  "contextMenuItemShowformfields": {
+    "message": "Εμφάνιση πεδίων στην τρέχουσα σελίδα",
+    "description": "Title of context menu item that shows info next to input textfields om the page."
+  },
+  "contextMenuItemOptions": {
+    "message": "Επιλογές",
+    "description": "Title of context menu item that shows the preferences page."
+  },
+
+
+  "menuFile": {
+    "message": "Αρχείο",
+    "description": "Label of File menu."
+  },
+  "menuItemFileImport": {
+    "message": "Εισαγωγή",
+    "description": "Label of Import menuitem in the File menu."
+  },
+  "menuItemFileExport": {
+    "message": "Εξαγωγή",
+    "description": "Label of Export menuitem in the File menu."
+  },
+  "menuItemFileClose": {
+    "message": "Κλείσιμο",
+    "description": "Label of Close menuitem in the File menu."
+  },
+
+  "menuEdit": {
+    "message": "Επεξεργασία",
+    "description": "Label of Edit menu."
+  },
+  "menuItemEditAdd": {
+    "message": "Προσθήκη",
+    "description": "Label of Add menuitem in the Edit menu."
+  },
+  "menuItemEditModify": {
+    "message": "Τροποποίηση",
+    "description": "Label of Modify menuitem in the Edit menu."
+  },
+  "menuItemEditDelete": {
+    "message": "Διαγραφή",
+    "description": "Label of Delete menuitem in the Edit menu."
+  },
+  "menuItemEditClipboard": {
+    "message": "Αντιγραφή στο πρόχειρο",
+    "description": "Label of Copy to clipboard menuitem in the Edit menu."
+  },
+  "menuItemEditSelectAll": {
+    "message": "Επιλογή όλων",
+    "description": "Label of Select all menuitem in the Edit menu."
+  },
+  "menuItemEditSelectNone": {
+    "message": "Καμία επιλογή",
+    "description": "Label of Select none menuitem in the Edit menu."
+  },
+  "menuItemEditSelectInvert": {
+    "message": "Αντιστροφή επιλογής",
+    "description": "Label of Invert selection menuitem in the Edit menu."
+  },
+
+  "menuDisplay": {
+    "message": "Προβολή",
+    "description": "Label of Display menu."
+  },
+  "menuItemDisplayRefresh": {
+    "message": "Ανανέωση",
+    "description": "Label of Refresh menuitem in the Display menu."
+  },
+
+  "menuExtra": {
+    "message": "Έξτρα",
+    "description": "Label of Extra menu."
+  },
+  "menuItemExtraPreferences": {
+    "message": "Προτιμήσεις",
+    "description": "Label of Preferences menuitem in the Extra menu."
+  },
+
+  "menuHelp": {
+    "message": "Βοήθεια",
+    "description": "Label of Help menu."
+  },
+  "menuItemInfoSubmenu": {
+    "message": "Πληροφορίες",
+    "description": "Label of Info submenu in the context menu."
+  },
+  "menuItemHelpOverview": {
+    "message": "Σύνοψη βοήθειας",
+    "description": "Label of Invert menuitem in the Help menu."
+  },
+  "menuItemHelpReleasenotes": {
+    "message": "Σημειώσεις έκδοσης",
+    "description": "Label of Invert menuitem in the Help menu."
+  },
+  "menuItemHelpAbout": {
+    "message": "Πληροφορίες",
+    "description": "Label of Invert menuitem in the Help menu."
+  },
+
+  "loading-status": {
+    "message": "Φόρτωση...",
+    "description": "Text displayed while data is being loaded."
+  }
+}
