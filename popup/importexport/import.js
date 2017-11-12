@@ -54,21 +54,21 @@ function handleImport() {
 
     let fileList = document.getElementById('files').files;
     for (let i = 0, f; f = fileList[i]; i++) {
-        console.log(
-            "Selected file: " + f.name + ", " +
-            "type " + (f.type || "n/a" ) + ", " +
-            f.size + " bytes, " +
-            "last modified: " + (f.lastModified ? new Date(f.lastModified).toISOString() : "n/a")
-        );
+        // console.log(
+        //     "Selected file: " + f.name + ", " +
+        //     "type " + (f.type || "n/a" ) + ", " +
+        //     f.size + " bytes, " +
+        //     "last modified: " + (f.lastModified ? new Date(f.lastModified).toISOString() : "n/a")
+        // );
 
         // only process xml files
         if ('text/xml' !== f.type) {
-            console.log("Not an xml file, skipping...");
+            // console.log("Not an xml file, skipping...");
             WindowUtil.showModalError("importErrorTitle", "importErrorNotXml");
             continue;
         }
 
-        console.log("Importing file " + f.name + "...");
+        // console.log("Importing file " + f.name + "...");
         let reader = new FileReader();
 
         reader.onerror = function(evt) {
@@ -88,7 +88,7 @@ function handleImport() {
 
         reader.onloadstart = function(/*evt*/) {
             document.getElementById('import-progress').value = 0;
-            console.log("- loading...");
+            // console.log("- loading...");
         };
 
         reader.onprogress = function(evt){
@@ -97,17 +97,17 @@ function handleImport() {
                 percentLoaded = Math.round((evt.loaded / evt.total) * 100);
             }
             document.getElementById('import-progress').value = percentLoaded;
-            console.log("- progress ", percentLoaded, "%");
+            // console.log("- progress ", percentLoaded, "%");
         };
 
         reader.onabort = function(/*evt*/) {
-            console.log("- cancelled");
+            // console.log("- cancelled");
             WindowUtil.showModalError("importErrorTitle", "importErrorUnknown");
         };
 
         reader.onload = function(/*evt*/) {
             let result = XmlUtil.parseXMLdata(reader.result);
-            console.log("found " + result.entries.length + " text-entries and " + result.multiline.length + " multiline-entries");
+            // console.log("found " + result.entries.length + " text-entries and " + result.multiline.length + " multiline-entries");
 
             document.getElementById('count-text').textContent = result.entries.length;
             document.getElementById('count-multiline').textContent = result.multiline.length;

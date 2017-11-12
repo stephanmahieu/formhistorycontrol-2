@@ -56,7 +56,7 @@ function addAutocomplete(event) {
     }
     const key = getKey(elem);
     elem.setAttribute('data-fhc', key);
-    console.log('Adding autocomplete to id: ' + elem.id + ', key: ' + key);
+    // console.log('Adding autocomplete to id: ' + elem.id + ', key: ' + key);
     autocompleteMap.set(key, new AutoComplete({
         selector: elem,
         minChars: 0,
@@ -66,13 +66,13 @@ function addAutocomplete(event) {
 
 function getSuggestions(term, element, suggest) {
     const fieldname = (element.name) ? element.name : ((element.id) ? element.id : "");
-    console.log('getting suggestions for field ' + fieldname + ' matching search term: ' + term);
+    // console.log('getting suggestions for field ' + fieldname + ' matching search term: ' + term);
     browser.runtime.sendMessage({
         eventType: 555,
         searchTerm: term,
         fieldName: fieldname
     }).then( message => {
-        console.log(`getSuggestions::responseMessage, received: ${message.choices.length} choices`);
+        // console.log(`getSuggestions::responseMessage, received: ${message.choices.length} choices`);
         if (message.choices) {
             suggest(message.choices);
         }
@@ -85,7 +85,7 @@ function removeAutocomplete(event) {
         const key = elem.getAttribute('data-fhc');
         elem.removeAttribute('data-fhc');
         if (autocompleteMap.has(key)) {
-            console.log('Removing autocomplete from id: ' + elem.id + ', key: ' + key);
+            // console.log('Removing autocomplete from id: ' + elem.id + ', key: ' + key);
             let autoCompleteObj = autocompleteMap.get(key);
             autocompleteMap.delete(key);
             autoCompleteObj.destroy();

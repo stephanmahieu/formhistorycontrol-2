@@ -80,7 +80,7 @@ let db;
  * Initialize (open) the database, create or upgrade if necessary.
  */
 function initDatabase() {
-    console.log("Open database " + DbConst.DB_NAME + "...");
+    // console.log("Open database " + DbConst.DB_NAME + "...");
     let req;
     try {
         req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
@@ -90,10 +90,8 @@ function initDatabase() {
     req.onsuccess = function (event) {
         // Better use "this" than "req" to get the result to avoid problems with garbage collection.
         db = event.target.result;
-        //db = this.result;
-        console.log("Database opened successfully.");
-
-        //doDatabaseTests();
+        // db = this.result;
+        // console.log("Database opened successfully.");
     };
     req.onerror = function (event) {
         console.error("Database open error: " + event.target.errorCode);
@@ -742,141 +740,6 @@ function getHostNameKey(fhcEvent) {
 function getFormElementLookupKey(formElement) {
     return formElement.host + '|' + formElement.formid + '|' + formElement.type + '|' + formElement.name + '|' + formElement.id;
 }
-
-
-// function doDatabaseTests() {
-//     // doDatabaseAddTest();
-//     // doReadAllTest();
-//     // doDatabaseUpdateTest();
-//     // clearTextFieldsStore();
-//     // doReadAllTest();
-//     // doDatabaseDeleteTest();
-// }
-//
-// function clearTextFieldsStore() {
-//     let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
-//     let req = objStore.clear();
-//     req.onsuccess = function(/*insertEvent*/) {
-//         console.log("Clear okay, all TextField records deleted!");
-//     };
-//     req.onerror = function(/*insertEvent*/) {
-//         console.error("Clear failed!!");
-//     };
-// }
-//
-// function doDatabaseDeleteTest() {
-//     let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
-//
-//     console.log("Attempt deleting keys...");
-//     for (let i=41; i<=300; i++) {
-//         let req = objStore.delete(i);
-//         req.onsuccess = function(evt) {
-//             console.log("key " + i + " deleted from the object store.");
-//         };
-//         req.onerror = function(/*evt*/) {
-//             console.error("delete error for key " + i, this.error);
-//         };
-//     }
-// }
-//
-// function doDatabaseAddTest() {
-//     console.log("Attempt inserts...");
-//
-//     // Formhistory test data
-//     const formHistData = [
-//         { name: "testfld1", value: "hello", type: "textarea", first: 1364453733248, last: 1487678983265, used:  1, host: "test.net",  uri: "http://test.net/page/one",  pagetitle: "Hello", fieldkey: "key1"},
-//         { name: "testfld2", value: "world", type: "input",    first: 1364453733248, last: 1487678983265, used:  2, host: "test.net",  uri: "http://test.net/page/two",  pagetitle: "World!", fieldkey: "key2"},
-//         { name: "testfld3", value: "foo",   type: "html",     first: 1364453733248, last: 1487678983265, used: 20, host: "dummy.org", uri: "http://dummy.org/page/one", pagetitle: "My Homepage", fieldkey: "key3"},
-//         { name: "testfld4", value: "bar",   type: "div",      first: 1364453733248, last: 1487678983265, used: 10, host: "dummy.org", uri: "http://dummy.org/page/two", pagetitle: "Some interesting page", fieldkey: "key4"},
-//         { name: "testfld4", value: "bar",   type: "iframe",   first: 1364453733248, last: 1487678983265, used:  5, host: "dummy.org", uri: "http://dummy.org/page/two", pagetitle: "Yeah", fieldkey: "key5"}
-//     ];
-//
-//     // var transaction = db.transaction([DbConst.DB_STORE_TEXT], "readwrite");
-//     // transaction.oncomplete = function(event) {
-//     //     console.log("Transaction complete.");
-//     //
-//     //     doReadAllTest();
-//     // };
-//     // transaction.onerror = function(event) {
-//     //     console.log("Insert error: " + event.target.errorCode);
-//     // };
-//
-//     let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
-//     for (let i in formHistData) {
-//         let req = objStore.add(formHistData[i]);
-//         req.onsuccess = function(event) {
-//             console.log("Insert okay, id: " + event.target.result);
-//         };
-//     }
-// }
-//
-// function doReadAllTest() {
-//     console.log("Attempt reading all...");
-//
-//     let objStore = getObjectStore(DbConst.DB_STORE_TEXT, 'readonly');
-//     let req;
-//
-//     req = objStore.count();
-//     req.onsuccess = function(evt) {
-//         console.log("There are " + evt.target.result + " record(s) in the object store.");
-//     };
-//     req.onerror = function(/*evt*/) {
-//         console.error("add error", this.error);
-//     };
-//
-//     req = objStore.openCursor();
-//     req.onsuccess = function(evt) {
-//         let cursor = evt.target.result;
-//         if (cursor) {
-//             // req = objStore.get(cursor.key);
-//             // req.onsuccess = function (evt) {
-//             //     var value = evt.target.result;
-//             //     console.log("Entry [" + cursor.key + "] name: " + cursor.value.name);
-//             // };
-//             let fhcEntry = cursor.value;
-//             console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type +
-//                 "} KEY=[" + fhcEntry.fieldkey + "] first:[" + fhcEntry.first + "] last:[" + fhcEntry.last + "]");
-//             cursor.continue();
-//         }
-//         else {
-//             console.log("No more entries!");
-//         }
-//     };
-// }
-//
-// function doDatabaseUpdateTest() {
-//     console.log("Attempt update...");
-//
-//     let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
-//
-//     let request = objStore.index("by_fieldkey").get("key1");
-//     request.onerror = function(/*event*/) {
-//         console.log("Update, get by index failed!");
-//     };
-//     request.onsuccess = function(event) {
-//         // Get the old value that we want to update
-//         let data = event.target.result;
-//
-//         if (data) {
-//             console.log("Found existing record");
-//
-//             // update the value(s) in the object that you want to change
-//             data.value = "value changed!";
-//
-//             // Put this updated object back into the database.
-//             let requestUpdate = objStore.put(data);
-//             requestUpdate.onerror = function(/*event*/) {
-//                 console.error("update error", this.error);
-//             };
-//             requestUpdate.onsuccess = function(/*event*/) {
-//                 console.log("Update succeeded.");
-//             };
-//         }
-//         else {
-//             console.log("Did NOT find an existing record!");
-//         }
-//     };
-// }
 
 
 initDatabase();
