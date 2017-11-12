@@ -4,5 +4,6 @@
 *.cmd
 *.zip
 *.bak
+docs
 todo-list.md
 zip_exclude_list.txt
