@@ -6,3 +6,6 @@
 *.bak
 todo-list.md
 zip_exclude_list.txt
+_locales\de
+_locales\es
+_locales\fr
