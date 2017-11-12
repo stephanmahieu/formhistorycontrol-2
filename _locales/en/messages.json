@@ -114,6 +114,10 @@
     "description": "Title of question dialog."
   },
 
+  "informClipboardValueCopied": {
+    "message": "Value successfully copied to the clipboard",
+    "description": "Information message that clipboard value has been copied."
+  },
 
   "confirmDeleteMultipleTitle": {
     "message": "Delete all selected items?",

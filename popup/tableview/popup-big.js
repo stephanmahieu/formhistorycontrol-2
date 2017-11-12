@@ -576,8 +576,7 @@ function onMenuClicked(menuItemId) {
         case "copy2clipboard":
             if (isMenuItemEnabled(menuItemId)) {
                 DataTableUtil.copySelectedEntryToClipboard($('#fhcTable').DataTable());
-                // hide the menu and give feedback of successful copy
-                alert("Value copied"); // TODO internationalize copy 2 clipboard alert
+                WindowUtil.showModalInformation('dialogInformationTitle', 'informClipboardValueCopied');
             }
             break;
 

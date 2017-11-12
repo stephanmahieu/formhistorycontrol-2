@@ -114,6 +114,10 @@
     "description": "Title of question dialog."
   },
 
+  "informClipboardValueCopied": {
+    "message": "Waarde succesvol gekopieerd naar het klembord",
+    "description": "Information message that clipboard value has been copied."
+  },
 
   "confirmDeleteMultipleTitle": {
     "message": "Verwijder alle geselecteerde items?",
