@@ -630,12 +630,12 @@ browser.menus.onClicked.addListener(function(info, tab) {
 
         case "helpoverview":
         case "helpoverviewBA":
-            // TODO helpoverview
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_HELP);
             break;
 
         case "releasenotes":
         case "releasenotesBA":
-            // TODO releasenotes
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_RELNOTES);
             break;
 
         default:

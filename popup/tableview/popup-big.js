@@ -602,11 +602,11 @@ function onMenuClicked(menuItemId) {
             break;
 
         case "helpoverview":
-            // TODO helpoverview
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_HELP);
             break;
 
         case "releasenotes":
-            // TODO releasenotes
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_RELNOTES);
             break;
 
         case "about":

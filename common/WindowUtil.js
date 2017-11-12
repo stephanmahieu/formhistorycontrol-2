@@ -13,6 +13,9 @@ const FHC_WINDOW_EXPORT  = { path:"popup/importexport/export.html", width: 350, 
 const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 500, height:315, type:"popup", currentId: -1 };
 const FHC_WINDOW_EDITRVW = { path:"popup/entryview/entryview.html", width: 500, height:415, type:"popup", currentId: -1 };
 
+const FHC_WINDOW_HELP     = { path:"https://formhistory.blogspot.nl/2009/06/introduction-to-form-history-control.html", width: 990, height:900, type:"normal", currentId: -1 };
+const FHC_WINDOW_RELNOTES = { path:"https://formhistory.blogspot.nl/2009/05/release-notes.html",                        width: 990, height:900, type:"normal", currentId: -1 };
+
 class WindowUtil {
 
     /**
@@ -32,8 +35,7 @@ class WindowUtil {
 
 
     static createOrFocusWindow(fhcWindowObject) {
-        let allWindows = browser.windows.getAll();
-        allWindows.then((windows) => {
+        browser.windows.getAll().then((windows) => {
             let curWindow;
             for (let item of windows) {
                 if (item.id === fhcWindowObject.currentId) {
