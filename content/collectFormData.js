@@ -790,6 +790,42 @@ function _alreadyQueued(event) {
     return false;
 }
 
+setInterval(processEventQueue, 5000);
+
+
+//----------------------------------------------------------------------------
+// Add event handlers
+//----------------------------------------------------------------------------
+
+function createDomObserver() {
+    return new MutationObserver(mutations => {
+        mutations.forEach((mutation) => {
+            //console.log('Detected a mutation!  type = ' + mutation.type);
+            if (mutation.type === 'attributes') {
+                const targetElem = mutation.target;
+                //console.log('Contenteditable changed ' + targetElem.nodeName  + '  editable = ' + _isContentEditable(targetElem) + '  designModeOn = ' +  _isDesignModeOn(targetElem));
+                targetElem.addEventListener("keyup", onContentChanged);
+            } else if (mutation.addedNodes) {
+                mutation.addedNodes.forEach(elem => {
+                    switch(elem.nodeName) {
+                        case 'INPUT':
+                            elem.addEventListener('change', onContentChanged);
+                            elem.addEventListener('paste', onContentChanged);
+                            break;
+                        case 'TEXTAREA':
+                            elem.addEventListener("keyup", onContentChanged);
+                            elem.addEventListener('paste', onContentChanged);
+                            break;
+                        case 'FORM':
+                            elem.addEventListener('submit', onFormSubmit);
+                            break;
+                    }
+                });
+            }
+        });
+    });
+}
+
 function addHandler(selector, eventType, aFunction) {
     document.querySelectorAll(selector).forEach( (elem) => {
         //console.log("adding " + eventType + " handler to " + selector + "-event for elem-id: " + elem.id);
@@ -802,4 +838,13 @@ addHandler("form", "submit", onFormSubmit);
 addHandler("input", "change", onContentChanged);
 addHandler("input,textarea", "paste", onContentChanged);
 
-setInterval(processEventQueue, 5000);
+// instantiate an observer for adding event handlers to dynamically created DOM elements
+createDomObserver().observe(
+    document.querySelector("body"),
+    {
+        childList: true,
+        attributes: true,
+        attributeFilter: ['contenteditable','designMode'],
+        subtree: true
+    }
+);
