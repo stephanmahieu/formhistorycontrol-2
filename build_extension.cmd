@@ -1,6 +1,6 @@
 @echo off
 
-set ZIP_FILE=formhistory_2002.zip
+set ZIP_FILE=formhistory_2003.zip
 set ZIP_APP=7z.exe
 
 rem --(check if xpi exist)-------------------------------------
