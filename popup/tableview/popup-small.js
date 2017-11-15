@@ -71,6 +71,10 @@ $(document).ready(function() {
         () => {console.error("Get last used pagesize error", this.error);}
         );
     }).then(() => {
+        populateFromDatabase(table, null, null);
+    });
+
+    /*.then(() => {
         return browser.tabs.query(
             {lastFocusedWindow: true, active: true}
         );
@@ -94,7 +98,7 @@ $(document).ready(function() {
     }).catch(reason => {
         // console.warn(`Could not get formfields from active tab, showing all instead. Error: ${reason}`);
         populateFromDatabase(table, null, null);
-    });
+    });*/
 
 
     // Prevent the default right-click contextmenu
