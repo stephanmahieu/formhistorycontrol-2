@@ -48,14 +48,14 @@ document.addEventListener("DOMContentLoaded", function() {
 let currentOptions;
 function restoreOptions() {
     let gettingItem = browser.storage.local.get({
-        prefInterfaceTheme      : "default",
-        prefOverrideAutocomplete: true,
-        prefDateFormat          : "automatic"
+        prefInterfaceTheme       : "default",
+        prefUseCustomAutocomplete: false,
+        prefDateFormat           : "automatic"
     });
     gettingItem.then(res => {
-        //console.log('checkbox value got from storage is [' + res.prefOverrideAutocomplete + ']');
+        //console.log('checkbox value got from storage is [' + res.prefUseCustomAutocomplete + ']');
         document.querySelector('#themeSelect').value = res.prefInterfaceTheme;
-        document.querySelector("#overrideAutocomplete").checked = res.prefOverrideAutocomplete;
+        document.querySelector("#overrideAutocomplete").checked = res.prefUseCustomAutocomplete;
         document.querySelector("#dateformatSelect").value = res.prefDateFormat;
 
         currentOptions = Object.assign({}, res);
@@ -73,7 +73,7 @@ function saveOptions(e) {
     const notifyMsg = {
         eventType: 888,
         interfaceThemeChanged: (currentOptions.prefInterfaceTheme !== newOptions.prefInterfaceTheme),
-        overrideAutocompleteChanged: (currentOptions.prefOverrideAutocomplete !== newOptions.prefOverrideAutocomplete),
+        overrideAutocompleteChanged: (currentOptions.prefUseCustomAutocomplete !== newOptions.prefUseCustomAutocomplete),
         dateFormatChanged: (currentOptions.prefDateFormat !== newOptions.prefDateFormat)
     };
 
@@ -93,9 +93,9 @@ function saveOptions(e) {
 
 function getNewOptions() {
     return {
-        prefInterfaceTheme      : document.querySelector("#themeSelect").value,
-        prefOverrideAutocomplete: document.querySelector("#overrideAutocomplete").checked,
-        prefDateFormat          : document.querySelector("#dateformatSelect").value,
+        prefInterfaceTheme       : document.querySelector("#themeSelect").value,
+        prefUseCustomAutocomplete: document.querySelector("#overrideAutocomplete").checked,
+        prefDateFormat           : document.querySelector("#dateformatSelect").value,
     };
 }
 

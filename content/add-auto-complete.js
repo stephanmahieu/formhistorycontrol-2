@@ -23,9 +23,9 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
 resetAutocompleteListeners();
 
 function resetAutocompleteListeners() {
-    browser.storage.local.get({prefOverrideAutocomplete: true}).then(
+    browser.storage.local.get({prefUseCustomAutocomplete: false}).then(
         result => {
-            if (result.prefOverrideAutocomplete) {
+            if (result.prefUseCustomAutocomplete) {
                 document.querySelectorAll('input[type=text],input[type=search],input[type=tel],input[type=url],input[type=email]').forEach( elem => {
                     elem.addEventListener("focus", addAutocomplete);
                     elem.addEventListener("blur", removeAutocomplete);
@@ -37,7 +37,7 @@ function resetAutocompleteListeners() {
                 });
             }
         },
-        () => {console.error("Unable to get prefOverrideAutocomplete preference", this.error);}
+        () => {console.error("Unable to get prefUseCustomAutocomplete preference", this.error);}
     );
 }
 
