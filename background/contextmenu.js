@@ -45,8 +45,9 @@ function updateEditorFieldRestoreMenu(tabId) {
                 return getEditorFieldsByHostname(hostname, 10);
             }).then(hostnameItemsArray => {
                 hostnameItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
-            }).then(()=>{
-                return getEditorFieldsByLastused(hostname, 10);
+                return hostnameItemsArray;
+            }).then(hostnameItemsArray => {
+                return getEditorFieldsByLastused(hostname, 10, hostnameItemsArray);
             }).then(lastusedItemsArray => {
                 lastusedItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
             }).then(()=>{
@@ -178,30 +179,36 @@ function getEditorFieldsByHostname(hostname, maxItems) {
         let req = index.openCursor(singleKeyRange);
         req.onsuccess = evt => {
             let cursor = evt.target.result;
-            if (cursor && result.length < maxItems) {
+            if (cursor) {
                 let fhcEntry = cursor.value;
                 let primaryKey = cursor.primaryKey;
                 // console.log("Entry matching hostname [" + cursor.key + "] primaryKey:[" + primaryKey + "] name:[" + fhcEntry.name + "] type:[" + fhcEntry.type + "}");
 
                 if (fhcEntry.type !== 'input') {
-                    result.push({
-                        type: 'hostname',
-                        pKey: primaryKey,
-                        last: fhcEntry.last,
-                        name: fhcEntry.name,
-                        value: removeTagsAndShorten(fhcEntry.value)
-                    });
+                    let value = removeTagsAndShorten(fhcEntry.value);
+                    if (value) {
+                        result.push({
+                            type: 'hostname',
+                            pKey: primaryKey,
+                            last: fhcEntry.last,
+                            name: fhcEntry.name,
+                            value: value
+                        });
+                    }
                 }
                 cursor.continue();
             }
             else {
                 // no more items sort by name and date
                 result.sort((a,b)=> {
-                    if (a.name === b.name) return a.last - b.last;
-                    let nameA = a.name.toLowerCase();
-                    let nameB = b.name.toLowerCase();
-                    return (nameA === nameB) ? 0 : ((nameA < nameB) ? -1 : 1);
+                    if (a.last !== b.last) {
+                        return b.last - a.last;
+                    }
+                    return (a.name.localeCompare(b.name));
                 });
+                if (result.length > maxItems) {
+                    result = result.slice(0, maxItems);
+                }
                 resolve(result);
             }
         };
@@ -211,7 +218,7 @@ function getEditorFieldsByHostname(hostname, maxItems) {
     });
 }
 
-function getEditorFieldsByLastused(hostname, maxItems) {
+function getEditorFieldsByLastused(hostname, maxItems, excludeItems) {
     return new Promise((resolve, reject) => {
         let result = [];
 
@@ -228,13 +235,16 @@ function getEditorFieldsByLastused(hostname, maxItems) {
                 if (fhcEntry.type !== 'input' && fhcEntry.host !== hostname) {
                     let value = removeTagsAndShorten(fhcEntry.value);
                     if (value) {
-                        result.push({
+                        let item = {
                             type: 'lastused',
                             pKey: primaryKey,
-                            name: fhcEntry.name,
                             last: fhcEntry.last,
-                            value:value
-                        });
+                            name: fhcEntry.name,
+                            value: value
+                        };
+                        if (!excludeItems.some(elem => {return elem.pKey === item.pKey})) {
+                            result.push(item);
+                        }
                     }
                 }
                 cursor.continue();
@@ -252,7 +262,7 @@ function getEditorFieldsByLastused(hostname, maxItems) {
 
 function removeTagsAndShorten(value) {
     // remove tags, replace newlines/tabs with spaces, remove non-printable chars, replace consecutive spaces with one space
-    let str = value.replace(/<\/?[^>]+(>|$)/g, "").replace(/[\t\r\n]+/g,' ').replace('&nbsp;',' ').replace(/[^\x20-\x7E]/g, '').replace(/\s\s+/g, ' ').trim();
+    let str = value.replace(/<\/?[^>]+(>|$)/g, "").replace(/[\t\r\n]+/g,' ').replace('&nbsp;',' ').replace(/\s\s+/g, ' ').trim();
     if (str.length > MAX_LENGTH_EDITFIELD_ITEM) {
         str = str.substring(0, MAX_LENGTH_EDITFIELD_ITEM-3) + '...';
     }
