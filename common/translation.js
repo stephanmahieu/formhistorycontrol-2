@@ -9,7 +9,7 @@
 
 function translate(/*event*/) {
     //console.log("Translation started");
-    document.querySelectorAll("[data-fhc-i18n]").forEach( (elem) => {
+    document.querySelectorAll("[data-fhc-i18n]").forEach(elem => {
         let messageId = elem.getAttribute('data-fhc-i18n');
         let translation = browser.i18n.getMessage(messageId);
 
@@ -28,6 +28,13 @@ function translate(/*event*/) {
                     }
                 }
             }
+        }
+    });
+    document.querySelectorAll("[data-fhc-i18n-title]").forEach(elem => {
+        let messageId = elem.getAttribute('data-fhc-i18n-title');
+        let translation = browser.i18n.getMessage(messageId);
+        if (translation) {
+            elem.title = translation;
         }
     });
 }
