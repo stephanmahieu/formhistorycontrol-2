@@ -298,4 +298,44 @@ class WindowUtil {
         window.setTimeout(()=>{document.getElementById('context-menu-container').style.display = 'none';}, 800);
     }
 
+    /**
+     * Convert HTML to a human readable text by stripping all tags but keeping the same look by adding breaks
+     * and asterix's for lists.
+     *
+     * @param html
+     * @returns {string}
+     */
+    static htmlToReadableText(html) {
+        // replace titles (<h1>) and paragraph ends with 2 line breaks
+        let text = html.replace(/\s*<\/((h\d)|p)\s*>\s*/ig, ' \n\n');
+
+        // replace div blocks with line break
+        text = text.replace(/\s*<(\/div)\b[^>]*>\s*/ig, '\n');
+
+        // replace list items with line breaks and asterix's
+        text = text.replace(/\s*<(li)\b[^>]*>\s*/ig, '\n * ');
+
+        // replace line breaks
+        text = text.replace(/<(br)\b[^>]*>/ig, '\n');
+
+        // remove comments
+        text = text.replace(/<!--[\s\S]*?-->/g, '');
+
+        // strip all remaining tags
+        text = text.replace(/<(\/|\w)[^>]*>/g, ' ');
+
+        // convert non breaking spaces
+        text = text.replace(/&nbsp;/g, ' ');
+
+        // compress whitespace
+        text = text.replace(/[ \t\f\v]+/g, ' ');
+
+        // limit to max 2 line breaks in a row
+        text = text.replace(/\n\s*?\n(\s*?\n)*/g, '\n\n');
+
+        // trim leading and trailing spaces
+        text = text.replace(/^\s+/, '').replace(/\s+$/, '');
+
+        return text;
+    }
 }

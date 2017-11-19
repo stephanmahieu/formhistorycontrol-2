@@ -72,7 +72,7 @@ class DataTableUtil {
     }
 
     /**
-     * Shorten displayed data if exceeds cutoff, append ellipses when shortened.
+     * Shorten displayed data if exceeds cutoff (tooltip shows all), append ellipses when shortened.
      *
      * @param data
      * @param type
@@ -82,14 +82,6 @@ class DataTableUtil {
      * @returns {*}
      */
     static ellipsis(data, type, cutoff, wordbreak, escapeHtml) {
-        let esc = function(t) {
-            return t
-                .replace( /&/g, '&amp;' )
-                .replace( /</g, '&lt;' )
-                .replace( />/g, '&gt;' )
-                .replace( /"/g, '&quot;' );
-        };
-
         // Order, search and type get the original data
         if (type !== 'display') {
             return data;
@@ -99,25 +91,21 @@ class DataTableUtil {
             return data;
         }
 
-        data = data.toString(); // cast numbers
+        const displayData = data.toString(); // cast numbers
 
-        if (data.length <= cutoff) {
-            return data;
-        }
-
-        let shortened = data.substr(0, cutoff-1);
-
-        // Find the last white space character in the string
+        // shortened is what is being displayed in the table
+        let shortened = WindowUtil.htmlToReadableText(displayData).substr(0, cutoff-1);
         if (wordbreak) {
+            // Find the last white space character in the string
             shortened = shortened.replace(/\s([^\s]*)$/, '');
         }
-
-        // Protect against uncontrolled HTML input
-        if (escapeHtml) {
-            shortened = esc(shortened);
+        if (displayData.length <= cutoff) {
+            return shortened;
         }
 
-        return '<span class="ellipsis" title="'+esc(data)+'">'+shortened+'&#8230;</span>';
+        // if what is being displayed in the table is too large, add the data in the tooltip (title)
+        const tooltipText = WindowUtil.htmlToReadableText(displayData);
+        return '<span class="ellipsis" title="' + tooltipText + '">' + shortened + '&#8230;</span>';
     }
 
     /**
