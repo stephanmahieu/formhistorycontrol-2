@@ -365,7 +365,7 @@
          */
         var _removeAttribute = function _removeAttribute(name, node) {
             DOMPurify.removed.push({
-                attribute: node.getAttributeNode(name),
+                attribute: node.getAttribute(name),
                 from: node
             });
             node.removeAttribute(name);
