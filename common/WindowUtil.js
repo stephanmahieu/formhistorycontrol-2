@@ -76,13 +76,15 @@ class WindowUtil {
 
     static optionsCloseButton(fhcWindowObject) {
         if (fhcWindowObject.path.includes('options.html')) {
-            // send a notification to this popup window and should add a close-button (give it some time to finish loading)
+            // Send a notification to the options popup (via a background-script) that it should add a close-button.
+            // The background script re-sends the message delayed (as 999) to give the popup time to finish loading.
+            // We can not delay here because when the popup that triggered this event closes, the timed delay would be
+            // cancelled ans no message would be sent.
+
             // console.log('sending an event intended for options.html popup');
-            setTimeout(() => {
-                browser.runtime.sendMessage({
-                    eventType: 999
-                });
-            }, 250);
+            browser.runtime.sendMessage({
+                eventType: 998
+            });
         }
     }
 

@@ -65,6 +65,14 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 getValuesMatchingSearchtermFromDatabaseAndRespond(fhcEvent.fieldName, fhcEvent.searchTerm, sendResponse);
                 // Tell the browser we intend to use the sendResponse argument after the listener has returned
                 return true;
+
+            case 998:
+                // resend the message delayed as 999, do it multiple times so at least the last one is most
+                // likely received.
+                setTimeout(() => {browser.runtime.sendMessage({eventType: 999});}, 200);
+                setTimeout(() => {browser.runtime.sendMessage({eventType: 999});}, 350);
+                setTimeout(() => {browser.runtime.sendMessage({eventType: 999});}, 500);
+                setTimeout(() => {browser.runtime.sendMessage({eventType: 999});}, 1500);
         }
     }
 
