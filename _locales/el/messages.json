@@ -66,7 +66,7 @@
     "description": "Edit a single field, info displayed in edit window."
   },
   "operationEditOneField": {
-    "message": "Επεξεργασία υπάρχουσας εγγραφής καταχώρησης",
+    "message": "Επεξεργασια υπαρχουσας εγγραφης καταχωρησης",
     "description": "Edit a single field, info displayed in edit window."
   },
   "operationEditMultipleFields": {
@@ -113,7 +113,7 @@
   },
 
   "informClipboardValueCopied": {
-    "message": "Value successfully copied to the clipboard",
+    "message": "Η τιμή αντιγράφηκε με επιτυχία στο πρόχειρο",
     "description": "Information message that clipboard value has been copied."
   },
 
@@ -317,11 +317,11 @@
     "description": "Extra info next to the header title of the small popup."
   },
   "open-preference-tooltip": {
-    "message": "Open preferences",
+    "message": "Άνοιγμα Προτιμήσεων",
     "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
   },
   "open-bigdialog-tooltip": {
-    "message": "Open the advanced 'Manage History' dialog",
+    "message": "Άνοιγμα του διαλόγου 'Διαχείρηση Ιστορικού' για προχωρημένους",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
 

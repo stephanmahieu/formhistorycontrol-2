@@ -378,7 +378,7 @@
     "description": "Title of context menu item that clears all filled fields."
   },
   "contextMenuItemShowformfields": {
-    "message": "Toon veldnamen huidige pagina",
+    "message": "Toon velden in de huidige pagina",
     "description": "Title of context menu item that shows info next to input textfields om the page."
   },
   "contextMenuItemOptions": {

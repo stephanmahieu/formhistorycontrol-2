@@ -376,7 +376,7 @@
     "description": "Title of context menu item that clears all filled fields."
   },
   "contextMenuItemShowformfields": {
-    "message": "Show fields current page",
+    "message": "Show fields on the current page",
     "description": "Title of context menu item that shows info next to input textfields om the page."
   },
   "contextMenuItemOptions": {
