@@ -19,8 +19,6 @@
     "description": "Label for developer."
   },
 
-
-
   "fieldName": {
     "message": "Field name",
     "description": "The label for the formfield-name of a formfield entry."
@@ -318,7 +316,15 @@
     "message": "showing history for this page only",
     "description": "Extra info next to the header title of the small popup."
   },
-  
+  "open-preference-tooltip": {
+    "message": "Open preferences",
+    "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
+  },
+  "open-bigdialog-tooltip": {
+    "message": "Open the advanced 'Manage History' dialog",
+    "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
+  },
+
   
   "notificationTitle": {
     "message": "Test notification",
@@ -457,15 +463,15 @@
   },
   "menuItemHelpOverview": {
     "message": "Help Overview",
-    "description": "Label of Invert menuitem in the Help menu."
+    "description": "Label of Help menuitem in the Help menu."
   },
   "menuItemHelpReleasenotes": {
     "message": "Release notes",
-    "description": "Label of Invert menuitem in the Help menu."
+    "description": "Label of Releasenotes menuitem in the Help menu."
   },
   "menuItemHelpAbout": {
     "message": "About",
-    "description": "Label of Invert menuitem in the Help menu."
+    "description": "Label of About menuitem in the Help menu."
   },
 
   "loading-status": {

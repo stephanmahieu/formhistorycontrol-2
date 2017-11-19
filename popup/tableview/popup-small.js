@@ -107,6 +107,16 @@ $(document).ready(function() {
     $('.context-menu-item').on('click', function(event) {
         onContextMenuClicked(event.currentTarget.id);
     });
+
+    $('#bigdialog-action').on('click', function() {
+        WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
+    });
+    $('#preference-action').on('click', function() {
+        WindowUtil.createOrFocusWindow(FHC_WINDOW_OPTIONS);
+    });
+    $('#closepopup-action').on('click', function() {
+        window.close();
+    });
 });
 
 let openChildRow;

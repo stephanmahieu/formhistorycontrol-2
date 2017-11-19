@@ -27,6 +27,38 @@ body {
     font-style: italic;
 }
 
+
+.dialog-header-action-icon {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    z-index: 2;
+    top: 4px;
+}
+
+.dialog-header-action-icon:hover {
+    transform: rotate(180deg);
+    transform-origin: 50% 45% 0;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+#preference-action {
+    right: 44px;
+    transform-origin: 50% 45% 0;
+    background: url('../../../theme/icons/dialog/preferences.png') no-repeat center center;
+}
+
+#bigdialog-action {
+    right: 24px;
+    background: url('../../../theme/icons/fhc-16.png') no-repeat center center;
+}
+
+#closepopup-action {
+    right: 4px;
+    background: url('../../../theme/icons/dialog/close-thin.png') no-repeat center center;
+}
+
 #root {
     overflow: auto;
     width: 100%;

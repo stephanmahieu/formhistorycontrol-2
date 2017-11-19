@@ -318,6 +318,14 @@
     "message": "toon historie uitsluitend voor deze pagina",
     "description": "Extra info next to the header title of the small popup."
   },
+  "open-preference-tooltip": {
+    "message": "Open het opties dialoog venster",
+    "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
+  },
+  "open-bigdialog-tooltip": {
+    "message": "Open het uitgebreide 'Manage History' venster",
+    "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
+  },
 
 
   "notificationTitle": {
@@ -457,15 +465,15 @@
   },
   "menuItemHelpOverview": {
     "message": "Help overzicht",
-    "description": "Label of Invert menuitem in the Help menu."
+    "description": "Label of Help menuitem in the Help menu."
   },
   "menuItemHelpReleasenotes": {
     "message": "Release notes",
-    "description": "Label of Invert menuitem in the Help menu."
+    "description": "Label of Releasenotes menuitem in the Help menu."
   },
   "menuItemHelpAbout": {
     "message": "Over",
-    "description": "Label of Invert menuitem in the Help menu."
+    "description": "Label of About menuitem in the Help menu."
   },
 
   "loading-status": {

@@ -19,8 +19,6 @@
     "description": "Label for developer."
   },
 
-
-
   "fieldName": {
     "message": "Όνομα Πεδίου",
     "description": "The label for the formfield-name of a formfield entry."
@@ -114,6 +112,10 @@
     "description": "Title of question dialog."
   },
 
+  "informClipboardValueCopied": {
+    "message": "Value successfully copied to the clipboard",
+    "description": "Information message that clipboard value has been copied."
+  },
 
   "confirmDeleteMultipleTitle": {
     "message": "Διαγραφή όλων των επιλεγμένων αντικειμένων;",
@@ -314,8 +316,16 @@
     "message": "Προβολή ιστορικού για αυτή τη σελίδα μόνο",
     "description": "Extra info next to the header title of the small popup."
   },
-  
-  
+  "open-preference-tooltip": {
+    "message": "Open preferences",
+    "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
+  },
+  "open-bigdialog-tooltip": {
+    "message": "Open the advanced 'Manage History' dialog",
+    "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
+  },
+
+
   "notificationTitle": {
     "message": "Δοκιμαστική ειδοποίηση",
     "description": "Title of the test notification."
@@ -453,15 +463,15 @@
   },
   "menuItemHelpOverview": {
     "message": "Σύνοψη βοήθειας",
-    "description": "Label of Invert menuitem in the Help menu."
+    "description": "Label of Help menuitem in the Help menu."
   },
   "menuItemHelpReleasenotes": {
     "message": "Σημειώσεις έκδοσης",
-    "description": "Label of Invert menuitem in the Help menu."
+    "description": "Label of Releasenotes menuitem in the Help menu."
   },
   "menuItemHelpAbout": {
     "message": "Πληροφορίες",
-    "description": "Label of Invert menuitem in the Help menu."
+    "description": "Label of About menuitem in the Help menu."
   },
 
   "loading-status": {
