@@ -57,16 +57,26 @@
             </tr>
         </tbody>
     </table>
-    <div id="htmlViewOverlay" style="display: none"></div><div id="htmlViewOverlayLabel" style="display: none" data-fhc-i18n="labelHtmlview">HTML view</div>
+    <div id="htmlViewOverlay" class="viewOverlay" style="display: none"></div><div id="htmlViewOverlayLabel" class="viewOverlayLabel" style="display: none">HTML</div>
+    <div id="textViewOverlay" class="viewOverlay" style="display: none"></div><div id="textViewOverlayLabel" class="viewOverlayLabel" style="display: none">Text</div>
+    <div id="mdViewOverlay"   class="viewOverlay" style="display: none"></div><div id="mdViewOverlayLabel"   class="viewOverlayLabel" style="display: none">Markdown</div>
+    <div id="wikiViewOverlay" class="viewOverlay" style="display: none"></div><div id="wikiViewOverlayLabel" class="viewOverlayLabel" style="display: none">Wiki</div>
 </div>
 <div id="buttons">
     <button id="buttonOkay" data-fhc-i18n="buttonOkay" class="button-right" style="display: none">Okay</button>
     <button id="buttonCancel" data-fhc-i18n="buttonCancel" class="button-right" style="display: none">Cancel</button>
     <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
 </div>
-<table id="toggleHTML"><tbody><tr>
+<table id="togglePreview"><tbody><tr>
+    <td><span data-fhc-i18n="labelPreview">View</span>:&nbsp;</td>
     <td><input id="html-view" type="checkbox"/></td>
-    <td><label for="html-view" data-fhc-i18n="labelHtmlview">HTML view</label></td>
+    <td><label for="html-view">HTML</label></td>
+    <td><input id="md-view" type="checkbox"/></td>
+    <td><label for="md-view">Markdown</label></td>
+    <td><input id="wiki-view" type="checkbox"/></td>
+    <td><label for="wiki-view">Wiki</label></td>
+    <td><input id="text-view" type="checkbox"/></td>
+    <td><label for="text-view">Text</label></td>
 </tr></tbody></table>
 
 <div id="context-menu-container">
@@ -124,6 +134,8 @@
 <script src="../../common/WindowUtil.js"></script>
 <script src="../../common/translation.js"></script>
 <script src="../../common/purify.js"></script>
+<script src="renderjs/marked.js"></script>
+<script src="renderjs/wiky.js"></script>
 <script src="entryview.js"></script>
 </body>
 </html>

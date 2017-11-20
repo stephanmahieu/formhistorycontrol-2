@@ -77,8 +77,8 @@
     "message": "Insert a new formhistory entry",
     "description": "Add a new field, info displayed in edit window."
   },
-  "labelHtmlview": {
-    "message": "HTML view",
+  "labelPreview": {
+    "message": "View",
     "description": "Label for the checkbox which toggles the HTML preview window."
   },
   "menuItemTitleClipboard": {

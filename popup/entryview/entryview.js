@@ -50,7 +50,10 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     document.getElementById("typeSelect").addEventListener("change", showHideFields);
     document.getElementById("url").addEventListener("keyup", updateHostvalue);
 
-    document.getElementById("toggleHTML").addEventListener("click", toggleHTMLView);
+    document.getElementById("html-view").addEventListener("click", toggleHTMLView);
+    document.getElementById("text-view").addEventListener("click", toggleTextView);
+    document.getElementById("md-view").addEventListener("click", toggleMarkdownView);
+    document.getElementById("wiki-view").addEventListener("click", toggleWikiView);
 
     // tooltips
     document.getElementById("btnNowdate").setAttribute('title', browser.i18n.getMessage('tooltipNowDatetimeButton'));
@@ -93,8 +96,12 @@ function onKeyClicked(event) {
             WindowUtil.doCancelModalDialog();
         } else if (isModalDatetimeDialogActive()) {
             hideModalDatetimeDialog();
-        } else if (isHTMLViewActive()) {
-            toggleHtmlViewCheckbox();
+        } else if (isPreviewActive('html')) {
+            togglePreviewCheckbox('html');
+        } else if (isPreviewActive('text')) {
+            togglePreviewCheckbox('text');
+        } else if (isPreviewActive('md')) {
+            togglePreviewCheckbox('md');
         } else {
             WindowUtil.closeThisPopup();
         }
@@ -239,7 +246,7 @@ function onDataRetrieved(data) {
 
     if (objEntryData.doWhat === "view" || (objEntryData.doWhat === "edit" && !objEntryData.isMultiple)) {
         document.getElementById('name').value = objEntryData.name;
-        document.getElementById('value').value = objEntryData.value;
+        // document.getElementById('value').value = objEntryData.value;
         document.getElementById('typeSelect').value = objEntryData.type;
         document.getElementById('used').value = objEntryData.used;
         document.getElementById('first').value = DateUtil.dateToDateString(new Date(objEntryData.first));
@@ -309,7 +316,7 @@ function showHideFields() {
         if (document.getElementById('value').value === '') {
             swapValues('value', 'multiline-value');
         }
-        document.getElementById('toggleHTML').style.display = 'none';
+        document.getElementById('togglePreview').style.display = 'none';
     } else {
         if (document.getElementById('value').value !== '') {
             swapValues('value', 'multiline-value');
@@ -318,15 +325,32 @@ function showHideFields() {
         document.getElementById('multiline-value').style.display = '';
         document.getElementById('urlRow').style.display = '';
         document.getElementById('hostRow').style.display = '';
-        document.getElementById('toggleHTML').style.display = '';
+        document.getElementById('togglePreview').style.display = '';
     }
 }
 
-function toggleHtmlViewCheckbox(){
-    document.getElementById("html-view").click();
+function togglePreviewCheckbox(prefix) {
+    document.getElementById(prefix + "-view").click();
+}
+
+function hidePreview(prefix) {
+    if (isPreviewActive(prefix)) {
+        const overlayLabel = document.getElementById(prefix + 'ViewOverlayLabel');
+        const htmlOverlay = document.getElementById(prefix + 'ViewOverlay');
+        overlayLabel.style.display = htmlOverlay.style.display = 'none';
+        document.getElementById(prefix + "-view").checked = false;
+        _removeChildren(htmlOverlay);
+    }
+}
+
+function isPreviewActive(prefix) {
+    return (document.getElementById(prefix + '-view').checked);
 }
 
 function toggleHTMLView(event) {
+    hidePreview('text');
+    hidePreview('md');
+    hidePreview('wiki');
     const checkbox = event.target;
     const htmlOverlay = document.getElementById('htmlViewOverlay');
     const overlayLabel = document.getElementById('htmlViewOverlayLabel');
@@ -334,17 +358,88 @@ function toggleHTMLView(event) {
         // show HTML overlay
         _removeChildren(htmlOverlay);
         const value = document.getElementById('multiline-value').value;
+        // use DOMPurify renderer (sanitized)
         htmlOverlay.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
         overlayLabel.style.display = htmlOverlay.style.display = '';
     } else {
-        // remove HTML overlay
+        // remove overlay
         overlayLabel.style.display = htmlOverlay.style.display = 'none';
         _removeChildren(htmlOverlay);
     }
 }
 
-function isHTMLViewActive() {
-    return (document.getElementById('html-view').checked);
+function toggleTextView(event) {
+    hidePreview('html');
+    hidePreview('md');
+    hidePreview('wiki');
+    const checkbox = event.target;
+    const textOverlay = document.getElementById('textViewOverlay');
+    const overlayLabel = document.getElementById('textViewOverlayLabel');
+    if (checkbox.checked) {
+        // show TEXT overlay
+        _removeChildren(textOverlay);
+        const value = document.getElementById('multiline-value').value;
+        const preElement = document.createElement('pre');
+        preElement.appendChild(document.createTextNode(value));
+        textOverlay.appendChild(preElement);
+        overlayLabel.style.display = textOverlay.style.display = '';
+    } else {
+        // remove overlay
+        overlayLabel.style.display = textOverlay.style.display = 'none';
+        _removeChildren(textOverlay);
+    }
+}
+
+function toggleMarkdownView(event) {
+    hidePreview('html');
+    hidePreview('text');
+    hidePreview('wiki');
+    const checkbox = event.target;
+    const mdOverlay = document.getElementById('mdViewOverlay');
+    const overlayLabel = document.getElementById('mdViewOverlayLabel');
+    if (checkbox.checked) {
+        // show Markdown overlay
+        _removeChildren(mdOverlay);
+        // use marked renderer (sanitize: true)
+        marked.setOptions({
+            renderer: new marked.Renderer(),
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            sanitize: true,
+            smartLists: true,
+            smartypants: true
+        });
+        const value = marked(document.getElementById('multiline-value').value);
+        mdOverlay.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
+        overlayLabel.style.display = mdOverlay.style.display = '';
+    } else {
+        // remove overlay
+        overlayLabel.style.display = mdOverlay.style.display = 'none';
+        _removeChildren(mdOverlay);
+    }
+}
+
+function toggleWikiView(event) {
+    hidePreview('html');
+    hidePreview('text');
+    hidePreview('md');
+    const checkbox = event.target;
+    const wikiOverlay = document.getElementById('wikiViewOverlay');
+    const overlayLabel = document.getElementById('wikiViewOverlayLabel');
+    if (checkbox.checked) {
+        // show Markdown overlay
+        _removeChildren(wikiOverlay);
+        // usu wiki renderer
+        const value = wiky.process(document.getElementById('multiline-value').value);
+        wikiOverlay.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
+        overlayLabel.style.display = wikiOverlay.style.display = '';
+    } else {
+        // remove overlay
+        overlayLabel.style.display = wikiOverlay.style.display = 'none';
+        _removeChildren(wikiOverlay);
+    }
 }
 
 function _removeChildren(element) {

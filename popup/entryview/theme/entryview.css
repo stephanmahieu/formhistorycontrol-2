@@ -163,16 +163,18 @@ textarea[disabled] {
     cursor: pointer;
 }
 
-#toggleHTML {
+#togglePreview {
+    margin-left: 8px;
+    bottom: 6px;
     width: unset;
     position: absolute;
-    bottom: 10px;
 }
-#toggleHTML label {
+
+#togglePreview label {
     padding-left: 4px;
 }
 
-#htmlViewOverlay {
+.viewOverlay {
     all: initial;
     box-shadow: 5px 3px 30px black;
     border: 2px solid #3a87e0;
@@ -186,7 +188,7 @@ textarea[disabled] {
     overflow: auto;
     padding: 8px;
 }
-#htmlViewOverlayLabel {
+.viewOverlayLabel {
     position: absolute;
     top: 12px;
     right: 32px;
@@ -199,4 +201,18 @@ textarea[disabled] {
     padding: 0 2px;
     color: black;
     font-size: 10px;
+}
+
+#togglePreview input {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+#togglePreview td {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#togglePreview label {
+    padding-right: 4px;
 }
