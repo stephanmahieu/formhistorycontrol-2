@@ -193,13 +193,14 @@ function createDataTable(tableElement, dateformat) {
             },
             { title: "Id", responsivePriority: 2 },
             { title: i18nFld.name, responsivePriority: 3 },
-            { title: i18nFld.value, responsivePriority: 4  },
-            { title: i18nFld.type, responsivePriority: 10  },
-            { title: i18nFld.count, responsivePriority: 5  },
-            { title: i18nFld.first, responsivePriority: 9  },
-            { title: i18nFld.last, responsivePriority: 7  },
+            { title: i18nFld.value, responsivePriority: 4 },
+            { title: i18nFld.type, responsivePriority: 10 },
+            { title: i18nFld.count, responsivePriority: 5 },
+            { title: i18nFld.first, responsivePriority: 9 },
+            { title: i18nFld.last, responsivePriority: 7 },
             { title: i18nFld.age, responsivePriority: 6 },
-            { title: i18nFld.host, responsivePriority: 8  }
+            { title: i18nFld.host, responsivePriority: 8 },
+            { title: i18nFld.uri, responsivePriority: 11 }
         ],
         columnDefs: [
             {
@@ -267,7 +268,15 @@ function createDataTable(tableElement, dateformat) {
                 data: 7,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
-                    return DataTableUtil.ellipsis(data, type, 25, false, true);
+                    return DataTableUtil.ellipsis(data, type, 20, false, true);
+                }
+            },
+            {
+                targets: 10,
+                data: 8,
+                className: "dt-head-left",
+                render: function ( data, type /*, full, meta */) {
+                    return DataTableUtil.ellipsis(data, type, 30, false, true);
                 }
             }
         ]
