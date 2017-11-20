@@ -323,6 +323,9 @@ class WindowUtil {
         // remove comments
         text = text.replace(/<!--[\s\S]*?-->/g, '');
 
+        // remove inline style blocks
+        text = text.replace(/((<style>)|(<style type=.+))((\s+)|(\S+)|(\r+)|(\n+))(.+)((\s+)|(\S+)|(\r+)|(\n+))(<\/style>)/g, '');
+
         // strip all remaining tags
         text = text.replace(/<(\/|\w)[^>]*>/g, ' ');
 
