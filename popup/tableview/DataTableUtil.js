@@ -82,6 +82,13 @@ class DataTableUtil {
      * @returns {*}
      */
     static ellipsis(data, type, cutoff, wordbreak, escapeHtml) {
+        let esc = function(t) {
+            return t
+                .replace( /&/g, '&amp;' )
+                .replace( /</g, '&lt;' )
+                .replace( />/g, '&gt;' )
+                .replace( /"/g, '&quot;' );
+        };
         // Order, search and type get the original data
         if (type !== 'display') {
             return data;
@@ -104,7 +111,7 @@ class DataTableUtil {
         }
 
         // if what is being displayed in the table is too large, add the data in the tooltip (title)
-        const tooltipText = WindowUtil.htmlToReadableText(displayData);
+        const tooltipText = esc(WindowUtil.htmlToReadableText(displayData));
         return '<span class="ellipsis" title="' + tooltipText + '">' + shortened + '&#8230;</span>';
     }
 
