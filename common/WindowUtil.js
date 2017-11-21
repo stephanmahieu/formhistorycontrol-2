@@ -10,8 +10,8 @@ const FHC_WINDOW_OPTIONS = { path:"popup/options/options.html",     width: 450, 
 const FHC_WINDOW_ABOUT   = { path:"popup/about/about.html",         width: 600, height:300, type:"popup", currentId: -1 };
 const FHC_WINDOW_IMPORT  = { path:"popup/importexport/import.html", width: 350, height:250, type:"popup", currentId: -1 };
 const FHC_WINDOW_EXPORT  = { path:"popup/importexport/export.html", width: 350, height:250, type:"popup", currentId: -1 };
-const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 500, height:315, type:"popup", currentId: -1 };
-const FHC_WINDOW_EDITRVW = { path:"popup/entryview/entryview.html", width: 500, height:415, type:"popup", currentId: -1 };
+const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 550, height:315, type:"popup", currentId: -1 };
+const FHC_WINDOW_EDITRVW = { path:"popup/entryview/entryview.html", width: 550, height:415, type:"popup", currentId: -1 };
 
 const FHC_WINDOW_HELP     = { path:"https://formhistory.blogspot.nl/2009/06/introduction-to-form-history-control.html", width: 990, height:900, type:"normal", currentId: -1 };
 const FHC_WINDOW_RELNOTES = { path:"https://formhistory.blogspot.nl/2009/05/release-notes.html",                        width: 990, height:900, type:"normal", currentId: -1 };
