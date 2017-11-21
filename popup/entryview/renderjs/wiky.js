@@ -28,7 +28,7 @@ wiky.process = function (wikitext, options) {
         else if (line.match(/^:+/) !== null) {
             // find start line and ending line
             let start = i;
-            while (i < lines.length && lines[i].match(/^\:+/) !== null) {
+            while (i < lines.length && lines[i].match(/^:+/) !== null) {
                 i++;
             }
             i--;
@@ -41,15 +41,15 @@ wiky.process = function (wikitext, options) {
         else if (line.match(/^(\*+) /) !== null) {
             // find start line and ending line
             let start = i;
-            while (i < lines.length && lines[i].match(/^(\*+|\#\#+)\:? /) !== null) i++;
+            while (i < lines.length && lines[i].match(/^(\*+|##+):? /) !== null) i++;
             i--;
 
             html += wiky.process_bullet_point(lines, start, i);
         }
-        else if (line.match(/^(\#+) /) !== null) {
+        else if (line.match(/^(#+) /) !== null) {
             // find start line and ending line
             let start = i;
-            while (i < lines.length && lines[i].match(/^(\#+|\*\*+)\:? /) !== null) {
+            while (i < lines.length && lines[i].match(/^(#+|\*\*+):? /) !== null) {
                 i++;
             }
             i--;
@@ -71,13 +71,13 @@ wiky.process_indent = function (lines, start, end) {
     for (let i = start; i <= end; i++) {
         html += "<dd>";
 
-        let this_count = lines[i].match(/^(\:+)/)[1].length;
+        let this_count = lines[i].match(/^(:+)/)[1].length;
 
         html += wiky.process_normal(lines[i].substring(this_count));
 
         let nested_end = i;
         for (let j = i + 1; j <= end; j++) {
-            let nested_count = lines[j].match(/^(\:+)/)[1].length;
+            let nested_count = lines[j].match(/^(:+)/)[1].length;
             if (nested_count <= this_count) {
                 break;
             } else {
@@ -104,7 +104,7 @@ wiky.process_bullet_point = function (lines, start, end) {
     for (let i = start; i <= end; i++) {
         html += "<li>";
 
-        let this_count = lines[i].match(/^(\*+|\#+) /)[1].length;
+        let this_count = lines[i].match(/^(\*+|#+) /)[1].length;
 
         html += wiky.process_normal(lines[i].substring(this_count + 1));
 
@@ -112,7 +112,7 @@ wiky.process_bullet_point = function (lines, start, end) {
         {
             let nested_end = i;
             for (let j = i + 1; j <= end; j++) {
-                let nested_count = lines[j].match(/^(\*+|\#+)\:? /)[1].length;
+                let nested_count = lines[j].match(/^(\*+|#+):? /)[1].length;
 
                 if (nested_count < this_count)
                     break;
@@ -133,7 +133,7 @@ wiky.process_bullet_point = function (lines, start, end) {
         {
             let nested_end = i;
             for (let j = i + 1; j <= end; j++) {
-                let nested_count = lines[j].match(/^(\*+|\#+)\:? /)[1].length;
+                let nested_count = lines[j].match(/^(\*+|#+):? /)[1].length;
                 if (nested_count <= this_count) {
                     break;
                 } else {
@@ -151,7 +151,7 @@ wiky.process_bullet_point = function (lines, start, end) {
         {
             let nested_end = i;
             for (let j = i + 1; j <= end; j++) {
-                let nested_count = lines[j].match(/^(\*+|\#+)\:? /)[1].length;
+                let nested_count = lines[j].match(/^(\*+|#+):? /)[1].length;
 
                 if (nested_count < this_count) {
                     break;
