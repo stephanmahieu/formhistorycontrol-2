@@ -374,7 +374,7 @@ function updateTableRowsAgeColumn() {
         }
     );
     if (redraw) {
-        table.draw();
+        table.draw('page');
     }
 }
 
