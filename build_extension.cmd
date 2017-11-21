@@ -1,6 +1,6 @@
 @echo off
 
-set ZIP_FILE=formhistory_2020.zip
+set ZIP_FILE=formhistory_2021.zip
 set ZIP_APP=7z.exe
 
 rem --(check if xpi exist)-------------------------------------
