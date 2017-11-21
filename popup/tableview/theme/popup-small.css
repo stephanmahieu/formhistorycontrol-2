@@ -105,6 +105,12 @@ div.detail-root .label {
     color: black;
 }
 
+div.detail-info {
+    max-width: 620px;
+    max-height: 250px;
+    overflow: hidden !important;
+}
+
 table.dataTable tbody td.no-padding {
     padding: 0;
 }

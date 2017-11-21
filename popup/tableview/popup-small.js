@@ -266,7 +266,7 @@ function createDataTable(dateformat) {
                 data: 7,
                 className: "dt-head-left",
                 render: function ( data, type/*, full, meta */) {
-                    return DataTableUtil.ellipsis(data, type, 20, false, true);
+                    return DataTableUtil.ellipsis(data, type, 15, false, true);
                 }
             },
             {
@@ -274,7 +274,7 @@ function createDataTable(dateformat) {
                 data: 8,
                 className: "dt-head-left",
                 render: function ( data, type/*, full, meta */) {
-                    return DataTableUtil.ellipsis(data, type, 30, false, true);
+                    return DataTableUtil.ellipsis(data, type, 15, false, true);
                 }
             }
         ]
