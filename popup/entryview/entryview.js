@@ -55,10 +55,6 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     document.getElementById("md-view").addEventListener("click", toggleMarkdownView);
     document.getElementById("wiki-view").addEventListener("click", toggleWikiView);
 
-    // tooltips
-    document.getElementById("btnNowdate").setAttribute('title', browser.i18n.getMessage('tooltipNowDatetimeButton'));
-    document.getElementById("btnErase").setAttribute('title', browser.i18n.getMessage('tooltipEraseDatetimeButton'));
-
     // context menu
     document.querySelector("body").addEventListener("contextmenu", showContextMenu);
     document.querySelector("body").addEventListener("click", hideContextMenu);
