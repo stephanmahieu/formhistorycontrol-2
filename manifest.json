@@ -20,9 +20,11 @@
   "permissions": [
     "menus",
     "notifications",
-    "storage",
     "activeTab",
-    "tabs"
+    "tabs",
+    "clipboardWrite",
+    "storage",
+    "unlimitedStorage"
   ],
 
   "icons": {

@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("#buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
+
+    // check if database is accessible
+    WindowUtil.isDatabaseAccessible()
 });
 
 let currentOptions;

@@ -64,7 +64,7 @@ function handleImport() {
         // only process xml files
         if ('text/xml' !== f.type) {
             // console.log("Not an xml file, skipping...");
-            WindowUtil.showModalError("importErrorTitle", "importErrorNotXml");
+            WindowUtil.showModalError({titleId:"importErrorTitle", msgId:"importErrorNotXml"});
             continue;
         }
 
@@ -74,15 +74,15 @@ function handleImport() {
         reader.onerror = function(evt) {
             switch(evt.target.error.code) {
                 case evt.target.error.NOT_FOUND_ERR:
-                    WindowUtil.showModalError("importErrorTitle", "importErrorNotFound");
+                    WindowUtil.showModalError({titleId:"importErrorTitle", msgId:"importErrorNotFound"});
                     break;
                 case evt.target.error.NOT_READABLE_ERR:
-                    WindowUtil.showModalError("importErrorTitle", "importErrorNotReadable");
+                    WindowUtil.showModalError({titleId:"importErrorTitle", msgId:"importErrorNotReadable"});
                     break;
                 case evt.target.error.ABORT_ERR:
                     break; // noop
                 default:
-                    WindowUtil.showModalError("importErrorTitle", "importErrorUnknown");
+                    WindowUtil.showModalError({titleId:"importErrorTitle", msgId:"importErrorUnknown"});
             }
         };
 
@@ -102,7 +102,7 @@ function handleImport() {
 
         reader.onabort = function(/*evt*/) {
             // console.log("- cancelled");
-            WindowUtil.showModalError("importErrorTitle", "importErrorUnknown");
+            WindowUtil.showModalError({titleId:"importErrorTitle", msgId:"importErrorUnknown"});
         };
 
         reader.onload = function(/*evt*/) {

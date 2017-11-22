@@ -282,6 +282,11 @@ function createDataTable(dateformat) {
 }
 
 function populateFromDatabase(table, forFields, forHost) {
+    // check if database is accessible
+    if (!WindowUtil.isDatabaseAccessible()) {
+        return;
+    }
+
     $("#overlaystatus").addClass('spinner').show();
 
     let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);

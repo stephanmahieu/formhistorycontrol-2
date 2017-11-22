@@ -142,19 +142,19 @@ function onOkayButton() {
                 checkFields.push('url');
             }
             if (!validateRequiredFields(checkFields)) {
-                WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorMissingRequired');
+                WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorMissingRequired'});
                 return;
             }
             if (!validateNumeric('used')) {
-                WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorNotNumeric');
+                WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorNotNumeric'});
                 return;
             }
             if (!validateDates()) {
-                WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorLastBeforeFirst');
+                WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorLastBeforeFirst'});
                 return;
             }
             if (newType !== 'input' && !validateURL('url')) {
-                WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorInvalidURL');
+                WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorInvalidURL'});
                 return;
             }
             setNewValuesToObjEntryData();
@@ -172,34 +172,34 @@ function onOkayButton() {
                     checkFields.push('url');
                 }
                 if (!validateRequiredFields(checkFields)) {
-                    WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorMissingRequired');
+                    WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorMissingRequired'});
                     return;
                 }
                 if (!validateNumeric('used')) {
-                    WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorNotNumeric');
+                    WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorNotNumeric'});
                     return;
                 }
                 if (!validateDates()) {
-                    WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorLastBeforeFirst');
+                    WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorLastBeforeFirst'});
                     return;
                 }
                 if (newType !== 'input' && !validateURL('url')) {
-                    WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorInvalidURL');
+                    WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorInvalidURL'});
                     return;
                 }
                 setNewValuesToObjEntryData();
                 storeEntry(6);
             } else {
                 if (!validateAtLeastOneField(['used','first','last'])) {
-                    WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorAtLastOneField');
+                    WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorAtLastOneField'});
                     return;
                 }
                 if (!validateNumeric('used')) {
-                    WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorNotNumeric');
+                    WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorNotNumeric'});
                     return;
                 }
                 if (!validateDates()) {
-                    WindowUtil.showModalWarning('dialogWarningTitle', 'validationErrorLastBeforeFirst');
+                    WindowUtil.showModalWarning({titleId:'dialogWarningTitle', msgId:'validationErrorLastBeforeFirst'});
                     return;
                 }
                 setNewValuesToObjEntryData();

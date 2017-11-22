@@ -114,6 +114,23 @@
     "description": "Title of question dialog."
   },
 
+
+  "dialogErrorTitleDatabase": {
+    "message": "Opslag fout, geen database toegang!",
+    "description": "Title of error dialog for database access errors."
+  },
+  "databaseError": {
+    "message": "Toegang tot de database is geblokkeerd ($ERROR$). Deze applicatie vereist Cookie permissies, controleer de browser Privacy & Beveiliging opties.",
+    "description": "Error displayed when the database is not accessible",
+    "placeholders": {
+      "error" : {
+        "content" : "$1",
+        "example" : "SecurityError"
+      }
+    }
+  },
+
+
   "informClipboardValueCopied": {
     "message": "Waarde succesvol gekopieerd naar het klembord",
     "description": "Information message that clipboard value has been copied."

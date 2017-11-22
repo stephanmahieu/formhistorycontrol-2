@@ -112,6 +112,23 @@
     "description": "Title of question dialog."
   },
 
+
+  "dialogErrorTitleDatabase": {
+    "message": "Storage error, no database access!",
+    "description": "Title of error dialog for database access errors."
+  },
+  "databaseError": {
+    "message": "Database access has been blocked ($ERROR$). This application requires cookie permission, please check browser Privacy and Security preferences.",
+    "description": "Error displayed when the database is not accessible",
+    "placeholders": {
+      "error" : {
+        "content" : "$1",
+        "example" : "SecurityError"
+      }
+    }
+  },
+
+
   "informClipboardValueCopied": {
     "message": "Value successfully copied to the clipboard",
     "description": "Information message that clipboard value has been copied."

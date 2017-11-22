@@ -308,7 +308,7 @@ function deleteSelectedItemsAsk() {
     if (rows.data().length > 1) {
         // multiple items to be deleted, ask confirmation
         try {
-            WindowUtil.showModalYesNo('confirmDeleteMultipleTitle', 'confirmDeleteMultipleMessage').then(
+            WindowUtil.showModalYesNo({titleId:'confirmDeleteMultipleTitle', msgId:'confirmDeleteMultipleMessage'}).then(
                 value=>{deleteSelectedItems(value);},
                 reason=>{console.log('rejected ' + reason);}
             );
@@ -379,6 +379,11 @@ function updateTableRowsAgeColumn() {
 }
 
 function populateViewFromDatabase(table) {
+    // check if database is accessible
+    if (!WindowUtil.isDatabaseAccessible()) {
+        return;
+    }
+
     $("#overlaystatus").addClass('spinner').show();
 
     let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
@@ -585,7 +590,7 @@ function onMenuClicked(menuItemId) {
         case "copy2clipboard":
             if (isMenuItemEnabled(menuItemId)) {
                 DataTableUtil.copySelectedEntryToClipboard($('#fhcTable').DataTable());
-                WindowUtil.showModalInformation('dialogInformationTitle', 'informClipboardValueCopied');
+                WindowUtil.showModalInformation({titleId:'dialogInformationTitle', msgId:'informClipboardValueCopied'});
             }
             break;
 

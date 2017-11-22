@@ -18,6 +18,17 @@ const FHC_WINDOW_RELNOTES = { path:"https://formhistory.blogspot.nl/2009/05/rele
 
 class WindowUtil {
 
+    static isDatabaseAccessible() {
+        try {
+            indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
+            return true
+        } catch (ex) {
+            console.error("Error opening database: " + ex.name + ": " + ex.message + "\nEnabling cookies might resolve this.");
+            WindowUtil.showModalError({titleId:'dialogErrorTitleDatabase', msgId:'databaseError', args:ex.name});
+        }
+        return false;
+    }
+
     /**
      * Show a notification message.
      * @param message
@@ -122,23 +133,23 @@ class WindowUtil {
         });
     }
 
-    static showModalInformation(titleId, messageId) {
-        return WindowUtil.showModalDialog(titleId, messageId, 'modal-information');
+    static showModalInformation(messageObj) {
+        return WindowUtil.showModalDialog(messageObj, 'modal-information');
     }
-    static showModalWarning(titleId, messageId) {
-        return WindowUtil.showModalDialog(titleId, messageId, 'modal-warning');
+    static showModalWarning(messageObj) {
+        return WindowUtil.showModalDialog(messageObj, 'modal-warning');
     }
-    static showModalError(titleId, messageId) {
-        return WindowUtil.showModalDialog(titleId, messageId, 'modal-error');
+    static showModalError(messageObj) {
+        return WindowUtil.showModalDialog(messageObj, 'modal-error');
     }
-    static showModalYesNo(titleId, messageId) {
-        return WindowUtil.showModalDialog(titleId, messageId, 'modal-question', 'YesNo');
+    static showModalYesNo(messageObj) {
+        return WindowUtil.showModalDialog(messageObj, 'modal-question', 'YesNo');
     }
 
-    static showModalDialog(titleId, messageId, iconClass, buttons) {
+    static showModalDialog(messageObj, iconClass, buttons) {
         const dlgTitle = document.createElement('span');
         dlgTitle.classList.add('modal-title');
-        dlgTitle.appendChild(document.createTextNode(browser.i18n.getMessage(titleId)));
+        dlgTitle.appendChild(document.createTextNode(browser.i18n.getMessage(messageObj.titleId)));
 
         const dlgClose = document.createElement('span');
         dlgClose.classList.add('modal-close', 'modal-button');
@@ -153,7 +164,7 @@ class WindowUtil {
 
         const dlgText = document.createElement('div');
         dlgText.classList.add('modal-message');
-        dlgText.appendChild(document.createTextNode(browser.i18n.getMessage(messageId)));
+        dlgText.appendChild(document.createTextNode(browser.i18n.getMessage(messageObj.msgId, messageObj.args)));
 
         const dlgContent = document.createElement('div');
         dlgContent.classList.add('modal-content');
