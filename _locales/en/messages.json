@@ -118,7 +118,7 @@
     "description": "Title of error dialog for database access errors."
   },
   "databaseError": {
-    "message": "Database access has been blocked ($ERROR$). This application requires cookie permission, please check browser Privacy and Security preferences.",
+    "message": "Database access has been blocked ($ERROR$). This application requires cookie permissions, please check the Privacy and Security preferences of the browser",
     "description": "Error displayed when the database is not accessible",
     "placeholders": {
       "error" : {

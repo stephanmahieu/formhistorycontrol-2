@@ -112,6 +112,23 @@
     "description": "Title of question dialog."
   },
 
+
+  "dialogErrorTitleDatabase": {
+    "message": "Σφάλμα αποθηκευτικού χώρου, η πρόσβαση στην βάση δεδομένων απορρίφθηκε!",
+    "description": "Title of error dialog for database access errors."
+  },
+  "databaseError": {
+    "message": "Η πρόσβαση στην βάση δεδομένων εμποδίστηκε ($ERROR$). Αυτή η εφαρμογή απαιτεί άδεια στα cookies, παρακαλώ ελέγξτε τις ρυθμίσεις Απόρρητο & ασφάλεια.",
+    "description": "Error displayed when the database is not accessible",
+    "placeholders": {
+      "error" : {
+        "content" : "$1",
+        "example" : "SecurityError"
+      }
+    }
+  },
+
+
   "informClipboardValueCopied": {
     "message": "Η τιμή αντιγράφηκε με επιτυχία στο πρόχειρο",
     "description": "Information message that clipboard value has been copied."
