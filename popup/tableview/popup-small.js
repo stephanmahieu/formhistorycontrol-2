@@ -273,6 +273,8 @@ function createDataTable(dateformat) {
                 targets: 10,
                 data: 8,
                 className: "dt-head-left",
+                visible: false,
+                searchable: true,
                 render: function ( data, type/*, full, meta */) {
                     return DataTableUtil.ellipsis(data, type, 15, false, true);
                 }
