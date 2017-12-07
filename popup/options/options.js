@@ -45,7 +45,9 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("keyup", onKeyClicked);
 
     // check if database is accessible
-    WindowUtil.isDatabaseAccessible()
+    // !! opening database in a popup script behaves differently across current/beta/nightly versions,
+    // !! also db is usually opened from a background script so maybe activate (much) later
+    // WindowUtil.isDatabaseAccessible()
 });
 
 let currentOptions;
