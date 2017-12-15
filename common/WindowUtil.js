@@ -60,7 +60,7 @@ class WindowUtil {
     static focusPopupWindow(curWindow) {
         let newState = curWindow.state;
         if (newState === "minimized" || newState === "docked" ) {
-            newState = "normal;";
+            newState = "normal";
         }
         browser.windows.update(curWindow.id, {focused: true, state: newState, drawAttention: true});
     }
@@ -71,13 +71,22 @@ class WindowUtil {
             url: popupURL,
             type: fhcWindowObject.type,
             height: fhcWindowObject.height,
-            width: fhcWindowObject.width
+            width: fhcWindowObject.width-1
         });
         creating.then(
             (windowInfo) => {
                 // console.log(`Created window: ${windowInfo.id} (${fhcWindowObject.path})`);
                 fhcWindowObject.currentId = windowInfo.id;
-                this.optionsCloseButton(fhcWindowObject);
+
+                // bugfix! Window content not displayed on Ubuntu, create 1 px too small, resize after creation
+                return fhcWindowObject;                
+            },
+            (error) => {
+                console.error(`Error: ${error}`);
+            }
+        ).then(
+            fhcWobj => {
+                setTimeout(()=>{ WindowUtil._updateWindowContent(fhcWobj); }, 250);
             },
             (error) => {
                 console.error(`Error: ${error}`);
@@ -85,17 +94,22 @@ class WindowUtil {
         );
     }
 
-    static optionsCloseButton(fhcWindowObject) {
+    static _updateWindowContent(fhcWindowObject) {
+        // console.log('_updateWindowContent, winId=' + fhcWindowObject.currentId + '  width=' + fhcWindowObject.width);
+        browser.windows.update(fhcWindowObject.currentId, {width: fhcWindowObject.width});
+        WindowUtil._optionsCloseButton(fhcWindowObject);
+    }
+
+    static _optionsCloseButton(fhcWindowObject) {
+        // console.log('_optionsCloseButton, path=' + fhcWindowObject.path);
         if (fhcWindowObject.path.includes('options.html')) {
             // Send a notification to the options popup (via a background-script) that it should add a close-button.
             // The background script re-sends the message delayed (as 999) to give the popup time to finish loading.
             // We can not delay here because when the popup that triggered this event closes, the timed delay would be
             // cancelled ans no message would be sent.
-
-            // console.log('sending an event intended for options.html popup');
-            browser.runtime.sendMessage({
-                eventType: 998
-            });
+            setTimeout(()=>{browser.runtime.sendMessage({eventType: 998});}, 100);
+            setTimeout(()=>{browser.runtime.sendMessage({eventType: 998});}, 250);
+            setTimeout(()=>{browser.runtime.sendMessage({eventType: 998});}, 500);
         }
     }
 

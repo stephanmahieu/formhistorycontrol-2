@@ -55,6 +55,14 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 updateSingleValue(fhcEvent);
                 break;
 
+            case 338:
+                WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
+                break;
+
+            case 339:
+                WindowUtil.createOrFocusWindow(FHC_WINDOW_OPTIONS);
+                break;
+
             case 444:
                 // item(s) have been deleted from the database (by popup script)
                 browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
@@ -67,8 +75,8 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 return true;
 
             case 998:
-                // resend the message delayed as 999, do it multiple times so at least the last one is most
-                // likely received.
+                // resend the message delayed as 999, do it multiple times so at least the last one is most likely received.
+                // console.log('Received an event (998) intended for options.html popup');
                 setTimeout(() => {browser.runtime.sendMessage({eventType: 999});}, 200);
                 setTimeout(() => {browser.runtime.sendMessage({eventType: 999});}, 350);
                 setTimeout(() => {browser.runtime.sendMessage({eventType: 999});}, 500);

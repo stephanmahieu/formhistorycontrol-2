@@ -10,7 +10,9 @@
 browser.runtime.onMessage.addListener(fhcEvent => {
     if (fhcEvent.eventType) {
         switch (fhcEvent.eventType) {
+            case 998:
             case 999:
+                // console.log('received a ' + fhcEvent.eventType + ' event, unhide close button.');
                 document.querySelector("#buttonClose").style.display = "inline";
                 break;
             case 888:

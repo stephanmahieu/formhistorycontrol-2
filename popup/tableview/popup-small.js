@@ -109,10 +109,16 @@ $(document).ready(function() {
     });
 
     $('#bigdialog-action').on('click', function() {
-        WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
+        // Let background script open the popup (WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);)
+        browser.runtime.sendMessage({eventType: 338}).then(null,
+            error=>console.log(`Error sending open-bigdialog event: ${error}`)
+        )
     });
     $('#preference-action').on('click', function() {
-        WindowUtil.createOrFocusWindow(FHC_WINDOW_OPTIONS);
+        // Let background script open the popup (WindowUtil.createOrFocusWindow(FHC_WINDOW_OPTIONS);)
+        browser.runtime.sendMessage({eventType: 339}).then(null,
+            error=>console.log(`Error sending open-preference event: ${error}`)
+        )
     });
     $('#closepopup-action').on('click', function() {
         window.close();
