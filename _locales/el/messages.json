@@ -295,6 +295,12 @@
   },
 
 
+  "aboutTitle": {
+    "message": "Πληροφορίες",
+    "description": "Title of the About window."
+  },
+
+
   "optionTitle": {
     "message": "Επιλογές",
     "description": "Title of the options window."

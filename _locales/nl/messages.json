@@ -297,6 +297,12 @@
   },
 
 
+  "aboutTitle": {
+    "message": "Over",
+    "description": "Title of the About window."
+  },
+
+
   "optionTitle": {
     "message": "Opties",
     "description": "Title of the options window."
