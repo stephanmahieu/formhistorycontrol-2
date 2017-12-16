@@ -156,9 +156,15 @@ class DataTableUtil {
         );
 
         if (data[3] === 'input' && primaryKeys.length === 1 && doWhat === 'view') {
-            WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
+            // Let background script open the popup (WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);)
+            browser.runtime.sendMessage({eventType: 337}).then(null,
+                error=>console.log(`Error sending open-entryview event: ${error}`)
+            )
         } else {
-            WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
+            // Let background script open the popup (WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);)
+            browser.runtime.sendMessage({eventType: 336}).then(null,
+                error=>console.log(`Error sending open-editview event: ${error}`)
+            )
         }
     }
 
@@ -168,10 +174,16 @@ class DataTableUtil {
             this.createEntryObject(data, doWhat, [data[0]])
         );
 
-        if (data[3] === 'input' && doWhat === 'view') {
-            WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
+        if (data[3] === 'input' && doWhat === 'view') {            
+            // Let background script open the popup (WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);)
+            browser.runtime.sendMessage({eventType: 337}).then(null,
+                error=>console.log(`Error sending open-entryview event: ${error}`)
+            )
         } else {
-            WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
+            // Let background script open the popup (WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);)
+            browser.runtime.sendMessage({eventType: 336}).then(null,
+                error=>console.log(`Error sending open-editview event: ${error}`)
+            )
         }
     }
 
@@ -187,9 +199,15 @@ class DataTableUtil {
 
         // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
         if (data[3] === 'input' && doWhat === 'view') {
-            WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
+            // Let background script open the popup (WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);)
+            browser.runtime.sendMessage({eventType: 337}).then(null,
+                error=>console.log(`Error sending open-entryview event: ${error}`)
+            )
         } else {
-            WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
+            // Let background script open the popup (WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);)
+            browser.runtime.sendMessage({eventType: 336}).then(null,
+                error=>console.log(`Error sending open-editview event: ${error}`)
+            )
         }
     }
 

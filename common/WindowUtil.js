@@ -71,7 +71,7 @@ class WindowUtil {
             url: popupURL,
             type: fhcWindowObject.type,
             height: fhcWindowObject.height,
-            width: fhcWindowObject.width-1
+            width: fhcWindowObject.width
         });
         creating.then(
             (windowInfo) => {
@@ -95,9 +95,24 @@ class WindowUtil {
     }
 
     static _updateWindowContent(fhcWindowObject) {
-        // console.log('_updateWindowContent, winId=' + fhcWindowObject.currentId + '  width=' + fhcWindowObject.width);
-        browser.windows.update(fhcWindowObject.currentId, {width: fhcWindowObject.width});
         WindowUtil._optionsCloseButton(fhcWindowObject);
+
+        // console.log('_updateWindowContent, winId=' + fhcWindowObject.currentId + '  height=' + fhcWindowObject.height);
+        setTimeout(()=>{
+            //console.log('Update height after 500ms');
+            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
+            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
+        }, 500);
+        setTimeout(()=>{
+            //console.log('Update height after 1500ms');
+            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
+            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
+        }, 1500);
+        setTimeout(()=>{
+            //console.log('Update height after 3000ms');
+            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
+            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
+        }, 3000);
     }
 
     static _optionsCloseButton(fhcWindowObject) {

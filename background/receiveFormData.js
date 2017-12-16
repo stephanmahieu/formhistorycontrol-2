@@ -55,6 +55,14 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 updateSingleValue(fhcEvent);
                 break;
 
+            case 336:
+                WindowUtil.createNewPopupWindow(FHC_WINDOW_EDITRVW);
+                break;
+
+            case 337:
+                WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);
+                break;
+
             case 338:
                 WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
                 break;
