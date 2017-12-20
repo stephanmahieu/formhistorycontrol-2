@@ -1,2 +1,504 @@
 {
+  "extensionName": {
+    "message": "Form History Control (II)",
+    "description": "The title of this extension"
+  },
+
+  "extensionDescriptionLabel": {
+    "message": "Beschreibung",
+    "description": "Label for description."
+  },
+
+  "extensionDescription": {
+    "message": "Ein Add-on zur Pflege der Formularhistorie (Suchen, Editieren, Löschen, Export/Import) und einfacher Formularfüller, jetzt Multiprocess (e10s) und WebExtension kompatibel!",
+    "description": "Description of this extension."
+  },
+
+  "extensionDeveloperLabel": {
+    "message": "Entwickler",
+    "description": "Label for developer."
+  },
+
+  "fieldName": {
+    "message": "Feldname",
+    "description": "The label for the formfield-name of a formfield entry."
+  },
+  "fieldValue": {
+    "message": "Inhalt",
+    "description": "The label for the value/content of a formfield entry."
+  },
+  "fieldType": {
+    "message": "Typ",
+    "description": "The label for the type of a formfield entry."
+  },
+  "fieldCount": {
+    "message": "Anzahl",
+    "description": "The label for the number of times a formfield entry has been used."
+  },
+  "fieldFirstUsed": {
+    "message": "Zuerst benutzt",
+    "description": "The label for the date a formfield entry was first used."
+  },
+  "fieldLastUsed": {
+    "message": "Zuletzt verwendet",
+    "description": "The label for the date a formfield entry was last used."
+  },
+  "fieldAge": {
+    "message": "Alter",
+    "description": "The label for the age of a formfield entry since it was last used."
+  },
+  "fieldHost": {
+    "message": "URL",
+    "description": "The label for the host where the formfield entry was used."
+  },
+  "pagingAll": {
+    "message": "Alle",
+    "description": "For the paging list, indicates All values displayed in one single page."
+  },
+
+
+  "operationWindowTile": {
+    "message": "Formularfeld",
+    "description": "Window title of the formfield edit window."
+  },
+  "operationViewField": {
+    "message": "Formularhistory-Eintrag anzeigen",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditOneField": {
+    "message": "Vorhandenen Formularhistoriy-Eintrag bearbeiten",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditMultipleFields": {
+    "message": "Mehrere Formularhistory-Einträge bearbeiten",
+    "description": "Edit multiple fields at once, info displayed in edit window."
+  },
+  "operationAddField": {
+    "message": "Neuen Formularhistory-Eintrag einfügen",
+    "description": "Add a new field, info displayed in edit window."
+  },
+  "labelPreview": {
+    "message": "Anzeigen",
+    "description": "Label for the checkbox which toggles the HTML preview window."
+  },
+  "menuItemTitleClipboard": {
+    "message": "Zwischenablage:",
+    "description": "Contextmenu clipboard title."
+  },
+  "menuItemText2Clipboard": {
+    "message": "Text ohne Formatierung kopieren",
+    "description": "Contextmenu item: Copy only clean text to clipboard."
+  },
+  "menuItemHtml2Clipboard": {
+    "message": "Kopiere den gesamten Inhalt (HTML)",
+    "description": "Contextmenu item: Copy entire HTML to clipboard."
+  },
+
+
+  "dialogErrorTitle": {
+    "message": "Fehler",
+    "description": "Title of error dialog."
+  },
+  "dialogWarningTitle": {
+    "message": "Warnung",
+    "description": "Title of warning dialog."
+  },
+  "dialogInformationTitle": {
+    "message": "Information",
+    "description": "Title of information dialog."
+  },
+  "dialogQuestionTitle": {
+    "message": "Frage",
+    "description": "Title of question dialog."
+  },
+
+
+  "dialogErrorTitleDatabase": {
+    "message": "Speicherfehler, kein Datenbankzugriff!",
+    "description": "Title of error dialog for database access errors."
+  },
+  "databaseError": {
+    "message": "Der Datenbankzugriff wurde blockiert ($ ERROR $). Diese Anwendung benötigt Cookie-Berechtigungen. Bitte überprüfen Sie die Datenschutz- und Sicherheitseinstellungen des Browsers",
+    "description": "Error displayed when the database is not accessible",
+    "placeholders": {
+      "error" : {
+        "content" : "$1",
+        "example" : "SecurityError"
+      }
+    }
+  },
+
+
+  "informClipboardValueCopied": {
+    "message": "Wert wurde erfolgreich in die Zwischenablage kopiert",
+    "description": "Information message that clipboard value has been copied."
+  },
+
+  "confirmDeleteMultipleTitle": {
+    "message": "Alle ausgewählten Objekte löschen?",
+    "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
+  },
+  "confirmDeleteMultipleMessage": {
+    "message": "Mehrere Artikel wurden ausgewählt, ALLE ausgewählten Artikel löschen?",
+    "description": "Message asking confirmation for deleting multiple selected item."
+  },
+
+  "validationErrorMissingRequired": {
+    "message": "Nicht alle erforderlichen Felder sind ausgefüllt",
+    "description": "Validation message for missing mandatory values."
+  },
+  "validationErrorLastBeforeFirst": {
+    "message": "Das Datum der 'letzten Nutzung' sollte gleich oder nach dem Datum der 'ersten Verwendung' sein.",
+    "description": "Validation message for last date being before first date."
+  },
+  "validationErrorAtLastOneField": {
+    "message": "Mindestens ein Feld muss einen Wert haben.",
+    "description": "Validation message for no fields having a value."
+  },
+  "validationErrorNotNumeric": {
+    "message": "Der Wert ist nicht numerisch.",
+    "description": "Validation message for value not being a numeric value."
+  },
+  "validationErrorInvalidURL": {
+    "message": "Wert ist keine gültige URL.",
+    "description": "Validation message for value not being a valid URL."
+  },
+
+
+  "buttonOkay": {
+    "message": "Okay",
+    "description": "Label of the okay button."
+  },
+  "buttonCancel": {
+    "message": "Abbrechen",
+    "description": "Label of the cancel button."
+  },
+  "buttonClose": {
+    "message": "Schließen",
+    "description": "Label of the close button."
+  },
+  "buttonApply": {
+    "message": "Übernehmen",
+    "description": "Label of the apply button."
+  },
+  "buttonDelete": {
+    "message": "Löschen",
+    "description": "Label of delete button."
+  },
+  "buttonCleanup": {
+    "message": "Entfernen",
+    "description": "Label of cleanup button."
+  },
+  "buttonModify": {
+    "message": "Ändern",
+    "description": "Label of modify button."
+  },
+  "buttonAdd": {
+    "message": "Hinzufügen",
+    "description": "Label of add button."
+  },
+  "buttonExport": {
+    "message": "Export",
+    "description": "Label of export button."
+  },
+  "buttonImport": {
+    "message": "Import",
+    "description": "Label of import button."
+  },
+  "buttonYes": {
+    "message": "Ja",
+    "description": "Label of yes button."
+  },
+  "buttonNo": {
+    "message": "Nein",
+    "description": "Label of no button."
+  },
+
+
+  "importErrorTitle": {
+    "message": "Import Fehler.",
+    "description": "Title of modal error dialog for import errors."
+  },
+  "importErrorNotXml": {
+    "message": "Keine XML-Datei, Import abgebrochen.",
+    "description": "Error message when trying to import a file which is not XML."
+  },
+  "importErrorNotFound": {
+    "message": "Importdatei nicht gefunden.",
+    "description": "Error message when import file is not found."
+  },
+  "importErrorNotReadable": {
+    "message": "Die Importdatei ist nicht lesbar.",
+    "description": "Error message when import file is not readable."
+  },
+  "importErrorUnknown": {
+    "message": "Beim Lesen der Importdatei ist ein Fehler aufgetreten.",
+    "description": "Error message when an error occurred reading the import file."
+  },
+  "importErrorCancelled": {
+    "message": "Das Lesen der Importdatei wurde abgebrochen.",
+    "description": "Error message when reading import file was cancelled."
+  },
+
+
+  "tooltipEraseDatetimeButton": {
+    "message": "Löschen Sie das Datum und die Uhrzeit.",
+    "description": "Tooltip for the erase button: erase date and time"
+  },
+  "tooltipNowDatetimeButton": {
+    "message": "Stellen Sie das aktuelle Datum und die Uhrzeit ein.",
+    "description": "Tooltip for the time button: set the current date and time"
+  },
+
+
+  "labelYesr": {
+    "message": "Jahr",
+    "description": "Label for Year."
+  },
+  "labelMonth": {
+    "message": "Monat",
+    "description": "Label for Month."
+  },
+  "labelDay": {
+    "message": "Tag",
+    "description": "Label for Day."
+  },
+  "labelTime": {
+    "message": "Zeit",
+    "description": "Label for Time."
+  },
+
+
+  "importTitle": {
+    "message": "Import",
+    "description": "Title of import window."
+  },
+  "exportTitle": {
+    "message": "Export",
+    "description": "Title of the export window."
+  },
+  "exportStatus": {
+    "message": "Status",
+    "description": "Import/Export window: Status header"
+  },
+  "exportNoOfTextEntries": {
+    "message": "Anzahl der Texteinträge:",
+    "description": "Import/Export window: Number of text entries."
+  },
+  "exportNoOfdMultilineEntries": {
+    "message": "Anzahl der mehrzeiligen Einträge:",
+    "description": "Import/Export window: Number of multiline entries."
+  },
+  "exportDownloadLink": {
+    "message": "Download Link:",
+    "description": "Export window: Download link:"
+  },
+
+
+  "aboutTitle": {
+    "message": "Über",
+    "description": "Title of the About window."
+  },
+
+
+  "optionTitle": {
+    "message": "Optionen",
+    "description": "Title of the options window."
+  },
+  "optionsDisplayLegend": {
+    "message": "Anzeige",
+    "description": "Options window: The Display legend."
+  },
+  "optionsThemeSelect": {
+    "message": "Darstellungsthema auswählen",
+    "description": "Options window: The theme selection dropdown label"
+  },
+  "optionsCleanupLegend": {
+    "message": "Aufräumen",
+    "description": "Options window: The Cleanup legend."
+  },
+  "optionsMiscellaneousLegend": {
+    "message": "Verschiedenes",
+    "description": "Options window: The Miscellaneous legend."
+  },
+  "optionsOverrideAutocomplete": {
+    "message": "Die integrierte automatische Vervollständigung überschreiben",
+    "description": "Options window: The Override autocomplete checkbox Label."
+  },
+  "optionsDateformatSelect": {
+    "message": "Wählen Sie das Datumsformat",
+    "description": "Options window: The date format selection dropdown label"
+  },
+
+  
+  "popupHeader": {
+    "message": "Form History Control (II)",
+    "description": "Header title of the small popup."
+  },
+  "popupHeaderInfo": {
+    "message": "Nur Einträge für diese Seite anzeigen",
+    "description": "Extra info next to the header title of the small popup."
+  },
+  "open-preference-tooltip": {
+    "message": "Einstellungen öffnen",
+    "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
+  },
+  "open-bigdialog-tooltip": {
+    "message": "Den erweiterten Dialog 'Verlauf verwalten' öffnen",
+    "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
+  },
+
+  
+  "notificationTitle": {
+    "message": "Benachrichtigung testen",
+    "description": "Title of the test notification."
+  },
+  "notificationContent": {
+    "message": "Test Nachricht: $MESSAGE$.",
+    "description": "Just a test notification.",
+    "placeholders": {
+      "message" : {
+        "content" : "$1",
+        "example" : "Hello world!"
+      }
+    }
+  },
+
+
+
+  "contextMenuItemManageHistory": {
+    "message": "Verlauf verwalten",
+    "description": "Title of context menu item that starts the Manage history dialog."
+  },
+  "contextMenuItemRestoreEditorField": {
+    "message": "Editorfeld wiederherstellen",
+    "description": "Title of context menu item that displays the editor (wysiwyg) field values."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuHostname": {
+    "message": "Übereinstimmende URL",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuLastused": {
+    "message": "Neueste Einträge",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuMore": {
+    "message": "Mehr...",
+    "description": "Last Submenu-item in ontext-menu 'Restore Edit field' indicating more items."
+  },
+  "contextMenuItemFillMostRecent": {
+    "message": "Felder mit den neuesten Einträgen füllen",
+    "description": "Title of context menu item that fills formfields with the most recent used value."
+  },
+  "contextMenuItemFillMostUsed": {
+    "message": "Felder mit den am häufigsten verwendeten Einträgen füllen",
+    "description": "Title of context menu item that fills formfields with the most used value."
+  },
+  "contextMenuItemClearFields": {
+    "message": "Ausgefüllte Felder löschen",
+    "description": "Title of context menu item that clears all filled fields."
+  },
+  "contextMenuItemShowformfields": {
+    "message": "Felder auf der aktuellen Seite anzeigen",
+    "description": "Title of context menu item that shows info next to input textfields om the page."
+  },
+  "contextMenuItemOptions": {
+    "message": "Optionen",
+    "description": "Title of context menu item that shows the preferences page."
+  },
+
+
+  "menuFile": {
+    "message": "Datei",
+    "description": "Label of File menu."
+  },
+  "menuItemFileImport": {
+    "message": "Import",
+    "description": "Label of Import menuitem in the File menu."
+  },
+  "menuItemFileExport": {
+    "message": "Export",
+    "description": "Label of Export menuitem in the File menu."
+  },
+  "menuItemFileClose": {
+    "message": "Schließen",
+    "description": "Label of Close menuitem in the File menu."
+  },
+
+  "menuEdit": {
+    "message": "Bearbeiten",
+    "description": "Label of Edit menu."
+  },
+  "menuItemEditAdd": {
+    "message": "Hinzufügen",
+    "description": "Label of Add menuitem in the Edit menu."
+  },
+  "menuItemEditModify": {
+    "message": "Ändern",
+    "description": "Label of Modify menuitem in the Edit menu."
+  },
+  "menuItemEditDelete": {
+    "message": "Löschen",
+    "description": "Label of Delete menuitem in the Edit menu."
+  },
+  "menuItemEditClipboard": {
+    "message": "In die Zwischenablage kopieren",
+    "description": "Label of Copy to clipboard menuitem in the Edit menu."
+  },
+  "menuItemEditSelectAll": {
+    "message": "Alles auswählen",
+    "description": "Label of Select all menuitem in the Edit menu."
+  },
+  "menuItemEditSelectNone": {
+    "message": "Nichts auswählen",
+    "description": "Label of Select none menuitem in the Edit menu."
+  },
+  "menuItemEditSelectInvert": {
+    "message": "Auswahl umkehren",
+    "description": "Label of Invert selection menuitem in the Edit menu."
+  },
+
+  "menuDisplay": {
+    "message": "Anzeige",
+    "description": "Label of Display menu."
+  },
+  "menuItemDisplayRefresh": {
+    "message": "Aktualisierung",
+    "description": "Label of Refresh menuitem in the Display menu."
+  },
+
+  "menuExtra": {
+    "message": "Extras",
+    "description": "Label of Extra menu."
+  },
+  "menuItemExtraPreferences": {
+    "message": "Einstellungen",
+    "description": "Label of Preferences menuitem in the Extra menu."
+  },
+
+  "menuHelp": {
+    "message": "Hilfe",
+    "description": "Label of Help menu."
+  },
+  "menuItemInfoSubmenu": {
+    "message": "Info",
+    "description": "Label of Info submenu in the context menu."
+  },
+  "menuItemHelpOverview": {
+    "message": "Hilfeübersicht",
+    "description": "Label of Help menuitem in the Help menu."
+  },
+  "menuItemHelpReleasenotes": {
+    "message": "Versionshinweise",
+    "description": "Label of Releasenotes menuitem in the Help menu."
+  },
+  "menuItemHelpAbout": {
+    "message": "Über",
+    "description": "Label of About menuitem in the Help menu."
+  },
+
+  "loading-status": {
+    "message": "Laden...",
+    "description": "Text displayed while data is being loaded."
+  }
 }
