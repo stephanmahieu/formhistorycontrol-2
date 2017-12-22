@@ -1,19 +1,19 @@
 {
     "sEmptyTable":      "Keine Daten in der Tabelle vorhanden",
-    "sInfo":            "_START_ bis _END_ von _TOTAL_ Eintr‰gen",
-    "sInfoEmpty":       "0 bis 0 von 0 Eintr‰gen",
-    "sInfoFiltered":    "(gefiltert von _MAX_ Eintr‰gen)",
+    "sInfo":            "_START_ bis _END_ von _TOTAL_ Eintr√§gen",
+    "sInfoEmpty":       "0 bis 0 von 0 Eintr√§gen",
+    "sInfoFiltered":    "(gefiltert von _MAX_ Eintr√§gen)",
     "sInfoPostFix":     "",
     "sInfoThousands":   ".",
-    "sLengthMenu":      "_MENU_ Eintr‰ge anzeigen",
+    "sLengthMenu":      "_MENU_ Eintr√§ge anzeigen",
     "sLoadingRecords":  "Wird geladen...",
     "sProcessing":      "Bitte warten...",
     "sSearch":          "Suchen",
-    "sZeroRecords":     "Keine Eintr‰ge vorhanden.",
+    "sZeroRecords":     "Keine Eintr√§ge vorhanden.",
     "oPaginate": {
         "sFirst":       "Erste",
-        "sPrevious":    "Zur¸ck",
-        "sNext":        "N‰chste",
+        "sPrevious":    "Zur√ºck",
+        "sNext":        "N√§chste",
         "sLast":        "Letzte"
     },
     "oAria": {
@@ -22,9 +22,9 @@
     },
     "select": {
             "rows": {
-				"_": "%d Zeilen ausgew‰hlt",
-				"0": "Zum Ausw‰hlen auf eine Zeile klicken",
-				"1": "1 Zeile ausgew‰hlt"
+				"_": "%d Zeilen ausgew√§hlt",
+				"0": "Zum Ausw√§hlen auf eine Zeile klicken",
+				"1": "1 Zeile ausgew√§hlt"
             }
     }
 }
