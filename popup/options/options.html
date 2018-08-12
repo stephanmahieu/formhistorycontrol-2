@@ -8,52 +8,129 @@
     <link rel="stylesheet" href="theme/options.css"/>
     <link rel="alternate stylesheet" href="/theme/formhistorycontrol-generic-dark.css" title="Dark"/>
     <link rel="alternate stylesheet" href="theme/options-dark.css" title="Dark"/>
+    <link rel="icon" type="image/png" href="/theme/icons/fhc-16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/theme/icons/fhc-32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/icons/fhc-48.png" sizes="48x48">
+    <link rel="icon" type="image/png" href="/theme/icons/fhc_icon.svg" sizes="64x64">
 </head>
 <body>
 <form>
-    <div class="content">
-        <fieldset>
-            <legend data-fhc-i18n="optionTitle">Options</legend>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li>
+                    <div class="titleSidebar">
+                        <img src="/theme/icons/fhc-64.png" class="logo">
+                        <span class="logotitle">Form<br/>History<br/>Control</span>
+                    </div>
+                    <hr/>
+                </li>
+                <li>
+                    <a id="display" href="#" class="optionLink selected">
+                        <span data-fhc-i18n="optionsDisplayMenu" class="optionLabel">Display</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="miscellaneous" href="#" class="optionLink">
+                        <span data-fhc-i18n="optionsMiscellaneousMenu" class="optionLabel">Miscellaneous</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="domainhistory" href="#" class="optionLink">
+                        <span data-fhc-i18n="optionsDomainlistMenu" class="optionLabel">Domain Filter</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="fieldhistory" href="#" class="optionLink">
+                        <span data-fhc-i18n="optionsFieldlistMenu" class="optionLabel">Field Filter</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="cleanup" href="#" class="optionLink">
+                        <span data-fhc-i18n="optionsCleanupMenu" class="optionLabel">Cleanup</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <fieldset>
+                <legend data-fhc-i18n="optionTitle">Options</legend>
 
-            <fieldset class="sub-fieldset">
-                <legend data-fhc-i18n="optionsDisplayLegend">Display</legend>
+                <fieldset id="fld_display" class="sub-fieldset">
+                    <legend data-fhc-i18n="optionsDisplayLegend">Display</legend>
 
-                <label for="themeSelect" data-fhc-i18n="optionsThemeSelect">Select a theme</label>
-                <select id="themeSelect" class="rightalign">
-                    <option value="default">default</option>
-                </select>
+                    <label for="themeSelect" data-fhc-i18n="optionsThemeSelect">Select a theme</label>
+                    <select id="themeSelect" class="rightalign">
+                        <option value="default">default</option>
+                    </select>
 
-                <br/><br/>
+                    <br/><br/>
 
-                <label for="dateformatSelect" data-fhc-i18n="optionsDateformatSelect">Select date format</label>
-                <select id="dateformatSelect" class="rightalign">
-                    <option value="automatic">automatic</option>
-                    <option>dd-MM-yyyy HH:mm:ss</option>
-                    <option>dd-MM-yy HH:mm:ss</option>
-                    <option>dd-MM-yy HH:mm</option>
-                    <option>MM/dd/yyyy HH:mm:ss</option>
-                    <option>MM/dd/yyyy hh:mm:ss A</option>
-                    <option>MM/dd/yy HH:mm:ss</option>
-                    <option>MM/dd/yy hh:mm:ss A</option>
-                    <option>MM/dd/yy HH:mm</option>
-                    <option>MM/dd/yy hh:mm A</option>
-                </select>
+                    <label for="dateformatSelect" data-fhc-i18n="optionsDateformatSelect">Select date format</label>
+                    <select id="dateformatSelect" class="rightalign">
+                        <option value="automatic">automatic</option>
+                        <option>dd-MM-yyyy HH:mm:ss</option>
+                        <option>dd-MM-yy HH:mm:ss</option>
+                        <option>dd-MM-yy HH:mm</option>
+                        <option>MM/dd/yyyy HH:mm:ss</option>
+                        <option>MM/dd/yyyy hh:mm:ss A</option>
+                        <option>MM/dd/yy HH:mm:ss</option>
+                        <option>MM/dd/yy hh:mm:ss A</option>
+                        <option>MM/dd/yy HH:mm</option>
+                        <option>MM/dd/yy hh:mm A</option>
+                    </select>
+                </fieldset>
 
+                <fieldset id="fld_miscellaneous" class="sub-fieldset" style="display:none">
+                    <legend data-fhc-i18n="optionsMiscellaneousLegend">Miscellaneous</legend>
+                    <input type="checkbox" id="overrideAutocomplete">
+                    <label for="overrideAutocomplete"><span></span><div data-fhc-i18n="optionsOverrideAutocomplete">Override the built-in autocomplete</div></label><br/>
+                </fieldset>
+
+                <fieldset id="fld_domainhistory" class="sub-fieldset" style="display:none">
+                    <legend data-fhc-i18n="optionDomainlistLegend">Enable/Disable history per domain</legend>
+                    <input type="radio" id="radioDomainlistAll" name="radiogroupDomainlist" value="all">
+                    <label for="radioDomainlistAll"><span></span><div data-fhc-i18n="optionsRadioDomainAll">Allow All</div></label>
+                    <input type="radio" id="radioDomainlistBlacklist" name="radiogroupDomainlist" value="blacklist">
+                    <label for="radioDomainlistBlacklist"><span></span><div data-fhc-i18n="optionsRadioDomainBlacklist">Blacklist</div></label>
+                    <input type="radio" id="radioDomainlistWhitelist" name="radiogroupDomainlist" value="whitelist">
+                    <label for="radioDomainlistWhitelist"><span></span><div data-fhc-i18n="optionsRadioDomainWhitelist">Whitelist</div></label><br/>
+                    <select id="domainlist" size="4" class="list-select"></select><br/>
+                    <input type="text" id="domainListItem" class="list-input">
+                    <button id="listAdd" class="domainbutton" data-fhc-i18n="buttonAdd">Add</button>
+                    <button id="listModify" class="domainbutton" data-fhc-i18n="buttonModify">Modify</button>
+                    <button id="listDelete" class="domainbutton" data-fhc-i18n="buttonDelete">Delete</button>
+                </fieldset>
+
+                <fieldset id="fld_fieldhistory" class="sub-fieldset" style="display:none">
+                    <legend data-fhc-i18n="optionsFieldlistlegend">Disable history for specific fields</legend>
+                    <select id="fieldlist" size="4" class="list-select"></select><br/>
+                    <input type="text" id="fieldListItem" class="list-input">
+                    <button id="fieldAdd" class="domainbutton" data-fhc-i18n="buttonAdd">Add</button>
+                    <button id="fieldModify" class="domainbutton" data-fhc-i18n="buttonModify">Modify</button>
+                    <button id="fieldDelete" class="domainbutton" data-fhc-i18n="buttonDelete">Delete</button>
+                </fieldset>
+
+                <fieldset id="fld_cleanup" class="sub-fieldset" style="display:none">
+                    <legend data-fhc-i18n="optionsCleanupLegend">Cleanup</legend>
+                    <input type="checkbox" id="autocleanup">
+                    <label for="autocleanup"><span></span><div data-fhc-i18n="optionsAutoCleanup">Automatically cleanup at regular intervals</div></label><br/><br/>
+                    <label for="keepdayshistory" data-fhc-i18n="optionsRemoveDays">Remove formhistory not used in the past</label>
+                    <input type="number" id="keepdayshistory" min="0" style="width: 3.5em; text-align: right">
+                    <label for="keepdayshistory" data-fhc-i18n="optionsRemoveDaysDays">days</label><br/>
+                    <button id="btnCleanupNow" data-fhc-i18n="buttonCleanupNow">Clean Up Now</button>
+                </fieldset>
             </fieldset>
 
-            <fieldset class="sub-fieldset">
-                <legend data-fhc-i18n="optionsMiscellaneousLegend">Miscellaneous</legend>
-                <label for="overrideAutocomplete" data-fhc-i18n="optionsOverrideAutocomplete">Override the built-in autocomplete</label>
-                <input type="checkbox" id="overrideAutocomplete"><br/>
-            </fieldset>
-        </fieldset>
-    </div>
-    <div id="buttons">
-        <button id="buttonApply" type="submit" data-fhc-i18n="buttonApply">Apply</button>
-        <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
+            <div id="buttons">
+                <button id="buttonApply" type="submit" data-fhc-i18n="buttonApply">Apply</button>
+                <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
+            </div>
+        </div>
     </div>
 </form>
 <script src="options.js"></script>
+<script src="../../common/CleanupConst.js"></script>
 <script src="../../common/OptionsUtil.js"></script>
 <script src="../../common/ThemeUtil.js"></script>
 <script src="../../common/WindowUtil.js"></script>

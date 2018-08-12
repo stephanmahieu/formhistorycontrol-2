@@ -1,3 +1,45 @@
+:root {
+    --main-bg-color: #f0f0f0;
+    --main-text-color: #000000;
+
+    --select-bg-color: #1c336d;
+    --select-text-color: #ffffff;
+
+    --a-text-color: #0000ee;
+
+    --button-text-color: #000000;
+    --button-bg-color: #e3e3e9;
+    --button-border-color: #bab6ae;
+    --button-hover-text-color: #000000;
+    --button-hover-bg-color: #f1f5ff;
+    --button-hover-border-color: #4b74ff;
+    --button-disabled-text-color: #808080;
+    --button-disabled-bg-color: #d4d0c8;
+    --button-disabled-border-color: var(--button-border-color);
+
+    --field-bg-color: -moz-default-background-color;
+    --field-text-color: -moz-default-color;
+    --field-border-color: #cccccc;
+    --field-disabled-bg-color: #d4d0c8;
+    --field-disabled-text-color: #575757;
+
+    --fieldset-bg-color: #f1f5ff;
+    --fieldset-border-color: #4b74ff;
+    --legend-bg-color: #fafaff;
+    --legend-text-color: #1d2063;
+    --legend-border-color: var(--fieldset-border-color);
+
+    --modal-title-text-color: #000000;
+    --modal-text-color: #ffffff;
+    --modal-title-bg-color: rgba(16, 50, 101, 0.92);
+    --modal-bg-color: hsla(0, 0%, 93%, 0.85);
+    --modal-border-color: #ffffff;
+    --modal-yes-color:  #009b00;
+    --modal-no-color: #9b0000;
+    --modal-yes-hover-color: #00c300;
+    --modal-no-hover-color: #c30000;
+}
+
 html, body {
     height: 100%;
     font-family: Arial, Verdana, sans-serif;
@@ -9,28 +51,62 @@ html {
 }
 
 body {
-    background: #f0f0f0;
+    background: var(--main-bg-color);
+    color: var(--main-text-color);
     margin: 0 auto;
     padding: 0 2px;
     height: inherit;
     cursor: default;
 }
 
+a {
+    color: var(--a-text-color);
+}
+
 button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--button-border-color);
     margin: 2px 2px;
     min-width: 7em;
     height: 25px;
     font-size: 12px;
 }
 
+button:hover {
+    background-color: var(--button-hover-bg-color);
+    color: var(--button-hover-text-color);
+    border-color: var(--button-hover-border-color);
+}
+
+button:disabled,
+button:disabled:hover {
+    background-color: var(--button-disabled-bg-color);
+    color: var(--button-disabled-text-color);
+    border-color: var(--button-disabled-border-color);
+}
+
+input, select, textarea {
+    background-color: var(--field-bg-color);
+    color: var(--field-text-color);
+    border: 2px inset var(--field-border-color);
+}
+
 input, select, textarea, fieldset {
     border-radius: 4px;
 }
 
+input:disabled,
+textarea:disabled,
+select:disabled {
+    color: var(--field-disabled-text-color);
+    background-color: var(--field-disabled-bg-color);
+}
+
 fieldset {
     margin-top: 15px;
-    border: 1px solid #4b74ff;
-    background-color: #f1f5ff;
+    border: 1px solid var(--fieldset-border-color);
+    background-color: var(--fieldset-bg-color);
 }
 
 fieldset:nth-child(1) > legend {
@@ -39,28 +115,26 @@ fieldset:nth-child(1) > legend {
 
 legend {
     padding: 0.2em 0.5em;
-    border: 1px solid #4b74ff;
+    border: 1px solid var(--legend-border-color);
     border-radius: 4px;
-    color: #1d2063;
-    background-color: #fafaff;
+    color: var(--legend-text-color);
+    background-color: var(--legend-bg-color);
     font-weight: bold;
     font-size: 125%;
 }
 
-
-.modal {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+::selection {
+    background: var(--select-bg-color);
+    color: var(--select-text-color);
+}
+::-moz-selection {
+    background: var(--select-bg-color);
+    color: var(--select-text-color);
 }
 
+
 .modal-content {
-    background: hsla(0, 0%, 93%, 0.85);
+    background: var(--modal-bg-color);
     position: absolute;
     margin: 8px;
     top: 50%;
@@ -68,7 +142,7 @@ legend {
     transform: translate(-50%, -50%);
     box-shadow: 5px 3px 30px black;
     border-radius: 4px;
-    border: 1px solid #ffffff;
+    border: 1px solid var(--modal-border-color);
     width: 80%;
     max-width: 450px;
     min-height: 60px;
@@ -82,7 +156,7 @@ legend {
     border-radius: 4px 4px 0 0;
     width: 100%;
     height: 25px;
-    background-color: rgba(16, 50, 101, 0.92);
+    background-color:var(--modal-title-bg-color);
     padding-top: 9px;
 }
 
@@ -102,8 +176,9 @@ legend {
 .modal-message {
     margin: 15px;
     overflow: hidden;
-    color: black;
+    color: var(--modal-title-text-color);
     text-align: left;
+    white-space: pre-wrap;
     flex: 1;
     order: 2;
 }
@@ -116,7 +191,7 @@ legend {
 
 .modal-title {
     margin-left: 20px;
-    color: white;
+    color: var(--modal-text-color);
     font-weight: bold;
     font-size: 14px;
 }
@@ -165,20 +240,20 @@ legend {
 
 .modal-yes,
 .modal-okay {
-    background-color: #009b00;
+    background-color: var(--modal-yes-color);
 }
 
 .modal-no,
 .modal-cancel {
-    background-color: #9b0000;
+    background-color: var(--modal-no-color);
 }
 
 .modal-yes:hover,
 .modal-okay:hover {
-    background-color: #00c300;
+    background-color: var(--modal-yes-hover-color);
 }
 
 .modal-no:hover,
 .modal-cancel:hover {
-    background-color: #c30000;
+    background-color:  var(--modal-no-hover-color);
 }

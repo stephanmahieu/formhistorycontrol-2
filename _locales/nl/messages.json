@@ -129,7 +129,20 @@
       }
     }
   },
-
+  "timeoutTooMuchDataWarning": {
+    "message": "Er is te veel data om snel in een popup venster te kunnen tonen, gebruik de Opschonen optie om de dataset te beperken of open het uitgebreide 'Historie Beheer' venster (rechter muisklik).\n\n($count$ resultaten van totaal $total$ zijn weggelaten)",
+    "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
+    "placeholders": {
+      "count" : {
+        "content" : "$1",
+        "example" : "10"
+      },
+      "total" : {
+        "content" : "$2",
+        "example" : "100"
+      }
+    }
+  },
 
   "informClipboardValueCopied": {
     "message": "Waarde succesvol gekopieerd naar het klembord",
@@ -307,6 +320,28 @@
     "message": "Opties",
     "description": "Title of the options window."
   },
+
+  "optionsDisplayMenu": {
+    "message": "Weergave",
+    "description": "Options window: Left Display menu."
+  },
+  "optionsMiscellaneousMenu": {
+    "message": "Diversen",
+    "description": "Options window: Left Miscellaneous menu."
+  },
+  "optionsDomainlistMenu": {
+    "message": "Domein Filter",
+    "description": "Options window: Left Domain Filter menu."
+  },
+  "optionsFieldlistMenu": {
+    "message": "Veld Filter",
+    "description": "Options window: Left Field Filter menu."
+  },
+  "optionsCleanupMenu": {
+    "message": "Opschonen",
+    "description": "Options window: Left Cleanup menu."
+  },
+
   "optionsDisplayLegend": {
     "message": "Weergave",
     "description": "Options window: The Display legend."
@@ -315,10 +350,11 @@
     "message": "Kies een thema",
     "description": "Options window: The theme selection dropdown label"
   },
-  "optionsCleanupLegend": {
-    "message": "Opschonen",
-    "description": "Options window: The Cleanup legend."
+  "optionsDateformatSelect": {
+    "message": "Kies het datum formaat",
+    "description": "Options window: The date format selection dropdown label"
   },
+
   "optionsMiscellaneousLegend": {
     "message": "Diversen",
     "description": "Options window: The Miscellaneous legend."
@@ -327,9 +363,48 @@
     "message": "Vervang de ingebouwde auto-aanvullen functie",
     "description": "Options window: The Override autocomplete checkbox Label."
   },
-  "optionsDateformatSelect": {
-    "message": "Kies het datum formaat",
-    "description": "Options window: The date format selection dropdown label"
+
+  "optiondomainlistlegend": {
+    "message": "Aanzetten/Uitzetten historie per domein",
+    "description": "Options window: The Domain Filter legend."
+  },
+  "optionsradiodomainall": {
+    "message": "Alles toestaan",
+    "description": "Options window, domainfilter: Label for Allow All radiobutton."
+  },
+  "optionsradiodomainblacklist": {
+    "message": "Zwarte lijst",
+    "description": "Options window, domainfilter: Label for Blacklist radiobutton."
+  },
+  "optionsradiodomainwhitelist": {
+    "message": "Witte lijst",
+    "description": "Options window, domainfilter: Label for Whitelist radiobutton."
+  },
+
+  "optionsFieldlistlegend": {
+    "message": "Historie uitzetten voor specifieke velden",
+    "description": "Options window: The Cleanup legend."
+  },
+
+  "optionsCleanupLegend": {
+    "message": "Opschonen",
+    "description": "Options window: The Cleanup legend."
+  },
+  "optionsautocleanup": {
+    "message": "Automatisch periodiek schonen",
+    "description": "Options window, cleanup: Label for auto cleanup checkbox."
+  },
+  "optionsremovedays": {
+    "message": "Verwijder historie niet gebruikt in de afgelopen",
+    "description": "Options window, cleanup: Label before no of days input."
+  },
+  "optionsremovedaysdays": {
+    "message": "dagen",
+    "description": "Options window, cleanup: Label after no of days input."
+  },
+  "buttoncleanupnow": {
+    "message": "Nu Opschonen",
+    "description": "Options window, cleanup: Label of the cleanup-now button."
   },
 
   
@@ -346,7 +421,7 @@
     "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
   },
   "open-bigdialog-tooltip": {
-    "message": "Open het uitgebreide 'Manage History' venster",
+    "message": "Open het uitgebreide 'Historie Beheer' venster",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
 

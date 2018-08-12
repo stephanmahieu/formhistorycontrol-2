@@ -13,16 +13,20 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
     if (fhcEvent.eventType) {
         switch (fhcEvent.eventType) {
             case 1:
-                // Process Text
-                fhcEvent.value = JSON.parse(fhcEvent.value);
-                //console.log("Received a content event for " + fhcEvent.id + " content is: " + fhcEvent.value);
-                saveOrUpdateTextField(fhcEvent);
+                if (!blockedByFilter(fhcEvent)) {
+                    // Process Text
+                    fhcEvent.value = JSON.parse(fhcEvent.value);
+                    //console.log("Received a content event for " + fhcEvent.id + " content is: " + fhcEvent.value);
+                    saveOrUpdateTextField(fhcEvent);
+                }
                 break;
 
             case 2:
-                // Process non-text like radiobuttons, checkboxes etcetera
-                //console.log("Received a formelement event with " + fhcEvent.formElements.length + " form elements ");
-                saveOrUpdateFormElements(fhcEvent.formElements);
+                if (!blockedByFilter(fhcEvent)) {
+                    // Process non-text like radiobuttons, checkboxes etcetera
+                    //console.log("Received a formelement event with " + fhcEvent.formElements.length + " form elements ");
+                    saveOrUpdateFormElements(fhcEvent.formElements);
+                }
                 break;
 
             case 3:
@@ -82,6 +86,18 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 // Tell the browser we intend to use the sendResponse argument after the listener has returned
                 return true;
 
+            case 800:
+                console.log('Cleanup now request received!');
+                doCleanup(true);
+                break;
+
+            case 888:
+                // console.log('Background script: options changed!');
+                if (fhcEvent.domainFilterChanged || fhcEvent.fieldFilterChanged) {
+                    initFilterOptions();
+                }
+                break;
+
             case 998:
                 // resend the message delayed as 999, do it multiple times so at least the last one is most likely received.
                 // console.log('Received an event (998) intended for options.html popup');
@@ -89,9 +105,182 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 setTimeout(() => {browser.runtime.sendMessage({eventType: 999});}, 350);
                 setTimeout(() => {browser.runtime.sendMessage({eventType: 999});}, 500);
                 setTimeout(() => {browser.runtime.sendMessage({eventType: 999});}, 1500);
+                break;
         }
     }
+}
 
+//----------------------------------------------------------------------------
+// Cleanup methods
+//----------------------------------------------------------------------------
+
+function initCleanupAlarm() {
+    browser.alarms.onAlarm.addListener(handleCleanupAlarm);
+
+    browser.alarms.create(CleanupConst.ALARM_NAME, {
+        delayInMinutes: CleanupConst.INITIAL_DELAY_MINUTES,
+        periodInMinutes: CleanupConst.PERIOD_MINUTES
+    });
+}
+
+function handleCleanupAlarm(alarmInfo) {
+    if (CleanupConst.ALARM_NAME === alarmInfo.name) {
+        console.log("Cleanup Alarm: Performing a periodic cleanup now!");
+        doCleanup(false);
+    }
+}
+
+function doCleanup(forceManual) {
+    // get cleanup preferences
+    OptionsUtil.getCleanupPrefs().then(prefs => {
+        console.log("Cleanup doit:" + prefs.prefAutomaticCleanup + ", days to keep:" + prefs.prefKeepDaysHistory);
+        if (forceManual || prefs.prefAutomaticCleanup) {
+            console.log('Starting cleanup...');
+            const expirationDate = DateUtil.getCurrentDate() - (prefs.prefKeepDaysHistory * 24 * 60 * 60 * 1000);
+            deleteExpiredItems(expirationDate);
+            deleteExpiredFormElements(expirationDate);
+        }
+    });
+}
+
+function deleteExpiredItems(expirationDate) {
+    countExpiredItems(expirationDate).then(noOfRecordsExpired => {
+
+        if (noOfRecordsExpired === 0) {
+            console.log('Finished text cleanup, no expired entries found.');
+            return;
+        }
+
+        const FAST_UPDATE_LIMIT = 25;
+
+        let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
+
+        let index = objStore.index(DbConst.DB_TEXT_IDX_LAST);
+        let keyRange = IDBKeyRange.upperBound(expirationDate);
+
+        let req = index.openCursor(keyRange);
+        let noOfRecordsDeleted = 0;
+        req.onerror = function (/*event*/) {
+            console.error("Get failed for expired text data", this.error);
+        };
+        req.onsuccess = function(evt) {
+            let cursor = evt.target.result;
+            if (cursor) {
+                const fhcEntry = cursor.value;
+                console.log("Expired: " + DateUtil.toDateStringShorter(fhcEntry.last) + "   " + fhcEntry.name + " (" + fhcEntry.type + ")");
+
+                const request = cursor.delete();
+                request.onsuccess = function() {
+                    noOfRecordsDeleted++;
+
+                    console.log('Delete ' + noOfRecordsDeleted + ' of ' + noOfRecordsExpired + ' succeeded');
+
+                    if (noOfRecordsExpired <= FAST_UPDATE_LIMIT) {
+                        // for small quantities, notify the table to update itself for each deleted record (slow)
+                        browser.runtime.sendMessage({
+                            eventType: 111,
+                            primaryKey: cursor.primaryKey,
+                            fhcEntry: null,
+                            what: 'delete'
+                        }).then(null,
+                            error=>console.log(`Error sending delete event: ${error}`)
+                        );
+                    }
+                };
+
+                cursor.continue();
+            } else {
+                console.log('Finished cleanup expired text entries, ' + noOfRecordsDeleted + ' entries deleted');
+
+                if (noOfRecordsExpired > FAST_UPDATE_LIMIT) {
+                    // for large quantities, notify the table to update itself only after all entries have been deleted (fast)
+                    browser.runtime.sendMessage({
+                        eventType: 777
+                    });
+                }
+            }
+        };
+    });
+}
+
+function countExpiredItems(expirationDate) {
+    return new Promise((resolve, reject) => {
+        let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readonly");
+
+        let index = objStore.index(DbConst.DB_TEXT_IDX_LAST);
+        let keyRange = IDBKeyRange.upperBound(expirationDate);
+
+        let req = index.openCursor(keyRange);
+        let noOfRecordsExpired = 0;
+        req.onerror = function (/*event*/) {
+            console.error("Get (for count) failed for expired data", this.error);
+            reject(0);
+        };
+        req.onsuccess = function(evt) {
+            let cursor = evt.target.result;
+            if (cursor) {
+                noOfRecordsExpired++;
+                cursor.continue();
+            } else {
+                resolve(noOfRecordsExpired);
+            }
+        };
+    });
+}
+
+function deleteExpiredFormElements(expirationDate) {
+    let objStore = getObjectStore(DbConst.DB_STORE_ELEM, "readwrite");
+
+    let index = objStore.index(DbConst.DB_ELEM_IDX_SAVED);
+    let keyRange = IDBKeyRange.upperBound(expirationDate);
+
+    let req = index.openCursor(keyRange);
+    let noOfRecordsDeleted = 0;
+
+    req.onerror = function (/*event*/) {
+        console.error("Get failed for expired FormElement data", this.error);
+    };
+    req.onsuccess = function(evt) {
+        let cursor = evt.target.result;
+        if (cursor) {
+            const fhcEntry = cursor.value;
+            console.log("Expired: " + DateUtil.toDateStringShorter(fhcEntry.saved));
+
+            const request = cursor.delete();
+            request.onsuccess = function() {
+                noOfRecordsDeleted++;
+                console.log('Delete FormElement ' + noOfRecordsDeleted + ' succeeded');
+            };
+            cursor.continue();
+        } else {
+            console.log('Finished cleanup expired FormElement entries, ' + noOfRecordsDeleted + ' entries deleted');
+        }
+    };
+}
+
+
+//----------------------------------------------------------------------------
+// Filter methods
+//----------------------------------------------------------------------------
+
+let filterPrefs;
+
+function initFilterOptions() {
+    OptionsUtil.getFilterPrefs().then(prefs => {
+        filterPrefs = prefs;
+    });
+}
+
+function blockedByFilter(fhcEvent) {
+    if (OptionsUtil.isDomainBlocked(fhcEvent.host, filterPrefs)) {
+        //console.log('type:' + fhcEvent.type + ' name:' + fhcEvent.name + ' host:' + fhcEvent.host + ' is blocked by domain');
+        return true;
+    }
+    if (fhcEvent.eventType === 1 && OptionsUtil.isTextFieldBlocked(fhcEvent.name, filterPrefs)) {
+        //console.log('type:' + fhcEvent.type + ' name:' + fhcEvent.name + ' host:' + fhcEvent.host + ' is blocked by field');
+        return true;
+    }
+    return false;
 }
 
 //----------------------------------------------------------------------------
@@ -122,7 +311,7 @@ function initDatabase() {
     };
     req.onupgradeneeded = function (event) {
         console.log("Database upgrade start...");
-        let db = event.target.result;
+        db = event.target.result;
 
         // Create an objectStore for this database
         let objStore;
@@ -453,7 +642,7 @@ function saveOrUpdateTextInputField(fhcEvent) {
     req.onsuccess = function(event) {
         let key = event.target.result;
         if (key) {
-            console.log("entry exist, updating value for key " + key);
+            //console.log("entry exist, updating value for key " + key);
 
             // now get the complete record by key
             let getReq = objStore.get(key);
@@ -767,3 +956,5 @@ function getFormElementLookupKey(formElement) {
 
 
 initDatabase();
+initCleanupAlarm();
+initFilterOptions();

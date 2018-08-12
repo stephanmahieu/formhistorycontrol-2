@@ -3,10 +3,10 @@
   "short_name": "FormHistCtrl",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "2.0.3.2",
+  "version": "2.1.0.0",
   "developer": {
     "name": "Stephan Mahieu",
-    "url": "https://formhistory.blogspot.com/"
+    "url": "https://stephanmahieu.github.io/fhc-home/"
   },
   "default_locale": "en",
 
@@ -22,7 +22,8 @@
     "notifications",
     "activeTab",
     "tabs",
-    "storage"
+    "storage",
+    "alarms"
   ],
 
   "icons": {
@@ -42,10 +43,13 @@
   "background": {
     "scripts": [
       "common/DbConst.js",
+      "common/CleanupConst.js",
       "common/WindowUtil.js",
+      "common/OptionsUtil.js",
       "common/DateUtil.js",
+      "background/receiveFormData.js",
       "background/contextmenu.js",
-      "background/receiveFormData.js"
+      "background/applicationIcon.js"
     ]
   },
 

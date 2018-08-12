@@ -1,81 +1,41 @@
-body {
-    background-color: #393f4c;
-    color: #cdcdcd;
+:root {
+    --main-bg-color: #393f4c;
+    --main-text-color: #cdcdcd;
+
+    --select-bg-color: #ffa500;
+    --select-text-color: #24242d;
+
+    --a-text-color: #56bbff;
+
+    --button-text-color: #ffffff;
+    --button-bg-color: #5675b9;
+    --button-border-color: #5b9ae2;
+    --button-hover-text-color: #ffffff;
+    --button-hover-bg-color: #5698dc;
+    --button-hover-border-color: #4b74ff;
+    --button-disabled-text-color: #999999;
+    --button-disabled-bg-color: #485590;
+    --button-disabled-border-color: var(--button-border-color);
+
+    --field-bg-color: #6e7079;
+    --field-text-color: #f2f2f2;
+    --field-border-color: #717171;
+    --field-disabled-bg-color: #4c4e57;
+    --field-disabled-text-color: #afafaf;
+
+    --fieldset-bg-color: #373740;
+    --fieldset-border-color: #757575;
+    --legend-bg-color: #36363f;
+    --legend-text-color: #acacac;
+    --legend-border-color: #999999;
+
+    --modal-title-text-color: #ffffff;
+    --modal-text-color: #ffffff;
+    --modal-title-bg-color: rgba(15, 58, 120, 0.51);
+    --modal-bg-color: hsla(221, 14%, 26%, 0.81);
+    --modal-border-color: #515151;
 }
 
 input, select, textarea, fieldset, legend {
-    background-color: #6e7079;
-    color: #f2f2f2;
-    border: 1px solid #717171;
-}
-
-::selection { background: #b36800; color: #24242d}
-::-moz-selection { background: orange; color: #24242d}
-
-a {
-    color: #56bbff;
-}
-
-input:disabled,
-textarea:disabled,
-select:disabled {
-    color: #afafaf;
-    background-color: #4c4e57;
-}
-
-button {
-    background-color: #5675b9;
-    color: white;
-    border: 1px solid #5b9ae2;
-}
-
-button:disabled,
-button:disabled:hover {
-    background-color: #485590;
-    color: #999999;
-}
-
-button:hover {
-    background-color: #5698dc;
-    color: #ffffff;
-}
-
-fieldset {
-    border-color: #757575;
-    background-color: #373740;
-}
-
-legend {
-    border-color: #999999;
-    background-color: #36363f;
-    color: #acacac;
-}
-
-
-.modal-content {
-    background: hsla(221, 14%, 26%, 0.81);
-    border-color: #515151;
-    color: white;
-}
-
-.modal-header {
-    background-color: rgba(15, 58, 120, 0.51);
-}
-
-.modal-title {
-    color: white;
-}
-
-.modal-message {
-    color: white;
-}
-
-.modal-yes,
-.modal-okay {
-    background-color: #009b00;
-}
-
-.modal-no,
-.modal-cancel {
-    background-color: #9b0000;
+    border: 1px solid var( --field-border-color);
 }

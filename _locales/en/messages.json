@@ -19,6 +19,8 @@
     "description": "Label for developer."
   },
 
+
+
   "fieldName": {
     "message": "Field name",
     "description": "The label for the formfield-name of a formfield entry."
@@ -127,7 +129,20 @@
       }
     }
   },
-
+  "timeoutTooMuchDataWarning": {
+    "message": "There is too much data to quickly display in a popup window, use the cleanup option in order to reduce the amount of data or open the advanced 'Manage History' window (right mouseclick).\n\n($count$ results of total $total$ discarded)",
+    "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
+    "placeholders": {
+      "count" : {
+        "content" : "$1",
+        "example" : "10"
+      },
+      "total" : {
+        "content" : "$2",
+        "example" : "100"
+      }
+    }
+  },
 
   "informClipboardValueCopied": {
     "message": "Value successfully copied to the clipboard",
@@ -305,6 +320,28 @@
     "message": "Options",
     "description": "Title of the options window."
   },
+
+  "optionsDisplayMenu": {
+    "message": "Display",
+    "description": "Options window: Left Display menu."
+  },
+  "optionsMiscellaneousMenu": {
+    "message": "Miscellaneous",
+    "description": "Options window: Left Miscellaneous menu."
+  },
+  "optionsDomainlistMenu": {
+    "message": "Domain Filter",
+    "description": "Options window: Left Domain Filter menu."
+  },
+  "optionsFieldlistMenu": {
+    "message": "Field Filter",
+    "description": "Options window: Left Field Filter menu."
+  },
+  "optionsCleanupMenu": {
+    "message": "Cleanup",
+    "description": "Options window: Left Cleanup menu."
+  },
+
   "optionsDisplayLegend": {
     "message": "Display",
     "description": "Options window: The Display legend."
@@ -313,10 +350,11 @@
     "message": "Select a theme",
     "description": "Options window: The theme selection dropdown label"
   },
-  "optionsCleanupLegend": {
-    "message": "Cleanup",
-    "description": "Options window: The Cleanup legend."
+  "optionsDateformatSelect": {
+    "message": "Select the date format",
+    "description": "Options window: The date format selection dropdown label"
   },
+
   "optionsMiscellaneousLegend": {
     "message": "Miscellaneous",
     "description": "Options window: The Miscellaneous legend."
@@ -325,9 +363,48 @@
     "message": "Override the built-in autocomplete",
     "description": "Options window: The Override autocomplete checkbox Label."
   },
-  "optionsDateformatSelect": {
-    "message": "Select the date format",
-    "description": "Options window: The date format selection dropdown label"
+
+  "optiondomainlistlegend": {
+    "message": "Enable/Disable history per domain",
+    "description": "Options window: The Domain Filter legend."
+  },
+  "optionsradiodomainall": {
+    "message": "Allow All",
+    "description": "Options window, domainfilter: Label for Allow All radiobutton."
+  },
+  "optionsradiodomainblacklist": {
+    "message": "Blacklist",
+    "description": "Options window, domainfilter: Label for Blacklist radiobutton."
+  },
+  "optionsradiodomainwhitelist": {
+    "message": "Whitelist",
+    "description": "Options window, domainfilter: Label for Whitelist radiobutton."
+  },
+
+  "optionsFieldlistlegend": {
+    "message": "Disable history for specific fields",
+    "description": "Options window: The Cleanup legend."
+  },
+
+  "optionsCleanupLegend": {
+    "message": "Cleanup",
+    "description": "Options window: The Cleanup legend."
+  },
+  "optionsautocleanup": {
+    "message": "Automatic cleanup periodically",
+    "description": "Options window, cleanup: Label for auto cleanup checkbox."
+  },
+  "optionsremovedays": {
+    "message": "Remove formhistory not used in the past",
+    "description": "Options window, cleanup: Label before no of days input."
+  },
+  "optionsremovedaysdays": {
+    "message": "days",
+    "description": "Options window, cleanup: Label after no of days input."
+  },
+  "buttoncleanupnow": {
+    "message": "Clean Up Now",
+    "description": "Options window, cleanup: Label of the cleanup-now button."
   },
 
   

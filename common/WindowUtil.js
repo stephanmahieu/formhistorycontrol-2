@@ -6,15 +6,15 @@
  */
 
 const FHC_WINDOW_MANAGE  = { path:"popup/tableview/popup-big.html", width:1000, height:500, type:"popup", currentId: -1 };
-const FHC_WINDOW_OPTIONS = { path:"popup/options/options.html",     width: 450, height:330, type:"popup", currentId: -1 };
+const FHC_WINDOW_OPTIONS = { path:"popup/options/options.html",     width: 575, height:395, type:"popup", currentId: -1 };
 const FHC_WINDOW_ABOUT   = { path:"popup/about/about.html",         width: 600, height:300, type:"popup", currentId: -1 };
 const FHC_WINDOW_IMPORT  = { path:"popup/importexport/import.html", width: 350, height:250, type:"popup", currentId: -1 };
 const FHC_WINDOW_EXPORT  = { path:"popup/importexport/export.html", width: 350, height:250, type:"popup", currentId: -1 };
 const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 550, height:315, type:"popup", currentId: -1 };
 const FHC_WINDOW_EDITRVW = { path:"popup/entryview/entryview.html", width: 550, height:415, type:"popup", currentId: -1 };
 
-const FHC_WINDOW_HELP     = { path:"https://formhistory.blogspot.nl/2009/06/introduction-to-form-history-control.html", width: 990, height:900, type:"normal", currentId: -1 };
-const FHC_WINDOW_RELNOTES = { path:"https://formhistory.blogspot.nl/2009/05/release-notes.html",                        width: 990, height:900, type:"normal", currentId: -1 };
+const FHC_WINDOW_HELP     = { path:"https://stephanmahieu.github.io/fhc-home/",                               width: 990, height:900, type:"normal", currentId: -1 };
+const FHC_WINDOW_RELNOTES = { path:"https://stephanmahieu.github.io/fhc-home/ReleaseNotes/fhc-releasenotes/", width: 990, height:900, type:"normal", currentId: -1 };
 
 class WindowUtil {
 
@@ -97,22 +97,31 @@ class WindowUtil {
     static _updateWindowContent(fhcWindowObject) {
         WindowUtil._optionsCloseButton(fhcWindowObject);
 
-        // console.log('_updateWindowContent, winId=' + fhcWindowObject.currentId + '  height=' + fhcWindowObject.height);
-        setTimeout(()=>{
-            //console.log('Update height after 500ms');
-            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
-            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
-        }, 500);
-        setTimeout(()=>{
-            //console.log('Update height after 1500ms');
-            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
-            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
-        }, 1500);
-        setTimeout(()=>{
-            //console.log('Update height after 3000ms');
-            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
-            browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
-        }, 3000);
+        const winPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
+        let os = 'other';
+        let platform = window.navigator.platform;
+        if (winPlatforms.indexOf(platform) !== -1) {
+            os = 'windows';
+        }
+
+        if (os === 'other') {
+            // console.log('_updateWindowContent, winId=' + fhcWindowObject.currentId + '  height=' + fhcWindowObject.height);
+            setTimeout(()=>{
+                //console.log('Update height after 500ms');
+                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
+                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
+            }, 500);
+            setTimeout(()=>{
+                //console.log('Update height after 1500ms');
+                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
+                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
+            }, 1500);
+            setTimeout(()=>{
+                //console.log('Update height after 3000ms');
+                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
+                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
+            }, 3000);
+        }
     }
 
     static _optionsCloseButton(fhcWindowObject) {

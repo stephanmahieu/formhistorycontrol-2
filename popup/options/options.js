@@ -39,11 +39,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
     restoreOptions();
     document.querySelector("form").addEventListener("submit", saveOptions);
+
+    document.querySelectorAll('.optionLink').forEach(link => {
+        link.addEventListener("click", selectOptionSection);
+    });
+
     document.querySelector("#themeSelect").addEventListener("change", themeSelectionChanged);
     document.querySelector("#overrideAutocomplete").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#dateformatSelect").addEventListener("change", checkPropertiesChanged);
 
-    document.querySelector("#buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
+    document.querySelectorAll('input[name=radiogroupDomainlist]').forEach(radio => {
+        radio.addEventListener("change", checkPropertiesChanged);
+        radio.addEventListener("change", domainlistRadioChanged);
+    });
+
+    document.querySelector('#domainlist').addEventListener("change", domainlistChanged);
+    document.querySelector('#domainListItem').addEventListener("keyup", domainlistInputChanged);
+
+    document.querySelector('#fieldlist').addEventListener("change", fieldlistChanged);
+    document.querySelector('#fieldListItem').addEventListener("keyup", fieldlistInputChanged);
+
+    document.querySelectorAll('.domainbutton').forEach(btn => {btn.addEventListener("click", listButtonClicked)});
+
+    document.querySelector("#autocleanup").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#keepdayshistory").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#btnCleanupNow").addEventListener("click", cleanupNow);
+
+    document.querySelector("#buttonClose").addEventListener("click", closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
 
     // check if database is accessible
@@ -52,18 +74,43 @@ document.addEventListener("DOMContentLoaded", function() {
     // WindowUtil.isDatabaseAccessible()
 });
 
+function closeThisPopup(event) {
+    event.preventDefault();
+    // TODO check for changes and ask confirmation?
+    WindowUtil.closeThisPopup();
+}
+
 let currentOptions;
 function restoreOptions() {
     let gettingItem = browser.storage.local.get({
         prefInterfaceTheme       : "default",
         prefUseCustomAutocomplete: false,
-        prefDateFormat           : "automatic"
+        prefDateFormat           : "automatic",
+        prefDomainFilter         : "all",
+        prefDomainList           : [],
+        prefFieldList            : [],
+        prefAutomaticCleanup     : CleanupConst.DEFAULT_DO_CLEANUP,
+        prefKeepDaysHistory      : CleanupConst.DEFAULT_DAYS_TO_KEEP
     });
     gettingItem.then(res => {
         //console.log('checkbox value got from storage is [' + res.prefUseCustomAutocomplete + ']');
         document.querySelector('#themeSelect').value = res.prefInterfaceTheme;
         document.querySelector("#overrideAutocomplete").checked = res.prefUseCustomAutocomplete;
         document.querySelector("#dateformatSelect").value = res.prefDateFormat;
+        document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
+        document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
+
+        checkRadioDomainByValue(res.prefDomainFilter);
+
+        setListOptions("#domainlist", res.prefDomainList);
+        document.querySelector("#domainListItem").value = "";
+
+        setListOptions("#fieldlist", res.prefFieldList);
+        document.querySelector("#fieldListItem").value = "";
+
+        domainlistRadioChanged();
+        domainlistChanged();
+        fieldlistChanged();
 
         currentOptions = Object.assign({}, res);
         checkPropertiesChanged();
@@ -81,7 +128,9 @@ function saveOptions(e) {
         eventType: 888,
         interfaceThemeChanged: (currentOptions.prefInterfaceTheme !== newOptions.prefInterfaceTheme),
         overrideAutocompleteChanged: (currentOptions.prefUseCustomAutocomplete !== newOptions.prefUseCustomAutocomplete),
-        dateFormatChanged: (currentOptions.prefDateFormat !== newOptions.prefDateFormat)
+        dateFormatChanged: (currentOptions.prefDateFormat !== newOptions.prefDateFormat),
+        domainFilterChanged: (currentOptions.prefDomainFilter != newOptions.prefDomainFilter || !arrayContentEquals(currentOptions.prefDomainList, newOptions.prefDomainList)),
+        fieldFilterChanged: !arrayContentEquals(currentOptions.prefFieldList, newOptions.prefFieldList)
     };
 
     // inform popups
@@ -103,16 +152,262 @@ function getNewOptions() {
         prefInterfaceTheme       : document.querySelector("#themeSelect").value,
         prefUseCustomAutocomplete: document.querySelector("#overrideAutocomplete").checked,
         prefDateFormat           : document.querySelector("#dateformatSelect").value,
+        prefDomainFilter         : getCheckedRadioDomainValue(),
+        prefDomainList           : getList("#domainlist"),
+        prefFieldList            : getList("#fieldlist"),
+        prefAutomaticCleanup     : document.querySelector("#autocleanup").checked,
+        prefKeepDaysHistory      : document.querySelector("#keepdayshistory").value
     };
 }
+
+function selectOptionSection(event) {
+    let currentLinkElm = event.currentTarget;
+    let openFieldsetId = "fld_" + currentLinkElm.id;
+
+    // hide old fieldset
+    let oldLinkElm = document.querySelector(".optionLink.selected");
+    let oldFieldsetId = "fld_" + oldLinkElm.id;
+    let oldFldSet = document.querySelector("#" + oldFieldsetId);
+    oldFldSet.style.display = "none";
+    oldLinkElm.classList.remove("selected");
+
+    // show new fieldset
+    let newFldSet = document.querySelector("#" + openFieldsetId);
+    newFldSet.style.display = "block";
+
+    // set link to selected
+    currentLinkElm.classList.add("selected");
+}
+
+function domainlistRadioChanged() {
+    const radioAllowAllChecked = document.querySelector("#radioDomainlistAll").checked;
+
+    const domainlistElm = document.querySelector("#domainlist");
+    const domainListInputElm = document.querySelector("#domainListItem");
+    const btnAdd = document.querySelector("#listAdd");
+    const btnMod = document.querySelector("#listModify");
+    const btnDel = document.querySelector("#listDelete");
+
+    if (radioAllowAllChecked) {
+        domainlistElm.setAttribute("disabled", "true");
+        domainListInputElm.setAttribute("disabled", "true");
+        btnAdd.setAttribute("disabled", "true");
+        btnMod.setAttribute("disabled", "true");
+        btnDel.setAttribute("disabled", "true");
+
+        domainlistElm.value = -1;
+        domainListInputElm.value = "";
+    } else {
+        domainlistElm.removeAttribute("disabled");
+        domainListInputElm.removeAttribute("disabled");
+    }
+}
+
+function checkRadioDomainByValue(radioButtonValue) {
+    switch(radioButtonValue) {
+        case "all":
+            document.querySelector("#radioDomainlistAll").checked = true;
+            break;
+        case "blacklist":
+            document.querySelector("#radioDomainlistBlacklist").checked = true;
+            break;
+        case "whitelist":
+            document.querySelector("#radioDomainlistWhitelist").checked = true;
+            break;
+    }
+}
+
+function getCheckedRadioDomainValue() {
+    let checkedRadioValue = 'all';
+    document.querySelectorAll('input[name=radiogroupDomainlist]').forEach(radio => {
+        if (radio.checked) {
+            checkedRadioValue = radio.value;
+        }
+    });
+    return checkedRadioValue;
+}
+
+function getList(selectId) {
+    const options = document.querySelector(selectId).options;
+
+    let domainlist = [];
+    for(let i = 0; i < options.length; i++) {
+        domainlist.push(options[i].textContent);
+    }
+    domainlist.sort();
+    return domainlist;
+}
+
+function setListOptions(selectId, lstOptions) {
+    const lstSelect = document.querySelector(selectId);
+
+    for(let i = 0; i < lstOptions.length; i++) {
+        let newoption = document.createElement("option");
+        newoption.textContent = lstOptions[i];
+        lstSelect.options.add(newoption);
+    }
+}
+
+
+function domainlistChanged() {
+    copySelectedItemToInput("#domainlist", "#domainListItem");
+    setListButtonsState("#domainlist", "#domainListItem", "#listAdd", "#listModify", "#listDelete");
+}
+
+function domainlistInputChanged() {
+    setListButtonsState("#domainlist", "#domainListItem", "#listAdd", "#listModify", "#listDelete");
+}
+
+function fieldlistChanged() {
+    copySelectedItemToInput("#fieldlist", "#fieldListItem");
+    setListButtonsState("#fieldlist", "#fieldListItem", "#fieldAdd", "#fieldModify", "#fieldDelete");
+}
+
+function fieldlistInputChanged() {
+    setListButtonsState("#fieldlist", "#fieldListItem", "#fieldAdd", "#fieldModify", "#fieldDelete");
+}
+
+function listButtonClicked(event) {
+    event.preventDefault();
+    let idButton = event.target.id;
+    switch (idButton) {
+        case "listAdd":
+            addListItem("#domainlist", "#domainListItem");
+            domainlistChanged();
+            break;
+        case "listModify":
+            modifyListItem("#domainlist", "#domainListItem");
+            domainlistChanged();
+            break;
+        case "listDelete":
+            deleteSelectedItem("#domainlist", "#domainListItem");
+            domainlistChanged();
+            break;
+
+        case "fieldAdd":
+            addListItem("#fieldlist", "#fieldListItem");
+            fieldlistChanged();
+            break;
+        case "fieldModify":
+            modifyListItem("#fieldlist", "#fieldListItem");
+            fieldlistChanged();
+            break;
+        case "fieldDelete":
+            deleteSelectedItem("#fieldlist", "#fieldListItem");
+            fieldlistChanged();
+            break;
+    }
+    checkPropertiesChanged();
+}
+
+
+function addListItem(selectId, inputId) {
+    const lstSelect = document.querySelector(selectId);
+    const inputValue = document.querySelector(inputId).value;
+
+    if (!listItemExist(lstSelect, inputValue)) {
+        let newoption = document.createElement("option");
+        newoption.textContent = inputValue;
+        lstSelect.options.add(newoption);
+        lstSelect.selectedIndex = lstSelect.options.length - 1;
+    }
+}
+
+function modifyListItem(selectId, inputId) {
+    const lstSelect = document.querySelector(selectId);
+    const inputElm = document.querySelector(inputId);
+
+    lstSelect.options[lstSelect.selectedIndex].textContent = inputElm.value;
+}
+
+function deleteSelectedItem(selectId, inputId) {
+    const lstSelect = document.querySelector(selectId);
+    const inputElm = document.querySelector(inputId);
+
+    let idx = lstSelect.selectedIndex;
+    if (idx >= 0) {
+        lstSelect.remove(lstSelect.selectedIndex);
+        if (lstSelect.options.length > 0) {
+            if (idx < lstSelect.options.length-1) {
+                lstSelect.selectedIndex = idx;
+            } else {
+                lstSelect.selectedIndex  = lstSelect.options.length-1;
+            }
+        } else {
+            // list became empty
+            inputElm.value = "";
+        }
+    }
+}
+
+function copySelectedItemToInput(selectId, inputId) {
+    const lstSelect = document.querySelector(selectId);
+    const inputElm = document.querySelector(inputId);
+
+    let elements = lstSelect.options;
+    for(let i = 0; i < elements.length; i++) {
+        if (elements[i].selected) {
+            inputElm.value = elements[i].value;
+        }
+    }
+    inputElm.focus();
+}
+
+function setListButtonsState(selectId, inputId, btnAddId, btnModId, btnDelId) {
+    const btnAdd = document.querySelector(btnAddId);
+    const btnMod = document.querySelector(btnModId);
+    const btnDel = document.querySelector(btnDelId);
+
+    const lstSelect = document.querySelector(selectId);
+    const inputValue = document.querySelector(inputId).value;
+
+    if (lstSelect.selectedIndex < 0 || !inputValue) {
+        if (inputValue) {
+            btnAdd.removeAttribute("disabled");
+        } else {
+            btnAdd.setAttribute("disabled", "true");
+        }
+        btnMod.setAttribute("disabled", "true");
+        btnDel.setAttribute("disabled", "true");
+    } else {
+        if (listItemExist(lstSelect, inputValue)) {
+            btnAdd.setAttribute("disabled", "true");
+            btnMod.setAttribute("disabled", "true");
+            btnDel.removeAttribute("disabled");
+        } else {
+            btnAdd.removeAttribute("disabled");
+            btnMod.removeAttribute("disabled");
+            btnDel.setAttribute("disabled", "true");
+        }
+    }
+}
+
+function listItemExist(selectElm, optionValue) {
+    const options = selectElm.options;
+    let exist = false;
+    for(let i = 0; i < options.length; i++) {
+        if (options[i].textContent === optionValue) {
+            exist = true;
+        }
+    }
+    return exist;
+}
+
 
 function checkPropertiesChanged() {
     // enable apply button only if properties have changed
     let changed = false;
     const newOptions = getNewOptions();
     Object.entries(newOptions).forEach(([key, value]) => {
-        if (currentOptions[key] !== value) {
-            changed = true;
+        let oldValue = currentOptions[key];
+        if (Array.isArray(oldValue)) {
+            if (!arrayContentEquals(oldValue, value)) {
+                changed = true;
+            }
+        } else {
+            if (oldValue !== value) {
+                changed = true;
+            }
         }
     });
 
@@ -122,6 +417,22 @@ function checkPropertiesChanged() {
     } else {
         applyBtnElm.setAttribute("disabled", "true");
     }
+}
+
+function arrayContentEquals(array1, array2) {
+    if (array1.length === 0 && array2.length === 0) {
+        return true;
+    }
+    if (array1.length !== array2.length) {
+        return false;
+    }
+    let sameContent = true;
+    array1.forEach(value => {
+        if (!array2.includes(value)) {
+            sameContent = false;
+        }
+    });
+    return sameContent;
 }
 
 function addStylesheetThemesToSelect() {
@@ -154,4 +465,9 @@ function onKeyClicked(event) {
     if (keyName === 'Escape') {
         WindowUtil.closeThisPopup();
     }
+}
+
+function cleanupNow(event) {
+    event.preventDefault();
+    browser.runtime.sendMessage({eventType: 800});
 }

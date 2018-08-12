@@ -314,7 +314,12 @@ function populateFromDatabase(table, forFields, forHost) {
             forFields.forEach((field)=>{forFieldsMap.set(field.name, field.type)});
         }
 
+        let timeStarted = new Date();
+        let timeElapsed;
+        let timeout = false;
+
         let count = 0;
+        let countNotShown = 0;
         let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readonly").objectStore(DbConst.DB_STORE_TEXT);
         let cursorReq = objStore.index(DbConst.DB_TEXT_IDX_LAST).openCursor(null, "prev");
         cursorReq.onsuccess = function(evt) {
@@ -323,15 +328,26 @@ function populateFromDatabase(table, forFields, forHost) {
                 let fhcEntry = cursor.value;
                 //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
 
-                // either show all entries or show only the fields/host requested
-                if (!forFields || fhcEntry.name === "" || forFieldsMap.has(fhcEntry.name) || fhcEntry.host === forHost) {
-                    table.row.add([cursor.primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host, fhcEntry.uri]);
-                    count += 1;
-                }
+                if (!timeout) {
 
-                // only update display after 15 rows and when finished
-                if (count === 15) {
-                    table.draw();
+                    timeElapsed = (new Date()) - timeStarted;
+                    if (timeElapsed > 5000) {
+                        // building the datatable takes too long abort the populating process
+                        timeout = true;
+                    }
+
+                    // either show all entries or show only the fields/host requested
+                    if (!forFields || fhcEntry.name === "" || forFieldsMap.has(fhcEntry.name) || fhcEntry.host === forHost) {
+                        table.row.add([cursor.primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host, fhcEntry.uri]);
+                        count += 1;
+                    }
+
+                    // only update display after 15 rows and when finished
+                    if (count === 15) {
+                        table.draw();
+                    }
+                } else {
+                    ++countNotShown;
                 }
 
                 cursor.continue();
@@ -340,6 +356,12 @@ function populateFromDatabase(table, forFields, forHost) {
                 //console.log("No more entries!");
                 table.draw();
                 $("#overlaystatus").removeClass('spinner').hide();
+
+                if (timeout) {
+                    // populating table aborted due to timeout, inform the user
+                    // TODO create a custom warning message
+                    WindowUtil.showModalWarning({titleId: 'dialogWarningTitle', msgId: 'timeoutTooMuchDataWarning', args: [countNotShown, count+countNotShown]});
+                }
             }
         }
     };

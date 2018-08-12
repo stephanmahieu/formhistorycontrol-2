@@ -1,61 +1,19 @@
-nav {
-    background-color: #1e1e1e;
-}
+:root {
+    --nav-bar-bg-color: #1e1e1e;
+    --nav-bar-border-bottom-color: #888888;
+    --nav-bar-hover-bg-color: #4c505b;
 
-nav ul {
-    /*border-bottom: 1px solid #888888;*/
-}
+    --nav-text-color: #e6e6e6;
+    --nav-bg-color: #3d3d3d;
+    --nav-menu-spacer-color: #565656;
 
+    --nav-hover-bg-color: #5675b9;
+    --nav-hover-text-color: #fff;
 
-nav ul li span {
-    color: #e6e6e6;
-}
+    --nav-disabled-text-color: #8f8f8f;
+    --nav-disabled-hover-bg-color: #4e4e4e;
+    --nav-disabled-hover-text-color: #8f8f8f;
 
-nav ul li:hover {
-    background-color: #4c505b;
-}
-
-/* bottom dropdown menu */
-nav ul li ul {
-    border-bottom: 3px solid #226e91;
-    box-shadow: 0 5px 5px #444;
-}
-
-nav ul li ul li span,
-span.menu-spacer,
-span.menu-spacer:hover {
-    background-color: #3d3d3d;
-}
-
-span.menu-spacer span {
-    background-color: #565656;
-}
-
-nav ul li ul li span:hover {
-    background-color: #5675b9;
-    color: #fff;
-}
-
-.menu-disabled {
-    color: #8f8f8f;
-    filter: grayscale(70%);
-}
-.menu-disabled:hover {
-    background-color: #4e4e4e;
-    color: #8f8f8f;
-}
-
-
-/* Context menu */
-.context-menu {
-    color: #e6e6e6;
-    background-color: #3d3d3d;
-    box-shadow: 0 0 10px 2px #191919;
-}
-.context-menu span:hover {
-    background-color: #5675b9;
-    color: #fff;
-}
-.context-separator {
-    border-bottom: 1px solid #aaa;
+    --nav-border-bottom-color: #226e91;
+    --nav-box-shadow-color: #191919;
 }

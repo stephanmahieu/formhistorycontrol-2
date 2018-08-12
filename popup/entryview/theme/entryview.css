@@ -40,11 +40,11 @@ input {
     display: block;
 }
 
-input:disabled,
-textarea:disabled,
-select:disabled {
-    color: black;
-}
+/*input:disabled,*/
+/*textarea:disabled,*/
+/*select:disabled {*/
+    /*color: black;*/
+/*}*/
 
 select:disabled {
     background-color: transparent;

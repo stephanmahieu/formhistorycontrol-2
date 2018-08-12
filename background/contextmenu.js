@@ -7,56 +7,99 @@
 
 'use strict';
 
+/**
+ * Caveat:
+ * does not detect switching/focusing window, with multiple windows each window has an active tab and the
+ * context menu will reflect only the state of the last activated (switched) tab on that particular window.
+ */
+
 browser.tabs.onActivated.addListener(handleActivated);
 
 // initially set the EditorFieldRestoreMenu for the current active tab
-updateEditorFieldRestoreMenuForActiveTab();
+setTimeout(()=>{ updateEditorFieldRestoreMenuForActiveTab(); }, 1500);
 
-function handleActivated(activeInfo) {
-    // console.log("Tab " + activeInfo.tabId + " was activated");
-    // create submenu-items for multiline restore
-    updateEditorFieldRestoreMenu(activeInfo.tabId);
-}
 
 function updateEditorFieldRestoreMenuForActiveTab() {
     browser.tabs.query({active: true}).then(tabInfo=>{
-        if (tabInfo.length === 1) {
-            // console.log('Init: updateEditorFieldRestoreMenu for tabId ' + tabInfo[0].id);
-            updateEditorFieldRestoreMenu(tabInfo[0].id);
-        }
-    });
-}
-
-
-const MAX_LENGTH_EDITFIELD_ITEM = 35;
-const editorFieldsMenuItemsIds = [];
-
-function updateEditorFieldRestoreMenu(tabId) {
-    browser.tabs.get(tabId).then(tabInfo => {
-        if (tabInfo.status === 'loading') {
-            // console.log('TabId ' + tabId + ' not completely loaded yet, retry getting tabInfo in 1 sec...');
-            setTimeout(()=>{ updateEditorFieldRestoreMenu(tabId); }, 1000);
-        } else {
-            const hostname = getHostnameFromUrlString(tabInfo.url);
-            // console.log('TabId ' + tabId + ' was activated and has url: ' + tabInfo.url + '  (' + hostname + ')');
-
-            removeCurrentMenuItems(editorFieldsMenuItemsIds)
-            .then(() => {
-                return getEditorFieldsByHostname(hostname, 10);
-            }).then(hostnameItemsArray => {
-                hostnameItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
-                return hostnameItemsArray;
-            }).then(hostnameItemsArray => {
-                return getEditorFieldsByLastused(hostname, 10, hostnameItemsArray);
-            }).then(lastusedItemsArray => {
-                lastusedItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
-            }).then(()=>{
-                // editorFieldsMenuItemsIds.forEach(item => { console.log('- ' + item.type + ' ' + item.pKey + '  ' + item.value); });
-                return addNewMenuItems(editorFieldsMenuItemsIds);
+        if (tabInfo.length > 0) {
+            tabInfo.forEach(tab => {
+                updateEditorFieldRestoreMenu(tab.url);
             });
         }
     });
 }
+
+function handleActivated(activeInfo) {
+    // console.log("Tab " + activeInfo.tabId + " was activated");
+    // create submenu-items for multiline restore
+    updateEditorFieldRestoreMenuOnTabActivation(activeInfo.tabId);
+}
+
+function updateEditorFieldRestoreMenuOnTabActivation(tabId, attempt = 1) {
+    browser.tabs.get(tabId).then(tabInfo => {
+        if (tabInfo.status === 'loading' || ('about:blank' === tabInfo.url && attempt<=10)) {
+            setTimeout(() => {
+                updateEditorFieldRestoreMenuOnTabActivation(tabId, ++attempt);
+            }, 500);
+        } else {
+            // console.log('TabId ' + tabId+ ' was activated and has url: ' + tabInfo.url);
+            updateEditorFieldRestoreMenu(tabInfo.url);
+        }
+    });
+}
+
+const MAX_LENGTH_EDITFIELD_ITEM = 35;
+const editorFieldsMenuItemsIds = [];
+
+function updateEditorFieldRestoreMenu(url) {
+    if (url.includes('moz-extension://')) {
+        // skip popup windows
+        return;
+    }
+    const hostname = getHostnameFromUrlString(url);
+
+    removeCurrentMenuItems(editorFieldsMenuItemsIds)
+    .then(() => {
+        return getEditorFieldsByHostname(hostname, 10);
+    }).then(hostnameItemsArray => {
+        hostnameItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
+        return hostnameItemsArray;
+    }).then(hostnameItemsArray => {
+        return getEditorFieldsByLastused(hostname, 10, hostnameItemsArray);
+    }).then(lastusedItemsArray => {
+        lastusedItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
+    }).then(()=>{
+        // editorFieldsMenuItemsIds.forEach(item => { console.log('- ' + item.type + ' ' + item.pKey + '  ' + item.value); });
+        return addNewMenuItems(editorFieldsMenuItemsIds);
+    });
+}
+
+// function updateEditorFieldRestoreMenu(tabId) {
+//     browser.tabs.get(tabId).then(tabInfo => {
+//         if (tabInfo.status === 'loading') {
+//             // console.log('TabId ' + tabId + ' not completely loaded yet, retry getting tabInfo in 1 sec...');
+//             setTimeout(()=>{ updateEditorFieldRestoreMenu(tabId); }, 1000);
+//         } else {
+//             const hostname = getHostnameFromUrlString(tabInfo.url);
+//             // console.log('TabId ' + tabId + ' was activated and has url: ' + tabInfo.url + '  (' + hostname + ')');
+//
+//             removeCurrentMenuItems(editorFieldsMenuItemsIds)
+//             .then(() => {
+//                 return getEditorFieldsByHostname(hostname, 10);
+//             }).then(hostnameItemsArray => {
+//                 hostnameItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
+//                 return hostnameItemsArray;
+//             }).then(hostnameItemsArray => {
+//                 return getEditorFieldsByLastused(hostname, 10, hostnameItemsArray);
+//             }).then(lastusedItemsArray => {
+//                 lastusedItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
+//             }).then(()=>{
+//                 // editorFieldsMenuItemsIds.forEach(item => { console.log('- ' + item.type + ' ' + item.pKey + '  ' + item.value); });
+//                 return addNewMenuItems(editorFieldsMenuItemsIds);
+//             });
+//         }
+//     });
+// }
 
 function addNewMenuItems(menuItemsIds) {
     return new Promise((resolve, reject) => {

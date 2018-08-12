@@ -128,8 +128,12 @@ function _isDesignModeOn(elem) {
 
 function _setMultilineTextValue(element, value) {
     let found = false;
+    let changed = false;
     if (element.nodeName.toLowerCase()==='textarea') {
-        element.value = value;
+        if (element.value !== value) {
+            element.value = value;
+            changed = true;
+        }
         found = true;
     } else if (_isContentEditable(element)) {
         while (element.firstChild) {
@@ -137,9 +141,14 @@ function _setMultilineTextValue(element, value) {
         }
         element.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
         found = true;
+        changed = true;
     }
     if (found && value !== "") {
         _setStyle(element, 'backgroundColor', '#ffffcc', false);
+        if (changed) {
+            // trigger update count and last used date
+            _manualOnContentChanged(element);
+        }
     }
     return found;
 }
@@ -194,6 +203,9 @@ function _ifMatchSetValue(node, fhcEvent) {
             // indicate changed value backgroundColor
             _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
 
+            // trigger update count and last used date
+            _manualOnContentChanged(node);
+
             //console.log("###### setting " + nodeName + " id:" + fhcEvent.id);
             return true;
             break;
@@ -211,7 +223,11 @@ function _ifMatchSetValue(node, fhcEvent) {
             case "url":
             case "email":
             case "date":
-                node.value = fhcEvent.value;
+                if (node.value !== fhcEvent.value) {
+                    node.value = fhcEvent.value;
+                    // trigger update count and last used date
+                    _manualOnContentChanged(node);
+                }
 
                 // indicate changed value backgroundColor
                 _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
@@ -415,7 +431,7 @@ function _processContentEvent(event) {
         event.last = (new Date()).getTime();
         event.node = null;
 
-        //console.log("Send content-event for " + event.id + " to background-script: " + event.content);
+        // console.log("Send content-event for " + event.id + " to background-script: " + event.value);
         browser.runtime.sendMessage(event);
     }
 }
@@ -524,6 +540,18 @@ function onFormSubmit(event) {
     //console.log("collectFormData::onFormSubmit done.");
 }
 
+/**
+ * trigger update count and last used date just like regular DOM events.
+ */
+function _manualOnContentChanged(element) {
+    const dummyEventObj = {
+        originalTarget: element,
+        type: 'dummy'
+    };
+    onContentChanged(dummyEventObj);
+}
+
+
 function onContentChanged(event) {
     let t = event.originalTarget;
     let n = t.nodeName.toLowerCase();
@@ -556,7 +584,9 @@ function onContentChanged(event) {
         // body of iframe
         //console.log("keyup from body");
         let doc = t.ownerDocument;
-        let e = doc.activeElement;
+        // activeElement prevents manual update
+        // let e = doc.activeElement;
+        let e = t;
         if (("on" === doc.designMode) || _isContentEditable(e)) {
             //console.log("content is editable");
             _contentChangedHandler("body" === n ? "iframe" : "div", e);
@@ -790,8 +820,13 @@ function _alreadyQueued(event) {
     return false;
 }
 
-setInterval(processEventQueue, 5000);
-
+//setInterval(processEventQueue, 5000);
+(function processEventQueueLoop(){
+    setTimeout(function() {
+        processEventQueue();
+        processEventQueueLoop();
+    }, 5000);
+})();
 
 //----------------------------------------------------------------------------
 // Add event handlers
@@ -803,27 +838,48 @@ function createDomObserver() {
             //console.log('Detected a mutation!  type = ' + mutation.type);
             if (mutation.type === 'attributes') {
                 const targetElem = mutation.target;
-                //console.log('Contenteditable changed ' + targetElem.nodeName  + '  editable = ' + _isContentEditable(targetElem) + '  designModeOn = ' +  _isDesignModeOn(targetElem));
-                targetElem.addEventListener("keyup", onContentChanged);
+                if ('style' === mutation.attributeName) {
+                    // style changed
+                    if (mutation.oldValue.indexOf('display: none')!==-1 && targetElem.style.display !== 'none') {
+                        // element style became visible, add event handler(s) that were not added previously because the element was invisible
+                        // console.log('display changed for id:' + targetElem.id + " type:" + targetElem.tagName + " oldValue:" + mutation.oldValue);
+                        addElementHandlers(targetElem);
+                    }
+                } else {
+                    // attribute contenteditable or designMode changed
+                    // console.log('Contenteditable changed ' + targetElem.nodeName  + '  editable = ' + _isContentEditable(targetElem) + '  designModeOn = ' +  _isDesignModeOn(targetElem));
+                    targetElem.addEventListener("keyup", onContentChanged);
+                }
             } else if (mutation.addedNodes) {
                 mutation.addedNodes.forEach(elem => {
-                    switch(elem.nodeName) {
-                        case 'INPUT':
-                            elem.addEventListener('change', onContentChanged);
-                            elem.addEventListener('paste', onContentChanged);
-                            break;
-                        case 'TEXTAREA':
-                            elem.addEventListener("keyup", onContentChanged);
-                            elem.addEventListener('paste', onContentChanged);
-                            break;
-                        case 'FORM':
-                            elem.addEventListener('submit', onFormSubmit);
-                            break;
-                    }
+                    addElementHandlers(elem);
                 });
             }
         });
     });
+}
+
+function addElementHandlers(element) {
+    switch(element.nodeName) {
+        case 'INPUT':
+            console.log('add ev handlere to id:' + element.id + ' type:' + element.nodeName);
+            element.addEventListener('change', onContentChanged);
+            element.addEventListener('paste', onContentChanged);
+            break;
+        case 'TEXTAREA':
+            console.log('add ev handlere to id:' + element.id + ' type:' + element.nodeName);
+            element.addEventListener("keyup", onContentChanged);
+            element.addEventListener('paste', onContentChanged);
+            break;
+        case 'FORM':
+            console.log('add ev handlere to id:' + element.id + ' type:' + element.nodeName);
+            element.addEventListener('submit', onFormSubmit);
+            break;
+        default:
+            if (element.hasChildNodes()) {
+                Array.from(element.childNodes).forEach(elem => addElementHandlers(elem));
+            }
+    }
 }
 
 function addHandler(selector, eventType, aFunction) {
@@ -844,7 +900,8 @@ createDomObserver().observe(
     {
         childList: true,
         attributes: true,
-        attributeFilter: ['contenteditable','designMode'],
+        attributeFilter: ['contenteditable','designMode','style'],
+        attributeOldValue: true,
         subtree: true
     }
 );

@@ -453,6 +453,17 @@ function databaseChangeSingleItem(what, primaryKey, fhcEntry) {
                 }
             );
             break;
+
+        case 'delete':
+            table.rows().every(
+                function (/* rowIdx, tableLoop, rowLoop */) {
+                    if (this.data()[0] === primaryKey) {
+                        this.remove();
+                        table.draw();
+                    }
+                }
+            );
+            break;
     }
 
 }

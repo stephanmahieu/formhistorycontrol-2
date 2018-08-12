@@ -34,4 +34,63 @@ class OptionsUtil {
             );
         });
     }
+
+    static getCleanupPrefs() {
+        return new Promise((resolve, reject) => {
+            browser.storage.local.get({
+                prefAutomaticCleanup: CleanupConst.DEFAULT_DO_CLEANUP,
+                prefKeepDaysHistory : CleanupConst.DEFAULT_DAYS_TO_KEEP
+            }).then(
+                result => {
+                    resolve(result);
+                },
+                () => {
+                    resolve(result);
+                }
+            );
+        });
+    }
+
+    static getFilterPrefs() {
+        return new Promise((resolve, reject) => {
+            browser.storage.local.get({
+                prefDomainFilter: 'all',
+                prefDomainList  : [],
+                prefFieldList   : []
+            }).then(
+                result => {
+                    resolve(result);
+                },
+                () => {
+                    resolve(result);
+                }
+            );
+        });
+    }
+
+    static isDomainfilterActive(filterPrefs) {
+        return 'all' === filterPrefs.prefDomainFilter;
+    }
+
+    static isDomainBlocked(domain, filterPrefs) {
+        switch (filterPrefs.prefDomainFilter) {
+            case 'all':
+                return false;
+
+            case 'blacklist':
+                return filterPrefs.prefDomainList.includes(domain);
+
+            case 'whitelist':
+                return !filterPrefs.prefDomainList.includes(domain);
+
+            default:
+                console.warn('Unimplemented domainfilter ' + filterPrefs.prefDomainFilter);
+                return false;
+        }
+    }
+
+    static isTextFieldBlocked(fieldname, filterPrefs) {
+        return filterPrefs.prefFieldList.length > 0 && filterPrefs.prefFieldList.includes(fieldname);
+    }
+
 }
