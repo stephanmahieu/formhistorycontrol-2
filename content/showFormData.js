@@ -135,9 +135,8 @@ function _createInfoElement(id, sourceElem, includeForm) {
         fldName = '\u00a0'; //&nbsp;
     }
 
-    let style = 'display:block; border:1px solid #000; padding: 0 4px; ' +
-        'background-color:#FFFFAA; color:#000; opacity: 0.75; ' +
-        'font: bold 11px sans-serif; text-decoration:none; text-align:left; ' +
+    let style = 'display:block; border:1px solid #000; padding: 0 4px; color:#000; ' +
+        'opacity: 0.75; font:bold 11px sans-serif; text-decoration:none; text-align:left; ' +
         'z-index: 2147483647; cursor:default; box-shadow: 3px 3px 2px black; ';
 
     let compstyle = document.defaultView.getComputedStyle(sourceElem, null);
@@ -156,6 +155,7 @@ function _createInfoElement(id, sourceElem, includeForm) {
             top += elem.offsetTop;
         } while ((elem = elem.offsetParent));
     }
+    style += 'background-color:' + _getTypeSpecificColor(sourceElem) + '; ';
     style += 'position:absolute; top:' + top + 'px; ';
     style += 'left:' + (left + width + padding + border + 4) + 'px; ';
 
@@ -189,6 +189,34 @@ function _createInfoElement(id, sourceElem, includeForm) {
     innerDiv.appendChild(_getFormInfoHTML(sourceElem, includeForm));
 
     return div;
+}
+
+/**
+ * Return a color dependent on the type of input element.
+ *
+ * @param element {Element}
+ *        the inputfield
+ *
+ * @return {String}
+ *         rgb color code
+ */
+function _getTypeSpecificColor(element) {
+    let color;
+    switch (element.nodeName) {
+        case 'DIV':
+        case 'HTML':
+        case 'BODY':
+        case 'IFRAME':
+            color = '#bcffd1';
+            break;
+        case 'TEXTAREA':
+            color = '#c2d7ff';
+            break;
+        default:
+            color = '#FFFFAA';
+            break;
+    }
+    return color;
 }
 
 /**
