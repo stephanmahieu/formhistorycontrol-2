@@ -68,6 +68,18 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#buttonClose").addEventListener("click", closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
 
+    // if this is a large window, options have been opened from outside the app, in that case show all options at once
+    if (document.body.clientHeight > 600) {
+        // unkide fieldsets
+        document.querySelectorAll('.sub-fieldset').forEach(fldset => {
+            fldset.style.display = "block";
+        });
+        // hide option links
+        document.querySelectorAll('.optionLink').forEach(lnk => {
+            lnk.style.display = "none";
+        });
+    }
+
     // check if database is accessible
     // !! opening database in a popup script behaves differently across current/beta/nightly versions,
     // !! also db is usually opened from a background script so maybe activate (much) later
