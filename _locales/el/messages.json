@@ -10,7 +10,7 @@
   },
 
   "extensionDescription": {
-    "message": "Διαχείρηση καταχωρήσεων ιστορικού φορμών (αναζήτηση, επεξεργασία, καθαρισμός, εξαγωγή/εισαγωγή) και εύκολος εισαγωγέας κειμένου, συμβατό με Multiprocess (e10s) και WebExtensions!",
+    "message": "Διαχείριση καταχωρήσεων ιστορικού φορμών (αναζήτηση, επεξεργασία, καθαρισμός, εξαγωγή/εισαγωγή) και εύκολος εισαγωγέας κειμένου, συμβατό με Multiprocess (e10s) και WebExtensions!",
     "description": "Description of this extension."
   },
 
@@ -19,8 +19,8 @@
     "description": "Label for developer."
   },
 
-  
-  
+
+
   "fieldName": {
     "message": "Όνομα Πεδίου",
     "description": "The label for the formfield-name of a formfield entry."
@@ -68,7 +68,7 @@
     "description": "Edit a single field, info displayed in edit window."
   },
   "operationEditOneField": {
-    "message": "Επεξεργασια υπαρχουσας εγγραφης καταχωρησης",
+    "message": "Επεξεργασία υπάρχουσας εγγραφής καταχώρησης",
     "description": "Edit a single field, info displayed in edit window."
   },
   "operationEditMultipleFields": {
@@ -76,7 +76,7 @@
     "description": "Edit multiple fields at once, info displayed in edit window."
   },
   "operationAddField": {
-    "message": "Προσθήκη μιας νεας καταχώρησης",
+    "message": "Προσθήκη μιας νέας καταχώρησης",
     "description": "Add a new field, info displayed in edit window."
   },
   "labelPreview": {
@@ -129,8 +129,8 @@
       }
     }
   },
-  "TODO-timeoutTooMuchDataWarning": {
-    "message": "There is too much data to quickly display in a popup window, use the cleanup option in order to reduce the amount of data or open the advanced 'Manage History' window (right mouseclick).\n\n($count$ results of total $total$ discarded)",
+  "timeoutTooMuchDataWarning": {
+    "message": "Υπάρχουν πολλά δεδομένα για να εμφανιστούν γρήγορα σε αναδυόμενο παράθυρο, χρησιμοποίησε την επιλογή καθαρισμού για να μειώσεις τον όγκο των δεδομένων ή άνοιξε το παράθυρο 'Διαχείριση Ιστορικού' (δεξί κλικ στο ποντίκι).\n\n($count$ αποτελέσματα από συνολικά $total$ απερρίφθησαν).",
     "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
     "placeholders": {
       "count" : {
@@ -145,7 +145,7 @@
   },
 
   "informClipboardValueCopied": {
-    "message": "Η τιμή αντιγράφηκε με επιτυχία στο πρόχειρο",
+    "message": "Η τιμή αντιγράφτηκε με επιτυχία στο πρόχειρο.",
     "description": "Information message that clipboard value has been copied."
   },
 
@@ -159,19 +159,19 @@
   },
 
   "validationErrorMissingRequired": {
-    "message": "Δεν έχουν συμπληρωθεί όλα τα απαραίτητα πεδία",
+    "message": "Δεν έχουν συμπληρωθεί όλα τα απαραίτητα πεδία.",
     "description": "Validation message for missing mandatory values."
   },
   "validationErrorLastBeforeFirst": {
-    "message": "Η 'Χρησιμοποιήθηκε τελευταία φορά' ημερομηνία πρέπει να είναι ίση ή μεταγενέστερη απο την 'Χρησιμοποιήθηκε πρώτη φορά' ημερομηνία.",
+    "message": "Η 'Χρησιμοποιήθηκε τελευταία φορά' ημερομηνία πρέπει να είναι ίση ή μεταγενέστερη από την 'Χρησιμοποιήθηκε πρώτη φορά' ημερομηνία.",
     "description": "Validation message for last date being before first date."
   },
   "validationErrorAtLastOneField": {
-    "message": "Τουλάχιστον ένα πεδίο πρέπει να έχει μια τιμή",
+    "message": "Τουλάχιστον ένα πεδίο πρέπει να έχει μια τιμή.",
     "description": "Validation message for no fields having a value."
   },
   "validationErrorNotNumeric": {
-    "message": "Η τιμή δεν είναι νούμερο",
+    "message": "Η τιμή δεν είναι νούμερο.",
     "description": "Validation message for value not being a numeric value."
   },
   "validationErrorInvalidURL": {
@@ -205,7 +205,7 @@
     "description": "Label of cleanup button."
   },
   "buttonModify": {
-    "message": "Μετατροπή",
+    "message": "Τροποποίηση",
     "description": "Label of modify button."
   },
   "buttonAdd": {
@@ -251,7 +251,7 @@
     "description": "Error message when an error occurred reading the import file."
   },
   "importErrorCancelled": {
-    "message": "Η ανάγνωση του αρεχίου εισαγωγής ακυρώθηκε.",
+    "message": "Η ανάγνωση του αρχείου εισαγωγής ακυρώθηκε.",
     "description": "Error message when reading import file was cancelled."
   },
 
@@ -321,24 +321,24 @@
     "description": "Title of the options window."
   },
 
-  "TODO-optionsDisplayMenu": {
-    "message": "Display",
+  "optionsDisplayMenu": {
+    "message": "Προβολή",
     "description": "Options window: Left Display menu."
   },
-  "TODO-optionsMiscellaneousMenu": {
-    "message": "Miscellaneous",
+  "optionsMiscellaneousMenu": {
+    "message": "Διάφορα",
     "description": "Options window: Left Miscellaneous menu."
   },
-  "TODO-optionsDomainlistMenu": {
-    "message": "Domain Filter",
+  "optionsDomainlistMenu": {
+    "message": "Φίλτρο Τομέα",
     "description": "Options window: Left Domain Filter menu."
   },
-  "TODO-optionsFieldlistMenu": {
-    "message": "Field Filter",
+  "optionsFieldlistMenu": {
+    "message": "Φίλτρο Πεδίου",
     "description": "Options window: Left Field Filter menu."
   },
-  "TODO-optionsCleanupMenu": {
-    "message": "Cleanup",
+  "optionsCleanupMenu": {
+    "message": "Καθαρισμός",
     "description": "Options window: Left Cleanup menu."
   },
 
@@ -354,56 +354,56 @@
     "message": "Διάλεξε μορφή ημερομηνίας",
     "description": "Options window: The date format selection dropdown label"
   },
-  
+
   "optionsMiscellaneousLegend": {
     "message": "Διάφορα",
     "description": "Options window: The Miscellaneous legend."
   },
   "optionsOverrideAutocomplete": {
-    "message": "Παράκαμψη του ενσωματωμένου αυτόματου εισαγωγέα",
+    "message": "Παράκαμψη του ενσωματωμένου αυτόματου εισαγωγέα.",
     "description": "Options window: The Override autocomplete checkbox Label."
   },
 
-  "TODO-optiondomainlistlegend": {
-    "message": "Enable/Disable history per domain",
+  "optiondomainlistlegend": {
+    "message": "Ενεργοποίηση/Απενεργοποίηση ιστορικού ανά Τομέα.",
     "description": "Options window: The Domain Filter legend."
   },
-  "TODO-optionsradiodomainall": {
-    "message": "Allow All",
+  "optionsradiodomainall": {
+    "message": "Επιτρέπονται όλα",
     "description": "Options window, domainfilter: Label for Allow All radiobutton."
   },
-  "TODO-optionsradiodomainblacklist": {
-    "message": "Blacklist",
+  "optionsradiodomainblacklist": {
+    "message": "Λίστα Απαγορευμένων",
     "description": "Options window, domainfilter: Label for Blacklist radiobutton."
   },
-  "TODO-optionsradiodomainwhitelist": {
-    "message": "Whitelist",
+  "optionsradiodomainwhitelist": {
+    "message": "Λίστα Επιτρεπόμενων",
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
 
-  "TODO-optionsFieldlistlegend": {
-    "message": "Disable history for specific fields",
+  "optionsFieldlistlegend": {
+    "message": "Απενεργοποίηση Ιστορικού για συγκεκριμένα πεδία.",
     "description": "Options window: The Cleanup legend."
   },
-  
+
   "optionsCleanupLegend": {
     "message": "Καθαρισμός",
     "description": "Options window: The Cleanup legend."
   },
-  "TODO-optionsautocleanup": {
-    "message": "Automatic cleanup periodically",
+  "optionsautocleanup": {
+    "message": "Αυτόματος καθαρισμός ανά τακτά χρονικά διαστήματα.",
     "description": "Options window, cleanup: Label for auto cleanup checkbox."
   },
-  "TODO-optionsremovedays": {
-    "message": "Remove formhistory not used in the past",
+  "optionsremovedays": {
+    "message": "Αφαίρεση Ιστορικού που δεν χρησιμοποιήθηκε στο παρελθόν.",
     "description": "Options window, cleanup: Label before no of days input."
   },
-  "TODO-optionsremovedaysdays": {
-    "message": "days",
+  "optionsremovedaysdays": {
+    "message": "Ημέρες",
     "description": "Options window, cleanup: Label after no of days input."
   },
-  "TODO-buttoncleanupnow": {
-    "message": "Clean Up Now",
+  "buttoncleanupnow": {
+    "message": "Καθαρισμός Τώρα",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
 
@@ -413,7 +413,7 @@
     "description": "Header title of the small popup."
   },
   "popupHeaderInfo": {
-    "message": "Προβολή ιστορικού για αυτή τη σελίδα μόνο",
+    "message": "Προβολή ιστορικού για αυτή τη σελίδα μόνο.",
     "description": "Extra info next to the header title of the small popup."
   },
   "open-preference-tooltip": {
@@ -421,7 +421,7 @@
     "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
   },
   "open-bigdialog-tooltip": {
-    "message": "Άνοιγμα του διαλόγου 'Διαχείρηση Ιστορικού' για προχωρημένους",
+    "message": "Άνοιγμα του διαλόγου 'Διαχείριση Ιστορικού' για προχωρημένους.",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
 
@@ -444,7 +444,7 @@
 
 
   "contextMenuItemManageHistory": {
-    "message": "Διαχείρηση Ιστορικού",
+    "message": "Διαχείριση Ιστορικού",
     "description": "Title of context menu item that starts the Manage history dialog."
   },
   "contextMenuItemRestoreEditorField": {
@@ -468,7 +468,7 @@
     "description": "Title of context menu item that fills formfields with the most recent used value."
   },
   "contextMenuItemFillMostUsed": {
-    "message": "Γέμισμα πεδίων με τις πιο συχνά χρησιμοποιημένες καταχωρήσεις",
+    "message": "Γέμισμα πεδίων με τις πιο συχνά χρησιμοποιημένες καταχωρήσεις.",
     "description": "Title of context menu item that fills formfields with the most used value."
   },
   "contextMenuItemClearFields": {
@@ -476,7 +476,7 @@
     "description": "Title of context menu item that clears all filled fields."
   },
   "contextMenuItemShowformfields": {
-    "message": "Εμφάνιση πεδίων στην τρέχουσα σελίδα",
+    "message": "Εμφάνιση πεδίων στην τρέχουσα σελίδα.",
     "description": "Title of context menu item that shows info next to input textfields om the page."
   },
   "contextMenuItemOptions": {
