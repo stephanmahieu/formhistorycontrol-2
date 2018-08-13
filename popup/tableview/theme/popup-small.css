@@ -114,3 +114,8 @@ div.detail-info {
 table.dataTable tbody td.no-padding {
     padding: 0;
 }
+
+#resize-bar {
+    height: 6px;
+    cursor: s-resize;
+}

@@ -123,7 +123,50 @@ $(document).ready(function() {
     $('#closepopup-action').on('click', function() {
         window.close();
     });
+
+    // enable resizing height
+    $('#resize-bar').on('mousedown', startResize);
 });
+
+
+function startResize(e) {
+    // only allow resizing the height
+    const startPosX = e.clientX;
+    const startPosY = e.clientY;
+    const initWidth = document.body.clientWidth;
+    const initHeight = document.body.clientHeight;
+
+    function eventMove(e) {
+        //const deltaX = e.clientX - startPosX;
+
+        // HACK: only allow grow, shrinking messes things up
+        //const deltaY = e.clientY - startPosY;
+        const deltaY = Math.max(e.clientY - startPosY, 0);
+
+        // max size:= 800 x 600
+        // const newWidth = Math.max(Math.min(initWidth - deltaX, 800), 500);
+        const newHeight = Math.max(Math.min(initHeight + deltaY, 600), 450);
+
+        // resize window
+        //document.body.style.width = newWidth + 'px';
+        document.body.style.height = newHeight + 'px';
+    }
+
+    function eventUp() {
+        // WindowEvents.emit(document, 'SetUIState', {resize: undefined});
+        document.removeEventListener('mouseup', eventUp);
+        document.removeEventListener('mousemove', eventMove);
+
+        // adjust table
+        //$('#fhcTable').resize();
+        $('.dataTables_scrollBody').css('height', (window.innerHeight - 110) + "px");
+        $('#fhcTable').DataTable().draw();
+    }
+
+    document.addEventListener('mouseup', eventUp);
+    document.addEventListener('mousemove', eventMove);
+}
+
 
 let openChildRow;
 let openTr;
@@ -174,6 +217,7 @@ function createDataTable(dateformat) {
     const i18nFld = DataTableUtil.getLocaleFieldNames();
 
     return $('#fhcTable').DataTable( {
+        responsive: {details: false},
         scrollY: 300,
         language: {url: languageURL},
         order: [[ 7, "desc" ]],
