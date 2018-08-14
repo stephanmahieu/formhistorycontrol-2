@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2018. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -201,22 +201,13 @@ function _createInfoElement(id, sourceElem, includeForm) {
  *         rgb color code
  */
 function _getTypeSpecificColor(element) {
-    let color;
-    switch (element.nodeName) {
-        case 'DIV':
-        case 'HTML':
-        case 'BODY':
-        case 'IFRAME':
-            color = '#bcffd1';
-            break;
-        case 'TEXTAREA':
-            color = '#c2d7ff';
-            break;
-        default:
-            color = '#FFFFAA';
-            break;
+    if (element.nodeName === 'INPUT') {
+        return '#ffffaa';
+    } else if (element.nodeName === 'TEXTAREA') {
+        return '#c2d7ff';
+    } else {
+        return '#bcffd1';
     }
-    return color;
 }
 
 /**
