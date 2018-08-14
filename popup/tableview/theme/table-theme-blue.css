@@ -2,7 +2,7 @@
 
 /* color table text */
 table#fhcTable tbody tr {
-    color: #d8ae49;
+    color: #ffe0a0;
 }
 
 /* Text color table info */
@@ -17,16 +17,16 @@ table#fhcTable tbody tr {
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
-    color: #6b6b6b !important;
+    color: #566270 !important;
 }
 
 /* Hover page number (button like) */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     color: white !important;
     border: 1px solid #111;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #585858), color-stop(100%, #111));
-    background: -webkit-linear-gradient(top, #585858 0%, #111 100%);
-    background: linear-gradient(to bottom, #585858 0%, #111 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #264a94), color-stop(100%, #122952));
+    background: -webkit-linear-gradient(top, #264a94 0%, #122952 100%);
+    background: linear-gradient(to bottom, #264a94 0%, #122952 100%);
 }
 
 /* Active pagenumber (button-like) */
@@ -34,9 +34,9 @@ table#fhcTable tbody tr {
     color: #f3f3f3 !important;
     border: 1px solid #777777;
     /*background-color: white;*/
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #777), color-stop(100%, #545454));
-    background: -webkit-linear-gradient(top, #777 0%, #545454 100%);
-    background: linear-gradient(to bottom, #777 0%, #545454 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3261c1), color-stop(100%, #113674));
+    background: -webkit-linear-gradient(top, #3261c1 0%, #113674 100%);
+    background: linear-gradient(to bottom, #3261c1 0%, #113674 100%);
 }
 
 
@@ -44,14 +44,14 @@ table#fhcTable tbody tr {
 table.dataTable.display tbody tr.even.selected,
 table.dataTable.display tbody tr.even.selected > .sorting_1,
 table.dataTable         tbody tr.even.selected > .sorting_1 {
-    background-color: #454b5f;
+    background-color: #4e5069;
 }
 
 /* Selection color odd rows */
 table.dataTable.display tbody tr.odd.selected,
 table.dataTable.display tbody tr.odd.selected > .sorting_1,
 table.dataTable         tbody tr.odd.selected > .sorting_1 {
-    background-color: #4c4e66;
+    background-color: #585b73;
 }
 
 
@@ -61,7 +61,7 @@ table.dataTable.stripe       tbody tr.even,
 table.dataTable.display      tbody tr.even,
 table.dataTable.display      tbody tr.even > .sorting_1,
 table.dataTable.order-column tbody tr.even > .sorting_1 {
-    background-color: #373740;
+    background-color: #233e5a;
 }
 
 /* Odd zebra rows */
@@ -69,7 +69,7 @@ table.dataTable.stripe       tbody tr.odd,
 table.dataTable.display      tbody tr.odd,
 table.dataTable.display      tbody tr.odd > .sorting_1,
 table.dataTable.order-column tbody tr.odd > .sorting_1 {
-    background-color: #313139;
+    background-color: #23334f;
 }
 
 

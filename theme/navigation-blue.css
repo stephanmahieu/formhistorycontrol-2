@@ -1,0 +1,19 @@
+:root {
+    --nav-bar-bg-color: #222951;
+    --nav-bar-border-bottom-color: #888888;
+    --nav-bar-hover-bg-color: #2b6ab7;
+
+    --nav-text-color: #e6e6e6;
+    --nav-bg-color: #243d67;
+    --nav-menu-spacer-color: #565656;
+
+    --nav-hover-bg-color: #5675b9;
+    --nav-hover-text-color: #fff;
+
+    --nav-disabled-text-color: #8f8f8f;
+    --nav-disabled-hover-bg-color: #484e62;
+    --nav-disabled-hover-text-color: #8f8f8f;
+
+    --nav-border-bottom-color: #226e91;
+    --nav-box-shadow-color: #191919;
+}

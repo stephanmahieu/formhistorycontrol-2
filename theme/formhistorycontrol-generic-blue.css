@@ -1,0 +1,41 @@
+:root {
+    --main-bg-color: #283061;
+    --main-text-color: #cdcdcd;
+
+    --select-bg-color: #ff81de;
+    --select-text-color: #24242d;
+
+    --a-text-color: #56bbff;
+
+    --button-text-color: #ffffff;
+    --button-bg-color: #5675b9;
+    --button-border-color: #5b9ae2;
+    --button-hover-text-color: #ffffff;
+    --button-hover-bg-color: #5698dc;
+    --button-hover-border-color: #4b74ff;
+    --button-disabled-text-color: #999999;
+    --button-disabled-bg-color: #485590;
+    --button-disabled-border-color: var(--button-border-color);
+
+    --field-bg-color: #6a7494;
+    --field-text-color: #f2f2f2;
+    --field-border-color: #517da2;
+    --field-disabled-bg-color: #3a4560;
+    --field-disabled-text-color: #afafaf;
+
+    --fieldset-bg-color: #242449;
+    --fieldset-border-color: #757575;
+    --legend-bg-color: #254887;
+    --legend-text-color: #d0d0d0;
+    --legend-border-color: #999999;
+
+    --modal-title-text-color: #ffffff;
+    --modal-text-color: #ffffff;
+    --modal-title-bg-color: rgba(15, 58, 120, 0.51);
+    --modal-bg-color: hsla(221, 14%, 26%, 0.81);
+    --modal-border-color: #515151;
+}
+
+input, select, textarea, fieldset, legend {
+    border: 1px solid var( --field-border-color);
+}

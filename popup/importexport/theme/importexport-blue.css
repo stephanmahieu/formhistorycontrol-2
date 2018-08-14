@@ -1,0 +1,13 @@
+.status-header {
+    color: #eaeaea;;
+}
+
+progress[value] {
+    border: 1px solid;
+    background-color: #9a9a9a;
+    box-shadow: 0 2px 2px -2px #000000 inset;
+}
+
+progress::-moz-progress-bar {
+    background: #045015;
+}
