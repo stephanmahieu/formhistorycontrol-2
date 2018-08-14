@@ -146,7 +146,7 @@ legend {
     width: 80%;
     max-width: 450px;
     min-height: 60px;
-    color: black;
+    color: var(--main-text-color);
     display: flex;
     flex-flow: row wrap;
     flex: 1 100%;
