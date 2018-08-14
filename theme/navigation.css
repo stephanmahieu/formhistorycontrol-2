@@ -98,7 +98,6 @@ nav ul li ul li span:hover {
 
 .menu-disabled {
     color: var(--nav-disabled-text-color);
-    filter: grayscale(70%);
 }
 .menu-disabled:hover {
     background-color: var(--nav-disabled-hover-bg-color);
@@ -109,6 +108,9 @@ nav ul li ul li span:hover {
     display: block;
     float: left;
     padding-right: 4px;
+}
+.icon-item.menu-disabled:before {
+    filter: grayscale(70%);
 }
 
 /* File menu */
