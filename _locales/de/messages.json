@@ -129,8 +129,8 @@
       }
     }
   },
-  "TODO-timeoutTooMuchDataWarning": {
-    "message": "There is too much data to quickly display in a popup window, use the cleanup option in order to reduce the amount of data or open the advanced 'Manage History' window (right mouseclick).\n\n($count$ results of total $total$ discarded)",
+  "timeoutTooMuchDataWarning": {
+    "message": "Zuviele Daten für die Anzeige in einem Popup-Fenster. Verwenden Sie die Bereinigungsoption um die Datenmenge zu reduzieren oder öffnen Sie den erweiterten Dialog 'Verlauf verwalten' (rechte Maustaste).\n\n($count$ Ergebnisse von insgesamt $total$ verworfen)",
     "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
     "placeholders": {
       "count" : {
@@ -321,24 +321,24 @@
     "description": "Title of the options window."
   },
 
-  "TODO-optionsDisplayMenu": {
-    "message": "Display",
+  "optionsDisplayMenu": {
+    "message": "Anzeige",
     "description": "Options window: Left Display menu."
   },
-  "TODO-optionsMiscellaneousMenu": {
-    "message": "Miscellaneous",
+  "optionsMiscellaneousMenu": {
+    "message": "Sonstiges",
     "description": "Options window: Left Miscellaneous menu."
   },
-  "TODO-optionsDomainlistMenu": {
+  "optionsDomainlistMenu": {
     "message": "Domain Filter",
     "description": "Options window: Left Domain Filter menu."
   },
-  "TODO-optionsFieldlistMenu": {
-    "message": "Field Filter",
+  "optionsFieldlistMenu": {
+    "message": "Feld Filter",
     "description": "Options window: Left Field Filter menu."
   },
-  "TODO-optionsCleanupMenu": {
-    "message": "Cleanup",
+  "optionsCleanupMenu": {
+    "message": "Bereinigung",
     "description": "Options window: Left Cleanup menu."
   },
 
@@ -364,25 +364,25 @@
     "description": "Options window: The Override autocomplete checkbox Label."
   },  
   
-  "TODO-optiondomainlistlegend": {
-    "message": "Enable/Disable history per domain",
+  "optiondomainlistlegend": {
+    "message": "Aktiviere/Deaktiviere den Verlauf pro Domain",
     "description": "Options window: The Domain Filter legend."
   },
-  "TODO-optionsradiodomainall": {
-    "message": "Allow All",
+  "optionsradiodomainall": {
+    "message": "Erlaube Alle",
     "description": "Options window, domainfilter: Label for Allow All radiobutton."
   },
-  "TODO-optionsradiodomainblacklist": {
+  "optionsradiodomainblacklist": {
     "message": "Blacklist",
     "description": "Options window, domainfilter: Label for Blacklist radiobutton."
   },
-  "TODO-optionsradiodomainwhitelist": {
+  "optionsradiodomainwhitelist": {
     "message": "Whitelist",
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
 
-  "TODO-optionsFieldlistlegend": {
-    "message": "Disable history for specific fields",
+  "optionsFieldlistlegend": {
+    "message": "Verlauf für bestimmte Felder deaktivieren",
     "description": "Options window: The Cleanup legend."
   },
 
@@ -390,20 +390,20 @@
     "message": "Aufräumen",
     "description": "Options window: The Cleanup legend."
   },
-  "TODO-optionsautocleanup": {
-    "message": "Automatic cleanup periodically",
+  "optionsautocleanup": {
+    "message": "Regelmäßig automatisch aufräumen",
     "description": "Options window, cleanup: Label for auto cleanup checkbox."
   },
-  "TODO-optionsremovedays": {
-    "message": "Remove formhistory not used in the past",
+  "optionsremovedays": {
+    "message": "Entferne die in der Vergangenheit nicht genutzten Verlaufseinträge alle x Tage.",
     "description": "Options window, cleanup: Label before no of days input."
   },
-  "TODO-optionsremovedaysdays": {
-    "message": "days",
+  "optionsremovedaysdays": {
+    "message": "Tage",
     "description": "Options window, cleanup: Label after no of days input."
   },
-  "TODO-buttoncleanupnow": {
-    "message": "Clean Up Now",
+  "buttoncleanupnow": {
+    "message": "Jetzt bereinigen",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
 
