@@ -395,7 +395,7 @@
     "description": "Options window, cleanup: Label for auto cleanup checkbox."
   },
   "optionsremovedays": {
-    "message": "Entferne die in der Vergangenheit nicht genutzten Verlaufseinträge.",
+    "message": "Entferne die in der Vergangenheit nicht genutzten Verlaufseinträge alle x Tage.",
     "description": "Options window, cleanup: Label before no of days input."
   },
   "optionsremovedaysdays": {
