@@ -321,6 +321,15 @@
     "description": "Title of the options window."
   },
 
+  "optionDefault": {
+    "message": "standaard",
+    "description": "The 'default' option in a select list."
+  },
+  "optionAutomatic": {
+    "message": "automatisch",
+    "description": "The 'automatic' option in a select list."
+  },
+
   "optionsDisplayMenu": {
     "message": "Weergave",
     "description": "Options window: Left Display menu."

@@ -14,9 +14,10 @@ function translate(/*event*/) {
         let translation = browser.i18n.getMessage(messageId);
 
         if (translation) {
-            if (elem.nodeType === Node.ELEMENT_NODE && elem.value) {
+            let isOption = (elem.nodeName === 'OPTION');
+            if (elem.nodeType === Node.ELEMENT_NODE && !isOption && elem.value) {
                 elem.vakue = translation;
-            } else if (elem.nodeType === Node.ELEMENT_NODE && elem.label) {
+            } else if (elem.nodeType === Node.ELEMENT_NODE && !isOption && elem.label) {
                 elem.label = translation;
             } else if (elem.hasChildNodes()) {
                 let child = elem.childNodes[0];

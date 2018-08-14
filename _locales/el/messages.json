@@ -321,6 +321,15 @@
     "description": "Title of the options window."
   },
 
+  "optionDefault": {
+    "message": "προεπιλεγμένη",
+    "description": "The 'default' option in a select list."
+  },
+  "optionAutomatic": {
+    "message": "aυτόματος",
+    "description": "The 'automatic' option in a select list."
+  },
+
   "optionsDisplayMenu": {
     "message": "Προβολή",
     "description": "Options window: Left Display menu."

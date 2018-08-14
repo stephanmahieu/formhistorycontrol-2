@@ -321,6 +321,15 @@
     "description": "Title of the options window."
   },
 
+  "optionDefault": {
+    "message": "default",
+    "description": "The 'default' option in a select list."
+  },
+  "optionAutomatic": {
+    "message": "automatic",
+    "description": "The 'automatic' option in a select list."
+  },
+
   "optionsDisplayMenu": {
     "message": "Display",
     "description": "Options window: Left Display menu."
