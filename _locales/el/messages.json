@@ -322,7 +322,7 @@
   },
 
   "optionDefault": {
-    "message": "προεπιλεγμένη",
+    "message": "αυτόματο",
     "description": "The 'default' option in a select list."
   },
   "optionAutomatic": {
