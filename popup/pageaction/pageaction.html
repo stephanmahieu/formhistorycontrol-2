@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/theme/formhistorycontrol-generic.css"/>
+    <link rel="stylesheet" href="/theme/navigation.css"/>
+    <link rel="stylesheet" href="theme/pageaction.css"/>
+    <link rel="alternate stylesheet" href="/theme/navigation-dark.css" title="Dark"/>
+    <link rel="alternate stylesheet" href="/theme/navigation-blue.css" title="Blue"/>
+    <link rel="alternate stylesheet" href="/theme/formhistorycontrol-generic-dark.css" title="Dark"/>
+    <link rel="alternate stylesheet" href="/theme/formhistorycontrol-generic-blue.css" title="Blue"/>
+    <link rel="alternate stylesheet" href="theme/pageaction-dark.css" title="Dark"/>
+    <link rel="alternate stylesheet" href="theme/pageaction-blue.css" title="Blue"/>
+</head>
+<body>
+    <div class="content">
+        <ul class="context-menu">
+            <li><span id="manage-fhc" data-fhc-i18n="contextMenuItemManageHistory" class="context-menu-item icon-item icon-fhc">Manage History</span></li>
+            <li class="context-separator"></li>
+            <li><span id="add-blacklist" data-fhc-i18n="paMenuItemAddBlacklist" class="context-menu-item icon-item icon-insert add-list" style="display: none">Blacklist current page</span></li>
+            <li><span id="del-blacklist" data-fhc-i18n="paMenuItemDeleteBlacklist" class="context-menu-item icon-item icon-insert del-list" style="display: none">Remove current page from the blacklist</span></li>
+            <li><span id="add-whitelist" data-fhc-i18n="paMenuItemAddWhitelist" class="context-menu-item icon-item icon-insert add-list" style="display: none">Whitelist current page</span></li>
+            <li><span id="del-whitelist" data-fhc-i18n="paMenuItemDeleteWhitelist" class="context-menu-item icon-item icon-insert del-list" style="display: none">Remove current page from the whitelist</span></li>
+            <li><span id="show-fields" data-fhc-i18n="contextMenuItemShowformfields" class="context-menu-item icon-item icon-showfields">Show fields current page</span></li>
+        </ul>
+    </div>
+
+    <script src="pageaction.js"></script>
+    <script src="../../common/OptionsUtil.js"></script>
+    <script src="../../common/ThemeUtil.js"></script>
+    <script src="../../common/WindowUtil.js"></script>
+    <script src="../../common/translation.js"></script>
+</body>
+</html>

@@ -583,6 +583,23 @@
     "description": "Label of About menuitem in the Help menu."
   },
 
+  "paMenuItemAddBlacklist": {
+    "message": "Plaats deze pagina op de zwarte ijst",
+    "description": "Label pageaction menuitem: Blacklist current page"
+  },
+  "paMenuItemDeleteBlacklist": {
+    "message": "Verwijder deze pagina van de zwarte lijst.",
+    "description": "Label pageaction menuitem: Remove current page from the blacklist."
+  },
+  "paMenuItemAddWhitelist": {
+    "message": "Plaats deze pagina op de witte ijst",
+    "description": "Label pageaction menuitem: Whitelist current page."
+  },
+  "paMenuItemDeleteWhitelist": {
+    "message": "Verwijder deze pagina van de witte lijst.",
+    "description": "Label pageaction menuitem: Remove current page from the whitelist."
+  },
+
   "loading-status": {
     "message": "Laden...",
     "description": "Text displayed while data is being loaded."

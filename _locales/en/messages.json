@@ -583,6 +583,23 @@
     "description": "Label of About menuitem in the Help menu."
   },
 
+  "paMenuItemAddBlacklist": {
+    "message": "Blacklist current page",
+    "description": "Label pageaction menuitem: Blacklist current page"
+  },
+  "paMenuItemDeleteBlacklist": {
+    "message": "Remove current page from the blacklist",
+    "description": "Label pageaction menuitem: Remove current page from the blacklist."
+  },
+  "paMenuItemAddWhitelist": {
+    "message": "Whitelist current page",
+    "description": "Label pageaction menuitem: Whitelist current page."
+  },
+  "paMenuItemDeleteWhitelist": {
+    "message": "Remove current page from the whitelist",
+    "description": "Label pageaction menuitem: Remove current page from the whitelist."
+  },
+
   "loading-status": {
     "message": "Loading...",
     "description": "Text displayed while data is being loaded."

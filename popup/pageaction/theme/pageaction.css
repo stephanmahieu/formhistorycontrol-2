@@ -1,0 +1,11 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+    margin: 8px;
+}
+
+.icon-showfields:before { content: url("/theme/icons/menu/16/showfields.png")}

@@ -22,6 +22,16 @@ browser.runtime.onMessage.addListener(fhcEvent => {
                         ThemeUtil.switchTheme(res);
                     });
                 }
+                if (fhcEvent.domainFilterChanged) {
+                    // option can be changed from pageaction
+                    let gettingItem = browser.storage.local.get({
+                        prefDomainList: []
+                    });
+                    gettingItem.then(res => {
+                        setListOptions("#domainlist", res.prefDomainList);
+                        document.querySelector("#domainListItem").value = "";
+                    });
+                }
                 break;
             case 666:
                 browser.windows.getCurrent({populate: false, windowTypes: ["popup"]}).then((window)=>{
@@ -252,6 +262,11 @@ function getList(selectId) {
 
 function setListOptions(selectId, lstOptions) {
     const lstSelect = document.querySelector(selectId);
+
+    // empty list before adding new items
+    for(let i = lstSelect.options.length-1; i>=0 ; i--) {
+        lstSelect.remove(i);
+    }
 
     for(let i = 0; i < lstOptions.length; i++) {
         let newoption = document.createElement("option");

@@ -77,7 +77,15 @@
     "default_title": "__MSG_extensionName__",
     "default_popup": "popup/tableview/popup-small.html"
   },
-  
+
+  "page_action": {
+    "browser_style": false,
+    "default_title": "__MSG_extensionName__",
+    "default_popup": "popup/pageaction/pageaction.html",
+    "default_icon": "theme/icons/fhc_icon_bw.svg",
+    "show_matches": ["*://*/*", "file:///*"]
+  },
+
   "web_accessible_resources": [
     "folder/example.png"
   ]

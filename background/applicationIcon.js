@@ -46,6 +46,9 @@ function updateIconForActiveTab() {
 function handleTabActivated(activeInfo) {
     // set application icon
     updateApplicationIconOnTabActivation(activeInfo.tabId);
+
+    // activates via manifest (page_action, show_matches)
+    //browser.pageAction.show(activeInfo.tabId);
 }
 
 function updateApplicationIconOnTabActivation(tabId, attempt = 1) {
