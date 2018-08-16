@@ -30,6 +30,7 @@ browser.runtime.onMessage.addListener(fhcEvent => {
                     gettingItem.then(res => {
                         setListOptions("#domainlist", res.prefDomainList);
                         document.querySelector("#domainListItem").value = "";
+                        currentOptions.prefDomainList = res.prefDomainList;
                     });
                 }
                 break;
