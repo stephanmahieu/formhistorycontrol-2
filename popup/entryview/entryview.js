@@ -298,7 +298,7 @@ function onDataRetrieved(data) {
 
 function updateHostvalue() {
     const urlValue = document.getElementById('url').value;
-    const host = (urlValue) ? getHostnameFromUrlString(urlValue) : '';
+    const host = (urlValue) ? MiscUtil.getHostnameFromUrlString(urlValue) : '';
     document.getElementById('host').value = host;
 }
 
@@ -694,7 +694,7 @@ function setNewValuesToObjEntryData() {
         value = document.getElementById('multiline-value').value;
         url = document.getElementById('url').value;
     }
-    let host = (url) ? getHostnameFromUrlString(url) : '';
+    let host = (url) ? MiscUtil.getHostnameFromUrlString(url) : '';
     let used = (document.getElementById('used').value !== '') ? parseInt(document.getElementById('used').value) : undefined;
     let first = (document.getElementById('first').value !== '') ? parseInt(document.getElementById('first').getAttribute('data-time')) : undefined;
     let last = (document.getElementById('last').value !== '') ? parseInt(document.getElementById('last').getAttribute('data-time')) : undefined;
@@ -707,18 +707,6 @@ function setNewValuesToObjEntryData() {
     objEntryData.last = last;
     objEntryData.host = host;
     objEntryData.url = url;
-}
-
-function getHostnameFromUrlString(url) {
-    if (url.trim() === '') {
-        return '';
-    }
-    if (url.toLowerCase().startsWith('file:')) {
-        return 'localhost';
-    }
-    const link = document.createElement('a');
-    link.setAttribute('href', url.trim());
-    return link.hostname;
 }
 
 /**

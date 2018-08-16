@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
         const prefs = values[1];
 
         currentTabInfo = tabs[0];
-        currentDomain = getHostnameFromUrlString(currentTabInfo.url);
+        currentDomain = MiscUtil.getHostnameFromUrlString(currentTabInfo.url);
 
         switch (prefs.prefDomainFilter) {
             case 'all':
@@ -95,16 +95,4 @@ function showformfields() {
         action: "showformfields",
         targetTabId: currentTabInfo.id
     });
-}
-
-function getHostnameFromUrlString(url) {
-    if (url.trim() === '') {
-        return '';
-    }
-    if (url.toLowerCase().startsWith('file:')) {
-        return 'localhost';
-    }
-    const link = document.createElement('a');
-    link.setAttribute('href', url.trim());
-    return link.hostname;
 }

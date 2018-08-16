@@ -47,6 +47,7 @@
       "common/WindowUtil.js",
       "common/OptionsUtil.js",
       "common/DateUtil.js",
+      "common/MiscUtil.js",
       "background/receiveFormData.js",
       "background/contextmenu.js",
       "background/applicationIcon.js"

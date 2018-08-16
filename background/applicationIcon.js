@@ -72,7 +72,7 @@ function updateApplicationIcon(url) {
             if (OptionsUtil.isDomainfilterActive(prefs)) {
                 setApplicationIcon("/theme/icons/fhc-nn.png", "/theme/icons/fhc_icon.svg");
             } else {
-                const host = getHostnameFromUrlString(url);
+                const host = MiscUtil.getHostnameFromUrlString(url);
                 if (OptionsUtil.isDomainBlocked(host, prefs)) {
                     setApplicationIcon(DISABLED_PNG_ICON, DISABLED_SVG_ICON);
                 } else {
@@ -92,13 +92,4 @@ function setApplicationIcon(fixedPath, scalablePath) {
             65: scalablePath
         }}
     );
-}
-
-function getHostnameFromUrlString(url) {
-    if (url.toLowerCase().startsWith('file:')) {
-        return 'localhost';
-    }
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    return link.hostname;
 }

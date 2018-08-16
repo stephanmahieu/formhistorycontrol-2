@@ -56,7 +56,7 @@ function updateEditorFieldRestoreMenu(url) {
         // skip popup windows
         return;
     }
-    const hostname = getHostnameFromUrlString(url);
+    const hostname = MiscUtil.getHostnameFromUrlString(url);
 
     removeCurrentMenuItems(editorFieldsMenuItemsIds)
     .then(() => {
@@ -80,7 +80,7 @@ function updateEditorFieldRestoreMenu(url) {
 //             // console.log('TabId ' + tabId + ' not completely loaded yet, retry getting tabInfo in 1 sec...');
 //             setTimeout(()=>{ updateEditorFieldRestoreMenu(tabId); }, 1000);
 //         } else {
-//             const hostname = getHostnameFromUrlString(tabInfo.url);
+//             const hostname = MiscUtil.getHostnameFromUrlString(tabInfo.url);
 //             // console.log('TabId ' + tabId + ' was activated and has url: ' + tabInfo.url + '  (' + hostname + ')');
 //
 //             removeCurrentMenuItems(editorFieldsMenuItemsIds)
@@ -310,15 +310,6 @@ function removeTagsAndShorten(value) {
         str = str.substring(0, MAX_LENGTH_EDITFIELD_ITEM-3) + '...';
     }
     return str;
-}
-
-function getHostnameFromUrlString(url) {
-    if (url.toLowerCase().startsWith('file:')) {
-        return 'localhost';
-    }
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    return link.hostname;
 }
 
 function onMenuCreated() {
