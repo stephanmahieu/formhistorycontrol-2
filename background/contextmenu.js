@@ -409,10 +409,11 @@ browser.menus.create({
         "32": "/theme/icons/menu/32/fillfields.png"
     }
 }, onMenuCreated);
+// do not show this menu-item for page_action, only 5 items are shown
 browser.menus.create({
     id: "clearFields",
     title: browser.i18n.getMessage("contextMenuItemClearFields"),
-    contexts: ["all"],
+    contexts: ["page","editable","frame","browser_action"],
     icons: {
         "16": "/theme/icons/menu/16/emptyfields.png",
         "32": "/theme/icons/menu/32/emptyfields.png"
@@ -494,7 +495,8 @@ browser.menus.create({
 /* ==========================(context menu page end)========================== */
 
 /*
- * Browser action (click on icon in menu-bar) may only show 6 items,
+ * Browser-action (right-click on icon in menu-bar) may only show 6 items,
+ * Page-action (right-click on icon in address-bar) may only show 5 items,
  * put remainder in a submenu (browser.menus.ACTION_MENU_TOP_LEVEL_LIMIT)
  *
  * =========================(browser_action submenu)==========================
@@ -502,11 +504,26 @@ browser.menus.create({
 browser.menus.create({
     id: "submenuExtra",
     title: browser.i18n.getMessage("contextMenuItemRestoreEditorFieldSubmenuMore"),
-    contexts: ["browser_action"],
+    contexts: ["browser_action", "page_action"],
     icons: {
         "16": "/theme/icons/menu/16/submenu.png",
         "32": "/theme/icons/menu/32/submenu.png"
     }
+}, onMenuCreated);
+browser.menus.create({
+    id: "clearFieldsPA",
+    parentId: "submenuExtra",
+    title: browser.i18n.getMessage("contextMenuItemClearFields"),
+    contexts: ["page_action"],
+    icons: {
+        "16": "/theme/icons/menu/16/emptyfields.png",
+        "32": "/theme/icons/menu/32/emptyfields.png"
+    }
+}, onMenuCreated);
+browser.menus.create({
+    parentId: "submenuExtra",
+    type: "separator",
+    contexts: ["page_action"]
 }, onMenuCreated);
 browser.menus.create({
     id: "showformfieldsBA",
