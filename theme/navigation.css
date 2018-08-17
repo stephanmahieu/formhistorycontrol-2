@@ -137,6 +137,8 @@ nav ul li ul li span:hover {
 
 .icon-fhc:before          { content: url("icons/fhc-16.png")}
 
+.icon-showfields:before   { content: url("icons/menu/16/showfields.png")}
+
 
 /* Context menu */
 #context-menu-container {
