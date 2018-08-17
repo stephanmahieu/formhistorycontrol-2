@@ -583,20 +583,20 @@
     "description": "Label of About menuitem in the Help menu."
   },
 
-  "TODO-paMenuItemAddBlacklist": {
-    "message": "Blacklist current page",
+  "paMenuItemAddBlacklist": {
+    "message": "Aktuelle Seite zur Blacklist hinzufügen",
     "description": "Label pageaction menuitem: Blacklist current page"
   },
-  "TODO-paMenuItemDeleteBlacklist": {
-    "message": "Remove current page from the blacklist",
+  "paMenuItemDeleteBlacklist": {
+    "message": "Akutelle Seite von der Blacklist entfernen",
     "description": "Label pageaction menuitem: Remove current page from the blacklist."
   },
-  "TODO-paMenuItemAddWhitelist": {
-    "message": "Whitelist current page",
+  "paMenuItemAddWhitelist": {
+    "message": "Aktuelle Seite zur Whitelist hinzufügen",
     "description": "Label pageaction menuitem: Whitelist current page."
   },
-  "TODO-paMenuItemDeleteWhitelist": {
-    "message": "Remove current page from the whitelist",
+  "paMenuItemDeleteWhitelist": {
+    "message": "Akutelle Seite von der Whitelist entfernen",
     "description": "Label pageaction menuitem: Remove current page from the whitelist."
   },
 
