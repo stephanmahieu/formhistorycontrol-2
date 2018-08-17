@@ -95,7 +95,8 @@ textarea[disabled] {
 }
 
 #datetimeContent .modal-title {
-    margin-left: 6px;
+    margin-left: 11px;
+    margin-top: -3px;
 }
 
 #datetimeContent table {
