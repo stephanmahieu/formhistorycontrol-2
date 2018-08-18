@@ -561,6 +561,10 @@
     "message": "Voorkeuren",
     "description": "Label of Preferences menuitem in the Extra menu."
   },
+  "menuItemExtraCleanupNow,": {
+    "message": "Nu Opschonen",
+    "description": "Label of cleanup-now menuitem in the Extra menu."
+  },
 
   "menuHelp": {
     "message": "Help",

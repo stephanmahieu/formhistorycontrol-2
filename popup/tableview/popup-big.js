@@ -625,6 +625,12 @@ function onMenuClicked(menuItemId) {
             WindowUtil.createOrFocusWindow(FHC_WINDOW_OPTIONS);
             break;
 
+        case "cleanup":
+            // todo ask confirmation before cleanup
+            browser.runtime.sendMessage({eventType: 800});
+            // todo show info message that cleanup is or has been performed
+            break;
+
         case "helpoverview":
             WindowUtil.createOrFocusWindow(FHC_WINDOW_HELP);
             break;

@@ -561,6 +561,10 @@
     "message": "Προτιμήσεις",
     "description": "Label of Preferences menuitem in the Extra menu."
   },
+  "menuItemExtraCleanupNow,": {
+    "message": "Καθαρισμός Τώρα",
+    "description": "Label of cleanup-now menuitem in the Extra menu."
+  },
 
   "menuHelp": {
     "message": "Βοήθεια",

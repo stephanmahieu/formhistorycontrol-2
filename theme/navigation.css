@@ -130,6 +130,7 @@ nav ul li ul li span:hover {
 .icon-refresh:before      { content: url("icons/menu/16/refresh.png")}
 /* Extra menu */
 .icon-preferences:before  { content: url("icons/menu/16/preferences.png")}
+.icon-clean:before        { content: url("icons/menu/16/cleanup.png")}
 /* Help menu */
 .icon-help:before         { content: url("icons/menu/16/help.png")}
 .icon-releasenotes:before { content: url("icons/menu/16/releasenotes.png")}

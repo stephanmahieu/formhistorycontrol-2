@@ -561,6 +561,10 @@
     "message": "Einstellungen",
     "description": "Label of Preferences menuitem in the Extra menu."
   },
+  "menuItemExtraCleanupNow,": {
+    "message": "Jetzt bereinigen",
+    "description": "Label of cleanup-now menuitem in the Extra menu."
+  },
 
   "menuHelp": {
     "message": "Hilfe",

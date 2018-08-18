@@ -561,6 +561,10 @@
     "message": "Preferences",
     "description": "Label of Preferences menuitem in the Extra menu."
   },
+  "menuItemExtraCleanupNow,": {
+    "message": "Clean Up Now",
+    "description": "Label of cleanup-now menuitem in the Extra menu."
+  },
 
   "menuHelp": {
     "message": "Help",
