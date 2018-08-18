@@ -9,8 +9,8 @@ class CleanupConst {
     // no support for static contants, declare then after the class definition
 }
 CleanupConst.ALARM_NAME = "fhc-periodic-cleanup-alarm";
-CleanupConst.INITIAL_DELAY_MINUTES = 2; //5;
-CleanupConst.PERIOD_MINUTES = 2; //15;
+CleanupConst.INITIAL_DELAY_MINUTES = 2;
+CleanupConst.PERIOD_MINUTES = 15;
 
 CleanupConst.DEFAULT_DAYS_TO_KEEP = 90;
 CleanupConst.DEFAULT_DO_CLEANUP = true;
