@@ -120,7 +120,7 @@
     "description": "Title of error dialog for database access errors."
   },
   "databaseError": {
-    "message": "Η πρόσβαση στην βάση δεδομένων εμποδίστηκε ($ERROR$). Αυτή η εφαρμογή απαιτεί άδεια στα cookies, παρακαλώ ελέγξτε τις ρυθμίσεις Απόρρητο & ασφάλεια.",
+    "message": "Η πρόσβαση στην βάση δεδομένων εμποδίστηκε ($ERROR$). Αυτή η εφαρμογή απαιτεί άδεια στα cookies, παρακαλώ ελέγξτε τις ρυθμίσεις Απόρρητο & Ασφάλεια.",
     "description": "Error displayed when the database is not accessible",
     "placeholders": {
       "error" : {
@@ -583,20 +583,20 @@
     "description": "Label of About menuitem in the Help menu."
   },
 
-  "TODO-paMenuItemAddBlacklist": {
-    "message": "Blacklist current page",
+  "paMenuItemAddBlacklist": {
+    "message": "Απαγόρευση τρέχουσας σελίδας",
     "description": "Label pageaction menuitem: Blacklist current page"
   },
-  "TODO-paMenuItemDeleteBlacklist": {
-    "message": "Remove current page from the blacklist",
+  "paMenuItemDeleteBlacklist": {
+    "message": "Αφαίρεση τρέχουσας σελίδας από τη λίστα Απαγορευμένων",
     "description": "Label pageaction menuitem: Remove current page from the blacklist."
   },
   "TODO-paMenuItemAddWhitelist": {
-    "message": "Whitelist current page",
+    "message": "Επιτρεπόμενη τρέχουσα σελίδα",
     "description": "Label pageaction menuitem: Whitelist current page."
   },
-  "TODO-paMenuItemDeleteWhitelist": {
-    "message": "Remove current page from the whitelist",
+  "paMenuItemDeleteWhitelist": {
+    "message": "Αφαίρεση τρέχουσας σελίδας από τη λίστα Επιτρεπόμενων",
     "description": "Label pageaction menuitem: Remove current page from the whitelist."
   },
 
