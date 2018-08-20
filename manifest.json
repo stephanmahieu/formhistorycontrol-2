@@ -19,6 +19,7 @@
 
   "permissions": [
     "menus",
+    "contextMenus",
     "notifications",
     "activeTab",
     "tabs",
