@@ -466,9 +466,10 @@ function arrayContentEquals(array1, array2) {
 function addStylesheetThemesToSelect() {
     // discover the installed alternate stylesheets and create a list
     let themeList = new Set();
-    document.querySelectorAll('link[rel="alternate stylesheet"]').forEach( (elem) => {
-        if (elem.title) {
-            themeList.add(elem.title);
+    document.querySelectorAll('link.alternate_stylesheet[data-title]').forEach( (elem) => {
+        let elemTitle = elem.getAttribute("data-title");
+        if (elemTitle) {
+            themeList.add(elemTitle);
         }
     });
 

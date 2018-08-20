@@ -42,6 +42,7 @@
 
   "background": {
     "scripts": [
+      "common/browser-polyfill.min.js",
       "common/DbConst.js",
       "common/CleanupConst.js",
       "common/WindowUtil.js",
@@ -57,6 +58,7 @@
   "content_scripts": [
     {
       "js": [
+        "common/browser-polyfill.min.js",
         "common/purify.js",
         "content/collectFormData.js",
         "content/showFormData.js",

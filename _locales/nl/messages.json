@@ -425,11 +425,11 @@
     "message": "toon historie uitsluitend voor deze pagina",
     "description": "Extra info next to the header title of the small popup."
   },
-  "open-preference-tooltip": {
+  "open_preference_tooltip": {
     "message": "Open het opties dialoog venster",
     "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
   },
-  "open-bigdialog-tooltip": {
+  "open_bigdialog_tooltip": {
     "message": "Open het uitgebreide 'Historie Beheer' venster",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
@@ -561,7 +561,7 @@
     "message": "Voorkeuren",
     "description": "Label of Preferences menuitem in the Extra menu."
   },
-  "menuItemExtraCleanupNow,": {
+  "menuItemExtraCleanupNow": {
     "message": "Nu Opschonen",
     "description": "Label of cleanup-now menuitem in the Extra menu."
   },
@@ -604,7 +604,7 @@
     "description": "Label pageaction menuitem: Remove current page from the whitelist."
   },
 
-  "loading-status": {
+  "loading_status": {
     "message": "Laden...",
     "description": "Text displayed while data is being loaded."
   }

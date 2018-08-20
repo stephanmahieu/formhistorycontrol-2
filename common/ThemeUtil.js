@@ -9,15 +9,17 @@ class ThemeUtil {
 
     static switchTheme(themeTitle) {
         // disable other alternate stylesheets
-        document.querySelectorAll('[rel="alternate stylesheet"]').forEach( (elem) => {
-            if (themeTitle !==  elem.title) {
+        document.querySelectorAll('link.alternate_stylesheet[data-title]').forEach( (elem) => {
+            let elemTitle = elem.getAttribute("data-title");
+            if (themeTitle !== elemTitle) {
                 elem.disabled = true;
             }
         });
 
         // enable alternate stylesheets
-        document.querySelectorAll('[rel="alternate stylesheet"]').forEach( (elem) => {
-            if (themeTitle ===  elem.title) {
+        document.querySelectorAll('link.alternate_stylesheet[data-title]').forEach( (elem) => {
+            let elemTitle = elem.getAttribute("data-title");
+            if (themeTitle === elemTitle) {
                 elem.disabled = false;
             }
         });

@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="/theme/formhistorycontrol-generic.css"/>
     <link rel="stylesheet" href="theme/importexport.css"/>
-    <link rel="alternate stylesheet" href="/theme/formhistorycontrol-generic-dark.css" title="Dark"/>
-    <link rel="alternate stylesheet" href="/theme/formhistorycontrol-generic-blue.css" title="Blue"/>
-    <link rel="alternate stylesheet" href="theme/importexport-dark.css" title="Dark"/>
-    <link rel="alternate stylesheet" href="theme/importexport-blue.css" title="Blue"/>
+    <link rel="stylesheet" class="alternate_stylesheet" href="/theme/formhistorycontrol-generic-dark.css" data-title="Dark"/>
+    <link rel="stylesheet" class="alternate_stylesheet" href="/theme/formhistorycontrol-generic-blue.css" data-title="Blue"/>
+    <link rel="stylesheet" class="alternate_stylesheet" href="theme/importexport-dark.css" data-title="Dark"/>
+    <link rel="stylesheet" class="alternate_stylesheet" href="theme/importexport-blue.css" data-title="Blue"/>
 </head>
 <body>
 <div class="content">
@@ -32,12 +32,13 @@
     <button id="buttonImport" data-fhc-i18n="buttonImport" disabled="disabled">Import</button>
     <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
 </div>
-<script src="../../common/OptionsUtil.js"></script>
-<script src="../../common/ThemeUtil.js"></script>
-<script src="../../common/DateUtil.js"></script>
-<script src="../../common/XmlUtil.js"></script>
-<script src="../../common/WindowUtil.js"></script>
-<script src="../../common/translation.js"></script>
+<script src="/common/browser-polyfill.min.js"></script>
+<script src="/common/OptionsUtil.js"></script>
+<script src="/common/ThemeUtil.js"></script>
+<script src="/common/DateUtil.js"></script>
+<script src="/common/XmlUtil.js"></script>
+<script src="/common/WindowUtil.js"></script>
+<script src="/common/translation.js"></script>
 <script src="import.js"></script>
 </body>
 </html>

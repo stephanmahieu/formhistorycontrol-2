@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="/theme/formhistorycontrol-generic.css"/>
     <link rel="stylesheet" href="/theme/navigation.css"/>
     <link rel="stylesheet" href="theme/entryview.css"/>
-    <link rel="alternate stylesheet" href="/theme/formhistorycontrol-generic-dark.css" title="Dark"/>
-    <link rel="alternate stylesheet" href="/theme/formhistorycontrol-generic-blue.css" title="Blue"/>
-    <link rel="alternate stylesheet" href="/theme/navigation-dark.css" title="Dark"/>
-    <link rel="alternate stylesheet" href="/theme/navigation-blue.css" title="Blue"/>
-    <link rel="alternate stylesheet" href="theme/entryview-dark.css" title="Dark"/>
-    <link rel="alternate stylesheet" href="theme/entryview-blue.css" title="Blue"/>
+    <link rel="stylesheet" class="alternate_stylesheet" href="/theme/formhistorycontrol-generic-dark.css" data-title="Dark"/>
+    <link rel="stylesheet" class="alternate_stylesheet" href="/theme/formhistorycontrol-generic-blue.css" data-title="Blue"/>
+    <link rel="stylesheet" class="alternate_stylesheet" href="/theme/navigation-dark.css" data-title="Dark"/>
+    <link rel="stylesheet" class="alternate_stylesheet" href="/theme/navigation-blue.css" data-title="Blue"/>
+    <link rel="stylesheet" class="alternate_stylesheet" href="theme/entryview-dark.css" data-title="Dark"/>
+    <link rel="stylesheet" class="alternate_stylesheet" href="theme/entryview-blue.css" data-title="Blue"/>
 </head>
 <body>
 <div class="content">
@@ -131,13 +131,14 @@
     </div>
 </div>
 
-<script src="../../common/OptionsUtil.js"></script>
-<script src="../../common/ThemeUtil.js"></script>
-<script src="../../common/DateUtil.js"></script>
-<script src="../../common/WindowUtil.js"></script>
-<script src="../../common/MiscUtil.js"></script>
-<script src="../../common/translation.js"></script>
-<script src="../../common/purify.js"></script>
+<script src="/common/browser-polyfill.min.js"></script>
+<script src="/common/OptionsUtil.js"></script>
+<script src="/common/ThemeUtil.js"></script>
+<script src="/common/DateUtil.js"></script>
+<script src="/common/WindowUtil.js"></script>
+<script src="/common/MiscUtil.js"></script>
+<script src="/common/translation.js"></script>
+<script src="/common/purify.js"></script>
 <script src="renderjs/marked.js"></script>
 <script src="renderjs/wiky.js"></script>
 <script src="entryview.js"></script>

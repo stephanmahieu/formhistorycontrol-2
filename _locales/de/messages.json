@@ -425,11 +425,11 @@
     "message": "Nur Einträge für diese Seite anzeigen",
     "description": "Extra info next to the header title of the small popup."
   },
-  "open-preference-tooltip": {
+  "open_preference_tooltip": {
     "message": "Einstellungen öffnen",
     "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
   },
-  "open-bigdialog-tooltip": {
+  "open_bigdialog_tooltip": {
     "message": "Den erweiterten Dialog 'Verlauf verwalten' öffnen",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
@@ -561,7 +561,7 @@
     "message": "Einstellungen",
     "description": "Label of Preferences menuitem in the Extra menu."
   },
-  "menuItemExtraCleanupNow,": {
+  "menuItemExtraCleanupNow": {
     "message": "Jetzt bereinigen",
     "description": "Label of cleanup-now menuitem in the Extra menu."
   },
@@ -604,7 +604,7 @@
     "description": "Label pageaction menuitem: Remove current page from the whitelist."
   },
 
-  "loading-status": {
+  "loading_status": {
     "message": "Laden...",
     "description": "Text displayed while data is being loaded."
   }
