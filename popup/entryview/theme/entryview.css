@@ -40,6 +40,10 @@ input {
     display: block;
 }
 
+input[type='checkbox'] {
+    width: unset;
+}
+
 /*input:disabled,*/
 /*textarea:disabled,*/
 /*select:disabled {*/
