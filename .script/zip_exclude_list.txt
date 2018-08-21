@@ -1,9 +1,12 @@
 .git
 .idea
+.script
 *.iml
 *.cmd
 *.zip
 *.bak
+manifest.chrome.json
+manifest.firefox.json
 todo-list.md
 zip_exclude_list.txt
 _locales\es

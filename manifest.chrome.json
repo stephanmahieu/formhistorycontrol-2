@@ -1,0 +1,71 @@
+{
+  "manifest_version": 2,
+  "short_name": "FormHistCtrl",
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "version": "2.1.0.0",
+  "default_locale": "en",
+
+  "permissions": [
+    "contextMenus",
+    "notifications",
+    "activeTab",
+    "tabs",
+    "storage",
+    "alarms"
+  ],
+
+  "icons": {
+    "16": "theme/icons/fhc-16.png",
+    "32": "theme/icons/fhc-32.png",
+    "48": "theme/icons/fhc-48.png",
+    "64": "theme/icons/fhc-64.png",
+    "65": "theme/icons/fhc_icon.svg"
+  },
+  
+  "options_ui": {
+      "open_in_tab": true,
+      "page": "popup/options/options.html"
+  },
+
+  "background": {
+    "scripts": [
+      "common/browser-polyfill.min.js",
+      "common/DbConst.js",
+      "common/CleanupConst.js",
+      "common/WindowUtil.js",
+      "common/OptionsUtil.js",
+      "common/DateUtil.js",
+      "common/MiscUtil.js",
+      "background/receiveFormData.js",
+      "background/contextmenu.js",
+      "background/applicationIcon.js"
+    ]
+  },
+
+  "content_scripts": [
+    {
+      "js": [
+        "common/browser-polyfill.min.js",
+        "common/purify.js",
+        "content/collectFormData.js",
+        "content/showFormData.js",
+        "content/auto-complete.js",
+        "content/add-auto-complete.js"
+      ],
+      "css": [
+        "content/auto-complete.css"
+      ],
+      "matches": ["*://*/*", "file:///*"],
+      "run_at": "document_end",
+      "all_frames" : true
+    }
+  ],
+
+  "browser_action": {
+    "browser_style": false,
+    "default_icon": "theme/icons/fhc_icon.svg",
+    "default_title": "__MSG_extensionName__",
+    "default_popup": "popup/tableview/popup-small.html"
+  }
+}
