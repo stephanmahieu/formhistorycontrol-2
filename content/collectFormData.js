@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2018. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -545,7 +545,7 @@ function onFormSubmit(event) {
  */
 function _manualOnContentChanged(element) {
     const dummyEventObj = {
-        originalTarget: element,
+        target: element,
         type: 'dummy'
     };
     onContentChanged(dummyEventObj);
@@ -553,7 +553,7 @@ function _manualOnContentChanged(element) {
 
 
 function onContentChanged(event) {
-    let t = event.originalTarget;
+    let t = event.target;
     let n = t.nodeName.toLowerCase();
 
     if ("keyup" === event.type) {
@@ -840,7 +840,7 @@ function createDomObserver() {
                 const targetElem = mutation.target;
                 if ('style' === mutation.attributeName) {
                     // style changed
-                    if (mutation.oldValue.indexOf('display: none')!==-1 && targetElem.style.display !== 'none') {
+                    if (mutation.oldValue && mutation.oldValue.indexOf('display: none')!==-1 && targetElem.style.display !== 'none') {
                         // element style became visible, add event handler(s) that were not added previously because the element was invisible
                         // console.log('display changed for id:' + targetElem.id + " type:" + targetElem.tagName + " oldValue:" + mutation.oldValue);
                         addElementHandlers(targetElem);
