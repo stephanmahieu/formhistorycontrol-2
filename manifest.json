@@ -19,7 +19,6 @@
 
   "permissions": [
     "menus",
-    "contextMenus",
     "notifications",
     "activeTab",
     "tabs",
@@ -88,10 +87,5 @@
     "default_popup": "popup/pageaction/pageaction.html",
     "default_icon": "theme/icons/fhc_icon_bw.svg",
     "show_matches": ["*://*/*", "file:///*"]
-  },
-
-  "web_accessible_resources": [
-    "folder/example.png"
-  ]
-
+  }
 }
