@@ -13,8 +13,11 @@ const FHC_WINDOW_EXPORT  = { path:"popup/importexport/export.html", width: 350, 
 const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 550, height:315, type:"popup", currentId: -1 };
 const FHC_WINDOW_EDITRVW = { path:"popup/entryview/entryview.html", width: 550, height:415, type:"popup", currentId: -1 };
 
-const FHC_WINDOW_HELP     = { path:"https://stephanmahieu.github.io/fhc-home/",                               width: 990, height:900, type:"normal", currentId: -1 };
-const FHC_WINDOW_RELNOTES = { path:"https://stephanmahieu.github.io/fhc-home/ReleaseNotes/fhc-releasenotes/", width: 990, height:900, type:"normal", currentId: -1 };
+const FHC_WINDOW_HELP     = { path:"https://stephanmahieu.github.io/fhc-home/",                               width: 990, height:900, type:"normal", currentId: -1, tabId: -1 };
+const FHC_WINDOW_RELNOTES = { path:"https://stephanmahieu.github.io/fhc-home/ReleaseNotes/fhc-releasenotes/", width: 990, height:900, type:"normal", currentId: -1, tabId: -1 };
+
+// these paths are shown in tabs in the same window
+const TAB_GROUP = [FHC_WINDOW_HELP, FHC_WINDOW_RELNOTES];
 
 class WindowUtil {
 
@@ -46,22 +49,44 @@ class WindowUtil {
 
 
     static createOrFocusWindow(fhcWindowObject) {
-        browser.windows.getAll().then((windows) => {
+        browser.windows.getAll({populate: true}).then((windows) => {
             let curWindow;
             for (let item of windows) {
                 if (item.id === fhcWindowObject.currentId) {
                     curWindow = item;
                 }
             }
-            curWindow ? this.focusPopupWindow(curWindow) : this.createNewPopupWindow(fhcWindowObject);
+            curWindow ? this.focusPopupWindow(curWindow, fhcWindowObject) : this.createNewPopupWindow(fhcWindowObject);
         });
     }
 
-    static focusPopupWindow(curWindow) {
+    static focusPopupWindow(curWindow, fhcWindowObject) {
         let newState = curWindow.state;
         if (newState === "minimized" || newState === "docked" ) {
             newState = "normal";
         }
+
+        // are we using tabs?
+        if ('tabId' in fhcWindowObject) {
+            let tabExists = false;
+            curWindow.tabs.forEach((tab) => {
+                if (tab.id === fhcWindowObject.tabId) {
+                    tabExists = true;
+                }
+            });
+
+            if (tabExists) {
+                // show existing tab
+                browser.tabs.update(fhcWindowObject.tabId, {active: true});
+            } else {
+                // open url in a new tab
+                browser.tabs.create({url: fhcWindowObject.path}).then((createdTabInfo) => {
+                    fhcWindowObject.tabId = createdTabInfo.id;
+                });
+            }
+        }
+
+        // make sure the window is visible
         browser.windows.update(curWindow.id, {focused: true, state: newState, drawAttention: true});
     }
 
@@ -77,6 +102,16 @@ class WindowUtil {
             (windowInfo) => {
                 // console.log(`Created window: ${windowInfo.id} (${fhcWindowObject.path})`);
                 fhcWindowObject.currentId = windowInfo.id;
+
+                if ('tabId' in fhcWindowObject) {
+                    // only one tab in the newly created window
+                    fhcWindowObject.tabId = windowInfo.tabs[0].id;
+
+                    // set windowId for all (future) url's to be displayed as tabs in this window
+                    TAB_GROUP.forEach((wObj) => {
+                        wObj.currentId = windowInfo.id;
+                    });
+                }
 
                 // bugfix! Window content not displayed on Ubuntu, create 1 px too small, resize after creation
                 return fhcWindowObject;                
