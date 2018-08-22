@@ -1,11 +1,14 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2018. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
 
 'use strict';
+
+const DEFAULT_DEVELOPER_NAME = 'Stephan';
+const DEFAULT_DEVELOPER_URL = 'https://stephanmahieu.github.io/fhc-home/';
 
 browser.runtime.onMessage.addListener(fhcEvent=>{
     if (fhcEvent.eventType) {
@@ -31,27 +34,41 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
 
     let manifest = browser.runtime.getManifest();
-    // document.title += " " + manifest.name;
+    document.title += " " + manifest.name;
     document.getElementById("app-name").textContent = manifest.name;
     document.getElementById("app-version").textContent = manifest.version;
     document.getElementById("app-description").textContent = manifest.description;
-    document.getElementById("app-developer-name").textContent = manifest.developer.name;
-    document.getElementById("app-developer-url").href = manifest.developer.url;
-    // optional_permissions[]
-    // permissions[]
-    // web_accessible_resources[] -> folder/example.png
-    //console.log("manifest is:" + manifest);
+
+    const developerInfo = getDeveloperInfo(manifest);
+    document.getElementById("app-developer-name").textContent = developerInfo.name;
+    document.getElementById("app-developer-url").href = developerInfo.url;
 
     document.getElementById("app-developer-url").addEventListener("click", openDeveloperURL);
 
-    // key handler
+    // esc key handler
     document.addEventListener("keyup", onKeyClicked);
 });
 
 
+function getDeveloperInfo(manifest) {
+    let developerName = DEFAULT_DEVELOPER_NAME;
+    let developerUrl = DEFAULT_DEVELOPER_URL;
+
+    if ('developer' in manifest) {
+        developerName = manifest.developer.name;
+        developerUrl = manifest.developer.url;
+    }
+    else if ('author' in manifest) {
+        developerName = manifest.author;
+    }
+    return {
+        name: developerName,
+        url: developerUrl
+    }
+}
+
 function openDeveloperURL() {
-    // console.log("Opening developer URL in new window...");
-    let developerURL = browser.runtime.getManifest().developer.url;
+    let developerURL = getDeveloperInfo(browser.runtime.getManifest()).url;
     browser.windows.create({
         url: developerURL,
         type: "normal"
