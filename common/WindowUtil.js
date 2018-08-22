@@ -92,13 +92,12 @@ class WindowUtil {
 
     static createNewPopupWindow(fhcWindowObject) {
         let popupURL = fhcWindowObject.path.startsWith('http') ? fhcWindowObject.path : browser.extension.getURL(fhcWindowObject.path);
-        let creating = browser.windows.create({
+        browser.windows.create({
             url: popupURL,
             type: fhcWindowObject.type,
             height: fhcWindowObject.height,
             width: fhcWindowObject.width
-        });
-        creating.then(
+        }).then(
             (windowInfo) => {
                 // console.log(`Created window: ${windowInfo.id} (${fhcWindowObject.path})`);
                 fhcWindowObject.currentId = windowInfo.id;
