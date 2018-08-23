@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2018. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -10,23 +10,8 @@
 browser.runtime.onMessage.addListener(fhcEvent=>{
     if (fhcEvent.eventType) {
         switch (fhcEvent.eventType) {
-            case 888:
-                if (fhcEvent.interfaceThemeChanged) {
-                    OptionsUtil.getInterfaceTheme().then(res => {
-                        ThemeUtil.switchTheme(res);
-                    });
-                }
-                if (fhcEvent.dateFormatChanged) {
-                    // there is no way (yet) to alter the render function adter initialization
-                }
-                break;
-
             case 777:
                 refreshView();
-                break;
-
-            case 111:
-                databaseChangeSingleItem(fhcEvent.what, fhcEvent.primaryKey, fhcEvent.fhcEntry);
                 break;
         }
     }
@@ -109,7 +94,7 @@ $(document).ready(function() {
                 table.page.len(result.pageSizeBig);
 
                 // populate tableview with data from the database
-                populateViewFromDatabase(table);
+                populateViewFromDatabase(table, 25, null, null);
                 selectionChangedHandler();
             },
             () => {
@@ -354,7 +339,7 @@ function refreshView() {
     let table = $('#fhcTable').DataTable();
     table.clear();
     selectionChangedHandler();
-    populateViewFromDatabase(table);
+    populateViewFromDatabase(table, 25, null, null);
 }
 
 function updateTableRowsAgeColumn() {
@@ -376,96 +361,6 @@ function updateTableRowsAgeColumn() {
     if (redraw) {
         table.draw('page');
     }
-}
-
-function populateViewFromDatabase(table) {
-    // check if database is accessible
-    if (!WindowUtil.isDatabaseAccessible()) {
-        return;
-    }
-
-    $("#overlaystatus").addClass('spinner').show();
-
-    let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
-    req.onerror = function (/*event*/) {
-        console.error("Database open error", this.error);
-        $("#overlaystatus").hide();
-    };
-    req.onsuccess = function (event) {
-        // Better use "this" than "req" to get the result to avoid problems with garbage collection.
-        let db = event.target.result;
-        //console.log("Database opened successfully.");
-
-        let count = 0;
-        let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readonly").objectStore(DbConst.DB_STORE_TEXT);
-        let cursorReq = objStore.index(DbConst.DB_TEXT_IDX_LAST).openCursor(null, "prev");
-
-        cursorReq.onsuccess = function(evt) {
-            let cursor = evt.target.result;
-            if (cursor) {
-                let fhcEntry = cursor.value;
-                //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
-
-                table.row.add([cursor.primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host, fhcEntry.uri]);
-
-                // only update display after 25 rows and when finished
-                count += 1;
-                if (count === 25) {
-                    table.draw();
-                }
-
-                cursor.continue();
-            }
-            else {
-                //console.log("No more entries!");
-                table.draw();
-                $("#overlaystatus").removeClass('spinner').hide();
-            }
-        }
-    };
-}
-
-function databaseChangeSingleItem(what, primaryKey, fhcEntry) {
-    let table = $('#fhcTable').DataTable();
-    switch(what) {
-        case 'add':
-            table.row
-                .add([primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host, fhcEntry.uri])
-                .draw();
-            break;
-
-        case 'update':
-            table.rows().every(
-                function (/* rowIdx, tableLoop, rowLoop */) {
-                    if (this.data()[0] === primaryKey) {
-                        let d = this.data();
-                        d[1] = fhcEntry.name;
-                        d[2] = fhcEntry.value;
-                        d[3] = fhcEntry.type;
-                        d[4] = fhcEntry.used;
-                        d[5] = fhcEntry.first;
-                        d[6] = fhcEntry.last;
-                        d[7] = fhcEntry.host;
-                        d[8] = fhcEntry.uri;
-                        this.invalidate();
-                        table.draw();
-                    }
-                }
-            );
-            break;
-
-        case 'delete':
-            table.rows().every(
-                function (/* rowIdx, tableLoop, rowLoop */) {
-                    if (this.data()[0] === primaryKey) {
-                        this.remove();
-                        table.draw();
-                    }
-                }
-            );
-            break;
-    }
-
 }
 
 function selectionChangedHandler() {
