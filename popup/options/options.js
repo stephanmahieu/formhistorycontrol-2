@@ -499,4 +499,8 @@ function onKeyClicked(event) {
 function cleanupNow(event) {
     event.preventDefault();
     browser.runtime.sendMessage({eventType: 800});
+
+    // notify popup(s) that new data has been added so they can update their view
+    // do not do that immediately because cleanup is performed asynchronously
+    window.setTimeout(()=>{browser.runtime.sendMessage({eventType: 777});}, 800);
 }
