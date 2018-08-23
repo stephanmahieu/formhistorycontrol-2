@@ -7,6 +7,32 @@
 
 'use strict';
 
+browser.runtime.onMessage.addListener(fhcEvent=>{
+    if (fhcEvent.eventType) {
+        switch (fhcEvent.eventType) {
+            case 888:
+                if (fhcEvent.interfaceThemeChanged) {
+                    OptionsUtil.getInterfaceTheme().then(res => {
+                        ThemeUtil.switchTheme(res);
+                    });
+                }
+                if (fhcEvent.dateFormatChanged) {
+                    // there is no way (yet) to alter the render function adter initialization
+                }
+                break;
+
+            case 777:
+                refreshView();
+                break;
+
+            case 111:
+                databaseChangeSingleItem(fhcEvent.what, fhcEvent.primaryKey, fhcEvent.fhcEntry);
+                break;
+        }
+    }
+});
+
+
 let dataRightClicked;
 
 $(document).ready(function() {
@@ -331,6 +357,55 @@ function createDataTable(dateformat) {
             }
         ]
     } );
+}
+
+function databaseChangeSingleItem(what, primaryKey, fhcEntry) {
+    let table = $('#fhcTable').DataTable();
+    switch(what) {
+        case 'add':
+            table.row
+                .add([primaryKey, fhcEntry.name, fhcEntry.value, fhcEntry.type, fhcEntry.used, fhcEntry.first, fhcEntry.last, fhcEntry.host, fhcEntry.uri])
+                .draw();
+            break;
+
+        case 'update':
+            table.rows().every(
+                function (/* rowIdx, tableLoop, rowLoop */) {
+                    if (this.data()[0] === primaryKey) {
+                        let d = this.data();
+                        d[1] = fhcEntry.name;
+                        d[2] = fhcEntry.value;
+                        d[3] = fhcEntry.type;
+                        d[4] = fhcEntry.used;
+                        d[5] = fhcEntry.first;
+                        d[6] = fhcEntry.last;
+                        d[7] = fhcEntry.host;
+                        d[8] = fhcEntry.uri;
+                        this.invalidate();
+                        table.draw();
+                    }
+                }
+            );
+            break;
+
+        case 'delete':
+            table.rows().every(
+                function (/* rowIdx, tableLoop, rowLoop */) {
+                    if (this.data()[0] === primaryKey) {
+                        this.remove();
+                        table.draw();
+                    }
+                }
+            );
+            break;
+    }
+
+}
+
+function refreshView() {
+    let table = $('#fhcTable').DataTable();
+    table.clear();
+    populateViewFromDatabase(table);
 }
 
 function populateFromDatabase(table, forFields, forHost) {
