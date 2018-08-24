@@ -241,6 +241,13 @@ function createDataTable(dateformat) {
         paging: true,
         lengthMenu: [10, 12, 20, 50, 100, 500],
         pageLength: 12,
+        fnDrawCallback: function(){
+            $('.dataTables_scrollBody').mCustomScrollbar({
+                showArrows: 'true',
+                scrollButtons:{ enable: true },
+                theme: "3d-thick-dark"
+            });
+        },
         select: {
             style: 'single',
             info: false,

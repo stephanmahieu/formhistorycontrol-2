@@ -62,3 +62,29 @@ table.dataTable.display      tbody tr:hover.selected > .sorting_1,
 table.dataTable.order-column tbody tr:hover.selected > .sorting_1 {
     background-color: #cde8ff;
 }
+
+
+/* Scrollbar styling */
+
+.mCSB_inside > .mCSB_container {
+    margin-right: 16px;
+}
+
+.mCSB_scrollTools {
+    width: 13px;
+}
+
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    width: 9px;
+}
+
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar,
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
+    background-color: #777;
+}
+
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_draggerContainer{
+    background-color: rgba(0,0,0,0.05);
+}
