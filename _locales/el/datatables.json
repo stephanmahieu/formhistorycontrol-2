@@ -8,7 +8,8 @@
 	"sLengthMenu":        "Δείξε _MENU_ καταχωρήσεις",
 	"sLoadingRecords":    "Φόρτωση...",
 	"sProcessing":        "Επεξεργασία...",
-	"sSearch":            "Αναζήτηση:",
+	"sSearch":            "",
+	"sSearchPlaceholder": "Αναζήτηση...",
 	"sZeroRecords":       "Δεν βρέθηκαν καταχωρήσεις που να ταιριάζουν",
 	"oPaginate": {
 		"sFirst":    "Πρώτη",

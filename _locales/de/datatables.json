@@ -1,15 +1,16 @@
 {
-    "sEmptyTable":      "Keine Daten in der Tabelle vorhanden",
-    "sInfo":            "_START_ bis _END_ von _TOTAL_ Einträgen",
-    "sInfoEmpty":       "0 bis 0 von 0 Einträgen",
-    "sInfoFiltered":    "(gefiltert von _MAX_ Einträgen)",
-    "sInfoPostFix":     "",
-    "sInfoThousands":   ".",
-    "sLengthMenu":      "_MENU_ Einträge anzeigen",
-    "sLoadingRecords":  "Wird geladen...",
-    "sProcessing":      "Bitte warten...",
-    "sSearch":          "Suchen",
-    "sZeroRecords":     "Keine Einträge vorhanden.",
+    "sEmptyTable":        "Keine Daten in der Tabelle vorhanden",
+    "sInfo":              "_START_ bis _END_ von _TOTAL_ Einträgen",
+    "sInfoEmpty":         "0 bis 0 von 0 Einträgen",
+    "sInfoFiltered":      "(gefiltert von _MAX_ Einträgen)",
+    "sInfoPostFix":       "",
+    "sInfoThousands":     ".",
+    "sLengthMenu":        "_MENU_ Einträge anzeigen",
+    "sLoadingRecords":    "Wird geladen...",
+    "sProcessing":        "Bitte warten...",
+    "sSearch":            "",
+    "sSearchPlaceholder": "Suchen...",
+    "sZeroRecords":       "Keine Einträge vorhanden.",
     "oPaginate": {
         "sFirst":       "Erste",
         "sPrevious":    "Zurück",
@@ -21,10 +22,10 @@
         "sSortDescending": ": aktivieren, um Spalte absteigend zu sortieren"
     },
     "select": {
-            "rows": {
-				"_": "%d Zeilen ausgewählt",
-				"0": "Zum Auswählen auf eine Zeile klicken",
-				"1": "1 Zeile ausgewählt"
-            }
+        "rows": {
+            "_": "%d Zeilen ausgewählt",
+            "0": "Zum Auswählen auf eine Zeile klicken",
+            "1": "1 Zeile ausgewählt"
+        }
     }
 }

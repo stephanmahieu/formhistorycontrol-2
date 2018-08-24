@@ -1,14 +1,18 @@
 /* common styles for table view */
 
+/* search box */
 #fhcTable_filter input[type=search] {
-    width: 100px;
+    width: 130px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
+    background: url("search-dark.png") no-repeat 3px 3px;
+    padding-left: 22px;
 }
 
 /* When the input field gets focus, change its width to 100% */
 #fhcTable_filter input[type=search]:focus {
-    width: 200px;
+    width: 230px;
+    padding-left: 22px;
 }
 
 #fhcTable_length option {

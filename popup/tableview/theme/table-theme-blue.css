@@ -1,5 +1,13 @@
 /* Dark theme */
 
+/* search box */
+#fhcTable_filter input[type=search] {
+    background: url("search-white.png") no-repeat 3px 3px var(--field-bg-color);
+}
+::-webkit-input-placeholder {
+    color: #b6b6b6;
+}
+
 /* color table text */
 table#fhcTable tbody tr {
     color: #ffe0a0;
