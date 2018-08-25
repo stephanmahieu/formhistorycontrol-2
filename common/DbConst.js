@@ -6,7 +6,7 @@
  */
 
 class DbConst {
-    // no support for static contants, declare then after the class definition
+    // no support for static constants, declare then after the class definition
 }
 DbConst.DB_NAME = "FormHistoryControl";
 DbConst.DB_VERSION = 1;
