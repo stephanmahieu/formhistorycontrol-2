@@ -373,20 +373,20 @@
     "description": "Options window: The Override autocomplete checkbox Label."
   },
 
-  "TODO_optionsSaveNewVersionMultiline": {
-    "message": "Save a new version of a multiline field when:",
+  "optionsSaveNewVersionMultiline": {
+    "message": "Αποθήκευση μιας νέας έκδοσης ενός πολλαπλού πεδίου όταν:",
     "description": "Options window, sub heading: Save a new version of a multiline field when:."
   },
-  "TODO_optionsSaveNewVersionMultilineAge": {
-    "message": "last saved version is older than:",
+  "optionsSaveNewVersionMultilineAge": {
+    "message": "Η τελευταία αποθηκευμένη έκδοση είναι παλαιότερη από:",
     "description": "Options window, label before select list with time options: last saved version is older than:."
   },
-  "TODO_optionsSaveNewVersionMultilineCount": {
-    "message": "or content length changes more than:",
+  "optionsSaveNewVersionMultilineCount": {
+    "message": "Ή το μήκος του περιεχομένου αλλάζει περισσότερο από:",
     "description": "Options window label before select list with no of characters: or content length changes more than:."
   },
-  "TODO_optionsSaveNewVersionMultilineCharacters": {
-    "message": "characters",
+  "optionsSaveNewVersionMultilineCharacters": {
+    "message": "Χαρακτήρες",
     "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
   },
 
@@ -626,18 +626,18 @@
     "description": "Text displayed while data is being loaded."
   },
 
-  "dateSecond":  {"message": "second"},
-  "dateSeconds": {"message": "seconds"},
-  "dateMinute":  {"message": "minute"},
-  "dateMinutes": {"message": "minutes"},
-  "dateHour":    {"message": "hour"},
-  "dateHours":   {"message": "hours"},
-  "dateDay":     {"message": "day"},
-  "dateDays":    {"message": "days"},
-  "dateWeek":    {"message": "week"},
-  "dateWeeks":   {"message": "weeks"},
-  "dateMonth":   {"message": "month"},
-  "dateMonths":  {"message": "months"},
-  "dateYear":    {"message": "year"},
-  "dateYears":   {"message": "years"}
+  "dateSecond":  {"message": "δευτερόλεπτο"},
+  "dateSeconds": {"message": "δευτερόλεπτα"},
+  "dateMinute":  {"message": "λεπτό"},
+  "dateMinutes": {"message": "λεπτά"},
+  "dateHour":    {"message": "ώρα"},
+  "dateHours":   {"message": "ώρες"},
+  "dateDay":     {"message": "μέρα"},
+  "dateDays":    {"message": "μέρες"},
+  "dateWeek":    {"message": "εβδομάδα"},
+  "dateWeeks":   {"message": "εβδομάδες"},
+  "dateMonth":   {"message": "μήνας"},
+  "dateMonths":  {"message": "μήνες"},
+  "dateYear":    {"message": "έτος"},
+  "dateYears":   {"message": "έτη"}
 }
