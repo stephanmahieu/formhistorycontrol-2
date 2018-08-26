@@ -862,18 +862,21 @@ function createDomObserver() {
 function addElementHandlers(element) {
     switch(element.nodeName) {
         case 'INPUT':
-            console.log('add ev handlere to id:' + element.id + ' type:' + element.nodeName);
+            // console.log('add ev handlers to input id:' + element.id + ' type:' + element.nodeName);
             element.addEventListener('change', onContentChanged);
             element.addEventListener('paste', onContentChanged);
             break;
         case 'TEXTAREA':
-            console.log('add ev handlere to id:' + element.id + ' type:' + element.nodeName);
+            // console.log('add ev handlers to textarea id:' + element.id + ' type:' + element.nodeName);
             element.addEventListener("keyup", onContentChanged);
             element.addEventListener('paste', onContentChanged);
             break;
         case 'FORM':
-            console.log('add ev handlere to id:' + element.id + ' type:' + element.nodeName);
+            // console.log('add ev handlers to form id:' + element.id + ' type:' + element.nodeName);
             element.addEventListener('submit', onFormSubmit);
+            if (element.hasChildNodes()) {
+                Array.from(element.childNodes).forEach(elem => addElementHandlers(elem));
+            }
             break;
         default:
             if (element.hasChildNodes()) {
@@ -884,7 +887,7 @@ function addElementHandlers(element) {
 
 function addHandler(selector, eventType, aFunction) {
     document.querySelectorAll(selector).forEach( (elem) => {
-        //console.log("adding " + eventType + " handler to " + selector + "-event for elem-id: " + elem.id);
+        // console.log("adding " + eventType + " handler to " + selector + "-element with elem-id: [" + elem.id + '] name: [' + elem.name + ']');
         elem.addEventListener(eventType, aFunction);
     });
 }
