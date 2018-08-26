@@ -139,6 +139,9 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
                 table.draw();
                 $("#overlaystatus").removeClass('spinner').hide();
 
+                // hide page control if all entries are shown
+                $('#fhcTable_paginate').toggle((-1 !== table.page.len()));
+
                 if (timeout) {
                     // populating table aborted due to timeout, inform the user
                     // TODO create a custom warning message
