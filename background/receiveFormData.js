@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2018. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -96,6 +96,9 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 if (fhcEvent.domainFilterChanged || fhcEvent.fieldFilterChanged) {
                     initFilterOptions();
                 }
+                if (fhcEvent.multilineThresholdsChanged) {
+                    initMultilineThresholds();
+                }
                 break;
 
             case 998:
@@ -176,14 +179,13 @@ function deleteExpiredItems(expirationDate) {
                     console.log('Delete ' + noOfRecordsDeleted + ' of ' + noOfRecordsExpired + ' succeeded');
 
                     if (noOfRecordsExpired <= FAST_UPDATE_LIMIT) {
-                        // for small quantities, notify the table to update itself for each deleted record (slow)
+                        // for small quantities, notify the table to update itself (if open) for each deleted record (slow)
                         browser.runtime.sendMessage({
                             eventType: 111,
                             primaryKey: cursor.primaryKey,
                             fhcEntry: null,
                             what: 'delete'
-                        }).then(null,
-                            error=>console.log(`Error sending delete event: ${error}`)
+                        }).then(null, null /* ignore error, popup is not open */
                         );
                     }
                 };
@@ -522,14 +524,13 @@ function updateSingleValue(fhcEvent) {
         let updateReq = objStore.put(fhcEntry, primaryKey);
         updateReq.onsuccess = function(/*updateEvent*/) {
             // console.log("Update okay, id: " + updateEvent.target.result);
-            // notify change
+            // notify change so popup (if open) can update itself
             browser.runtime.sendMessage({
                 eventType: 111,
                 primaryKey: primaryKey,
                 fhcEntry: fhcEntry,
                 what: 'update'
-            }).then(null,
-                error=>console.log(`Error sending update event: ${error}`)
+            }).then(null, null /* ignore error, popup is not open */
             )
         };
         updateReq.onerror = function(/*updateEvent*/) {
@@ -569,14 +570,13 @@ function updateMultipleValues(fhcEvent) {
             let updateReq = objStore.put(fhcEntry, primaryKey);
             updateReq.onsuccess = function(/*updateEvent*/) {
                 // console.log("Update okay, id: " + updateEvent.target.result);
-                // notify change
+                // notify change so popup (if open) can update itself
                 browser.runtime.sendMessage({
                     eventType: 111,
                     primaryKey: primaryKey,
                     fhcEntry: fhcEntry,
                     what: 'update'
-                }).then(null,
-                    error=>console.log(`Error sending update event: ${error}`)
+                }).then(null, null /* ignore error, popup is not open */
                 )
             };
             updateReq.onerror = function(/*updateEvent*/) {
@@ -703,18 +703,29 @@ function saveOrUpdateMultilineField(fhcEvent) {
     };
 }
 
+
 /**
  * Determine when to create a new entry or update an existing entry in the database for a multiline field.
  * Create a new multiline entry when a certain amount of characters in the value has changed or when a
  * certain amount of time has passed.
  */
+let multilineThresholdAgeMs = 10 * 60 * 1000; // 10 minutes to milliseconds
+let multilineThresholdLength = 500;
+
+function initMultilineThresholds() {
+    OptionsUtil.getMultilineThresholds().then(prefs => {
+        multilineThresholdAgeMs = prefs.age * 60 * 1000;
+        multilineThresholdLength = prefs.length;
+    });
+}
 function createNewMultilineEntry(currentEntry, lastStoredEntry) {
     // create a new entry if the current version is 10 min. older or length changes more than 500 chars.
     let now = DateUtil.getCurrentDate();
-    let isOlderThan10min = ((now - lastStoredEntry.last) > (10 * 60 * 1000));
-    let gtThan500 = (Math.abs(currentEntry.value.length - lastStoredEntry.value.length) > 500);
-    return (gtThan500 || isOlderThan10min);
+    let isOlderThanThreshold = ((now - lastStoredEntry.last) > multilineThresholdAgeMs);
+    let gtThanThreshold = (Math.abs(currentEntry.value.length - lastStoredEntry.value.length) > multilineThresholdLength);
+    return (gtThanThreshold || isOlderThanThreshold);
 }
+
 
 function importIfNotExist(fhcEvent) {
     let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readwrite");
@@ -763,14 +774,13 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
             browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
         }
 
-        // notify change
+        // notify change so popup (if open) can update itself
         browser.runtime.sendMessage({
             eventType: 111,
             primaryKey: key,
             fhcEntry: fhcEntry,
             what: 'update'
-        }).then(null,
-            error=>console.log(`Error sending update event: ${error}`)
+        }).then(null, null /* ignore error, popup is not open */
         )
     };
     updateReq.onerror = function(/*updateEvent*/) {
@@ -822,13 +832,14 @@ function _insertNewEntry(objStore, fhcEvent) {
             browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
         }
 
-        // notify change
+        // notify change so popup (if open) can update itself
         browser.runtime.sendMessage({
             eventType: 111,
             primaryKey: insertEvent.target.result,
             fhcEntry: fhcEntry,
             what: 'add'
-        });
+        }).then(null, null /* ignore error, popup is not open */
+        );
     };
 }
 
@@ -958,3 +969,4 @@ function getFormElementLookupKey(formElement) {
 initDatabase();
 initCleanupAlarm();
 initFilterOptions();
+initMultilineThresholds();

@@ -87,6 +87,18 @@
                     <legend data-fhc-i18n="optionsMiscellaneousLegend">Miscellaneous</legend>
                     <input type="checkbox" id="overrideAutocomplete">
                     <label for="overrideAutocomplete"><span></span><div data-fhc-i18n="optionsOverrideAutocomplete">Override the built-in autocomplete</div></label><br/>
+
+                    <div class="divider"></div>
+
+                    <div class="optionsSubTitle" data-fhc-i18n="optionsSaveNewVersionMultiline">Save a new version of a multiline field when:</div>
+                    <br/>
+                    <label for="versionAgeSelect" data-fhc-i18n="optionsSaveNewVersionMultilineAge">last saved version is older than</label>
+                    <select id="versionAgeSelect" class="rightalign">
+                    </select>
+                    <br/><br/>
+                    <label for="versionLengthSelect" data-fhc-i18n="optionsSaveNewVersionMultilineCount">or content length changes more than</label>
+                    <select id="versionLengthSelect" class="rightalign">
+                    </select>
                 </fieldset>
 
                 <fieldset id="fld_domainhistory" class="sub-fieldset" style="display:none">

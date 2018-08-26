@@ -373,6 +373,23 @@
     "description": "Options window: The Override autocomplete checkbox Label."
   },
 
+  "TODO_optionsSaveNewVersionMultiline": {
+    "message": "Save a new version of a multiline field when:",
+    "description": "Options window, sub heading: Save a new version of a multiline field when:."
+  },
+  "TODO_optionsSaveNewVersionMultilineAge": {
+    "message": "last saved version is older than:",
+    "description": "Options window, label before select list with time options: last saved version is older than:."
+  },
+  "TODO_optionsSaveNewVersionMultilineCount": {
+    "message": "or content length changes more than:",
+    "description": "Options window label before select list with no of characters: or content length changes more than:."
+  },
+  "TODO_optionsSaveNewVersionMultilineCharacters": {
+    "message": "characters",
+    "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
+  },
+
   "optiondomainlistlegend": {
     "message": "Ενεργοποίηση/Απενεργοποίηση ιστορικού ανά Τομέα.",
     "description": "Options window: The Domain Filter legend."
@@ -607,5 +624,20 @@
   "loading_status": {
     "message": "Φόρτωση...",
     "description": "Text displayed while data is being loaded."
-  }
+  },
+
+  "dateSecond":  {"message": "second"},
+  "dateSeconds": {"message": "seconds"},
+  "dateMinute":  {"message": "minute"},
+  "dateMinutes": {"message": "minutes"},
+  "dateHour":    {"message": "hour"},
+  "dateHours":   {"message": "hours"},
+  "dateDay":     {"message": "day"},
+  "dateDays":    {"message": "days"},
+  "dateWeek":    {"message": "week"},
+  "dateWeeks":   {"message": "weeks"},
+  "dateMonth":   {"message": "month"},
+  "dateMonths":  {"message": "months"},
+  "dateYear":    {"message": "year"},
+  "dateYears":   {"message": "years"}
 }

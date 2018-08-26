@@ -1,9 +1,24 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2018. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
+
+const LBL_I18N_SECOND  = browser.i18n.getMessage("dateSecond");
+const LBL_I18N_SECONDS = browser.i18n.getMessage("dateSeconds");
+const LBL_I18N_MINUTE  = browser.i18n.getMessage("dateMinute");
+const LBL_I18N_MINUTES = browser.i18n.getMessage("dateMinutes");
+const LBL_I18N_HOUR    = browser.i18n.getMessage("dateHour");
+const LBL_I18N_HOURS   = browser.i18n.getMessage("dateHours");
+const LBL_I18N_DAY     = browser.i18n.getMessage("dateDay");
+const LBL_I18N_DAYS    = browser.i18n.getMessage("dateDays");
+const LBL_I18N_WEEK    = browser.i18n.getMessage("dateWeek");
+const LBL_I18N_WEEKS   = browser.i18n.getMessage("dateWeeks");
+const LBL_I18N_MONTH   = browser.i18n.getMessage("dateMonth");
+const LBL_I18N_MONTHS  = browser.i18n.getMessage("dateMonths");
+const LB_I18NL_YEAR    = browser.i18n.getMessage("dateYear");
+const LBL_I18N_YEARS   = browser.i18n.getMessage("dateYears");
 
 class DateUtil {
 
@@ -158,16 +173,16 @@ class DateUtil {
      */
     static getFuzzyAge(aDate) {
         let _getIndDay = function(n) {
-            return " " + ((n===1) ? "day" : "days");
+            return " " + ((n===1) ? LBL_I18N_DAY : LBL_I18N_DAYS);
         };
         let _getIndHour = function(n) {
-            return " " + ((n===1) ? "hour" : "hours");
+            return " " + ((n===1) ? LBL_I18N_HOUR : LBL_I18N_HOURS);
         };
         let _getIndMinute = function(n) {
-            return " " + ((n===1) ? "minute" : "minutes");
+            return " " + ((n===1) ? LBL_I18N_MINUTE : LBL_I18N_MINUTES);
         };
         let _getIndSecond = function(n) {
-            return " " + ((n===1) ? "second" : "seconds");
+            return " " + ((n===1) ? LBL_I18N_SECOND : LBL_I18N_SECONDS);
         };
 
         let d = new Date();
@@ -182,14 +197,14 @@ class DateUtil {
             let noOfWeeks = Math.floor(noOfDays / 7);
             let noOfMonths = Math.floor(noOfDays / 30);
             if (noOfMonths > 24) {
-                result = Math.round(noOfMonths / 12) + " " + "years";
+                result = Math.round(noOfMonths / 12) + " " + LBL_I18N_YEARS;
             }
             else if (noOfMonths > 1) {
-                result = noOfMonths + " " + "months";
+                result = noOfMonths + " " + LBL_I18N_MONTHS;
                 if (noOfMonths > 9) space = "";
             }
             else if (noOfWeeks > 2) {
-                result = noOfWeeks + " " + "weeks";
+                result = noOfWeeks + " " + LBL_I18N_WEEKS;
             }
             else  {
                 result = noOfDays + " " + _getIndDay(noOfDays);

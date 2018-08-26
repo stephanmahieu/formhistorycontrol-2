@@ -371,8 +371,25 @@
   "optionsOverrideAutocomplete": {
     "message": "Die integrierte automatische Vervollständigung überschreiben",
     "description": "Options window: The Override autocomplete checkbox Label."
-  },  
-  
+  },
+
+  "TODO_optionsSaveNewVersionMultiline": {
+    "message": "Save a new version of a multiline field when:",
+    "description": "Options window, sub heading: Save a new version of a multiline field when:."
+  },
+  "TODO_optionsSaveNewVersionMultilineAge": {
+    "message": "last saved version is older than:",
+    "description": "Options window, label before select list with time options: last saved version is older than:."
+  },
+  "TODO_optionsSaveNewVersionMultilineCount": {
+    "message": "or content length changes more than:",
+    "description": "Options window label before select list with no of characters: or content length changes more than:."
+  },
+  "TODO_optionsSaveNewVersionMultilineCharacters": {
+    "message": "characters",
+    "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
+  },
+
   "optiondomainlistlegend": {
     "message": "Aktiviere/Deaktiviere den Verlauf pro Domain",
     "description": "Options window: The Domain Filter legend."
@@ -607,5 +624,20 @@
   "loading_status": {
     "message": "Laden...",
     "description": "Text displayed while data is being loaded."
-  }
+  },
+
+  "dateSecond":  {"message": "Sekunde"},
+  "dateSeconds": {"message": "Sekunden"},
+  "dateMinute":  {"message": "Minute"},
+  "dateMinutes": {"message": "Minuten"},
+  "dateHour":    {"message": "Stunde"},
+  "dateHours":   {"message": "Stunden"},
+  "dateDay":     {"message": "Tag"},
+  "dateDays":    {"message": "Tage"},
+  "dateWeek":    {"message": "Woche"},
+  "dateWeeks":   {"message": "Wochen"},
+  "dateMonth":   {"message": "Monat"},
+  "dateMonths":  {"message": "Monate"},
+  "dateYear":    {"message": "Jahr"},
+  "dateYears":   {"message": "Jahren"}
 }

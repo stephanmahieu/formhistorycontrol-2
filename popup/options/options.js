@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
 
     addStylesheetThemesToSelect();
+    addMultilineSaveOptionsToSelect();
 
     restoreOptions();
     document.querySelector("form").addEventListener("submit", saveOptions);
@@ -58,6 +59,9 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#themeSelect").addEventListener("change", themeSelectionChanged);
     document.querySelector("#overrideAutocomplete").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#dateformatSelect").addEventListener("change", checkPropertiesChanged);
+
+    document.querySelector("#versionAgeSelect").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#versionLengthSelect").addEventListener("change", checkPropertiesChanged);
 
     document.querySelectorAll('input[name=radiogroupDomainlist]').forEach(radio => {
         radio.addEventListener("change", checkPropertiesChanged);
@@ -108,6 +112,7 @@ function restoreOptions() {
     let gettingItem = browser.storage.local.get({
         prefInterfaceTheme       : "default",
         prefUseCustomAutocomplete: false,
+        prefMultilineThresholds  : {age: "10", length: "500"},
         prefDateFormat           : "automatic",
         prefDomainFilter         : "all",
         prefDomainList           : [],
@@ -119,6 +124,8 @@ function restoreOptions() {
         //console.log('checkbox value got from storage is [' + res.prefUseCustomAutocomplete + ']');
         document.querySelector('#themeSelect').value = res.prefInterfaceTheme;
         document.querySelector("#overrideAutocomplete").checked = res.prefUseCustomAutocomplete;
+        document.querySelector('#versionAgeSelect').value = res.prefMultilineThresholds.age;
+        document.querySelector('#versionLengthSelect').value = res.prefMultilineThresholds.length;
         document.querySelector("#dateformatSelect").value = res.prefDateFormat;
         document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
         document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
@@ -149,11 +156,13 @@ function saveOptions(e) {
 
     const notifyMsg = {
         eventType: 888,
-        interfaceThemeChanged: (currentOptions.prefInterfaceTheme !== newOptions.prefInterfaceTheme),
+        interfaceThemeChanged:       (currentOptions.prefInterfaceTheme !== newOptions.prefInterfaceTheme),
         overrideAutocompleteChanged: (currentOptions.prefUseCustomAutocomplete !== newOptions.prefUseCustomAutocomplete),
-        dateFormatChanged: (currentOptions.prefDateFormat !== newOptions.prefDateFormat),
-        domainFilterChanged: (currentOptions.prefDomainFilter != newOptions.prefDomainFilter || !arrayContentEquals(currentOptions.prefDomainList, newOptions.prefDomainList)),
-        fieldFilterChanged: !arrayContentEquals(currentOptions.prefFieldList, newOptions.prefFieldList)
+        multilineThresholdsChanged:  (currentOptions.prefMultilineThresholds.age !== newOptions.prefMultilineThresholds.age
+                                   || currentOptions.prefMultilineThresholds.length !== newOptions.prefMultilineThresholds.length),
+        dateFormatChanged:           (currentOptions.prefDateFormat !== newOptions.prefDateFormat),
+        domainFilterChanged:         (currentOptions.prefDomainFilter !== newOptions.prefDomainFilter || !arrayContentEquals(currentOptions.prefDomainList, newOptions.prefDomainList)),
+        fieldFilterChanged:          !arrayContentEquals(currentOptions.prefFieldList, newOptions.prefFieldList)
     };
 
     // inform popups
@@ -162,7 +171,7 @@ function saveOptions(e) {
     // inform all content scripts (all tabs)
     browser.tabs.query({status: "complete"}).then(tabs => {
         tabs.forEach(tab => {
-            browser.tabs.sendMessage(tab.id, notifyMsg);
+            browser.tabs.sendMessage(tab.id, notifyMsg).then(null, null);
         });
     });
 
@@ -174,6 +183,8 @@ function getNewOptions() {
     return {
         prefInterfaceTheme       : document.querySelector("#themeSelect").value,
         prefUseCustomAutocomplete: document.querySelector("#overrideAutocomplete").checked,
+        prefMultilineThresholds  : {age   : document.querySelector("#versionAgeSelect").value,
+                                    length: document.querySelector("#versionLengthSelect").value},
         prefDateFormat           : document.querySelector("#dateformatSelect").value,
         prefDomainFilter         : getCheckedRadioDomainValue(),
         prefDomainList           : getList("#domainlist"),
@@ -426,14 +437,23 @@ function checkPropertiesChanged() {
     // enable apply button only if properties have changed
     let changed = false;
     const newOptions = getNewOptions();
-    Object.entries(newOptions).forEach(([key, value]) => {
+    Object.entries(newOptions).forEach(([key, newValue]) => {
         let oldValue = currentOptions[key];
         if (Array.isArray(oldValue)) {
-            if (!arrayContentEquals(oldValue, value)) {
+            if (!arrayContentEquals(oldValue, newValue)) {
                 changed = true;
             }
-        } else {
-            if (oldValue !== value) {
+        }
+        else if (typeof oldValue === 'object') {
+            // assuming both object have the same keys
+            Object.entries(oldValue).forEach(([subKey, oldSubValue]) => {
+                if (oldSubValue !== newValue[subKey]) {
+                    changed = true;
+                }
+            });
+        }
+        else {
+            if (oldValue !== newValue) {
                 changed = true;
             }
         }
@@ -479,6 +499,33 @@ function addStylesheetThemesToSelect() {
         optionNode.value = option;
         optionNode.appendChild(document.createTextNode(option));
         document.querySelector('#themeSelect').appendChild(optionNode);
+    });
+}
+
+function addMultilineSaveOptionsToSelect() {
+    const charactersText = browser.i18n.getMessage("optionsSaveNewVersionMultilineCharacters");
+    ["10", "20", "50", "100", "200", "500", "1000", "5000"].forEach((count)=>{
+        const optionNode = document.createElement('option');
+        optionNode.value = count;
+        optionNode.appendChild(document.createTextNode(count + " " + charactersText));
+        document.querySelector("#versionLengthSelect").appendChild(optionNode);
+    });
+
+    [   {val:       1, lbl: "1 "  + browser.i18n.getMessage("dateMinute")},
+        {val:       2, lbl: "2 "  + browser.i18n.getMessage("dateMinutes")},
+        {val:       5, lbl: "5 "  + browser.i18n.getMessage("dateMinutes")},
+        {val:      10, lbl: "10 " + browser.i18n.getMessage("dateMinutes")},
+        {val:      30, lbl: "30 " + browser.i18n.getMessage("dateMinutes")},
+        {val:      60, lbl: "1 "  + browser.i18n.getMessage("dateHour")},
+        {val:  2 * 60, lbl: "2 "  + browser.i18n.getMessage("dateHours")},
+        {val:  6 * 60, lbl: "6 "  + browser.i18n.getMessage("dateHours")},
+        {val: 12 * 60, lbl: "12 " + browser.i18n.getMessage("dateHours")},
+        {val: 24 * 60, lbl: "1 "  + browser.i18n.getMessage("dateDay")}
+    ].forEach((age)=>{
+        const optionNode = document.createElement('option');
+        optionNode.value = age.val;
+        optionNode.appendChild(document.createTextNode(age.lbl));
+        document.querySelector("#versionAgeSelect").appendChild(optionNode);
     });
 }
 

@@ -120,6 +120,20 @@ a:link:hover {
     color: #1c336d;
 }
 
+.divider {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.34);
+    margin: 8px -20px 8px 0;
+}
+
+.optionsSubTitle {
+    font-weight: bold;
+    color: var(--legend-text-color);
+    font-size: 13px;
+}
+
 /* checkbox+radio styling */
 input[type="Checkbox"],
 input[type="Radio"] {

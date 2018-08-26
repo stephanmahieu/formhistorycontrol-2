@@ -373,6 +373,23 @@
     "description": "Options window: The Override autocomplete checkbox Label."
   },
 
+  "optionsSaveNewVersionMultiline": {
+    "message": "Bewaar een nieuwe versie van een meerregelig veld als:",
+    "description": "Options window, sub heading: Save a new version of a multiline field when:."
+  },
+  "optionsSaveNewVersionMultilineAge": {
+    "message": "laatst bewaarde versie is ouder dan:",
+    "description": "Options window, label before select list with time options: last saved version is older than:."
+  },
+  "optionsSaveNewVersionMultilineCount": {
+    "message": "of tekstlengte veranderd met meer dan:",
+    "description": "Options window label before select list with no of characters: or content length changes more than:."
+  },
+  "optionsSaveNewVersionMultilineCharacters": {
+    "message": "karakters",
+    "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
+  },
+
   "optiondomainlistlegend": {
     "message": "Aanzetten/Uitzetten historie per domein",
     "description": "Options window: The Domain Filter legend."
@@ -607,5 +624,20 @@
   "loading_status": {
     "message": "Laden...",
     "description": "Text displayed while data is being loaded."
-  }
+  },
+
+  "dateSecond":  {"message": "seconde"},
+  "dateSeconds": {"message": "seconden"},
+  "dateMinute":  {"message": "minuut"},
+  "dateMinutes": {"message": "minuten"},
+  "dateHour":    {"message": "uur"},
+  "dateHours":   {"message": "uur"},
+  "dateDay":     {"message": "dag"},
+  "dateDays":    {"message": "dagen"},
+  "dateWeek":    {"message": "week"},
+  "dateWeeks":   {"message": "weken"},
+  "dateMonth":   {"message": "maand"},
+  "dateMonths":  {"message": "maanden"},
+  "dateYear":    {"message": "jaar"},
+  "dateYears":   {"message": "jaren"}
 }

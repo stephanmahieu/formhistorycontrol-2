@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2018. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -27,6 +27,20 @@ class OptionsUtil {
             browser.storage.local.get({prefDateFormat: defaultValue}).then(
                 result => {
                     resolve(result.prefDateFormat);
+                },
+                () => {
+                    resolve(defaultValue);
+                }
+            );
+        });
+    }
+
+    static getMultilineThresholds() {
+        const defaultValue = {age: 10, length: 500};
+        return new Promise((resolve, reject) => {
+            browser.storage.local.get({prefMultilineThresholds: defaultValue}).then(
+                result => {
+                    resolve(result.prefMultilineThresholds);
                 },
                 () => {
                     resolve(defaultValue);
