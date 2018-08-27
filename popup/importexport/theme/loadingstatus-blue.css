@@ -1,0 +1,10 @@
+#overlaystatus div {
+    color: #5aa7e9;
+    text-shadow: 1px 1px 1px #282828, 4px 3px 0 rgba(0,0,0,0.15);
+}
+
+.spinner:before {
+    border-color: rgba(61, 61, 61, 0.75);
+    border-top-color: rgba(70, 113, 159, 0.50);
+    border-bottom-color: rgba(70, 113, 159, 0.50);
+}

@@ -36,13 +36,19 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     document.getElementById("buttonExport").addEventListener("click", handleExport);
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
+
+    // start the export immediately and display the download link
+    handleExport();
 });
 
 
 
 function handleExport(/*evt*/) {
+    showBusy();
+
     let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
     req.onerror = function (/*event*/) {
+        hideBusy();
         console.error("Database open error", this.error);
     };
     req.onsuccess = function (event) {
@@ -96,6 +102,7 @@ function handleExport(/*evt*/) {
                 cursor.continue();
             }
             else {
+                hideBusy();
                 //console.log("No more entries!");
                 //console.log("Exporting " + textEntries.length + " text-entries and " + multilines.length + " multiline entries");
 
@@ -125,33 +132,30 @@ function onKeyClicked(event) {
 
 function setDownloadLink(content) {
     let alink = document.getElementById('link');
-    let button = document.getElementById('buttonExport');
-
-    // Alternative:
-    //
-    // https://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file
-    // https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL -> possibly do a URL.revokeObjectURL()
-    //
-    // let file;
-    // let oprions = {
-    //     type: 'application/xml',
-    //     size: content.length
-    // };
-    // try {
-    //     // Specify the filename using the File constructor, but ...
-    //     file = new File([content], "formhistory.xml", oprions);
-    // } catch (e) {
-    //     // ... fall back to the Blob constructor if that isn't supported.
-    //     file = new Blob([content], oprions);
-    // }
-    // let url = URL.createObjectURL(file);
-    // console.log("Attaching URL to link: " + url);
-    //
-    // alink.setAttribute('href', url);
 
     alink.setAttribute('href', 'data:application/xml;charset=utf-8,' + encodeURIComponent(content));
     alink.setAttribute('download', "formhistory.xml");
 
-    button.setAttribute("disabled", "disabled");
     alink.style.display = "inline";
+}
+
+let timeStarted;
+function showBusy() {
+    timeStarted = new Date();
+    document.querySelector('#overlaystatus').classList.add('spinner');
+    document.querySelector('#overlaystatus').style.display = 'block';
+}
+
+function hideBusy() {
+    // make sure the busy spinner is visible for at least 1.2 seconds (avoid flashing)
+    let minVisibleDisplayTime = 1200;
+    let displayPause = 0;
+    let timeElapsed = (new Date()) - timeStarted;
+    if (timeElapsed < minVisibleDisplayTime) {
+        displayPause = minVisibleDisplayTime - timeElapsed;
+    }
+    setTimeout(() => {
+        document.querySelector('#overlaystatus').style.display = 'none';
+        document.querySelector('#overlaystatus').classList.remove('spinner');
+    }, displayPause);
 }
