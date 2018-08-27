@@ -504,7 +504,7 @@ function addStylesheetThemesToSelect() {
 
 function addMultilineSaveOptionsToSelect() {
     const charactersText = browser.i18n.getMessage("optionsSaveNewVersionMultilineCharacters");
-    ["10", "20", "50", "100", "200", "500", "1000", "5000"].forEach((count)=>{
+    ["10", "20", "50", "75", "100", "200", "500", "1000", "5000"].forEach((count)=>{
         const optionNode = document.createElement('option');
         optionNode.value = count;
         optionNode.appendChild(document.createTextNode(count + " " + charactersText));
