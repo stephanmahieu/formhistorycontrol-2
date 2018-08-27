@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2018. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -44,11 +44,11 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
 
 
 function handleExport(/*evt*/) {
-    showBusy();
+    let timeStarted = showBusy();
 
     let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
     req.onerror = function (/*event*/) {
-        hideBusy();
+        hideBusy(timeStarted);
         console.error("Database open error", this.error);
     };
     req.onsuccess = function (event) {
@@ -69,7 +69,6 @@ function handleExport(/*evt*/) {
 
                 count += 1;
                 if (fhcEntry.type === 'input' || fhcEntry.type === 'input') {
-                    // TODO add extra export properties (host -> 1:n)
                     textEntries.push({
                         name: fhcEntry.name,
                         value: fhcEntry.value,
@@ -102,7 +101,7 @@ function handleExport(/*evt*/) {
                 cursor.continue();
             }
             else {
-                hideBusy();
+                hideBusy(timeStarted);
                 //console.log("No more entries!");
                 //console.log("Exporting " + textEntries.length + " text-entries and " + multilines.length + " multiline entries");
 
@@ -137,18 +136,20 @@ function setDownloadLink(content) {
     alink.setAttribute('download', "formhistory.xml");
 
     alink.style.display = "inline";
+    document.getElementById('linkInfo').style.display = "block";
 }
 
-let timeStarted;
+
 function showBusy() {
-    timeStarted = new Date();
     document.querySelector('#overlaystatus').classList.add('spinner');
     document.querySelector('#overlaystatus').style.display = 'block';
+    return new Date();
 }
 
-function hideBusy() {
-    // make sure the busy spinner is visible for at least 1.2 seconds (avoid flashing)
-    let minVisibleDisplayTime = 1200;
+function hideBusy(timeStarted) {
+    // the busy spinner is visible for a minimum amount of time to avoid flickering so the user gets a chance
+    // to see the spinner and read the text
+    const minVisibleDisplayTime = 1200;
     let displayPause = 0;
     let timeElapsed = (new Date()) - timeStarted;
     if (timeElapsed < minVisibleDisplayTime) {

@@ -308,6 +308,10 @@
     "message": "Download link:",
     "description": "Export window: Download link:"
   },
+  "exportDownloadLinkInfo": {
+    "message": "Klik op de download link om het export bestand te openen of op te slaan.",
+    "description": "Short explanation in the export dialog: click download link to open or save locally"
+  },
 
 
   "aboutTitle": {
