@@ -4,7 +4,7 @@ body {
 }
 
 table {
-    margin-top: 15px;
+    margin-top: 4px;
 }
 
 td.right-aligned {
@@ -45,7 +45,7 @@ progress {
 #download-label {
     display: inline-block;
     font-weight: bold;
-    padding-top: 15px;
+    padding-top: 16px;
 }
 
 #link {
@@ -54,15 +54,20 @@ progress {
 
 #linkInfo {
     margin-top: 16px;
+    padding: 3px;
     font-style: italic;
     color: #727272;
     display: none;
 }
 
 #linkInfo:hover {
+    margin-top: 14px;
     color: #292929;
     background-color: #fff3af;
     cursor: help;
+    border: 1px #292929 solid;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.51);
+    transition: color .4s ease-in-out, background-color .4s ease-in-out;
 }
 
 #linkInfo:before {
