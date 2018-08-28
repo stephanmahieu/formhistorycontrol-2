@@ -308,8 +308,8 @@
     "message": "Σύνδεσμος λήψης:",
     "description": "Export window: Download link:"
   },
-  "TODO_exportDownloadLinkInfo": {
-    "message": "Click on the download link to open or save the export file.",
+  "exportDownloadLinkInfo": {
+    "message": "Κάνε κλικ στον σύνδεσμο λήψης για να ανοίξεις ή να αποθηκεύσεις το αρχείο εξαγωγής.",
     "description": "Short explanation in the export dialog: click download link to open or save locally"
   },
 
@@ -616,7 +616,7 @@
     "message": "Αφαίρεση τρέχουσας σελίδας από τη λίστα Απαγορευμένων",
     "description": "Label pageaction menuitem: Remove current page from the blacklist."
   },
-  "TODO-paMenuItemAddWhitelist": {
+  "paMenuItemAddWhitelist": {
     "message": "Επιτρεπόμενη τρέχουσα σελίδα",
     "description": "Label pageaction menuitem: Whitelist current page."
   },
