@@ -16,6 +16,11 @@ progress::-moz-progress-bar {
     color: #9a9a9a;
 }
 
+#linkInfo:hover {
+    color: #ffffff;
+    background-color: #383273;
+}
+
 #linkInfo:before {
     filter: drop-shadow(2px 2px 2px rgba(40, 40, 40, 0.7));
 }

@@ -59,6 +59,12 @@ progress {
     display: none;
 }
 
+#linkInfo:hover {
+    color: #292929;
+    background-color: #fff3af;
+    cursor: help;
+}
+
 #linkInfo:before {
     content: "";
     display: block;
