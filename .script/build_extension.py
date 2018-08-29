@@ -14,7 +14,7 @@ allTargets = ['firefox', 'chrome']
 
 
 if len(sys.argv) < 1:
-    print('usage: release <firefox|chrome>')
+    print('usage: build_extension <firefox|chrome>')
     sys.exit(0)
 
 buildTarget = sys.argv[1]
@@ -60,6 +60,54 @@ def version_from_manifest(manifest_path):
 # -------------------------------------------------------
 
 
+# -------------------------------------------------------
+def remove_script_line(filepath, substring):
+    found = False
+    with open(filepath, 'r') as f:
+        content = []
+        for line in f.readlines():
+            # print(line)
+            if substring not in line:
+                content.append(line)
+            else:
+                found = True
+    if found:
+        print(f'  remove script reference from {filepath}')
+        with open(filepath, 'w') as f:
+            f.writelines(content)
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+def process_firefox():
+    script = 'browser-polyfill.min.js'
+    print('Special processing firefox:')
+
+    # remove the script itself
+    print(f'  remove script {script}')
+    os.remove(os.path.join(distSubDirectoryPath, 'common', script))
+
+    # remove reference from manifest
+    remove_script_line(os.path.join(distSubDirectoryPath, 'manifest.json'), script)
+
+    # remove reference from html files
+    for aRoot, aDirs, aFiles in os.walk(os.path.join(distSubDirectoryPath, 'popup'), topdown=False):
+        for fname in aFiles:
+            if '.html' in fname:
+                file_to_check = os.path.join(aRoot, fname)
+                remove_script_line(file_to_check, script)
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+def process_chrome():
+    print('Special processing chrome:')
+    pageaction_path = os.path.join(distSubDirectoryPath, 'popup', 'pageaction')
+    print(f'  Remove {pageaction_path}')
+    rmtree(pageaction_path)
+# -------------------------------------------------------
+
+
 filename = 'manifest.' + buildTarget + '.json'
 fhcVersion = version_from_manifest(filename)
 print(f'Creating FHC ver {fhcVersion} distribution for {buildTarget}')
@@ -85,14 +133,14 @@ ignorefiles = ignore_patterns('.dist', '.script', '.git', '.idea', '*.zip', '*.i
 copytree(sourceDirectoryPath, distSubDirectoryPath, ignore=ignorefiles)
 
 # remove unfinished translations
-print('Removing unfinished translations')
+print('Removing unfinished translations:')
 for locale in unfinishedLocales:
     rmLocale = os.path.join(distSubDirectoryPath, '_locales', locale)
     print(f'  delete: {rmLocale}')
     rmtree(rmLocale)
 
 # cleanup messages.json files (remove the descriptions)
-print('Cleanup remaining translations')
+print('Cleanup remaining translations:')
 for root, dirs, files in os.walk(os.path.join(distSubDirectoryPath, '_locales')):
     for name in files:
         if 'messages.json' in name:
@@ -114,6 +162,12 @@ for target in allTargets:
             print(f'Rename {filename} to manifest.json')
             os.rename(targetManifestFile, manifestFile)
 
+# special target processing
+if buildTarget == 'firefox':
+    process_firefox()
+if buildTarget == 'chrome':
+    process_chrome()
+
 # version label is fhc version without .
 versionLabel = re.sub('[.]', '', fhcVersion)
 
@@ -122,3 +176,5 @@ zipName = 'formhistory_' + buildTarget + '_' + versionLabel
 zipPath = os.path.join(distDirectoryPath, zipName)
 print(f'Creating {zipName}.zip')
 make_archive(zipPath, 'zip', distSubDirectoryPath)
+
+print('Finished!')
