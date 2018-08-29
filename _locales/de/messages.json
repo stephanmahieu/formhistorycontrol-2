@@ -308,8 +308,8 @@
     "message": "Download Link:",
     "description": "Export window: Download link:"
   },
-  "TODO_exportDownloadLinkInfo": {
-    "message": "Click on the download link to open or save the export file.",
+  "exportDownloadLinkInfo": {
+    "message": "Zum Öffnen oder Speichern auf den Download-Link klicken.",
     "description": "Short explanation in the export dialog: click download link to open or save locally"
   },
 
@@ -376,20 +376,20 @@
     "description": "Options window: The Override autocomplete checkbox Label."
   },
 
-  "TODO_optionsSaveNewVersionMultiline": {
-    "message": "Save a new version of a multiline field when:",
+  "optionsSaveNewVersionMultiline": {
+    "message": "Eine neue Version von mehrzeiligen Eingabefeldern speichern wenn:",
     "description": "Options window, sub heading: Save a new version of a multiline field when:."
   },
-  "TODO_optionsSaveNewVersionMultilineAge": {
-    "message": "last saved version is older than:",
+  "optionsSaveNewVersionMultilineAge": {
+    "message": "Die letzte gespeicherte Version älter ist als:",
     "description": "Options window, label before select list with time options: last saved version is older than:."
   },
-  "TODO_optionsSaveNewVersionMultilineCount": {
-    "message": "or content length changes more than:",
+  "optionsSaveNewVersionMultilineCount": {
+    "message": "Sich mehr als x Zeichen geändert haben:",
     "description": "Options window label before select list with no of characters: or content length changes more than:."
   },
-  "TODO_optionsSaveNewVersionMultilineCharacters": {
-    "message": "characters",
+  "optionsSaveNewVersionMultilineCharacters": {
+    "message": "Zeichen",
     "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
   },
 
