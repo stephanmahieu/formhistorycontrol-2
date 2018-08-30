@@ -7,7 +7,6 @@ import re
 
 sourceDirectoryPath = "."
 distDirectoryPath = ".dist"
-distSubDirectoryPath = os.path.join(distDirectoryPath, 'tmp')
 
 unfinishedLocales = ['es', 'fr']
 allTargets = ['firefox', 'chrome']
@@ -19,14 +18,23 @@ if len(sys.argv) < 1:
 
 buildTarget = sys.argv[1]
 
+if buildTarget not in allTargets:
+    print('Invalid target specified, possible values: ' + ' '.join(allTargets))
+    sys.exit(0)
+
+distSubDirectoryPath = os.path.join(distDirectoryPath, 'tmp_' + buildTarget)
+
+
+# -------------------------------------------------------
+def remove_readonly_flag(func, path, _):
+    # clear the readonly bit and reattempt removal
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+# -------------------------------------------------------
+
 
 # -------------------------------------------------------
 def remove_dir(top):
-    def _remove_readonly(func, path, _):
-        # clear the readonly bit and reattempt removal
-        os.chmod(path, stat.S_IWRITE)
-        func(path)
-
     if top == os.sep:
         return
     else:
@@ -34,7 +42,7 @@ def remove_dir(top):
             for fileName in aFiles:
                 os.remove(os.path.join(aRoot, fileName))
             for pathName in aDirs:
-                rmtree(os.path.join(aRoot, pathName), onerror=_remove_readonly)
+                rmtree(os.path.join(aRoot, pathName), onerror=remove_readonly_flag)
 # -------------------------------------------------------
 
 
@@ -79,9 +87,9 @@ def remove_script_line(filepath, substring):
 
 
 # -------------------------------------------------------
-def process_firefox():
+def post_process_firefox():
     script = 'browser-polyfill.min.js'
-    print('Special processing firefox:')
+    print('Post processing firefox:')
 
     # remove the script itself
     print(f'  remove script {script}')
@@ -93,25 +101,26 @@ def process_firefox():
     # remove reference from html files
     for aRoot, aDirs, aFiles in os.walk(os.path.join(distSubDirectoryPath, 'popup'), topdown=False):
         for fname in aFiles:
-            if '.html' in fname:
+            if fname.endswith('.html'):
                 file_to_check = os.path.join(aRoot, fname)
                 remove_script_line(file_to_check, script)
 # -------------------------------------------------------
 
 
 # -------------------------------------------------------
-def process_chrome():
-    print('Special processing chrome:')
+def post_process_chrome():
+    print('Post processing chrome:')
     pageaction_path = os.path.join(distSubDirectoryPath, 'popup', 'pageaction')
     print(f'  Remove {pageaction_path}')
-    rmtree(pageaction_path)
+    rmtree(pageaction_path, onerror=remove_readonly_flag)
 # -------------------------------------------------------
 
 
 filename = 'manifest.' + buildTarget + '.json'
 fhcVersion = version_from_manifest(filename)
+print('=' * 80)
 print(f'Creating FHC ver {fhcVersion} distribution for {buildTarget}')
-print('=================================================')
+print('=' * 80)
 
 # create .dist dir not exist exit
 if not os.path.isdir(distDirectoryPath):
@@ -122,13 +131,12 @@ if not (os.access(distDirectoryPath, os.W_OK)):
     print(f'Distribution directory {distDirectoryPath} not accessible!')
     sys.exit(0)
 
-# empty .dist directory
-if len(os.listdir(distDirectoryPath)) != 0:
-    print(f'Cleaning directory {distDirectoryPath}')
-    remove_dir(distDirectoryPath)
+# if .dist/tmp_target directory exists remove it
+if os.path.isdir(distSubDirectoryPath):
+    rmtree(distSubDirectoryPath, onerror=remove_readonly_flag)
 
-# copy files to .dist directory
-print('Copying files to .dist directory')
+# copy files to .dist/temp_target directory
+print(f'Copying files to .dist/temp_{buildTarget} directory')
 ignorefiles = ignore_patterns('.dist', '.script', '.git', '.idea', '*.zip', '*.iml', '*.bak', 'todo-list.md', '*.md')
 copytree(sourceDirectoryPath, distSubDirectoryPath, ignore=ignorefiles)
 
@@ -137,9 +145,9 @@ print('Removing unfinished translations:')
 for locale in unfinishedLocales:
     rmLocale = os.path.join(distSubDirectoryPath, '_locales', locale)
     print(f'  delete: {rmLocale}')
-    rmtree(rmLocale)
+    rmtree(rmLocale, onerror=remove_readonly_flag)
 
-# cleanup messages.json files (remove the descriptions)
+# cleanup messages.json files (remove descriptions)
 print('Cleanup remaining translations:')
 for root, dirs, files in os.walk(os.path.join(distSubDirectoryPath, '_locales')):
     for name in files:
@@ -162,11 +170,11 @@ for target in allTargets:
             print(f'Rename {filename} to manifest.json')
             os.rename(targetManifestFile, manifestFile)
 
-# special target processing
+# post target processing
 if buildTarget == 'firefox':
-    process_firefox()
+    post_process_firefox()
 if buildTarget == 'chrome':
-    process_chrome()
+    post_process_chrome()
 
 # version label is fhc version without .
 versionLabel = re.sub('[.]', '', fhcVersion)
@@ -177,4 +185,5 @@ zipPath = os.path.join(distDirectoryPath, zipName)
 print(f'Creating {zipName}.zip')
 make_archive(zipPath, 'zip', distSubDirectoryPath)
 
+print('=' * 80)
 print('Finished!')
