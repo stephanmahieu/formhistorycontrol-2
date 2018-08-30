@@ -4,24 +4,19 @@ import os
 import sys
 import stat
 import re
+import argparse
 
 sourceDirectoryPath = "."
 distDirectoryPath = ".dist"
 
-unfinishedLocales = ['es', 'fr']
 allTargets = ['firefox', 'chrome']
+unfinishedLocales = ['es', 'fr']
 
+parser = argparse.ArgumentParser()
+parser.add_argument("buildTarget", help="the target to build", choices=allTargets)
+args = parser.parse_args()
 
-if len(sys.argv) < 1:
-    print('usage: build_extension <firefox|chrome>')
-    sys.exit(0)
-
-buildTarget = sys.argv[1]
-
-if buildTarget not in allTargets:
-    print('Invalid target specified, possible values: ' + ' '.join(allTargets))
-    sys.exit(0)
-
+buildTarget = args.buildTarget
 distSubDirectoryPath = os.path.join(distDirectoryPath, 'tmp_' + buildTarget)
 
 
