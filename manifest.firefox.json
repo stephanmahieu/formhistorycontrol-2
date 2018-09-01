@@ -27,11 +27,12 @@
   ],
 
   "icons": {
-    "16": "theme/icons/fhc-16.png",
-    "32": "theme/icons/fhc-32.png",
-    "48": "theme/icons/fhc-48.png",
-    "64": "theme/icons/fhc-64.png",
-    "65": "theme/icons/fhc_icon.svg"
+    "16":  "theme/icons/fhc-16.png",
+    "32":  "theme/icons/fhc-32.png",
+    "48":  "theme/icons/fhc-48.png",
+    "64":  "theme/icons/fhc-64.png",
+    "128": "theme/icons/fhc-128.png",
+    "129": "theme/icons/fhc_icon.svg"
   },
   
   "options_ui": {
