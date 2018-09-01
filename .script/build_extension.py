@@ -17,7 +17,7 @@ parser.add_argument("buildTarget", help="the target to build", choices=allTarget
 args = parser.parse_args()
 
 buildTarget = args.buildTarget
-distSubDirectoryPath = os.path.join(distDirectoryPath, 'tmp_' + buildTarget)
+distSubDirectoryPath = os.path.join(distDirectoryPath, 'dist_' + buildTarget)
 
 
 # -------------------------------------------------------
