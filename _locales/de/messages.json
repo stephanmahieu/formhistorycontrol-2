@@ -10,7 +10,7 @@
   },
 
   "extensionDescription": {
-    "message": "Ein Add-on zur Pflege der Formularhistorie (Suchen, Editieren, Löschen, Export/Import) und einfacher Formularfüller, jetzt Multiprocess (e10s) und WebExtension kompatibel!",
+    "message": "Ein Add-on zur Pflege der Formularhistorie (Suchen, Editieren, Löschen, Export/Import) und einfacher Formularfüller.",
     "description": "Description of this extension."
   },
 

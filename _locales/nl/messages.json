@@ -10,7 +10,7 @@
   },
 
   "extensionDescription": {
-    "message": "Een add-on voor onderhoud van de formulier historie (inzien, verwijderen, aanpassen, selectief opschonen, exporteren/importeren) en simpele formulier vuller, now Multiprocess (e10s) and WebExtensions compatible!",
+    "message": "Onderhouden vanformulier historie (zoeken, inzien, aanpassen, opschonen, exporteren/importeren) en eenvoudige formulier invuller.",
     "description": "Description of this extension."
   },
 

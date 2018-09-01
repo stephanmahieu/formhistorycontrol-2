@@ -10,7 +10,7 @@
   },
 
   "extensionDescription": {
-    "message": "Manage form history entries (search, edit, cleanup, export/import) and easy text formfiller, now Multiprocess (e10s) and WebExtensions compatible!",
+    "message": "Manage form history entries (search, view, edit, cleanup, export/import) and easy formfiller.",
     "description": "Description of this extension."
   },
 
