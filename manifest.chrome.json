@@ -3,7 +3,7 @@
   "short_name": "FormHistCtrl",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "2.2.0.2",
+  "version": "2.2.0.3",
   "author": "Stephan Mahieu",
   "default_locale": "en",
 
@@ -65,7 +65,7 @@
 
   "browser_action": {
     "browser_style": false,
-    "default_icon": "theme/icons/fhc_icon.svg",
+    "default_icon": "theme/icons/fhc-128.png",
     "default_title": "__MSG_extensionName__",
     "default_popup": "popup/tableview/popup-small.html"
   }
