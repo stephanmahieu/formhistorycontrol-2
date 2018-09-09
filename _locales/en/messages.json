@@ -150,11 +150,11 @@
   },
 
   "confirmStartCleanupTitle": {
-    "message": "Start the cleanup process?",
+    "message": "Start cleanup?",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
   },
   "confirmStartCleanupMessage": {
-    "message": "Start cleanup and remove formhistory not used in the past $nrofdays$ days?",
+    "message": "Start cleanup and remove formhistory not used in the past $nrofdays$ days?\n\n(Age can be adjusted in preferences)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
       "nrofdays" : {

@@ -150,11 +150,11 @@
   },
 
   "confirmStartCleanupTitle": {
-    "message": "Start het opschonen proces?",
+    "message": "Start het opschonen?",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
   },
   "confirmStartCleanupMessage": {
-    "message": "Start het opschonen en verwijder historie niet gebruikt in de afgelopen $nrofdays$ dagen?",
+    "message": "Start het opschonen en verwijder historie niet gebruikt in de afgelopen $nrofdays$ dagen?\n\n(Termijn kan aangepast worden in voorkeuren)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
       "nrofdays" : {
