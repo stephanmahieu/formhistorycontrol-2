@@ -197,7 +197,6 @@ class DataTableUtil {
             this.createEntryObject(data, doWhat, [data[0]])
         );
 
-        // TODO modal?: https://stackoverflow.com/questions/24801124/how-to-make-window-open-pop-up-modal
         if (data[3] === 'input' && doWhat === 'view') {
             // Let background script open the popup (WindowUtil.createNewPopupWindow(FHC_WINDOW_ENTRYVW);)
             browser.runtime.sendMessage({eventType: 337}).then(null,

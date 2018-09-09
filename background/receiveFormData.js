@@ -755,7 +755,7 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
     // multiline fields are updated while you type, so only update the used count for input fields
     if ("input" === fhcEvent.type) {
         fhcEntry.used++;
-        // TODO input -> host should be a 1 to many relation, update related hosts
+        // XXX input -> host should be a 1 to many relation, update related hosts
     } else {
         // for multiline fields update value and other properties that may have changed
         fhcEntry.value = fhcEvent.value;
@@ -795,7 +795,7 @@ function _insertNewEntry(objStore, fhcEvent) {
     let pagetitle;
 
     if ("input" === fhcEvent.type) {
-        // TODO input -> host should be a 1 to many relation, update related hosts
+        // XXX input -> host should be a 1 to many relation, update related hosts
         host = "";
         uri = "";
         pagetitle = "";
@@ -899,7 +899,7 @@ function _importNewEntry(objStore, fhcEvent) {
     let pagetitle;
 
     if ("input" === fhcEvent.type) {
-        // TODO input -> host should be a 1 to many relation, update related hosts
+        // XXX input -> host should be a 1 to many relation, update related hosts
         host = "";
         uri = "";
         pagetitle = "";
