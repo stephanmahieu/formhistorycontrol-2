@@ -23,6 +23,10 @@ setTimeout(()=>{ updateEditorFieldRestoreMenuForActiveTab(); }, 1500);
 // create the comtext menus
 initBrowserMenus();
 
+// set the preferred shortcut keys and add a shortcutKey listener
+initShortcutKeys();
+browser.commands.onCommand.addListener(handleShortcutKeys);
+
 
 function updateEditorFieldRestoreMenuForActiveTab() {
     browser.tabs.query({active: true}).then(tabInfo=>{
@@ -751,4 +755,41 @@ function getBrowserMenusOnClickedHandler() {
         return browser.menus.onClicked;
     }
     return chrome.contextMenus.onClicked;
+}
+
+function initShortcutKeys() {
+    OptionsUtil.applyShortcutKeysPrefs();
+}
+
+function handleShortcutKeys(command) {
+    // console.log("Command! " + command);
+    switch (command) {
+        case "open_fhc":
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
+            break;
+
+        case "toggle_display_fields":
+            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                showformfields(tabInfo[0].id);
+            });
+            break;
+
+        case "fill_recent":
+            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                fillformfields(tabInfo[0].id, "fillMostRecent");
+            });
+            break;
+
+        case "fill_often":
+            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                fillformfields(tabInfo[0].id, "fillMostUsed");
+            });
+            break;
+
+        case "clear_filled":
+            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                fillformfields(tabInfo[0].id, "clearFields");
+            });
+            break;
+    }
 }

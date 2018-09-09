@@ -22,3 +22,8 @@ input[type="Checkbox"]:checked+label span:before {
 input[type="Radio"]:checked+label span:before{
     background: #e2e2e2;
 }
+
+#shortcut_pane > div {
+    background-color: #43434c;
+    border: 1px solid var( --field-border-color);
+}

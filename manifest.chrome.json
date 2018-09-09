@@ -3,7 +3,7 @@
   "short_name": "FormHistCtrl",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "2.2.0.3",
+  "version": "2.3.0.0",
   "author": "Stephan Mahieu",
   "default_locale": "en",
 
@@ -68,5 +68,32 @@
     "default_icon": "theme/icons/fhc-128.png",
     "default_title": "__MSG_extensionName__",
     "default_popup": "popup/tableview/popup-small.html"
+  },
+
+  "commands": {
+    "open_fhc": {
+      "suggested_key": {
+        "default": "Alt+Shift+F"
+      },
+      "description": "Open the main FHC dialog"
+    },
+    "toggle_display_fields": {
+      "suggested_key": {
+        "default": "Alt+Shift+D"
+      },
+      "description": "Show/hide formfields on the current page"
+    },
+    "fill_recent": {
+      "suggested_key": {
+        "default": "Alt+Shift+R"
+      },
+      "description": "Fill fields with most recent used entries"
+    },
+    "fill_often": {
+      "suggested_key": {
+        "default": "Alt+Shift+O"
+      },
+      "description": "Fill fields with most often used entries"
+    }
   }
 }

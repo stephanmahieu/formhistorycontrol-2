@@ -38,6 +38,11 @@
                     </a>
                 </li>
                 <li>
+                    <a id="shortcuts" href="#" class="optionLink">
+                        <span data-fhc-i18n="optionsShortcutsMenu" class="optionLabel">Key bindings</span>
+                    </a>
+                </li>
+                <li>
                     <a id="domainhistory" href="#" class="optionLink">
                         <span data-fhc-i18n="optionsDomainlistMenu" class="optionLabel">Domain Filter</span>
                     </a>
@@ -101,6 +106,12 @@
                     </select>
                 </fieldset>
 
+                <fieldset id="fld_shortcuts" class="sub-fieldset" style="display:none">
+                    <legend data-fhc-i18n="optionsShortcutsLegend">Shortcut key combinations</legend>
+                    <div id="shortcut_pane"></div>
+                    <button id="shortcutKeysModify" class="domainbutton" data-fhc-i18n="buttonModify">Modify</button>
+                </fieldset>
+
                 <fieldset id="fld_domainhistory" class="sub-fieldset" style="display:none">
                     <legend data-fhc-i18n="optionDomainlistLegend">Enable/Disable history per domain</legend>
                     <input type="radio" id="radioDomainlistAll" name="radiogroupDomainlist" value="all">
@@ -149,6 +160,10 @@
 <script src="/common/ThemeUtil.js"></script>
 <script src="/common/WindowUtil.js"></script>
 <script src="/common/translation.js"></script>
+<script src="options-theme.js"></script>
+<script src="options-multilinesave.js"></script>
+<script src="options-list.js"></script>
+<script src="options-shortcuts.js"></script>
 <script src="options.js"></script>
 </body>
 </html>

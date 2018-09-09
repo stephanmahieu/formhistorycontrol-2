@@ -186,3 +186,62 @@ input[type="Radio"]+label span,
 input[type="Radio"]:checked+label span:before{
     border-radius: 50%;
 }
+
+#shortcut_pane {
+    position: relative;
+    height: 140px;
+    border: 1px;
+    overflow-y: auto;
+}
+
+#shortcut_pane > div {
+    margin: 5px 3px 0 3px;
+    border-radius: 4px;
+    background-color: #f3f3f3;
+    border: 2px inset var(--field-border-color);
+}
+
+.shortcutkey-label {
+    font-weight: bold;
+    color: var(--legend-text-color);
+    margin: 2px 0 2px 3px;
+}
+
+.shortcutkey-keys-label {
+    text-align: right;
+    float: right;
+    margin-right: 3px;
+}
+
+.shortcutkey-selects {
+    text-align: right;
+    margin: 3px 6px;
+}
+
+#shortcut_update_unsupported {
+    position: absolute;
+    left: 5px;
+    bottom: 0;
+    font-style: italic;
+    font-weight: bold;
+}
+#shortcut_update_unsupported:hover {
+    margin-top: 14px;
+    color: #292929;
+    background-color: #fff3af;
+    cursor: help;
+    border: 1px #292929 solid;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.51);
+    transition: color .4s ease-in-out, background-color .4s ease-in-out;
+}
+
+#shortcut_update_unsupported:before {
+    content: "";
+    display: block;
+    background: url('/theme/icons/dialog/information16.png') no-repeat;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-right: 5px;
+    filter: drop-shadow(2px 2px 2px rgba(90, 90, 90, 0.7));
+}

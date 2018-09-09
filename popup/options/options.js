@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2018. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -35,7 +35,7 @@ browser.runtime.onMessage.addListener(fhcEvent => {
                 }
                 break;
             case 666:
-                browser.windows.getCurrent({populate: false, windowTypes: ["popup"]}).then((window)=>{
+                browser.windows.getCurrent({populate: false}).then((window)=>{
                     WindowUtil.closePopupByID(window.id);
                 });
                 break;
@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     addStylesheetThemesToSelect();
     addMultilineSaveOptionsToSelect();
+    addShortcutKeyOptions();
 
     restoreOptions();
     document.querySelector("form").addEventListener("submit", saveOptions);
@@ -62,6 +63,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("#versionAgeSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#versionLengthSelect").addEventListener("change", checkPropertiesChanged);
+
+    document.querySelector("#shortcutKeysModify").addEventListener("click", showShortkeyModifySelects);
 
     document.querySelectorAll('input[name=radiogroupDomainlist]').forEach(radio => {
         radio.addEventListener("change", checkPropertiesChanged);
@@ -82,6 +85,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("#buttonClose").addEventListener("click", closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
+
+    // if update shortcut commands is not supported (chrome), hide the shortcut edit button
+    if (!browser.commands.update) {
+        hideShortcutKeysModifyButton();
+        showShortcutKeysModifyNotAllowedMessage();
+    }
 
     // if this is a large window, options have been opened from outside the app, in that case show all options at once
     if (document.body.clientHeight > 600) {
@@ -114,6 +123,15 @@ function restoreOptions() {
         prefUseCustomAutocomplete: false,
         prefMultilineThresholds  : {age: "10", length: "500"},
         prefDateFormat           : "automatic",
+        prefShortcutKeys         : {
+            // defaults here must be equal to the defaults in manifest.json
+            _execute_browser_action: OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
+            open_fhc               : OptionsUtil.getDefaultShortcutKey('open_fhc'),
+            toggle_display_fields  : OptionsUtil.getDefaultShortcutKey('toggle_display_fields'),
+            fill_recent            : OptionsUtil.getDefaultShortcutKey('fill_recent'),
+            fill_often             : OptionsUtil.getDefaultShortcutKey('fill_often'),
+            clear_filled           : OptionsUtil.getDefaultShortcutKey('clear_filled')
+        },
         prefDomainFilter         : "all",
         prefDomainList           : [],
         prefFieldList            : [],
@@ -175,6 +193,9 @@ function saveOptions(e) {
         });
     });
 
+    // activate the new shortcut keys
+    OptionsUtil.applyShortcutKeysPrefs();
+
     currentOptions = Object.assign({}, newOptions);
     checkPropertiesChanged();
 }
@@ -186,6 +207,7 @@ function getNewOptions() {
         prefMultilineThresholds  : {age   : document.querySelector("#versionAgeSelect").value,
                                     length: document.querySelector("#versionLengthSelect").value},
         prefDateFormat           : document.querySelector("#dateformatSelect").value,
+        prefShortcutKeys         : getAllShortcutKeyValues(),
         prefDomainFilter         : getCheckedRadioDomainValue(),
         prefDomainList           : getList("#domainlist"),
         prefFieldList            : getList("#fieldlist"),
@@ -237,57 +259,6 @@ function domainlistRadioChanged() {
     }
 }
 
-function checkRadioDomainByValue(radioButtonValue) {
-    switch(radioButtonValue) {
-        case "all":
-            document.querySelector("#radioDomainlistAll").checked = true;
-            break;
-        case "blacklist":
-            document.querySelector("#radioDomainlistBlacklist").checked = true;
-            break;
-        case "whitelist":
-            document.querySelector("#radioDomainlistWhitelist").checked = true;
-            break;
-    }
-}
-
-function getCheckedRadioDomainValue() {
-    let checkedRadioValue = 'all';
-    document.querySelectorAll('input[name=radiogroupDomainlist]').forEach(radio => {
-        if (radio.checked) {
-            checkedRadioValue = radio.value;
-        }
-    });
-    return checkedRadioValue;
-}
-
-function getList(selectId) {
-    const options = document.querySelector(selectId).options;
-
-    let domainlist = [];
-    for(let i = 0; i < options.length; i++) {
-        domainlist.push(options[i].textContent);
-    }
-    domainlist.sort();
-    return domainlist;
-}
-
-function setListOptions(selectId, lstOptions) {
-    const lstSelect = document.querySelector(selectId);
-
-    // empty list before adding new items
-    for(let i = lstSelect.options.length-1; i>=0 ; i--) {
-        lstSelect.remove(i);
-    }
-
-    for(let i = 0; i < lstOptions.length; i++) {
-        let newoption = document.createElement("option");
-        newoption.textContent = lstOptions[i];
-        lstSelect.options.add(newoption);
-    }
-}
-
-
 function domainlistChanged() {
     copySelectedItemToInput("#domainlist", "#domainListItem");
     setListButtonsState("#domainlist", "#domainListItem", "#listAdd", "#listModify", "#listDelete");
@@ -305,133 +276,6 @@ function fieldlistChanged() {
 function fieldlistInputChanged() {
     setListButtonsState("#fieldlist", "#fieldListItem", "#fieldAdd", "#fieldModify", "#fieldDelete");
 }
-
-function listButtonClicked(event) {
-    event.preventDefault();
-    let idButton = event.target.id;
-    switch (idButton) {
-        case "listAdd":
-            addListItem("#domainlist", "#domainListItem");
-            domainlistChanged();
-            break;
-        case "listModify":
-            modifyListItem("#domainlist", "#domainListItem");
-            domainlistChanged();
-            break;
-        case "listDelete":
-            deleteSelectedItem("#domainlist", "#domainListItem");
-            domainlistChanged();
-            break;
-
-        case "fieldAdd":
-            addListItem("#fieldlist", "#fieldListItem");
-            fieldlistChanged();
-            break;
-        case "fieldModify":
-            modifyListItem("#fieldlist", "#fieldListItem");
-            fieldlistChanged();
-            break;
-        case "fieldDelete":
-            deleteSelectedItem("#fieldlist", "#fieldListItem");
-            fieldlistChanged();
-            break;
-    }
-    checkPropertiesChanged();
-}
-
-
-function addListItem(selectId, inputId) {
-    const lstSelect = document.querySelector(selectId);
-    const inputValue = document.querySelector(inputId).value;
-
-    if (!listItemExist(lstSelect, inputValue)) {
-        let newoption = document.createElement("option");
-        newoption.textContent = inputValue;
-        lstSelect.options.add(newoption);
-        lstSelect.selectedIndex = lstSelect.options.length - 1;
-    }
-}
-
-function modifyListItem(selectId, inputId) {
-    const lstSelect = document.querySelector(selectId);
-    const inputElm = document.querySelector(inputId);
-
-    lstSelect.options[lstSelect.selectedIndex].textContent = inputElm.value;
-}
-
-function deleteSelectedItem(selectId, inputId) {
-    const lstSelect = document.querySelector(selectId);
-    const inputElm = document.querySelector(inputId);
-
-    let idx = lstSelect.selectedIndex;
-    if (idx >= 0) {
-        lstSelect.remove(lstSelect.selectedIndex);
-        if (lstSelect.options.length > 0) {
-            if (idx < lstSelect.options.length-1) {
-                lstSelect.selectedIndex = idx;
-            } else {
-                lstSelect.selectedIndex  = lstSelect.options.length-1;
-            }
-        } else {
-            // list became empty
-            inputElm.value = "";
-        }
-    }
-}
-
-function copySelectedItemToInput(selectId, inputId) {
-    const lstSelect = document.querySelector(selectId);
-    const inputElm = document.querySelector(inputId);
-
-    let elements = lstSelect.options;
-    for(let i = 0; i < elements.length; i++) {
-        if (elements[i].selected) {
-            inputElm.value = elements[i].value;
-        }
-    }
-    inputElm.focus();
-}
-
-function setListButtonsState(selectId, inputId, btnAddId, btnModId, btnDelId) {
-    const btnAdd = document.querySelector(btnAddId);
-    const btnMod = document.querySelector(btnModId);
-    const btnDel = document.querySelector(btnDelId);
-
-    const lstSelect = document.querySelector(selectId);
-    const inputValue = document.querySelector(inputId).value;
-
-    if (lstSelect.selectedIndex < 0 || !inputValue) {
-        if (inputValue) {
-            btnAdd.removeAttribute("disabled");
-        } else {
-            btnAdd.setAttribute("disabled", "true");
-        }
-        btnMod.setAttribute("disabled", "true");
-        btnDel.setAttribute("disabled", "true");
-    } else {
-        if (listItemExist(lstSelect, inputValue)) {
-            btnAdd.setAttribute("disabled", "true");
-            btnMod.setAttribute("disabled", "true");
-            btnDel.removeAttribute("disabled");
-        } else {
-            btnAdd.removeAttribute("disabled");
-            btnMod.removeAttribute("disabled");
-            btnDel.setAttribute("disabled", "true");
-        }
-    }
-}
-
-function listItemExist(selectElm, optionValue) {
-    const options = selectElm.options;
-    let exist = false;
-    for(let i = 0; i < options.length; i++) {
-        if (options[i].textContent === optionValue) {
-            exist = true;
-        }
-    }
-    return exist;
-}
-
 
 function checkPropertiesChanged() {
     // enable apply button only if properties have changed
@@ -483,50 +327,25 @@ function arrayContentEquals(array1, array2) {
     return sameContent;
 }
 
-function addStylesheetThemesToSelect() {
-    // discover the installed alternate stylesheets and create a list
-    let themeList = new Set();
-    document.querySelectorAll('link.alternate_stylesheet[data-title]').forEach( (elem) => {
-        let elemTitle = elem.getAttribute("data-title");
-        if (elemTitle) {
-            themeList.add(elemTitle);
-        }
-    });
+function shortcutKeySelectChanged(event) {
+    // check validity change first, modifier 1 and 2 can not be the same
+    const curSelect = event.target;
+    const commandName = curSelect.getAttribute('data-cmd');
 
-    // add the discovered themes as option to the theme select
-    themeList.forEach((option)=>{
-        const optionNode = document.createElement('option');
-        optionNode.value = option;
-        optionNode.appendChild(document.createTextNode(option));
-        document.querySelector('#themeSelect').appendChild(optionNode);
-    });
-}
+    const mod1 = document.getElementById('smod1_' + commandName).value;
+    let   mod2 = document.getElementById('smod2_' + commandName).value;
+    const key  = document.getElementById('skey_'  + commandName).value;
 
-function addMultilineSaveOptionsToSelect() {
-    const charactersText = browser.i18n.getMessage("optionsSaveNewVersionMultilineCharacters");
-    ["10", "20", "50", "75", "100", "200", "500", "1000", "5000"].forEach((count)=>{
-        const optionNode = document.createElement('option');
-        optionNode.value = count;
-        optionNode.appendChild(document.createTextNode(count + " " + charactersText));
-        document.querySelector("#versionLengthSelect").appendChild(optionNode);
-    });
+    // reset mod2 to empty if set equal to mod1
+    if (mod1 === mod2) {
+        document.getElementById('smod2_' + commandName).value = '';
+    }
 
-    [   {val:       1, lbl: "1 "  + browser.i18n.getMessage("dateMinute")},
-        {val:       2, lbl: "2 "  + browser.i18n.getMessage("dateMinutes")},
-        {val:       5, lbl: "5 "  + browser.i18n.getMessage("dateMinutes")},
-        {val:      10, lbl: "10 " + browser.i18n.getMessage("dateMinutes")},
-        {val:      30, lbl: "30 " + browser.i18n.getMessage("dateMinutes")},
-        {val:      60, lbl: "1 "  + browser.i18n.getMessage("dateHour")},
-        {val:  2 * 60, lbl: "2 "  + browser.i18n.getMessage("dateHours")},
-        {val:  6 * 60, lbl: "6 "  + browser.i18n.getMessage("dateHours")},
-        {val: 12 * 60, lbl: "12 " + browser.i18n.getMessage("dateHours")},
-        {val: 24 * 60, lbl: "1 "  + browser.i18n.getMessage("dateDay")}
-    ].forEach((age)=>{
-        const optionNode = document.createElement('option');
-        optionNode.value = age.val;
-        optionNode.appendChild(document.createTextNode(age.lbl));
-        document.querySelector("#versionAgeSelect").appendChild(optionNode);
-    });
+    // TODO check for duplicate shortcuts?
+
+    updateShortcutKeyTextLabel(commandName, mod1, mod2, key);
+
+    checkPropertiesChanged();
 }
 
 function themeSelectionChanged(/*event*/) {

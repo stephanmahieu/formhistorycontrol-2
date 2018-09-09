@@ -82,6 +82,60 @@ class OptionsUtil {
         });
     }
 
+    static getShortcutKeysPrefs() {
+        return new Promise((resolve, reject) => {
+            browser.storage.local.get({
+                prefShortcutKeys: {
+                    _execute_browser_action: OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
+                    open_fhc               : OptionsUtil.getDefaultShortcutKey('open_fhc'),
+                    toggle_display_fields  : OptionsUtil.getDefaultShortcutKey('toggle_display_fields'),
+                    fill_recent            : OptionsUtil.getDefaultShortcutKey('fill_recent'),
+                    fill_often             : OptionsUtil.getDefaultShortcutKey('fill_often'),
+                    clear_filled           : OptionsUtil.getDefaultShortcutKey('clear_filled')
+                }
+            }).then(
+                result => {
+                    resolve(result);
+                },
+                () => {
+                    resolve(result);
+                }
+            );
+        });
+    }
+
+    static applyShortcutKeysPrefs() {
+        OptionsUtil.getShortcutKeysPrefs().then((prefs) => {
+
+            // get all shortcut commands (max 4 for chrome)
+            browser.commands.getAll().then( (commands) => (
+
+                // for each command change the shortcut where preference differs from default
+                commands.forEach(function(command) {
+                    const prefShortcut = prefs.prefShortcutKeys[command.name];
+                    if (prefShortcut !== command.shortcut) {
+                        browser.commands.update({
+                            name: command.name,
+                            shortcut: prefShortcut
+                        });
+                    }
+                })
+            ));
+        });
+    }
+
+    static getDefaultShortcutKey(commandName) {
+        // defaults must be equal to the defaults in manifest.json
+        switch(commandName) {
+            case '_execute_browser_action': return 'Alt+Shift+P';
+            case 'open_fhc':                return 'Alt+Shift+F';
+            case 'toggle_display_fields':   return 'Alt+Shift+D';
+            case 'fill_recent':             return 'Alt+Shift+R';
+            case 'fill_often':              return 'Alt+Shift+O';
+            case 'clear_filled':            return 'Alt+Shift+C';
+        }
+    }
+
     static isDomainfilterActive(filterPrefs) {
         return 'all' === filterPrefs.prefDomainFilter;
     }

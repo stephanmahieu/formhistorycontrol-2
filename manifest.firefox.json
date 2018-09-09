@@ -3,7 +3,7 @@
   "short_name": "FormHistCtrl",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "2.2.0.3",
+  "version": "2.3.0.0",
   "developer": {
     "name": "Stephan Mahieu",
     "url": "https://stephanmahieu.github.io/fhc-home/"
@@ -88,5 +88,44 @@
     "default_popup": "popup/pageaction/pageaction.html",
     "default_icon": "theme/icons/fhc_icon_bw.svg",
     "show_matches": ["*://*/*", "file:///*"]
+  },
+
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+P"
+      },
+      "description": "Opens the popdown FHC dialog"
+    },
+    "open_fhc": {
+      "suggested_key": {
+        "default": "Alt+Shift+F"
+      },
+      "description": "Open the main FHC dialog"
+    },
+    "toggle_display_fields": {
+      "suggested_key": {
+        "default": "Alt+Shift+D"
+      },
+      "description": "Show/hide formfields on the current page"
+    },
+    "fill_recent": {
+      "suggested_key": {
+        "default": "Alt+Shift+R"
+      },
+      "description": "Fill fields with most recent used entries"
+    },
+    "fill_often": {
+      "suggested_key": {
+        "default": "Alt+Shift+O"
+      },
+      "description": "Fill fields with most often used entries"
+    },
+    "clear_filled": {
+      "suggested_key": {
+        "default": "Alt+Shift+C"
+      },
+      "description": "Clear filled fields"
+    }
   }
 }
