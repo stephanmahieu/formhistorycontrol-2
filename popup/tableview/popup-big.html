@@ -53,8 +53,9 @@
             </li>
             <li><span data-fhc-i18n="menuExtra">Extra</span>
                 <ul>
+                    <li><span id="cleanup" data-fhc-i18n="menuItemExtraCleanupNow" class="icon-item icon-clean">Cleanup now</span></li>
+                    <li><span class="menu-spacer"><span></span></span></li>
                     <li><span id="preferences" data-fhc-i18n="menuItemExtraPreferences" class="icon-item icon-preferences">Preferences</span></li>
-                    <!--<li><span id="cleanup" data-fhc-i18n="menuItemExtraCleanupNow" class="icon-item icon-clean">Cleanup now</span></li>-->
                 </ul>
             </li>
             <li><span data-fhc-i18n="menuHelp">Help</span>
@@ -76,7 +77,6 @@
         <button id="buttonAdd" data-fhc-i18n="buttonAdd">Add</button>
         <button id="buttonDelete" data-fhc-i18n="buttonDelete">Delete</button>
         <button id="buttonModify" data-fhc-i18n="buttonModify">Modify</button>
-        <!--<button id="buttonCleanup" data-fhc-i18n="buttonCleanup" >Cleanup</button>-->
         <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
     </div>
 
@@ -97,6 +97,7 @@
     </div>
 
     <script src="/common/browser-polyfill.min.js"></script>
+    <script src="/common/CleanupConst.js"></script>
     <script src="/common/OptionsUtil.js"></script>
     <script src="/common/ThemeUtil.js"></script>
     <script src="/common/DbConst.js"></script>

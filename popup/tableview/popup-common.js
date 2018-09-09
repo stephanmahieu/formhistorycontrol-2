@@ -144,7 +144,6 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
 
                 if (timeout) {
                     // populating table aborted due to timeout, inform the user
-                    // TODO create a custom warning message
                     WindowUtil.showModalWarning({titleId: 'dialogWarningTitle', msgId: 'timeoutTooMuchDataWarning', args: [countNotShown, count+countNotShown]});
                 }
             }

@@ -407,10 +407,6 @@ function onButtonClicked(buttonId) {
             deleteSelectedItemsAsk();
             break;
 
-        case "buttonCleanup":
-            // TODO cleanup
-            break;
-
         case "buttonModify":
             editSelectedEntries();
             break;
@@ -528,9 +524,22 @@ function onMenuClicked(menuItemId) {
             break;
 
         case "cleanup":
-            // todo ask confirmation before cleanup
-            browser.runtime.sendMessage({eventType: 800});
-            // todo show info message that cleanup is or has been performed
+            try {
+                OptionsUtil.getCleanupPrefs().then(prefs => {
+                    const keepDays = prefs.prefKeepDaysHistory;
+
+                    WindowUtil.showModalYesNo({titleId:'confirmStartCleanupTitle', msgId:'confirmStartCleanupMessage', args:keepDays}).then(
+                        value=>{
+                            browser.runtime.sendMessage({eventType: 800});
+                            WindowUtil.showModalInformation({titleId:'dialogInformationTitle', msgId:'informCleanupInitiated', args:keepDays});
+                        },
+                        reason=>{console.log('rejected ' + reason);}
+                    );
+                });
+            } catch(err){
+                // suppress TypeError: WindowUtil.showModalYesNo(...) is undefined
+                console.log(err);
+            }
             break;
 
         case "helpoverview":
