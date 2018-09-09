@@ -149,6 +149,31 @@
     "description": "Information message that clipboard value has been copied."
   },
 
+  "confirmStartCleanupTitle": {
+    "message": "Start the cleanup process?",
+    "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
+  },
+  "confirmStartCleanupMessage": {
+    "message": "Start cleanup and remove formhistory not used in the past $nrofdays$ days?",
+    "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
+    "placeholders": {
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
+      }
+    }
+  },
+  "informCleanupInitiated": {
+    "message": "Cleanup has been started, formhistory not used in the past $nrofdays$ days is being removed.",
+    "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
+    "placeholders": {
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
+      }
+    }
+  },
+
   "confirmDeleteMultipleTitle": {
     "message": "Delete all selected items?",
     "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
@@ -342,6 +367,10 @@
     "message": "Miscellaneous",
     "description": "Options window: Left Miscellaneous menu."
   },
+  "optionsShortcutsMenu": {
+    "message": "Keyboard",
+    "description": "Options window: Key bindings (Shortcut keys)"
+  },
   "optionsDomainlistMenu": {
     "message": "Domain Filter",
     "description": "Options window: Left Domain Filter menu."
@@ -375,6 +404,23 @@
   "optionsOverrideAutocomplete": {
     "message": "Override the built-in autocomplete",
     "description": "Options window: The Override autocomplete checkbox Label."
+  },
+
+  "optionsShortcutsLegend": {
+    "message": "Shortcut key combinations",
+    "description": "Options window: The Shortcut key combinations legend."
+  },
+  "optionsShortcutsMainDialog": {
+    "message": "(main dialog)",
+    "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
+  },
+  "optionsShortcutsSmallDialog": {
+    "message": "(small dialog)",
+    "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
+  },
+  "optionsShortcutsUpdateNotSupported": {
+    "message": "Updating shortcuts is not (yet) supported by the browser!",
+    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
 
   "optionsSaveNewVersionMultiline": {
@@ -643,5 +689,24 @@
   "dateMonth":   {"message": "month"},
   "dateMonths":  {"message": "months"},
   "dateYear":    {"message": "year"},
-  "dateYears":   {"message": "years"}
+  "dateYears":   {"message": "years"},
+
+  "Shift":    {"message": "Shift"},
+  "Ctrl":     {"message": "Ctrl"},
+  "Alt":      {"message": "Alt"},
+  "Command":  {"message": "Command"},
+  "MacCtrl":  {"message": "Ctrl(Mac)"},
+  "Comma":    {"message": "Comma"},
+  "Period":   {"message": "Period"},
+  "Home":     {"message": "Home"},
+  "End":      {"message": "End"},
+  "PageUp":   {"message": "Page Up"},
+  "PageDown": {"message": "Page Down"},
+  "Space":    {"message": "Space"},
+  "Insert":   {"message": "Insert"},
+  "Delete":   {"message": "Delete"},
+  "Up":       {"message": "Up"},
+  "Down":     {"message": "Down"},
+  "Left":     {"message": "Left"},
+  "Right":    {"message": "Right"}
 }

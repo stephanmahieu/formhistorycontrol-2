@@ -149,6 +149,31 @@
     "description": "Information message that clipboard value has been copied."
   },
 
+  "TODO_confirmStartCleanupTitle": {
+    "message": "Start the cleanup process?",
+    "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
+  },
+  "TODO_confirmStartCleanupMessage": {
+    "message": "Start cleanup and remove formhistory not used in the past $nrofdays$ days?",
+    "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
+    "placeholders": {
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
+      }
+    }
+  },
+  "TODO_informCleanupInitiated": {
+    "message": "Cleanup has been started, formhistory not used in the past $nrofdays$ days is being removed.",
+    "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
+    "placeholders": {
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
+      }
+    }
+  },
+
   "confirmDeleteMultipleTitle": {
     "message": "Alle ausgewählten Objekte löschen?",
     "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
@@ -341,6 +366,10 @@
     "message": "Sonstiges",
     "description": "Options window: Left Miscellaneous menu."
   },
+  "TODO_optionsShortcutsMenu": {
+    "message": "Keyboard",
+    "description": "Options window: Key bindings (Shortcut keys)"
+  },
   "optionsDomainlistMenu": {
     "message": "Domain Filter",
     "description": "Options window: Left Domain Filter menu."
@@ -374,6 +403,23 @@
   "optionsOverrideAutocomplete": {
     "message": "Die integrierte automatische Vervollständigung überschreiben",
     "description": "Options window: The Override autocomplete checkbox Label."
+  },
+
+  "TODO_optionsShortcutsLegend": {
+    "message": "Shortcut key combinations",
+    "description": "Options window: The Shortcut key combinations legend."
+  },
+  "TODO_optionsShortcutsMainDialog": {
+    "message": "(main dialog)",
+    "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
+  },
+  "TODO_optionsShortcutsSmallDialog": {
+    "message": "(small dialog)",
+    "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
+  },
+  "TODO_optionsShortcutsUpdateNotSupported": {
+    "message": "Updating shortcuts is not (yet) supported by the browser!",
+    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
 
   "optionsSaveNewVersionMultiline": {
@@ -642,5 +688,24 @@
   "dateMonth":   {"message": "Monat"},
   "dateMonths":  {"message": "Monate"},
   "dateYear":    {"message": "Jahr"},
-  "dateYears":   {"message": "Jahren"}
+  "dateYears":   {"message": "Jahren"},
+
+  "Shift":    {"message": "Umschalt"},
+  "Ctrl":     {"message": "Strg"},
+  "Alt":      {"message": "Alt"},
+  "Command":  {"message": "Cmd"},
+  "MacCtrl":  {"message": "Strg(Mac)"},
+  "Comma":    {"message": "Komma"},
+  "Period":   {"message": "Punkt"},
+  "Home":     {"message": "Pos 1"},
+  "End":      {"message": "Ende"},
+  "PageUp":   {"message": "Bild hoch"},
+  "PageDown": {"message": "Bild runter"},
+  "Space":    {"message": "Leertaste"},
+  "Insert":   {"message": "Einfg"},
+  "Delete":   {"message": "Entf"},
+  "Up":       {"message": "Hoch"},
+  "Down":     {"message": "Runter"},
+  "Left":     {"message": "Links"},
+  "Right":    {"message": "Rechts"}
 }

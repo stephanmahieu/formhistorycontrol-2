@@ -149,6 +149,31 @@
     "description": "Information message that clipboard value has been copied."
   },
 
+  "confirmStartCleanupTitle": {
+    "message": "Start het opschonen proces?",
+    "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
+  },
+  "confirmStartCleanupMessage": {
+    "message": "Start het opschonen en verwijder historie niet gebruikt in de afgelopen $nrofdays$ dagen?",
+    "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
+    "placeholders": {
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
+      }
+    }
+  },
+  "informCleanupInitiated": {
+    "message": "Het opschonen is gestart, historie niet gebruiikt in de afgelopen $nrofdays$ dagen wordt nu verwijderd.",
+    "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
+    "placeholders": {
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
+      }
+    }
+  },
+
   "confirmDeleteMultipleTitle": {
     "message": "Verwijder alle geselecteerde items?",
     "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
@@ -342,6 +367,10 @@
     "message": "Diversen",
     "description": "Options window: Left Miscellaneous menu."
   },
+  "optionsShortcutsMenu": {
+    "message": "Toetsenbord",
+    "description": "Options window: Key bindings (Shortcut keys)"
+  },
   "optionsDomainlistMenu": {
     "message": "Domein Filter",
     "description": "Options window: Left Domain Filter menu."
@@ -375,6 +404,23 @@
   "optionsOverrideAutocomplete": {
     "message": "Vervang de ingebouwde auto-aanvullen functie",
     "description": "Options window: The Override autocomplete checkbox Label."
+  },
+
+  "optionsShortcutsLegend": {
+    "message": "Sneltoetsen",
+    "description": "Options window: The Shortcut key combinations legend."
+  },
+  "optionsShortcutsMainDialog": {
+    "message": "(hoofd venster)",
+    "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
+  },
+  "optionsShortcutsSmallDialog": {
+    "message": "(kleine venster)",
+    "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
+  },
+  "optionsShortcutsUpdateNotSupported": {
+    "message": "Aanpassen van de sneltoetsen wordt (nog) niet ondersteund door de browser!",
+    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
 
   "optionsSaveNewVersionMultiline": {
@@ -643,5 +689,24 @@
   "dateMonth":   {"message": "maand"},
   "dateMonths":  {"message": "maanden"},
   "dateYear":    {"message": "jaar"},
-  "dateYears":   {"message": "jaren"}
+  "dateYears":   {"message": "jaren"},
+
+  "Shift":    {"message": "Shift"},
+  "Ctrl":     {"message": "Ctrl"},
+  "Alt":      {"message": "Alt"},
+  "Command":  {"message": "Command"},
+  "MacCtrl":  {"message": "Ctrl(Mac)"},
+  "Comma":    {"message": "Komma"},
+  "Period":   {"message": "Punt"},
+  "Home":     {"message": "Home"},
+  "End":      {"message": "End"},
+  "PageUp":   {"message": "Page Up"},
+  "PageDown": {"message": "Page Down"},
+  "Space":    {"message": "Spatie"},
+  "Insert":   {"message": "Insert"},
+  "Delete":   {"message": "Delete"},
+  "Up":       {"message": "Omhoog"},
+  "Down":     {"message": "Omlaag"},
+  "Left":     {"message": "Links"},
+  "Right":    {"message": "Rechts"}
 }
