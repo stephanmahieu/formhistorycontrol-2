@@ -22,7 +22,7 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
                 }
                 break;
             case 666:
-                browser.windows.getCurrent({populate: false, windowTypes: ["popup"]}).then((window)=>{
+                browser.windows.getCurrent({populate: false}).then((window)=>{
                     WindowUtil.closePopupByID(window.id);
                 });
                 break;
