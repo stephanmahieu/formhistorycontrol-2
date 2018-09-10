@@ -149,12 +149,12 @@
     "description": "Information message that clipboard value has been copied."
   },
 
-  "TODO_confirmStartCleanupTitle": {
-    "message": "Start cleanup?",
+  "confirmStartCleanupTitle": {
+    "message": "Έναρξη καθαρισμού;",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
   },
-  "TODO_confirmStartCleanupMessage": {
-    "message": "Start cleanup and remove formhistory not used in the past $nrofdays$ days?\n\n(Age can be adjusted in preferences)",
+  "confirmStartCleanupMessage": {
+    "message": "Έναρξη καθαρισμού και αφαίρεσης εγγραφών που δεν χρησιμοποιήθηκαν στις προηγούμενες $nrofdays$ ημέρες;\n\n(Το χρονικό όριο μπορεί να οριστεί στις Ρυθμίσεις)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
       "nrofdays" : {
@@ -163,8 +163,8 @@
       }
     }
   },
-  "TODO_informCleanupInitiated": {
-    "message": "Cleanup has been started, formhistory not used in the past $nrofdays$ days is being removed.",
+  "informCleanupInitiated": {
+    "message": "Ο καθαρισμός ξεκίνησε, εγγραφές που δεν χρησιμοποιήθηκαν τις προηγούμενες $nrofdays$ αφαιρούνται.",
     "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
     "placeholders": {
       "nrofdays" : {
@@ -367,8 +367,8 @@
     "message": "Διάφορα",
     "description": "Options window: Left Miscellaneous menu."
   },
-  "TODO_optionsShortcutsMenu": {
-    "message": "Keyboard",
+  "optionsShortcutsMenu": {
+    "message": "Πληκτρολόγιο",
     "description": "Options window: Key bindings (Shortcut keys)"
   },
   "optionsDomainlistMenu": {
@@ -406,20 +406,20 @@
     "description": "Options window: The Override autocomplete checkbox Label."
   },
 
-  "TODO_optionsShortcutsLegend": {
-    "message": "Shortcut key combinations",
+  "optionsShortcutsLegend": {
+    "message": "Πλήκτρα συντομεύσεων",
     "description": "Options window: The Shortcut key combinations legend."
   },
-  "TODO_optionsShortcutsMainDialog": {
-    "message": "(main dialog)",
+  "optionsShortcutsMainDialog": {
+    "message": "(κυρίως παράθυρο)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
   },
-  "TODO_optionsShortcutsSmallDialog": {
-    "message": "(small dialog)",
+  "optionsShortcutsSmallDialog": {
+    "message": "(μικρό παράθυρο)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
   },
-  "TODO_optionsShortcutsUpdateNotSupported": {
-    "message": "Updating shortcuts is not (yet) supported by the browser!",
+  "optionsShortcutsUpdateNotSupported": {
+    "message": "Η ενημέρωση των συντομεύσεων δεν υποστηρίζεται (ακόμα) από τον περιηγητή!",
     "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
 
