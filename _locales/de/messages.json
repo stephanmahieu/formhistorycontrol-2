@@ -149,12 +149,12 @@
     "description": "Information message that clipboard value has been copied."
   },
 
-  "TODO_confirmStartCleanupTitle": {
-    "message": "Start cleanup?",
+  "confirmStartCleanupTitle": {
+    "message": "Bereinigung starten?",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
   },
-  "TODO_confirmStartCleanupMessage": {
-    "message": "Start cleanup and remove formhistory not used in the past $nrofdays$ days?\n\n(Age can be adjusted in preferences)",
+  "confirmStartCleanupMessage": {
+    "message": "Beginne die Bereinigung und entferne die ungenutze Formularhistorie der letzten $nrofdays$ Tage?\n\n(Das Alter kann in den Optionen angepasst werden)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
       "nrofdays" : {
@@ -163,8 +163,8 @@
       }
     }
   },
-  "TODO_informCleanupInitiated": {
-    "message": "Cleanup has been started, formhistory not used in the past $nrofdays$ days is being removed.",
+  "informCleanupInitiated": {
+    "message": "Bereinigung gestartet, die ungenutzte Formularhistorie der letzten $nrofdays$ wird gelöscht.",
     "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
     "placeholders": {
       "nrofdays" : {
@@ -366,8 +366,8 @@
     "message": "Sonstiges",
     "description": "Options window: Left Miscellaneous menu."
   },
-  "TODO_optionsShortcutsMenu": {
-    "message": "Keyboard",
+  "optionsShortcutsMenu": {
+    "message": "Tastatur",
     "description": "Options window: Key bindings (Shortcut keys)"
   },
   "optionsDomainlistMenu": {
@@ -405,20 +405,20 @@
     "description": "Options window: The Override autocomplete checkbox Label."
   },
 
-  "TODO_optionsShortcutsLegend": {
-    "message": "Shortcut key combinations",
+  "optionsShortcutsLegend": {
+    "message": "Tastenkombinationen",
     "description": "Options window: The Shortcut key combinations legend."
   },
-  "TODO_optionsShortcutsMainDialog": {
-    "message": "(main dialog)",
+  "optionsShortcutsMainDialog": {
+    "message": "(Hauptdialog)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
   },
-  "TODO_optionsShortcutsSmallDialog": {
-    "message": "(small dialog)",
+  "optionsShortcutsSmallDialog": {
+    "message": "(Subdialog)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
   },
-  "TODO_optionsShortcutsUpdateNotSupported": {
-    "message": "Updating shortcuts is not (yet) supported by the browser!",
+  "optionsShortcutsUpdateNotSupported": {
+    "message": "Aktualisieren von Tastenkombinationen wird (aktuell) nicht vom Browser unterstützt!",
     "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
 
