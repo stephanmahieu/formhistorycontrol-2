@@ -278,7 +278,7 @@ function createDataTable(tableElement, dateformat) {
 
 function selectAll() {
     let table = $('#fhcTable').DataTable();
-    table.rows().select();
+    table.rows( {order:'index', search:'applied'} ).select();
 }
 
 function selectNone() {
