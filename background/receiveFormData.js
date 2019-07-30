@@ -13,7 +13,7 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
     if (fhcEvent.eventType) {
         switch (fhcEvent.eventType) {
             case 1:
-                if (!blockedByFilter(fhcEvent)) {
+                if (!blockedByFilter(fhcEvent) && doRetainFieldType(fhcEvent)) {
                     // Process Text
                     fhcEvent.value = JSON.parse(fhcEvent.value);
                     //console.log("Received a content event for " + fhcEvent.id + " content is: " + fhcEvent.value);
@@ -93,7 +93,7 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
 
             case 888:
                 // console.log('Background script: options changed!');
-                if (fhcEvent.domainFilterChanged || fhcEvent.fieldFilterChanged) {
+                if (fhcEvent.domainFilterChanged || fhcEvent.fieldFilterChanged || fhcEvent.retainTypeChanged) {
                     initFilterOptions();
                 }
                 if (fhcEvent.multilineThresholdsChanged) {
@@ -271,6 +271,14 @@ function initFilterOptions() {
     OptionsUtil.getFilterPrefs().then(prefs => {
         filterPrefs = prefs;
     });
+}
+
+function doRetainFieldType(fhcEvent) {
+    if (fhcEvent.type === 'input') {
+        return OptionsUtil.doRetainSinglelineField(filterPrefs);
+    } else {
+        return OptionsUtil.doRetainMultilineField(filterPrefs);
+    }
 }
 
 function blockedByFilter(fhcEvent) {

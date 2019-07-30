@@ -64,6 +64,9 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#versionAgeSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#versionLengthSelect").addEventListener("change", checkPropertiesChanged);
 
+    document.querySelector("#retainTypeSelect").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#retainTypeSelect").addEventListener("change", retainTypeChanged);
+
     document.querySelector("#shortcutKeysModify").addEventListener("click", showShortkeyModifySelects);
 
     document.querySelectorAll('input[name=radiogroupDomainlist]').forEach(radio => {
@@ -122,6 +125,7 @@ function restoreOptions() {
         prefInterfaceTheme       : "default",
         prefUseCustomAutocomplete: false,
         prefMultilineThresholds  : {age: "10", length: "500"},
+        prefRetainType           : "all",
         prefDateFormat           : "automatic",
         prefShortcutKeys         : {
             // defaults here must be equal to the defaults in manifest.json
@@ -144,6 +148,7 @@ function restoreOptions() {
         document.querySelector("#overrideAutocomplete").checked = res.prefUseCustomAutocomplete;
         document.querySelector('#versionAgeSelect').value = res.prefMultilineThresholds.age;
         document.querySelector('#versionLengthSelect').value = res.prefMultilineThresholds.length;
+        document.querySelector('#retainTypeSelect').value = res.prefRetainType;
         document.querySelector("#dateformatSelect").value = res.prefDateFormat;
         document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
         document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
@@ -159,6 +164,7 @@ function restoreOptions() {
         domainlistRadioChanged();
         domainlistChanged();
         fieldlistChanged();
+        retainTypeChanged();
 
         currentOptions = Object.assign({}, res);
         checkPropertiesChanged();
@@ -178,6 +184,7 @@ function saveOptions(e) {
         overrideAutocompleteChanged: (currentOptions.prefUseCustomAutocomplete !== newOptions.prefUseCustomAutocomplete),
         multilineThresholdsChanged:  (currentOptions.prefMultilineThresholds.age !== newOptions.prefMultilineThresholds.age
                                    || currentOptions.prefMultilineThresholds.length !== newOptions.prefMultilineThresholds.length),
+        retainTypeChanged:           (currentOptions.prefRetainType !== newOptions.prefRetainType),
         dateFormatChanged:           (currentOptions.prefDateFormat !== newOptions.prefDateFormat),
         domainFilterChanged:         (currentOptions.prefDomainFilter !== newOptions.prefDomainFilter || !arrayContentEquals(currentOptions.prefDomainList, newOptions.prefDomainList)),
         fieldFilterChanged:          !arrayContentEquals(currentOptions.prefFieldList, newOptions.prefFieldList)
@@ -206,6 +213,7 @@ function getNewOptions() {
         prefUseCustomAutocomplete: document.querySelector("#overrideAutocomplete").checked,
         prefMultilineThresholds  : {age   : document.querySelector("#versionAgeSelect").value,
                                     length: document.querySelector("#versionLengthSelect").value},
+        prefRetainType           : document.querySelector("#retainTypeSelect").value,
         prefDateFormat           : document.querySelector("#dateformatSelect").value,
         prefShortcutKeys         : getAllShortcutKeyValues(),
         prefDomainFilter         : getCheckedRadioDomainValue(),
@@ -233,6 +241,28 @@ function selectOptionSection(event) {
 
     // set link to selected
     currentLinkElm.classList.add("selected");
+}
+
+function retainTypeChanged() {
+    const retainType = document.querySelector("#retainTypeSelect").value;
+
+    const selAge = document.querySelector("#versionAgeSelect");
+    const selAgeLbl = document.querySelector("#versionAgeSelectLabel");
+    const selLen = document.querySelector("#versionLengthSelect");
+    const selLenLbl = document.querySelector("#versionLengthSelectLabel");
+
+    if (retainType === 'single') {
+        // disable multiline options
+        selAgeLbl.classList.add("disabled");
+        selAge.setAttribute("disabled", "true");
+        selLenLbl.classList.add("disabled");
+        selLen.setAttribute("disabled", "true");
+    } else {
+        selAgeLbl.classList.remove("disabled");
+        selAge.removeAttribute("disabled");
+        selLenLbl.classList.remove("disabled");
+        selLen.removeAttribute("disabled");
+    }
 }
 
 function domainlistRadioChanged() {

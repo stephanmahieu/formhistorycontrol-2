@@ -70,7 +70,8 @@ class OptionsUtil {
             browser.storage.local.get({
                 prefDomainFilter: 'all',
                 prefDomainList  : [],
-                prefFieldList   : []
+                prefFieldList   : [],
+                prefRetainType  : 'all'
             }).then(
                 result => {
                     resolve(result);
@@ -161,4 +162,13 @@ class OptionsUtil {
         return filterPrefs.prefFieldList.length > 0 && filterPrefs.prefFieldList.includes(fieldname);
     }
 
+    static doRetainSinglelineField(filterPrefs) {
+        // not multi-line only
+        return 'multi' !== filterPrefs.prefRetainType;
+    }
+
+    static doRetainMultilineField(filterPrefs) {
+        // not single-line only
+        return 'single' !== filterPrefs.prefRetainType;
+    }
 }

@@ -160,6 +160,9 @@ label span {
 label div {
     display: inline-block;
 }
+label.disabled {
+    color: var(--field-disabled-text-color);
+}
 input[type="Checkbox"]:checked+label span:before,
 input[type="Radio"]:checked+label span:before{
     content: '';

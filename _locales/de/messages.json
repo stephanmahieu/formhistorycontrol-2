@@ -439,6 +439,23 @@
     "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
   },
 
+  "XXXoptionsRetainFieldTypes": {
+    "message": "Retain which type of field",
+    "description": "Options window, Retain which type of field"
+  },
+  "XXXoptionsRetainFieldAll": {
+    "message": "Single-line + Multi-line",
+    "description": "Options window, Single-line + Multi-line"
+  },
+  "XXXoptionsRetainFieldSingle": {
+    "message": "Multi-line only",
+    "description": "Options window, Multi-line only"
+  },
+  "XXXoptionsRetainFieldMulti": {
+    "message": "Single-line only",
+    "description": "Options window, Single-line only"
+  },
+
   "optiondomainlistlegend": {
     "message": "Aktiviere/Deaktiviere den Verlauf pro Domain",
     "description": "Options window: The Domain Filter legend."

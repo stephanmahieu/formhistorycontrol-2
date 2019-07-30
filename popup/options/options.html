@@ -96,13 +96,22 @@
 
                     <div class="divider"></div>
 
+                    <label for="retainTypeSelect" data-fhc-i18n="optionsRetainFieldTypes">Save which type of field</label>
+                    <select id="retainTypeSelect" class="rightalign">
+                        <option data-fhc-i18n="optionsRetainFieldAll" value="all">Single-line + Multi-line</option>
+                        <option data-fhc-i18n="optionsRetainFieldSingle" value="single">Single-line only</option>
+                        <option data-fhc-i18n="optionsRetainFieldMulti" value="multi">Multi-line only</option>
+                    </select>
+
+                    <div class="divider"></div>
+
                     <div class="optionsSubTitle" data-fhc-i18n="optionsSaveNewVersionMultiline">Save a new version of a multiline field when:</div>
                     <br/>
-                    <label for="versionAgeSelect" data-fhc-i18n="optionsSaveNewVersionMultilineAge">last saved version is older than</label>
+                    <label id="versionAgeSelectLabel" for="versionAgeSelect" data-fhc-i18n="optionsSaveNewVersionMultilineAge">last saved version is older than</label>
                     <select id="versionAgeSelect" class="rightalign">
                     </select>
                     <br/><br/>
-                    <label for="versionLengthSelect" data-fhc-i18n="optionsSaveNewVersionMultilineCount">or content length changes more than</label>
+                    <label id="versionLengthSelectLabel" for="versionLengthSelect" data-fhc-i18n="optionsSaveNewVersionMultilineCount">or content length changes more than</label>
                     <select id="versionLengthSelect" class="rightalign">
                     </select>
                 </fieldset>
