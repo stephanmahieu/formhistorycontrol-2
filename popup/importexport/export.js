@@ -68,7 +68,7 @@ function handleExport(/*evt*/) {
                 //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
 
                 count += 1;
-                if (fhcEntry.type === 'input' || fhcEntry.type === 'input') {
+                if (fhcEntry.type === 'input') {
                     textEntries.push({
                         name: fhcEntry.name,
                         value: fhcEntry.value,
