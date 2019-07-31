@@ -383,6 +383,7 @@ function selectionChangedHandler() {
     setMenuItemEnabled('delete', (noSelected !== 0));
     setMenuItemEnabled('modify', (noSelected !== 0));
     setMenuItemEnabled('copy2clipboard', (noSelected === 1));
+    setMenuItemEnabled('copy2clipboardText', (noSelected === 1));
 }
 
 function setButtonEnabled(id, enabled) {
@@ -444,7 +445,7 @@ function onContextMenuClicked(menuItemId) {
             break;
 
         case "copy2clipboard-ctx":
-            DataTableUtil.copyEntryToClipboard(dataRightClicked);
+            DataTableUtil.copyDataToClipboard(dataRightClicked);
             WindowUtil.hideContextMenu();
             break;
 
@@ -499,6 +500,13 @@ function onMenuClicked(menuItemId) {
         case "copy2clipboard":
             if (isMenuItemEnabled(menuItemId)) {
                 DataTableUtil.copySelectedEntryToClipboard($('#fhcTable').DataTable());
+                WindowUtil.showModalInformation({titleId:'dialogInformationTitle', msgId:'informClipboardValueCopied'});
+            }
+            break;
+
+        case "copy2clipboardText":
+            if (isMenuItemEnabled(menuItemId)) {
+                DataTableUtil.copySelectedEntryCleanToClipboard($('#fhcTable').DataTable());
                 WindowUtil.showModalInformation({titleId:'dialogInformationTitle', msgId:'informClipboardValueCopied'});
             }
             break;

@@ -212,16 +212,32 @@ class DataTableUtil {
 
     static copySelectedEntryToClipboard(table) {
         const data = table.row('.selected').data();
+        this.copyDataToClipboard(data);
+    }
+
+    static copySelectedEntryCleanToClipboard(table) {
+        const data = table.row('.selected').data();
+        this.copyDataCleanToClipboard(data);
+    }
+
+    static copyDataToClipboard(data) {
         if (data) {
-            this.copyEntryToClipboard(data);
+            this.copyStringToClipboard(data[2]);
         }
     }
 
-    static copyEntryToClipboard(data) {
-        //const type = data[3];
-        const value = data[2];
-        // console.log('Trying to copy value: ' + value);
+    static copyDataCleanToClipboard(data) {
+        if (data) {
+            this.copyStringCleanToClipboard(data[2]);
+        }
+    }
 
+    static copyStringCleanToClipboard(value) {
+        const cleanContent = WindowUtil.htmlToReadableText(value);
+        this.copyStringToClipboard(cleanContent);
+    }
+
+    static copyStringToClipboard(value) {
         // create invisible textarea to set value and copy to clipboard (only works for popup scripts)
         const input = document.createElement('textarea');
         input.style.position = 'fixed';

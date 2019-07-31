@@ -222,7 +222,13 @@ function onContextMenuClicked(menuItemId) {
 
         case "copy2clipboard-ctx":
             // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
-            DataTableUtil.copyEntryToClipboard(dataRightClicked);
+            DataTableUtil.copyDataToClipboard(dataRightClicked);
+            WindowUtil.hideContextMenu();
+            break;
+
+        case "copy2clipboardText-ctx":
+            // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
+            DataTableUtil.copyDataCleanToClipboard(dataRightClicked);
             WindowUtil.hideContextMenu();
             break;
     }
