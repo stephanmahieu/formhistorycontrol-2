@@ -20,7 +20,7 @@ browser.tabs.onActivated.addListener(handleActivated);
 // initially set the EditorFieldRestoreMenu for the current active tab
 setTimeout(()=>{ updateEditorFieldRestoreMenuForActiveTab(); }, 1500);
 
-// create the comtext menus
+// create the context menus
 initBrowserMenus();
 
 // set the preferred shortcut keys and add a shortcutKey listener
