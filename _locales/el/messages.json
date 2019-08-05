@@ -448,11 +448,11 @@
     "message": "Single-line + Multi-line",
     "description": "Options window, Single-line + Multi-line"
   },
-  "XXXoptionsRetainFieldSingle": {
+  "XXXoptionsRetainFieldMulti": {
     "message": "Multi-line only",
     "description": "Options window, Multi-line only"
   },
-  "XXXoptionsRetainFieldMulti": {
+  "XXXoptionsRetainFieldSingle": {
     "message": "Single-line only",
     "description": "Options window, Single-line only"
   },

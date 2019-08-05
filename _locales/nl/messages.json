@@ -448,12 +448,12 @@
     "message": "Eenregelig + Meerregelig",
     "description": "Options window, Single-line + Multi-line"
   },
-  "optionsRetainFieldSingle": {
-    "message": "Alleen eenregelig",
-    "description": "Options window, Multi-line only"
-  },
   "optionsRetainFieldMulti": {
     "message": "Alleen meerregelig",
+    "description": "Options window, Multi-line only"
+  },
+  "optionsRetainFieldSingle": {
+    "message": "Alleen eenregelig",
     "description": "Options window, Single-line only"
   },
 
