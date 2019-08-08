@@ -359,6 +359,11 @@
     "description": "The 'automatic' option in a select list."
   },
 
+  "optionsExpertMode": {
+    "message": "Geavanceerde opties tonen",
+    "description": "Options window: Show advanced options checkbox."
+  },
+
   "optionsDisplayMenu": {
     "message": "Weergave",
     "description": "Options window: Left Display menu."
@@ -455,6 +460,11 @@
   "optionsRetainFieldSingle": {
     "message": "Alleen eenregelig",
     "description": "Options window, Single-line only"
+  },
+
+  "optionsuUdateInterval": {
+    "message": "Update interval",
+    "description": "Options window, Update interval"
   },
 
   "optiondomainlistlegend": {

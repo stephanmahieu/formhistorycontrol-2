@@ -11,6 +11,9 @@ fieldset.sub-fieldset {
 .selected {
     color: #ffffff;
 }
+.selected::after {
+    border-left-color: var(--field-border-color);
+}
 
 /* checkbox+radio styling */
 label span {

@@ -69,6 +69,13 @@ a:link:hover {
     grid-column: 1;
     grid-row: 1;
 }
+#expertmode-container {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    height: 25px;
+    font-size: 11px;
+}
 
 .content {
     max-width: 450px;
@@ -121,6 +128,19 @@ a:link:hover {
     color: #1c336d;
 }
 
+.selected::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent var(--fieldset-border-color);
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 3px;
+    clear: both;
+}
+
 .divider {
     display: block;
     width: 100%;
@@ -156,6 +176,10 @@ label span {
     margin-right: 6px;
     border-radius: 4px;
     box-shadow: inset 2px 2px 2px rgba(0,0,0,0.5), 2px 2px 0px rgba(188, 188, 188, 0.4);
+}
+#expertmode-container label span {
+    width: 14px;
+    height: 14px;
 }
 label div {
     display: inline-block;

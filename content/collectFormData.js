@@ -8,6 +8,7 @@
 'use strict';
 
 let eventQueue = [];
+let updateInterval = 5000;
 
 browser.runtime.onMessage.addListener(receiveEvents);
 
@@ -32,6 +33,11 @@ function receiveEvents(fhcActionEvent /*, sender, sendResponse*/) {
                 //console.log("Received action event " + fhcActionEvent.action);
                 _findFieldAndSetValue(fhcActionEvent);
                 break;
+        }
+    }
+    if (fhcActionEvent.eventType && fhcActionEvent.eventType === 888) {
+        if (fhcActionEvent.updateIntervalChanged) {
+            setPreferredUpdateInterval();
         }
     }
 }
@@ -825,8 +831,35 @@ function _alreadyQueued(event) {
     setTimeout(function() {
         processEventQueue();
         processEventQueueLoop();
-    }, 5000);
+    }, updateInterval);
 })();
+
+
+//----------------------------------------------------------------------------
+// Get / set preferences
+//----------------------------------------------------------------------------
+
+// init updateInterval
+setPreferredUpdateInterval();
+
+function setPreferredUpdateInterval() {
+    _getUpdateIntervalPref().then(res=>{updateInterval = res;});
+}
+
+function _getUpdateIntervalPref() {
+    const defaultValue = 5000;
+    return new Promise((resolve, reject) => {
+        browser.storage.local.get({prefUpdateInterval: defaultValue}).then(
+            result => {
+                resolve(result.prefUpdateInterval);
+            },
+            () => {
+                resolve(defaultValue);
+            }
+        );
+    });
+}
+
 
 //----------------------------------------------------------------------------
 // Add event handlers

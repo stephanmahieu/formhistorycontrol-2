@@ -48,10 +48,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     addStylesheetThemesToSelect();
     addMultilineSaveOptionsToSelect();
+    addUpdateIntervalOptionsToSelect();
     addShortcutKeyOptions();
 
     restoreOptions();
     document.querySelector("form").addEventListener("submit", saveOptions);
+
+    document.querySelector("#expertMode").addEventListener("change", showHideExpertPrefs);
+    document.querySelector("#expertMode").addEventListener("change", checkPropertiesChanged);
 
     document.querySelectorAll('.optionLink').forEach(link => {
         link.addEventListener("click", selectOptionSection);
@@ -66,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("#retainTypeSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#retainTypeSelect").addEventListener("change", retainTypeChanged);
+    document.querySelector("#updateIntervalSelect").addEventListener("change", checkPropertiesChanged);
 
     document.querySelector("#shortcutKeysModify").addEventListener("click", showShortkeyModifySelects);
 
@@ -122,10 +127,12 @@ function closeThisPopup(event) {
 let currentOptions;
 function restoreOptions() {
     let gettingItem = browser.storage.local.get({
+        prefExpertMode           : false,
         prefInterfaceTheme       : "default",
         prefUseCustomAutocomplete: false,
         prefMultilineThresholds  : {age: "10", length: "500"},
         prefRetainType           : "all",
+        prefUpdateInterval       : "5000",
         prefDateFormat           : "automatic",
         prefShortcutKeys         : {
             // defaults here must be equal to the defaults in manifest.json
@@ -144,11 +151,13 @@ function restoreOptions() {
     });
     gettingItem.then(res => {
         //console.log('checkbox value got from storage is [' + res.prefUseCustomAutocomplete + ']');
+        document.querySelector('#expertMode').checked = res.prefExpertMode;
         document.querySelector('#themeSelect').value = res.prefInterfaceTheme;
         document.querySelector("#overrideAutocomplete").checked = res.prefUseCustomAutocomplete;
         document.querySelector('#versionAgeSelect').value = res.prefMultilineThresholds.age;
         document.querySelector('#versionLengthSelect').value = res.prefMultilineThresholds.length;
         document.querySelector('#retainTypeSelect').value = res.prefRetainType;
+        document.querySelector('#updateIntervalSelect').value = res.prefUpdateInterval;
         document.querySelector("#dateformatSelect").value = res.prefDateFormat;
         document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
         document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
@@ -165,6 +174,7 @@ function restoreOptions() {
         domainlistChanged();
         fieldlistChanged();
         retainTypeChanged();
+        showHideExpertPrefs();
 
         currentOptions = Object.assign({}, res);
         checkPropertiesChanged();
@@ -185,6 +195,7 @@ function saveOptions(e) {
         multilineThresholdsChanged:  (currentOptions.prefMultilineThresholds.age !== newOptions.prefMultilineThresholds.age
                                    || currentOptions.prefMultilineThresholds.length !== newOptions.prefMultilineThresholds.length),
         retainTypeChanged:           (currentOptions.prefRetainType !== newOptions.prefRetainType),
+        updateIntervalChanged:       (currentOptions.prefUpdateInterval !== newOptions.prefUpdateInterval),
         dateFormatChanged:           (currentOptions.prefDateFormat !== newOptions.prefDateFormat),
         domainFilterChanged:         (currentOptions.prefDomainFilter !== newOptions.prefDomainFilter || !arrayContentEquals(currentOptions.prefDomainList, newOptions.prefDomainList)),
         fieldFilterChanged:          !arrayContentEquals(currentOptions.prefFieldList, newOptions.prefFieldList)
@@ -209,11 +220,13 @@ function saveOptions(e) {
 
 function getNewOptions() {
     return {
+        prefExpertMode           : document.querySelector("#expertMode").checked,
         prefInterfaceTheme       : document.querySelector("#themeSelect").value,
         prefUseCustomAutocomplete: document.querySelector("#overrideAutocomplete").checked,
         prefMultilineThresholds  : {age   : document.querySelector("#versionAgeSelect").value,
                                     length: document.querySelector("#versionLengthSelect").value},
         prefRetainType           : document.querySelector("#retainTypeSelect").value,
+        prefUpdateInterval       : document.querySelector("#updateIntervalSelect").value,
         prefDateFormat           : document.querySelector("#dateformatSelect").value,
         prefShortcutKeys         : getAllShortcutKeyValues(),
         prefDomainFilter         : getCheckedRadioDomainValue(),
@@ -262,6 +275,32 @@ function retainTypeChanged() {
         selAge.removeAttribute("disabled");
         selLenLbl.classList.remove("disabled");
         selLen.removeAttribute("disabled");
+    }
+}
+
+function showHideExpertPrefs() {
+    const expertModeChecked = document.querySelector("#expertMode").checked;
+
+    Array.from(document.getElementsByClassName('expert-pref')).forEach(elem => {
+        if (expertModeChecked) {
+            elem.style.display = 'unset';
+        } else {
+            elem.style.display = 'none';
+        }
+    });
+
+    // check if the current selected category is still visible
+    const oldLinkElm = document.querySelector(".optionLink.selected");
+    if (oldLinkElm && oldLinkElm.offsetParent === null) {
+        // unselect the now hidden fieldset
+        const oldFieldsetId = "fld_" + oldLinkElm.id;
+        const oldFldSet = document.querySelector("#" + oldFieldsetId);
+        oldFldSet.style.display = "none";
+        oldLinkElm.classList.remove("selected");
+
+        // select the first visible fieldset
+        document.querySelector('#display').classList.add('selected');
+        document.querySelector('#fld_display').style.display = 'block';
     }
 }
 

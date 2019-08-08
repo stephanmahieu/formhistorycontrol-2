@@ -358,6 +358,11 @@
     "description": "The 'automatic' option in a select list."
   },
 
+  "XXXoptionsExpertMode": {
+    "message": "Show advanced options",
+    "description": "Options window: Show advanced options checkbox."
+  },
+
   "optionsDisplayMenu": {
     "message": "Anzeige",
     "description": "Options window: Left Display menu."
@@ -454,6 +459,11 @@
   "XXXoptionsRetainFieldSingle": {
     "message": "Single-line only",
     "description": "Options window, Single-line only"
+  },
+
+  "XXXoptionsuUdateInterval": {
+    "message": "Update interval",
+    "description": "Options window, Update interval"
   },
 
   "optiondomainlistlegend": {

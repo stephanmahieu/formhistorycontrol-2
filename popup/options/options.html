@@ -43,22 +43,25 @@
                     </a>
                 </li>
                 <li>
-                    <a id="domainhistory" href="#" class="optionLink">
-                        <span data-fhc-i18n="optionsDomainlistMenu" class="optionLabel">Domain Filter</span>
-                    </a>
-                </li>
-                <li>
-                    <a id="fieldhistory" href="#" class="optionLink">
-                        <span data-fhc-i18n="optionsFieldlistMenu" class="optionLabel">Field Filter</span>
-                    </a>
-                </li>
-                <li>
                     <a id="cleanup" href="#" class="optionLink">
                         <span data-fhc-i18n="optionsCleanupMenu" class="optionLabel">Cleanup</span>
                     </a>
                 </li>
+                <div  class="expert-pref">
+                    <li>
+                        <a id="domainhistory" href="#" class="optionLink">
+                            <span data-fhc-i18n="optionsDomainlistMenu" class="optionLabel">Domain Filter</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="fieldhistory" href="#" class="optionLink">
+                            <span data-fhc-i18n="optionsFieldlistMenu" class="optionLabel">Field Filter</span>
+                        </a>
+                    </li>
+                </div>
             </ul>
         </div>
+
         <div class="content">
             <fieldset>
                 <legend data-fhc-i18n="optionTitle">Options</legend>
@@ -91,10 +94,12 @@
 
                 <fieldset id="fld_miscellaneous" class="sub-fieldset" style="display:none">
                     <legend data-fhc-i18n="optionsMiscellaneousLegend">Miscellaneous</legend>
-                    <input type="checkbox" id="overrideAutocomplete">
-                    <label for="overrideAutocomplete"><span></span><div data-fhc-i18n="optionsOverrideAutocomplete">Override the built-in autocomplete</div></label><br/>
+                    <div class="expert-pref">
+                        <input type="checkbox" id="overrideAutocomplete">
+                        <label for="overrideAutocomplete"><span></span><div data-fhc-i18n="optionsOverrideAutocomplete">Override the built-in autocomplete</div></label><br/>
 
-                    <div class="divider"></div>
+                        <div class="divider"></div>
+                    </div>
 
                     <label for="retainTypeSelect" data-fhc-i18n="optionsRetainFieldTypes">Save which type of field</label>
                     <select id="retainTypeSelect" class="rightalign">
@@ -102,6 +107,13 @@
                         <option data-fhc-i18n="optionsRetainFieldSingle" value="single">Single-line only</option>
                         <option data-fhc-i18n="optionsRetainFieldMulti" value="multi">Multi-line only</option>
                     </select>
+                    <br/><br/>
+
+                    <div class="expert-pref">
+                        <label for="updateIntervalSelect" data-fhc-i18n="optionsuUdateInterval">Update interval</label>
+                        <select id="updateIntervalSelect" class="rightalign">
+                        </select>
+                    </div>
 
                     <div class="divider"></div>
 
@@ -110,40 +122,19 @@
                     <label id="versionAgeSelectLabel" for="versionAgeSelect" data-fhc-i18n="optionsSaveNewVersionMultilineAge">last saved version is older than</label>
                     <select id="versionAgeSelect" class="rightalign">
                     </select>
-                    <br/><br/>
-                    <label id="versionLengthSelectLabel" for="versionLengthSelect" data-fhc-i18n="optionsSaveNewVersionMultilineCount">or content length changes more than</label>
-                    <select id="versionLengthSelect" class="rightalign">
-                    </select>
+
+                    <div class="expert-pref">
+                        <br/><br/>
+                        <label id="versionLengthSelectLabel" for="versionLengthSelect" data-fhc-i18n="optionsSaveNewVersionMultilineCount">or content length changes more than</label>
+                        <select id="versionLengthSelect" class="rightalign">
+                        </select>
+                    </div>
                 </fieldset>
 
                 <fieldset id="fld_shortcuts" class="sub-fieldset" style="display:none">
                     <legend data-fhc-i18n="optionsShortcutsLegend">Shortcut key combinations</legend>
                     <div id="shortcut_pane"></div>
                     <button id="shortcutKeysModify" class="domainbutton" data-fhc-i18n="buttonModify">Modify</button>
-                </fieldset>
-
-                <fieldset id="fld_domainhistory" class="sub-fieldset" style="display:none">
-                    <legend data-fhc-i18n="optionDomainlistLegend">Enable/Disable history per domain</legend>
-                    <input type="radio" id="radioDomainlistAll" name="radiogroupDomainlist" value="all">
-                    <label for="radioDomainlistAll"><span></span><div data-fhc-i18n="optionsRadioDomainAll">Allow All</div></label>
-                    <input type="radio" id="radioDomainlistBlacklist" name="radiogroupDomainlist" value="blacklist">
-                    <label for="radioDomainlistBlacklist"><span></span><div data-fhc-i18n="optionsRadioDomainBlacklist">Blacklist</div></label>
-                    <input type="radio" id="radioDomainlistWhitelist" name="radiogroupDomainlist" value="whitelist">
-                    <label for="radioDomainlistWhitelist"><span></span><div data-fhc-i18n="optionsRadioDomainWhitelist">Whitelist</div></label><br/>
-                    <select id="domainlist" size="5" class="list-select"></select><br/>
-                    <input type="text" id="domainListItem" class="list-input">
-                    <button id="listAdd" class="domainbutton" data-fhc-i18n="buttonAdd">Add</button>
-                    <button id="listModify" class="domainbutton" data-fhc-i18n="buttonModify">Modify</button>
-                    <button id="listDelete" class="domainbutton" data-fhc-i18n="buttonDelete">Delete</button>
-                </fieldset>
-
-                <fieldset id="fld_fieldhistory" class="sub-fieldset" style="display:none">
-                    <legend data-fhc-i18n="optionsFieldlistlegend">Disable history for specific fields</legend>
-                    <select id="fieldlist" size="5" class="list-select"></select><br/>
-                    <input type="text" id="fieldListItem" class="list-input">
-                    <button id="fieldAdd" class="domainbutton" data-fhc-i18n="buttonAdd">Add</button>
-                    <button id="fieldModify" class="domainbutton" data-fhc-i18n="buttonModify">Modify</button>
-                    <button id="fieldDelete" class="domainbutton" data-fhc-i18n="buttonDelete">Delete</button>
                 </fieldset>
 
                 <fieldset id="fld_cleanup" class="sub-fieldset" style="display:none">
@@ -155,6 +146,34 @@
                     <label for="keepdayshistory" data-fhc-i18n="optionsRemoveDaysDays">days</label><br/>
                     <button id="btnCleanupNow" data-fhc-i18n="buttonCleanupNow">Clean Up Now</button>
                 </fieldset>
+
+                <div  class="expert-pref">
+                    <fieldset id="fld_domainhistory" class="sub-fieldset" style="display:none">
+                        <legend data-fhc-i18n="optionDomainlistLegend">Enable/Disable history per domain</legend>
+                        <input type="radio" id="radioDomainlistAll" name="radiogroupDomainlist" value="all">
+                        <label for="radioDomainlistAll"><span></span><div data-fhc-i18n="optionsRadioDomainAll">Allow All</div></label>
+                        <input type="radio" id="radioDomainlistBlacklist" name="radiogroupDomainlist" value="blacklist">
+                        <label for="radioDomainlistBlacklist"><span></span><div data-fhc-i18n="optionsRadioDomainBlacklist">Blacklist</div></label>
+                        <input type="radio" id="radioDomainlistWhitelist" name="radiogroupDomainlist" value="whitelist">
+                        <label for="radioDomainlistWhitelist"><span></span><div data-fhc-i18n="optionsRadioDomainWhitelist">Whitelist</div></label><br/>
+                        <select id="domainlist" size="5" class="list-select"></select><br/>
+                        <input type="text" id="domainListItem" class="list-input">
+                        <button id="listAdd" class="domainbutton" data-fhc-i18n="buttonAdd">Add</button>
+                        <button id="listModify" class="domainbutton" data-fhc-i18n="buttonModify">Modify</button>
+                        <button id="listDelete" class="domainbutton" data-fhc-i18n="buttonDelete">Delete</button>
+                    </fieldset>
+                </div>
+
+                <div  class="expert-pref">
+                    <fieldset id="fld_fieldhistory" class="sub-fieldset" style="display:none">
+                        <legend data-fhc-i18n="optionsFieldlistlegend">Disable history for specific fields</legend>
+                        <select id="fieldlist" size="5" class="list-select"></select><br/>
+                        <input type="text" id="fieldListItem" class="list-input">
+                        <button id="fieldAdd" class="domainbutton" data-fhc-i18n="buttonAdd">Add</button>
+                        <button id="fieldModify" class="domainbutton" data-fhc-i18n="buttonModify">Modify</button>
+                        <button id="fieldDelete" class="domainbutton" data-fhc-i18n="buttonDelete">Delete</button>
+                    </fieldset>
+                </div>
             </fieldset>
 
             <div id="buttons">
@@ -164,6 +183,10 @@
         </div>
     </div>
 </form>
+<div id="expertmode-container">
+    <input type="checkbox" id="expertMode">
+    <label for="expertMode"><span></span><div id="expertModeLabel" data-fhc-i18n="optionsExpertMode">Show advanced options</div></label>
+</div>
 <script src="/common/browser-polyfill.min.js"></script>
 <script src="/common/CleanupConst.js"></script>
 <script src="/common/OptionsUtil.js"></script>
@@ -172,6 +195,7 @@
 <script src="/common/translation.js"></script>
 <script src="options-theme.js"></script>
 <script src="options-multilinesave.js"></script>
+<script src="options-updateinterval.js"></script>
 <script src="options-list.js"></script>
 <script src="options-shortcuts.js"></script>
 <script src="options.js"></script>
