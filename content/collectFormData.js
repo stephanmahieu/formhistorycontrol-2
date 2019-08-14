@@ -601,6 +601,21 @@ function onContentChanged(event) {
 }
 
 function _contentChangedHandler(type, node) {
+
+    // Custom handling online web editor frameworks
+
+    // Ace - The High Performance Code Editor for the Web
+    // if (node.className && node.className === "ace_text-input") {
+    if ('ace_text-input' === node.className) {
+        // change node to the actual content
+        let actualContentNode = node.ownerDocument.querySelector("div.ace_text-layer");
+        if (actualContentNode) {
+            node = actualContentNode;
+            type = 'div';
+        }
+    }
+
+
     let location = node.ownerDocument.location;
     let pagetitle = node.ownerDocument.title;
     let formid = "";
