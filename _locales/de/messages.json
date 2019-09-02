@@ -400,6 +400,11 @@
     "message": "Wählen Sie das Datumsformat",
     "description": "Options window: The date format selection dropdown label"
   },
+  "XXXoptionsScrollAmountSelect": {
+    "message": "Mousewheel scroll amount (pixels)",
+    "description": "Options window: The scroll amount selection dropdown label"
+  },
+
 
   "optionsMiscellaneousLegend": {
     "message": "Verschiedenes",

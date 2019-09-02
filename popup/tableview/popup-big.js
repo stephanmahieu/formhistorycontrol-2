@@ -26,11 +26,16 @@ $(document).ready(function() {
     const tableElement = $('#fhcTable');
     let table;
 
-    // const table = createDataTable(tableElement);
-    OptionsUtil.getDateFormat(
-    ).then(dateformat => {
+    browser.storage.local.get({
+        pageSizeBig: 500,
+        prefDateFormat: 'automatic',
+        prefScrollAmount: 'auto'
+    }).then(result => {
+        let pageSizeBig = result.pageSizeBig;
+        let dateformat = result.prefDateFormat;
+        let scrollAmount = result.prefScrollAmount;
         DataTableUtil.dateformat = dateformat;
-        table = createDataTable(tableElement, dateformat);
+        table = createDataTable(tableElement, dateformat, scrollAmount);
 
         // add event listener for saving changed pageSize
         table.on('length.dt', function(e, settings, len) {
@@ -86,22 +91,16 @@ $(document).ready(function() {
             // Event listener for closing the context menu when clicked outside the menu
             WindowUtil.hideContextMenuOnClick(event);
         });
-    }).then(() => {
-        browser.storage.local.get(
-            {pageSizeBig: 500}
-        ).then(result => {
-                // set the pagesize to the last used value
-                table.page.len(result.pageSizeBig);
 
-                // populate tableview with data from the database
-                populateViewFromDatabase(table, 25, null, null);
-                selectionChangedHandler();
-            },
-            () => {
-                console.error("Get last used pagesize error", this.error);
-            }
-        );
-    });
+        // set the pagesize to the last used value
+        table.page.len(pageSizeBig);
+
+        // populate tableview with data from the database
+        populateViewFromDatabase(table, 25, null, null);
+        selectionChangedHandler();
+      },
+      () => {console.error("Get preferences error", this.error);}
+    );
 
     // Prevent the default right-click contextmenu
     document.oncontextmenu = function() {return false;};
@@ -150,7 +149,7 @@ $(document).ready(function() {
     setInterval(updateTableRowsAgeColumn, 60*1000);
 });
 
-function createDataTable(tableElement, dateformat) {
+function createDataTable(tableElement, dateformat, scrollAmount) {
     let languageURL = DataTableUtil.getLanguageURL();
     const i18nFld = DataTableUtil.getLocaleFieldNames();
     const i18nAll = browser.i18n.getMessage("pagingAll") || 'All';
@@ -164,8 +163,10 @@ function createDataTable(tableElement, dateformat) {
         pageLength: 500,
         fnDrawCallback: function(){
             $('.dataTables_scrollBody').mCustomScrollbar({
-                showArrows: 'true',
-                scrollButtons:{ enable: true },
+                showArrows: true,
+                scrollButtons:{ enable: true, scrollAmount: 5 },
+                mouseWheel:{ scrollAmount: scrollAmount },
+                keyboard:{ enable: true, scrollAmount: 5 },
                 theme: "3d-thick-dark"
             });
         },

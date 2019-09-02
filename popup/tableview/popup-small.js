@@ -26,9 +26,16 @@ $(document).ready(function() {
     let table;
 
     // create/initialize the dataTable
-    OptionsUtil.getDateFormat(
-    ).then(dateformat => {
-        table = createDataTable(dateformat);
+    browser.storage.local.get({
+            pageSizeSmall: 12,
+            prefDateFormat: 'automatic',
+            prefScrollAmount: 'auto'
+    }).then(result => {
+        let pageSizeSmall = result.pageSizeSmall;
+        let dateformat = result.prefDateFormat;
+        let scrollAmount = result.prefScrollAmount;
+
+        table = createDataTable(dateformat, scrollAmount);
 
         // add event listener for saving changed pageSize
         table.on('length.dt', function(e, settings, len) {
@@ -72,19 +79,13 @@ $(document).ready(function() {
                 $('div.detail-root', row.child()).slideDown('fast');
             }
         });
-    }).then(() => {
-        browser.storage.local.get(
-            {pageSizeSmall: 12}
-        ).then(result => {
-            // set the pagesize to the last used value
-            table.page.len(result.pageSizeSmall);
-        },
-        () => {console.error("Get last used pagesize error", this.error);}
-        );
-    }).then(() => {
-        populateViewFromDatabase(table, 15, null, null);
-    });
 
+        // set the pagesize to the last used value
+        table.page.len(pageSizeSmall);
+            populateViewFromDatabase(table, 15, null, null);
+      },
+      () => {console.error("Get preferences error", this.error);}
+    );
 
     /*
      * Unused code for future use, filter view to only show fields for active tab (current host, current fields)
@@ -235,7 +236,7 @@ function onContextMenuClicked(menuItemId) {
 }
 
 
-function createDataTable(dateformat) {
+function createDataTable(dateformat, scrollAmount) {
     const languageURL = DataTableUtil.getLanguageURL();
     const i18nFld = DataTableUtil.getLocaleFieldNames();
 
@@ -250,7 +251,9 @@ function createDataTable(dateformat) {
         fnDrawCallback: function(){
             $('.dataTables_scrollBody').mCustomScrollbar({
                 showArrows: 'true',
-                scrollButtons:{ enable: true },
+                scrollButtons:{ enable: true, scrollAmount: 13 },
+                mouseWheel:{ scrollAmount: scrollAmount },
+                keyboard:{ enable: true, scrollAmount: 13 },
                 theme: "3d-thick-dark"
             });
         },

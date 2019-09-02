@@ -21,20 +21,6 @@ class OptionsUtil {
         });
     }
 
-    static getDateFormat() {
-        const defaultValue = "automatic";
-        return new Promise((resolve, reject) => {
-            browser.storage.local.get({prefDateFormat: defaultValue}).then(
-                result => {
-                    resolve(result.prefDateFormat);
-                },
-                () => {
-                    resolve(defaultValue);
-                }
-            );
-        });
-    }
-
     static getMultilineThresholds() {
         const defaultValue = {age: 10, length: 500};
         return new Promise((resolve, reject) => {

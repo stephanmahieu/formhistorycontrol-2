@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#themeSelect").addEventListener("change", themeSelectionChanged);
     document.querySelector("#overrideAutocomplete").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#dateformatSelect").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#scrollAmountSelect").addEventListener("change", checkPropertiesChanged);
 
     document.querySelector("#versionAgeSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#versionLengthSelect").addEventListener("change", checkPropertiesChanged);
@@ -134,6 +135,7 @@ function restoreOptions() {
         prefRetainType           : "all",
         prefUpdateInterval       : "5000",
         prefDateFormat           : "automatic",
+        prefScrollAmount         : "auto",
         prefShortcutKeys         : {
             // defaults here must be equal to the defaults in manifest.json
             _execute_browser_action: OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
@@ -159,6 +161,7 @@ function restoreOptions() {
         document.querySelector('#retainTypeSelect').value = res.prefRetainType;
         document.querySelector('#updateIntervalSelect').value = res.prefUpdateInterval;
         document.querySelector("#dateformatSelect").value = res.prefDateFormat;
+        document.querySelector("#scrollAmountSelect").value = res.prefScrollAmount;
         document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
         document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
 
@@ -197,6 +200,7 @@ function saveOptions(e) {
         retainTypeChanged:           (currentOptions.prefRetainType !== newOptions.prefRetainType),
         updateIntervalChanged:       (currentOptions.prefUpdateInterval !== newOptions.prefUpdateInterval),
         dateFormatChanged:           (currentOptions.prefDateFormat !== newOptions.prefDateFormat),
+        scrollAmountChanged:         (currentOptions.prefScrollAmount !== newOptions.prefScrollAmount),
         domainFilterChanged:         (currentOptions.prefDomainFilter !== newOptions.prefDomainFilter || !arrayContentEquals(currentOptions.prefDomainList, newOptions.prefDomainList)),
         fieldFilterChanged:          !arrayContentEquals(currentOptions.prefFieldList, newOptions.prefFieldList)
     };
@@ -228,6 +232,7 @@ function getNewOptions() {
         prefRetainType           : document.querySelector("#retainTypeSelect").value,
         prefUpdateInterval       : document.querySelector("#updateIntervalSelect").value,
         prefDateFormat           : document.querySelector("#dateformatSelect").value,
+        prefScrollAmount         : document.querySelector("#scrollAmountSelect").value,
         prefShortcutKeys         : getAllShortcutKeyValues(),
         prefDomainFilter         : getCheckedRadioDomainValue(),
         prefDomainList           : getList("#domainlist"),

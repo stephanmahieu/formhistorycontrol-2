@@ -401,6 +401,10 @@
     "message": "Kies het datum formaat",
     "description": "Options window: The date format selection dropdown label"
   },
+  "optionsScrollAmountSelect": {
+    "message": "Muiswiel scroll aantal (pixels)",
+    "description": "Options window: The scroll amount selection dropdown label"
+  },
 
   "optionsMiscellaneousLegend": {
     "message": "Diversen",
