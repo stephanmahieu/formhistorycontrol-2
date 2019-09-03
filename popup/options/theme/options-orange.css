@@ -1,0 +1,39 @@
+fieldset {
+    background: linear-gradient(180deg, #ffab20 0%, #ffab20 4%, #a65b1f 10%, #a65b1f 100%);
+    color: #fff7d7;
+}
+
+fieldset.sub-fieldset {
+    background: #a65b1f;
+    border: 2px solid #ffab20;
+    padding: 6px;
+    box-shadow: 1px 1px 1px ThreeDShadow;
+}
+
+
+.optionLink {
+    color: #7f7f7f;
+}
+
+.selected {
+    color: #000000;
+}
+.selected::after {
+    border-left-color: var(--field-border-color);
+}
+
+/* checkbox+radio styling */
+fieldset label span {
+    box-shadow: inset 2px 2px 2px rgba(0,0,0,0.5), 2px 2px 0 rgba(255,255,255,.4);
+}
+fieldset input[type="Checkbox"]:checked+label span:before {
+    border-color: #e2e2e2;
+}
+fieldset input[type="Radio"]:checked+label span:before{
+    background: #e2e2e2;
+}
+
+#shortcut_pane > div {
+    background-color: #43434c;
+    border: 1px solid var( --field-border-color);
+}

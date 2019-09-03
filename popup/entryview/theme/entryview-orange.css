@@ -1,0 +1,36 @@
+#operationInfo {
+    color: #1c1c1c;
+}
+
+.content {
+    border: 3px solid #9c9c9c;
+    padding: 6px;
+    background: linear-gradient(180deg, #ffab20 0%, #ffab20 4%, #a65b1f 10%, #a65b1f 100%);
+    box-shadow: 1px 1px 4px inset;
+    color: #fff7d7;
+}
+
+#datetimeContent  {
+    background: var(--main-bg-color);
+}
+
+#datetimeContent .modal-title {
+    color: #eeeeee;
+}
+
+#datetimeContent .modal-header {
+    background: linear-gradient(0deg, #331614 0%, #331614 8%, #70381f 25%, #a63f22 96%, #70381f 100%);
+}
+
+#datetimeContent th {
+    color: #fff7d7;
+}
+
+#datetimeContent > table:nth-child(2) {
+    border: 3px solid #9c9c9c;
+    padding: 6px;
+    background: linear-gradient(180deg, #ffab20 0%, #ffab20 4%, #a65b1f 10%, #a65b1f 100%);
+    box-shadow: 1px 1px 4px inset;
+    color: #fff7d7;
+}
+

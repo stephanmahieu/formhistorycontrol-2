@@ -1,0 +1,147 @@
+/* Dark theme */
+
+/* search box */
+#fhcTable_filter input[type=search] {
+    background: url("search-white.png") no-repeat 3px 3px var(--field-bg-color);
+}
+::-webkit-input-placeholder {
+    color: #b6b6b6;
+}
+
+.dataTables_scrollHead {
+    background: linear-gradient(0deg, #a4a4a4 0%, #c3c3c3 30%, #c3c3c3 70%, #a4a4a4 100%);
+}
+
+/* color table text */
+table#fhcTable tbody tr {
+    color: #fff7d7;
+}
+
+/* Text color table info */
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_info,
+.dataTables_length label,
+.dataTables_filter label {
+    color: #000000 !important;
+}
+
+/* Paginate (next/previous) disabled */
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    color: #6b6b6b !important;
+}
+
+
+/* Hover page number (button like) */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: white !important;
+    border: 1px solid #111;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #585858), color-stop(100%, #111));
+    background: -webkit-linear-gradient(top, #585858 0%, #111 100%);
+    background: linear-gradient(to bottom, #585858 0%, #111 100%);
+}
+
+/* Active pagenumber (button-like) */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: #ffffff !important;
+    border: 1px solid #e0e0e0;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #777), color-stop(100%, #545454));
+    background: -webkit-linear-gradient(top, #777 0%, #545454 100%);
+    background: linear-gradient(to bottom, #777 0%, #545454 100%);
+}
+
+
+/* Selection color even rows */
+table.dataTable.display tbody tr.even.selected,
+table.dataTable.display tbody tr.even.selected > .sorting_1,
+table.dataTable         tbody tr.even.selected > .sorting_1 {
+    background: linear-gradient(90deg, #d37720 0%, #d37720 1%, #a1561d 3%, #a1561d 100%);
+    color: #ffc538 !important;
+}
+
+/* Selection color odd rows */
+table.dataTable.display tbody tr.odd.selected,
+table.dataTable.display tbody tr.odd.selected > .sorting_1,
+table.dataTable         tbody tr.odd.selected > .sorting_1 {
+    background: linear-gradient(90deg, #d37720 0%, #d37720 1%, #a85520 3%, #a85520 100%);
+    color: #ffc538 !important;
+}
+
+
+/* Even zebra rows */
+table.dataTable              tbody tr,
+table.dataTable.stripe       tbody tr.even,
+table.dataTable.display      tbody tr.even {
+    background: linear-gradient(90deg, #f8a41f 0%, #f8a41f 1%, #c06e1f 3%, #c06e1f 100%);
+}
+table.dataTable.display      tbody tr.even > .sorting_1,
+table.dataTable.order-column tbody tr.even > .sorting_1 {
+    background: #c06e1f;
+}
+
+/* Odd zebra rows */
+table.dataTable.stripe       tbody tr.odd,
+table.dataTable.display      tbody tr.odd {
+    background: linear-gradient(90deg, #f2a01f 0%, #f2a01f 1%, #bc6b1f 3%, #bc6b1f 100%);
+}
+table.dataTable.display      tbody tr.odd > .sorting_1,
+table.dataTable.order-column tbody tr.odd > .sorting_1 {
+    background: #bc6b1f;
+}
+
+div.detail-root {
+    background-color: #854b2a;
+}
+
+
+/* Border rows */
+table.dataTable.row-border tbody th,
+table.dataTable.row-border tbody td,
+table.dataTable.display tbody th,
+table.dataTable.display tbody td {
+    border-top: 1px solid #955100;
+}
+
+/* Row hover color */
+table.dataTable              tbody tr:hover,
+table.dataTable.display      tbody tr:hover,
+table.dataTable.display      tbody tr:hover > .sorting_1,
+table.dataTable.order-column tbody tr:hover > .sorting_1,
+table.dataTable.display      tbody tr:hover.selected,
+table.dataTable.display      tbody tr:hover.selected > .sorting_1,
+table.dataTable.order-column tbody tr:hover.selected > .sorting_1 {
+    background: #d99200;
+}
+
+
+/* Dim the detail icon */
+td.my-details-control {
+    filter: brightness(95%);
+}
+td.details-control {
+    filter: brightness(90%);
+}
+
+
+/* Scrollbar styling, overrule the default set theme 3d-thick-dark */
+
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar,
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
+    background-color: #afafaf;
+}
+
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_draggerContainer{
+    background-color: rgba(229, 229, 229, 0.08);
+}
+
+/*.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonUp{ background-position: -32px -72px; }*/
+/*.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonDown{ background-position: -32px -92px; }*/
+/*.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonLeft{ background-position: -40px -112px; }*/
+/*.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonRight{ background-position: -40px -128px; }*/
+
+.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_draggerContainer {
+    background-color: rgba(0, 0, 0, 0.75);
+}

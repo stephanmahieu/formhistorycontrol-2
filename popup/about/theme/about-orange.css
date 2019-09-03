@@ -1,0 +1,32 @@
+body {
+    background: linear-gradient(180deg, #ffab20 0%, #ffab20 5%, #a65b1f 15%, #a65b1f 100%);
+    color: #fff7d7;
+    padding: 0;
+}
+
+.content {
+    border-left: 3px solid #ffab20;
+    border-right: 3px solid #a65b1f;
+}
+
+.footer {
+    background: linear-gradient(0deg, #331614 0%, #331614 8%, #70381f 25%, #a63f22 96%, #70381f 100%);
+    border-left: 3px solid #a63f22;
+    border-right: 3px solid #57201e;
+}
+
+#app-name {
+    color: #000000;
+}
+
+#developer {
+    color: #fcfcfc;
+}
+
+#app-developer-url {
+    color: #739ef3;
+}
+
+.tilt img {
+    filter: drop-shadow(5px 5px 9px rgba(0, 0, 0, 0.7));
+}

@@ -1,0 +1,11 @@
+div.detail-root .label {
+    color: #262626;
+}
+
+#popup-header .header-info {
+    color: #7d7d7d;
+}
+
+#closepopup-action {
+    filter: brightness(90%);
+}

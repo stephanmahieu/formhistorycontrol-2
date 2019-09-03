@@ -1,0 +1,19 @@
+:root {
+    --nav-bar-bg-color: linear-gradient(180deg, #ffe099 0%, #c26100 20%, #c26100 100%); /* #854322; */
+    --nav-bar-border-bottom-color: #888888;
+    --nav-bar-hover-bg-color: #6f371c;
+
+    --nav-text-color: #fff7d7;
+    --nav-bg-color: #6f371c;
+    --nav-menu-spacer-color: #565656;
+
+    --nav-hover-bg-color: #c4885c;
+    --nav-hover-text-color: #fff;
+
+    --nav-disabled-text-color: #8f8f8f;
+    --nav-disabled-hover-bg-color: #61301b;
+    --nav-disabled-hover-text-color: #8f8f8f;
+
+    --nav-border-bottom-color: #e27d00;
+    --nav-box-shadow-color: #191919;
+}

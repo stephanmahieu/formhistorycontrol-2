@@ -19,7 +19,7 @@
 }
 
 nav {
-    background-color: var(--nav-bar-bg-color);
+    background: var(--nav-bar-bg-color);
     margin-bottom: 5px;
 }
 

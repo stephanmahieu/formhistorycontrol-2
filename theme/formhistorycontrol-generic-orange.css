@@ -1,0 +1,60 @@
+:root {
+    --main-bg-color: linear-gradient(135deg, #BABABA 0%, #DEDEDE 18%,#DEDEDE 82%, #BABABA 100%);
+    --main-text-color: #000000;
+
+    --select-bg-color: #ffa500;
+    --select-text-color: #24242d;
+
+    --a-text-color: #56bbff;
+
+    --button-text-color: #000000;
+    --button-bg-color: #dadada;
+    --button-border-color: #656565;
+    --button-hover-text-color: #ffffff;
+    --button-hover-bg-color: #6e6e6e;
+    --button-hover-border-color: #000000;
+    --button-disabled-text-color: #999999;
+    --button-disabled-bg-color: #485590;
+    --button-disabled-border-color: var(--button-border-color);
+
+    --field-bg-color: #292929;
+    --field-text-color: #f9f9f9;
+    --field-border-color: #ffa500;
+    --field-disabled-bg-color: #4c4e57;
+    --field-disabled-text-color: #afafaf;
+
+    --fieldset-bg-color: #373740;
+    --fieldset-border-color: #757575;
+    --legend-bg-color: linear-gradient(0deg, #331614 0%, #331614 8%, #70381f 25%, #a63f22 96%, #70381f 100%);
+    --legend-text-color: #eeeeee;
+    --legend-border-color: #999999;
+
+    --modal-title-text-color: #ffffff;
+    --modal-text-color: #fff7d7;
+    --modal-title-bg-color: rgba(111, 55, 28, 0.5);
+    --modal-bg-color: rgba(166, 91, 31, 0.8);
+    --modal-border-color: #515151;
+}
+
+input, select, textarea, fieldset, legend {
+    border: 1px solid var( --field-border-color);
+}
+
+button {
+    background: linear-gradient(0deg, rgb(186, 186, 186) 0%, rgb(222, 222, 222) 18%,rgb(222, 222, 222) 82%, rgb(186, 186, 186) 100%);
+    color: var(--button-text-color);
+    border: 1px groove var(--button-border-color);
+}
+
+button:hover {
+    background: linear-gradient(0deg, rgb(178, 178, 178) 0%, rgb(125, 125, 125) 18%, rgb(125, 125, 125) 82%, rgb(178, 178, 178) 100%);    /*font-weight: bold;*/
+}
+
+button:disabled,
+button:disabled:hover {
+    background: linear-gradient(0deg, rgb(186, 186, 186) 0%, rgb(222, 222, 222) 18%,rgb(222, 222, 222) 82%, rgb(186, 186, 186) 100%);
+}
+
+button.modal-button {
+    color: #000000;
+}

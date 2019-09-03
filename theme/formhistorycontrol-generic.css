@@ -29,8 +29,8 @@
     --legend-text-color: #1d2063;
     --legend-border-color: var(--fieldset-border-color);
 
-    --modal-title-text-color: #000000;
-    --modal-text-color: #ffffff;
+    --modal-title-text-color: #ffffff;
+    --modal-text-color: #000000;
     --modal-title-bg-color: rgba(16, 50, 101, 0.92);
     --modal-bg-color: hsla(0, 0%, 93%, 0.85);
     --modal-border-color: #ffffff;
@@ -65,7 +65,7 @@ a {
 }
 
 button {
-    background-color: var(--button-bg-color);
+    background: var(--button-bg-color);
     color: var(--button-text-color);
     border: 1px solid var(--button-border-color);
     margin: 2px 2px;
@@ -119,7 +119,7 @@ legend {
     border: 1px solid var(--legend-border-color);
     border-radius: 4px;
     color: var(--legend-text-color);
-    background-color: var(--legend-bg-color);
+    background: var(--legend-bg-color);
     font-weight: bold;
     font-size: 125%;
 }
@@ -177,7 +177,7 @@ legend {
 .modal-message {
     margin: 15px;
     overflow: hidden;
-    color: var(--modal-title-text-color);
+    color: var(--modal-text-color);
     text-align: left;
     white-space: pre-wrap;
     flex: 1;
@@ -192,7 +192,7 @@ legend {
 
 .modal-title {
     margin-left: 20px;
-    color: var(--modal-text-color);
+    color: var(--modal-title-text-color);
     font-weight: bold;
     font-size: 14px;
 }

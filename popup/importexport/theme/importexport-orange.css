@@ -1,0 +1,25 @@
+.status-header {
+    color: #eaeaea;
+}
+
+.content {
+    border: 3px solid #9c9c9c;
+    padding: 3px;
+    background: linear-gradient(180deg, #ffab20 0%, #ffab20 4%, #a65b1f 10%, #a65b1f 100%);
+    box-shadow: 1px 1px 4px inset;
+    color: #fff7d7;
+}
+
+progress[value] {
+    border: 1px solid;
+    background-color: #9a9a9a;
+    box-shadow: 0 2px 2px -2px #000000 inset;
+}
+
+progress::-moz-progress-bar {
+    background: #e27d00;
+}
+
+#linkInfo {
+    color: #d3d2d2;
+}
