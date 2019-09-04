@@ -27,7 +27,8 @@ const ENABLED_SVG_ICON = "/theme/icons/state/fhc_icon_enabled.svg";
 
 
 function receiveIconEvents(fhcEvent, sender, sendResponse) {
-    if (fhcEvent.eventType && fhcEvent.eventType === 888 && fhcEvent.domainFilterChanged) {
+    if (fhcEvent.eventType && fhcEvent.eventType === 888 &&
+          (fhcEvent.domainFilterChanged || fhcEvent.fieldFilterChanged || fhcEvent.retainTypeChanged || fhcEvent.overrideIncognitoChanged)) {
         // only for the active browsertab(s)
         updateIconForActiveTab();
     }
@@ -37,7 +38,7 @@ function updateIconForActiveTab() {
     browser.tabs.query({active: true}).then(tabInfo => {
         if (tabInfo.length > 0) {
             tabInfo.forEach(tab => {
-                updateApplicationIcon(tab.url);
+                updateApplicationIcon(tab.id, tab.url, tab.incognito);
             });
         }
     });
@@ -58,38 +59,41 @@ function updateApplicationIconOnTabActivation(tabId, attempt = 1) {
                 updateApplicationIconOnTabActivation(tabId, ++attempt);
             }, 500);
         } else {
-            updateApplicationIcon(tabInfo.url);
+            updateApplicationIcon(tabInfo.id, tabInfo.url, tabInfo.incognito);
         }
     });
 }
 
-function updateApplicationIcon(url) {
+function updateApplicationIcon(tabId, url, incognito) {
     // skip popup windows
     if (!url.includes('moz-extension://')) {
         // reflect state in icon: disabled/enabled icon when domainfilter is active, normal icon otherwise
 
         OptionsUtil.getFilterPrefs().then(prefs => {
-            if (OptionsUtil.isDomainfilterActive(prefs)) {
-                setApplicationIcon("/theme/icons/fhc-nn.png", "/theme/icons/fhc_icon.svg");
+            if (incognito && !OptionsUtil.doSaveInIncognitoMode(prefs)) {
+                setApplicationIcon(tabId, DISABLED_PNG_ICON, DISABLED_SVG_ICON);
+            } else if (OptionsUtil.isDomainfilterActive(prefs)) {
+                setApplicationIcon(tabId, "/theme/icons/fhc-nn.png", "/theme/icons/fhc_icon.svg");
             } else {
                 const host = MiscUtil.getHostnameFromUrlString(url);
                 if (OptionsUtil.isDomainBlocked(host, prefs)) {
-                    setApplicationIcon(DISABLED_PNG_ICON, DISABLED_SVG_ICON);
+                    setApplicationIcon(tabId, DISABLED_PNG_ICON, DISABLED_SVG_ICON);
                 } else {
-                    setApplicationIcon(ENABLED_PNG_ICON, ENABLED_SVG_ICON);
+                    setApplicationIcon(tabId, ENABLED_PNG_ICON, ENABLED_SVG_ICON);
                 }
             }
         });
     }
 }
 
-function setApplicationIcon(fixedPath, scalablePath) {
-    browser.browserAction.setIcon({path: {
+function setApplicationIcon(tabId, fixedPath, scalablePath) {
+    browser.browserAction.setIcon({
+        tabId: tabId,
+        path: {
             16: fixedPath.replace('nn', '16'),
             32: fixedPath.replace('nn', '32'),
             48: fixedPath.replace('nn', '48'),
             64: fixedPath.replace('nn', '64'),
-            65: scalablePath
-        }}
-    );
+            65: scalablePath}
+    });
 }

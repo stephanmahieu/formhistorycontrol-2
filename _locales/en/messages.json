@@ -450,6 +450,10 @@
     "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
   },
 
+  "optionsOverrideIncognito": {
+    "message": "Do save formhistory in private browsing mode",
+    "description": "Options window, Save formhistory when running in a private browsing tab"
+  },
   "optionsRetainFieldTypes": {
     "message": "Retain which type of field",
     "description": "Options window, Retain which type of field"

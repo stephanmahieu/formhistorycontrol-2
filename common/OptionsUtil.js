@@ -45,7 +45,7 @@ class OptionsUtil {
                     resolve(result);
                 },
                 () => {
-                    resolve(result);
+                    resolve();
                 }
             );
         });
@@ -57,13 +57,14 @@ class OptionsUtil {
                 prefDomainFilter: 'all',
                 prefDomainList  : [],
                 prefFieldList   : [],
-                prefRetainType  : 'all'
+                prefRetainType  : 'all',
+                prefSaveInIncognitoMode: false
             }).then(
                 result => {
                     resolve(result);
                 },
                 () => {
-                    resolve(result);
+                    resolve();
                 }
             );
         });
@@ -85,7 +86,7 @@ class OptionsUtil {
                     resolve(result);
                 },
                 () => {
-                    resolve(result);
+                    resolve();
                 }
             );
         });
@@ -156,5 +157,9 @@ class OptionsUtil {
     static doRetainMultilineField(filterPrefs) {
         // not single-line only
         return 'single' !== filterPrefs.prefRetainType;
+    }
+
+    static doSaveInIncognitoMode(filterPrefs) {
+        return filterPrefs.prefSaveInIncognitoMode;
     }
 }

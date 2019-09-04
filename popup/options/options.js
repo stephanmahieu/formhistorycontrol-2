@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("#themeSelect").addEventListener("change", themeSelectionChanged);
     document.querySelector("#overrideAutocomplete").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#overrideIncognito").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#dateformatSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#scrollAmountSelect").addEventListener("change", checkPropertiesChanged);
 
@@ -131,6 +132,7 @@ function restoreOptions() {
         prefExpertMode           : false,
         prefInterfaceTheme       : "default",
         prefUseCustomAutocomplete: false,
+        prefSaveInIncognitoMode  : false,
         prefMultilineThresholds  : {age: "10", length: "500"},
         prefRetainType           : "all",
         prefUpdateInterval       : "5000",
@@ -156,6 +158,7 @@ function restoreOptions() {
         document.querySelector('#expertMode').checked = res.prefExpertMode;
         document.querySelector('#themeSelect').value = res.prefInterfaceTheme;
         document.querySelector("#overrideAutocomplete").checked = res.prefUseCustomAutocomplete;
+        document.querySelector("#overrideIncognito").checked = res.prefSaveInIncognitoMode;
         document.querySelector('#versionAgeSelect').value = res.prefMultilineThresholds.age;
         document.querySelector('#versionLengthSelect').value = res.prefMultilineThresholds.length;
         document.querySelector('#retainTypeSelect').value = res.prefRetainType;
@@ -195,6 +198,7 @@ function saveOptions(e) {
         eventType: 888,
         interfaceThemeChanged:       (currentOptions.prefInterfaceTheme !== newOptions.prefInterfaceTheme),
         overrideAutocompleteChanged: (currentOptions.prefUseCustomAutocomplete !== newOptions.prefUseCustomAutocomplete),
+        overrideIncognitoChanged:    (currentOptions.prefSaveInIncognitoMode !== newOptions.prefSaveInIncognitoMode),
         multilineThresholdsChanged:  (currentOptions.prefMultilineThresholds.age !== newOptions.prefMultilineThresholds.age
                                    || currentOptions.prefMultilineThresholds.length !== newOptions.prefMultilineThresholds.length),
         retainTypeChanged:           (currentOptions.prefRetainType !== newOptions.prefRetainType),
@@ -227,6 +231,7 @@ function getNewOptions() {
         prefExpertMode           : document.querySelector("#expertMode").checked,
         prefInterfaceTheme       : document.querySelector("#themeSelect").value,
         prefUseCustomAutocomplete: document.querySelector("#overrideAutocomplete").checked,
+        prefSaveInIncognitoMode  : document.querySelector("#overrideIncognito").checked,
         prefMultilineThresholds  : {age   : document.querySelector("#versionAgeSelect").value,
                                     length: document.querySelector("#versionLengthSelect").value},
         prefRetainType           : document.querySelector("#retainTypeSelect").value,

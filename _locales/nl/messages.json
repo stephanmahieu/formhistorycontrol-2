@@ -449,6 +449,10 @@
     "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
   },
 
+  "optionsOverrideIncognito": {
+    "message": "Toch formulier historie opslaan in privénavigatie modus",
+    "description": "Options window, Save formhistory when running in a private browsing tab"
+  },
   "optionsRetainFieldTypes": {
     "message": "Bewaar welk type veld",
     "description": "Options window, Retain which type of field"

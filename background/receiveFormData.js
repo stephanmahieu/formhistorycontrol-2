@@ -93,7 +93,7 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
 
             case 888:
                 // console.log('Background script: options changed!');
-                if (fhcEvent.domainFilterChanged || fhcEvent.fieldFilterChanged || fhcEvent.retainTypeChanged) {
+                if (fhcEvent.domainFilterChanged || fhcEvent.fieldFilterChanged || fhcEvent.retainTypeChanged || fhcEvent.overrideIncognitoChanged) {
                     initFilterOptions();
                 }
                 if (fhcEvent.multilineThresholdsChanged) {
@@ -282,6 +282,10 @@ function doRetainFieldType(fhcEvent) {
 }
 
 function blockedByFilter(fhcEvent) {
+    if (fhcEvent.incognito && !OptionsUtil.doSaveInIncognitoMode(filterPrefs)) {
+        //console.log('name:' + fhcEvent.name + ' is blocked in Incognito mode');
+        return true;
+    }
     if (OptionsUtil.isDomainBlocked(fhcEvent.host, filterPrefs)) {
         //console.log('type:' + fhcEvent.type + ' name:' + fhcEvent.name + ' host:' + fhcEvent.host + ' is blocked by domain');
         return true;
