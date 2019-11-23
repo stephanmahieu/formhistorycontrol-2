@@ -1,0 +1,712 @@
+{
+  "extensionName": {
+    "message": "Form History Control (II)",
+    "description": "The title of this extension"
+  },
+
+  "extensionDescriptionLabel": {
+    "message": "Описание",
+    "description": "Label for description."
+  },
+
+  "extensionDescription": {
+    "message": "Управление историей форм (поиск, просмотр, редактирование, очистка, экспорт / импорт) и простое заполнение форм.",
+    "description": "Description of this extension."
+  },
+
+  "extensionDeveloperLabel": {
+    "message": "Разработчик",
+    "description": "Label for developer."
+  },
+
+
+
+  "fieldName": {
+    "message": "Имя поля",
+    "description": "The label for the formfield-name of a formfield entry."
+  },
+  "fieldValue": {
+    "message": "Содержание",
+    "description": "The label for the value/content of a formfield entry."
+  },
+  "fieldType": {
+    "message": "Тип",
+    "description": "The label for the type of a formfield entry."
+  },
+  "fieldCount": {
+    "message": "Кол-во",
+    "description": "The label for the number of times a formfield entry has been used."
+  },
+  "fieldFirstUsed": {
+    "message": "Создан",
+    "description": "The label for the date a formfield entry was first used."
+  },
+  "fieldLastUsed": {
+    "message": "Доступ",
+    "description": "The label for the date a formfield entry was last used."
+  },
+  "fieldAge": {
+    "message": "Возраст",
+    "description": "The label for the age of a formfield entry since it was last used."
+  },
+  "fieldHost": {
+    "message": "Сайт",
+    "description": "The label for the host where the formfield entry was used."
+  },
+  "pagingAll": {
+    "message": "Все",
+    "description": "For the paging list, indicates All values displayed in one single page."
+  },
+
+
+  "operationWindowTile": {
+    "message": "Поле формы",
+    "description": "Window title of the formfield edit window."
+  },
+  "operationViewField": {
+    "message": "Просмотр записи истории форм",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditOneField": {
+    "message": "Изменение записи истории форм",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditMultipleFields": {
+    "message": "Изменение записей истории форм",
+    "description": "Edit multiple fields at once, info displayed in edit window."
+  },
+  "operationAddField": {
+    "message": "Добавление новой записи в истрию форм",
+    "description": "Add a new field, info displayed in edit window."
+  },
+  "labelPreview": {
+    "message": "Вид",
+    "description": "Label for the checkbox which toggles the HTML preview window."
+  },
+  "menuItemTitleClipboard": {
+    "message": "Буфер обмена:",
+    "description": "Contextmenu clipboard title."
+  },
+  "menuItemText2Clipboard": {
+    "message": "Копировать как текст",
+    "description": "Contextmenu item: Copy only clean text to clipboard."
+  },
+  "menuItemHtml2Clipboard": {
+    "message": "Копировать как HTML",
+    "description": "Contextmenu item: Copy entire HTML to clipboard."
+  },
+
+
+  "dialogErrorTitle": {
+    "message": "Ошибка",
+    "description": "Title of error dialog."
+  },
+  "dialogWarningTitle": {
+    "message": "Внимание",
+    "description": "Title of warning dialog."
+  },
+  "dialogInformationTitle": {
+    "message": "Информация",
+    "description": "Title of information dialog."
+  },
+  "dialogQuestionTitle": {
+    "message": "Вопрос",
+    "description": "Title of question dialog."
+  },
+
+
+  "dialogErrorTitleDatabase": {
+    "message": "Ошибка хранилища, нет доступа к базе данных!",
+    "description": "Title of error dialog for database access errors."
+  },
+  "databaseError": {
+    "message": "Доступ к базе данных заблокирован ($ERROR$). Это приложение требует разрешенных cookie, проверьте настройки приватности и защиты браузера",
+    "description": "Error displayed when the database is not accessible",
+    "placeholders": {
+      "error" : {
+        "content" : "$1",
+        "example" : "SecurityError"
+      }
+    }
+  },
+  "timeoutTooMuchDataWarning": {
+    "message": "Слишком много данных для быстрого просмотра, используйте настройки очистки или откройте окно 'Управление историей' (правый клик мыши).\n\n($count$ записей из $total$ скрыты)",
+    "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
+    "placeholders": {
+      "count" : {
+        "content" : "$1",
+        "example" : "10"
+      },
+      "total" : {
+        "content" : "$2",
+        "example" : "100"
+      }
+    }
+  },
+
+  "informClipboardValueCopied": {
+    "message": "Значение скопировано в буфер обмена",
+    "description": "Information message that clipboard value has been copied."
+  },
+
+  "confirmStartCleanupTitle": {
+    "message": "Начать очистку?",
+    "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
+  },
+  "confirmStartCleanupMessage": {
+    "message": "Удалить историю форм, не использованную более $nrofdays$ дней?\n\n(возраст назначается в настройках)",
+    "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
+    "placeholders": {
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
+      }
+    }
+  },
+  "informCleanupInitiated": {
+    "message": "Удаляется история форм, не использованная более $nrofdays$ дней.",
+    "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
+    "placeholders": {
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
+      }
+    }
+  },
+
+  "confirmDeleteMultipleTitle": {
+    "message": "Удалить выбранные записи?",
+    "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
+  },
+  "confirmDeleteMultipleMessage": {
+    "message": "Несколько записей выбрано, удалить все выбранные записи?",
+    "description": "Message asking confirmation for deleting multiple selected item."
+  },
+
+  "validationErrorMissingRequired": {
+    "message": "Не все обязательные поля заполнены",
+    "description": "Validation message for missing mandatory values."
+  },
+  "validationErrorLastBeforeFirst": {
+    "message": "Дата доступа должна быть равна или больше даты создания.",
+    "description": "Validation message for last date being before first date."
+  },
+  "validationErrorAtLastOneField": {
+    "message": "Хотя бы одно поле должно бать заполнено.",
+    "description": "Validation message for no fields having a value."
+  },
+  "validationErrorNotNumeric": {
+    "message": "Значение не числовое.",
+    "description": "Validation message for value not being a numeric value."
+  },
+  "validationErrorInvalidURL": {
+    "message": "Значение недопустимый URL.",
+    "description": "Validation message for value not being a valid URL."
+  },
+
+
+  "buttonOkay": {
+    "message": "ОК",
+    "description": "Label of the okay button."
+  },
+  "buttonCancel": {
+    "message": "Отмена",
+    "description": "Label of the cancel button."
+  },
+  "buttonClose": {
+    "message": "Закрыть",
+    "description": "Label of the close button."
+  },
+  "buttonApply": {
+    "message": "Применить",
+    "description": "Label of the apply button."
+  },
+  "buttonDelete": {
+    "message": "Удалить",
+    "description": "Label of delete button."
+  },
+  "buttonCleanup": {
+    "message": "Очистить",
+    "description": "Label of cleanup button."
+  },
+  "buttonModify": {
+    "message": "Изменить",
+    "description": "Label of modify button."
+  },
+  "buttonAdd": {
+    "message": "Добавить",
+    "description": "Label of add button."
+  },
+  "buttonExport": {
+    "message": "Экспорт",
+    "description": "Label of export button."
+  },
+  "buttonImport": {
+    "message": "Импорт",
+    "description": "Label of import button."
+  },
+  "buttonYes": {
+    "message": "Да",
+    "description": "Label of yes button."
+  },
+  "buttonNo": {
+    "message": "Нет",
+    "description": "Label of no button."
+  },
+
+
+  "importErrorTitle": {
+    "message": "Ошибка импорта.",
+    "description": "Title of modal error dialog for import errors."
+  },
+  "importErrorNotXml": {
+    "message": "Не xml-файл, импорт прерван.",
+    "description": "Error message when trying to import a file which is not XML."
+  },
+  "importErrorNotFound": {
+    "message": "Файл импорта не найден.",
+    "description": "Error message when import file is not found."
+  },
+  "importErrorNotReadable": {
+    "message": "Файл импорта не читается.",
+    "description": "Error message when import file is not readable."
+  },
+  "importErrorUnknown": {
+    "message": "Ошибка при чтении файла импорта.",
+    "description": "Error message when an error occurred reading the import file."
+  },
+  "importErrorCancelled": {
+    "message": "Чтение файла импорта отменено.",
+    "description": "Error message when reading import file was cancelled."
+  },
+
+
+  "tooltipEraseDatetimeButton": {
+    "message": "Очистить дату и время",
+    "description": "Tooltip for the erase button: erase date and time"
+  },
+  "tooltipNowDatetimeButton": {
+    "message": "Установить текущую дату и время",
+    "description": "Tooltip for the time button: set the current date and time"
+  },
+
+
+  "labelYesr": {
+    "message": "Год",
+    "description": "Label for Year."
+  },
+  "labelMonth": {
+    "message": "Месяц",
+    "description": "Label for Month."
+  },
+  "labelDay": {
+    "message": "День",
+    "description": "Label for Day."
+  },
+  "labelTime": {
+    "message": "Время",
+    "description": "Label for Time."
+  },
+
+
+  "importTitle": {
+    "message": "Импорт",
+    "description": "Title of import window."
+  },
+  "exportTitle": {
+    "message": "Экспорт",
+    "description": "Title of the export window."
+  },
+  "exportStatus": {
+    "message": "Статус",
+    "description": "Import/Export window: Status header"
+  },
+  "exportNoOfTextEntries": {
+    "message": "Количество текстовых записей:",
+    "description": "Import/Export window: Number of text entries."
+  },
+  "exportNoOfdMultilineEntries": {
+    "message": "Количество многострочных записей:",
+    "description": "Import/Export window: Number of multiline entries."
+  },
+  "exportDownloadLink": {
+    "message": "Ссылка для загрузки:",
+    "description": "Export window: Download link:"
+  },
+  "exportDownloadLinkInfo": {
+    "message": "Нажмите на ссылку загрузки, чтобы открыть или сохранить файл экспорта.",
+    "description": "Short explanation in the export dialog: click download link to open or save locally"
+  },
+
+
+  "aboutTitle": {
+    "message": "О расширении",
+    "description": "Title of the About window."
+  },
+
+
+  "optionTitle": {
+    "message": "Настройки",
+    "description": "Title of the options window."
+  },
+
+  "optionDefault": {
+    "message": "по умолчанию",
+    "description": "The 'default' option in a select list."
+  },
+  "optionAutomatic": {
+    "message": "автоматически",
+    "description": "The 'automatic' option in a select list."
+  },
+
+  "optionsDisplayMenu": {
+    "message": "Отображение",
+    "description": "Options window: Left Display menu."
+  },
+  "optionsMiscellaneousMenu": {
+    "message": "Разное",
+    "description": "Options window: Left Miscellaneous menu."
+  },
+  "optionsShortcutsMenu": {
+    "message": "Клавиши",
+    "description": "Options window: Key bindings (Shortcut keys)"
+  },
+  "optionsDomainlistMenu": {
+    "message": "Фильтр сайтов",
+    "description": "Options window: Left Domain Filter menu."
+  },
+  "optionsFieldlistMenu": {
+    "message": "Фильтр полей",
+    "description": "Options window: Left Field Filter menu."
+  },
+  "optionsCleanupMenu": {
+    "message": "Очистка",
+    "description": "Options window: Left Cleanup menu."
+  },
+
+  "optionsDisplayLegend": {
+    "message": "Отображение",
+    "description": "Options window: The Display legend."
+  },
+  "optionsThemeSelect": {
+    "message": "Выбрать тему",
+    "description": "Options window: The theme selection dropdown label"
+  },
+  "optionsDateformatSelect": {
+    "message": "Выбрать формат даты",
+    "description": "Options window: The date format selection dropdown label"
+  },
+
+  "optionsMiscellaneousLegend": {
+    "message": "Разное",
+    "description": "Options window: The Miscellaneous legend."
+  },
+  "optionsOverrideAutocomplete": {
+    "message": "Переопределить встроенное автозаполнение",
+    "description": "Options window: The Override autocomplete checkbox Label."
+  },
+
+  "optionsShortcutsLegend": {
+    "message": "Сочетания клавиш",
+    "description": "Options window: The Shortcut key combinations legend."
+  },
+  "optionsShortcutsMainDialog": {
+    "message": "(основной диалог)",
+    "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
+  },
+  "optionsShortcutsSmallDialog": {
+    "message": "(малый диалог)",
+    "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
+  },
+  "optionsShortcutsUpdateNotSupported": {
+    "message": "Обновление сочетаний (пока) не поддерживается браузером!",
+    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
+  },
+
+  "optionsSaveNewVersionMultiline": {
+    "message": "Заменить запись многострочного поля, если:",
+    "description": "Options window, sub heading: Save a new version of a multiline field when:."
+  },
+  "optionsSaveNewVersionMultilineAge": {
+    "message": "последняя сохраненная версия старше:",
+    "description": "Options window, label before select list with time options: last saved version is older than:."
+  },
+  "optionsSaveNewVersionMultilineCount": {
+    "message": "или длина содержимого больше чем:",
+    "description": "Options window label before select list with no of characters: or content length changes more than:."
+  },
+  "optionsSaveNewVersionMultilineCharacters": {
+    "message": "символов",
+    "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
+  },
+
+  "optiondomainlistlegend": {
+    "message": "Включение / отключение истории сайтов",
+    "description": "Options window: The Domain Filter legend."
+  },
+  "optionsradiodomainall": {
+    "message": "Разрешить все",
+    "description": "Options window, domainfilter: Label for Allow All radiobutton."
+  },
+  "optionsradiodomainblacklist": {
+    "message": "Черный список",
+    "description": "Options window, domainfilter: Label for Blacklist radiobutton."
+  },
+  "optionsradiodomainwhitelist": {
+    "message": "Белый список",
+    "description": "Options window, domainfilter: Label for Whitelist radiobutton."
+  },
+
+  "optionsFieldlistlegend": {
+    "message": "Отключить историю определенных полей",
+    "description": "Options window: The Cleanup legend."
+  },
+
+  "optionsCleanupLegend": {
+    "message": "Осистка",
+    "description": "Options window: The Cleanup legend."
+  },
+  "optionsautocleanup": {
+    "message": "Периодическая автоочистка",
+    "description": "Options window, cleanup: Label for auto cleanup checkbox."
+  },
+  "optionsremovedays": {
+    "message": "Удалять записи, не использованные более",
+    "description": "Options window, cleanup: Label before no of days input."
+  },
+  "optionsremovedaysdays": {
+    "message": "дней",
+    "description": "Options window, cleanup: Label after no of days input."
+  },
+  "buttoncleanupnow": {
+    "message": "Очистить сейчас",
+    "description": "Options window, cleanup: Label of the cleanup-now button."
+  },
+
+  
+  "popupHeader": {
+    "message": "Менеджер истории форм",
+    "description": "Header title of the small popup."
+  },
+  "popupHeaderInfo": {
+    "message": "показана история только этой страницы",
+    "description": "Extra info next to the header title of the small popup."
+  },
+  "open_preference_tooltip": {
+    "message": "Открыть настройки",
+    "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
+  },
+  "open_bigdialog_tooltip": {
+    "message": "Открыть основное окно менджера истории",
+    "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
+  },
+
+  
+  "notificationTitle": {
+    "message": "Тестовое уведомление",
+    "description": "Title of the test notification."
+  },
+  "notificationContent": {
+    "message": "Тестовое сообщение: $MESSAGE$.",
+    "description": "Just a test notification.",
+    "placeholders": {
+      "message" : {
+        "content" : "$1",
+        "example" : "Дарова Мир! :)"
+      }
+    }
+  },
+
+
+
+  "contextMenuItemManageHistory": {
+    "message": "Менеджер истории форм",
+    "description": "Title of context menu item that starts the Manage history dialog."
+  },
+  "contextMenuItemRestoreEditorField": {
+    "message": "Заполнить редактируемое поле",
+    "description": "Title of context menu item that displays the editor (wysiwyg) field values."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuHostname": {
+    "message": "Соответствие по сайту",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuLastused": {
+    "message": "Самые последние записи",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuMore": {
+    "message": "Дополнительно...",
+    "description": "Last Submenu-item in ontext-menu 'Restore Edit field' indicating more items."
+  },
+  "contextMenuItemFillMostRecent": {
+    "message": "Заполнить последними записями",
+    "description": "Title of context menu item that fills formfields with the most recent used value."
+  },
+  "contextMenuItemFillMostUsed": {
+    "message": "Заполнить наиболее используемыми",
+    "description": "Title of context menu item that fills formfields with the most used value."
+  },
+  "contextMenuItemClearFields": {
+    "message": "Очистить заполненные поля",
+    "description": "Title of context menu item that clears all filled fields."
+  },
+  "contextMenuItemShowformfields": {
+    "message": "Показать редактируемые поля",
+    "description": "Title of context menu item that shows info next to input textfields om the page."
+  },
+  "contextMenuItemOptions": {
+    "message": "Настройки",
+    "description": "Title of context menu item that shows the preferences page."
+  },
+
+
+  "menuFile": {
+    "message": "Файл",
+    "description": "Label of File menu."
+  },
+  "menuItemFileImport": {
+    "message": "Импорт",
+    "description": "Label of Import menuitem in the File menu."
+  },
+  "menuItemFileExport": {
+    "message": "Экспорт",
+    "description": "Label of Export menuitem in the File menu."
+  },
+  "menuItemFileClose": {
+    "message": "Закрыть",
+    "description": "Label of Close menuitem in the File menu."
+  },
+
+  "menuEdit": {
+    "message": "Правка",
+    "description": "Label of Edit menu."
+  },
+  "menuItemEditAdd": {
+    "message": "Добавить",
+    "description": "Label of Add menuitem in the Edit menu."
+  },
+  "menuItemEditModify": {
+    "message": "Изменить",
+    "description": "Label of Modify menuitem in the Edit menu."
+  },
+  "menuItemEditDelete": {
+    "message": "Удалить",
+    "description": "Label of Delete menuitem in the Edit menu."
+  },
+  "menuItemEditClipboard": {
+    "message": "Копировать в буфер",
+    "description": "Label of Copy to clipboard menuitem in the Edit menu."
+  },
+  "menuItemEditSelectAll": {
+    "message": "Выбрать все",
+    "description": "Label of Select all menuitem in the Edit menu."
+  },
+  "menuItemEditSelectNone": {
+    "message": "Снять выбор",
+    "description": "Label of Select none menuitem in the Edit menu."
+  },
+  "menuItemEditSelectInvert": {
+    "message": "Обратить выбор",
+    "description": "Label of Invert selection menuitem in the Edit menu."
+  },
+
+  "menuDisplay": {
+    "message": "Вид",
+    "description": "Label of Display menu."
+  },
+  "menuItemDisplayRefresh": {
+    "message": "Обновить",
+    "description": "Label of Refresh menuitem in the Display menu."
+  },
+
+  "menuExtra": {
+    "message": "Дополнительно",
+    "description": "Label of Extra menu."
+  },
+  "menuItemExtraPreferences": {
+    "message": "Настройки",
+    "description": "Label of Preferences menuitem in the Extra menu."
+  },
+  "menuItemExtraCleanupNow": {
+    "message": "Очистить сейчас",
+    "description": "Label of cleanup-now menuitem in the Extra menu."
+  },
+
+  "menuHelp": {
+    "message": "Помощь",
+    "description": "Label of Help menu."
+  },
+  "menuItemInfoSubmenu": {
+    "message": "Информация",
+    "description": "Label of Info submenu in the context menu."
+  },
+  "menuItemHelpOverview": {
+    "message": "Справка",
+    "description": "Label of Help menuitem in the Help menu."
+  },
+  "menuItemHelpReleasenotes": {
+    "message": "Что нового",
+    "description": "Label of Releasenotes menuitem in the Help menu."
+  },
+  "menuItemHelpAbout": {
+    "message": "О расширении",
+    "description": "Label of About menuitem in the Help menu."
+  },
+
+  "paMenuItemAddBlacklist": {
+    "message": "Добавить в черный список текущую страницу",
+    "description": "Label pageaction menuitem: Blacklist current page"
+  },
+  "paMenuItemDeleteBlacklist": {
+    "message": "Убрать из черного списка текущую страницу",
+    "description": "Label pageaction menuitem: Remove current page from the blacklist."
+  },
+  "paMenuItemAddWhitelist": {
+    "message": "Добавить в белый список текущую страницу",
+    "description": "Label pageaction menuitem: Whitelist current page."
+  },
+  "paMenuItemDeleteWhitelist": {
+    "message": "Убрать из белого списка текущую страницу",
+    "description": "Label pageaction menuitem: Remove current page from the whitelist."
+  },
+
+  "loading_status": {
+    "message": "Загрузка...",
+    "description": "Text displayed while data is being loaded."
+  },
+
+  "dateSecond":  {"message": "секунда"},
+  "dateSeconds": {"message": "секунд"},
+  "dateMinute":  {"message": "минута"},
+  "dateMinutes": {"message": "минут"},
+  "dateHour":    {"message": "час"},
+  "dateHours":   {"message": "часов"},
+  "dateDay":     {"message": "день"},
+  "dateDays":    {"message": "дней"},
+  "dateWeek":    {"message": "неделя"},
+  "dateWeeks":   {"message": "недель"},
+  "dateMonth":   {"message": "месяц"},
+  "dateMonths":  {"message": "месяцев"},
+  "dateYear":    {"message": "год"},
+  "dateYears":   {"message": "лет"},
+
+  "Shift":    {"message": "Shift"},
+  "Ctrl":     {"message": "Ctrl"},
+  "Alt":      {"message": "Alt"},
+  "Command":  {"message": "Command"},
+  "MacCtrl":  {"message": "Ctrl(Mac)"},
+  "Comma":    {"message": "Comma"},
+  "Period":   {"message": "Period"},
+  "Home":     {"message": "Home"},
+  "End":      {"message": "End"},
+  "PageUp":   {"message": "Page Up"},
+  "PageDown": {"message": "Page Down"},
+  "Space":    {"message": "Space"},
+  "Insert":   {"message": "Insert"},
+  "Delete":   {"message": "Delete"},
+  "Up":       {"message": "Up"},
+  "Down":     {"message": "Down"},
+  "Left":     {"message": "Left"},
+  "Right":    {"message": "Right"}
+}
