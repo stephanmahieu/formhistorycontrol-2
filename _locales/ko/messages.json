@@ -1,0 +1,748 @@
+{
+  "extensionName": {
+    "message": "Form History Control (II)",
+    "description": "The title of this extension"
+  },
+
+  "extensionDescriptionLabel": {
+    "message": "설명",
+    "description": "Label for description."
+  },
+
+  "extensionDescription": {
+    "message": "폼 기록 관리 (검색, 보기, 편집, 정리, 내보내기/가져오기) 및 간편한 폼 채우기 기능을 제공합니다.",
+    "description": "Description of this extension."
+  },
+
+  "extensionDeveloperLabel": {
+    "message": "개발자",
+    "description": "Label for developer."
+  },
+
+
+
+  "fieldName": {
+    "message": "필드명",
+    "description": "The label for the formfield-name of a formfield entry."
+  },
+  "fieldValue": {
+    "message": "내용",
+    "description": "The label for the value/content of a formfield entry."
+  },
+  "fieldType": {
+    "message": "종류",
+    "description": "The label for the type of a formfield entry."
+  },
+  "fieldCount": {
+    "message": "사용 횟수",
+    "description": "The label for the number of times a formfield entry has been used."
+  },
+  "fieldFirstUsed": {
+    "message": "처음 사용",
+    "description": "The label for the date a formfield entry was first used."
+  },
+  "fieldLastUsed": {
+    "message": "마지막 사용",
+    "description": "The label for the date a formfield entry was last used."
+  },
+  "fieldAge": {
+    "message": "기간",
+    "description": "The label for the age of a formfield entry since it was last used."
+  },
+  "fieldHost": {
+    "message": "호스트",
+    "description": "The label for the host where the formfield entry was used."
+  },
+  "pagingAll": {
+    "message": "모두",
+    "description": "For the paging list, indicates All values displayed in one single page."
+  },
+
+
+  "operationWindowTile": {
+    "message": "폼 필드",
+    "description": "Window title of the formfield edit window."
+  },
+  "operationViewField": {
+    "message": "폼 기록 항목 보기",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditOneField": {
+    "message": "기존 폼 기록 항목 편집",
+    "description": "Edit a single field, info displayed in edit window."
+  },
+  "operationEditMultipleFields": {
+    "message": "여러 폼 기록 항목 편집",
+    "description": "Edit multiple fields at once, info displayed in edit window."
+  },
+  "operationAddField": {
+    "message": "새 폼 기록 항목 추가",
+    "description": "Add a new field, info displayed in edit window."
+  },
+  "labelPreview": {
+    "message": "보기",
+    "description": "Label for the checkbox which toggles the HTML preview window."
+  },
+  "menuItemTitleClipboard": {
+    "message": "클립보드:",
+    "description": "Contextmenu clipboard title."
+  },
+  "menuItemText2Clipboard": {
+    "message": "평문 텍스트만 복사",
+    "description": "Contextmenu item: Copy only clean text to clipboard."
+  },
+  "menuItemHtml2Clipboard": {
+    "message": "전체 (HTML) 내용 복사",
+    "description": "Contextmenu item: Copy entire HTML to clipboard."
+  },
+
+
+  "dialogErrorTitle": {
+    "message": "오류",
+    "description": "Title of error dialog."
+  },
+  "dialogWarningTitle": {
+    "message": "경고",
+    "description": "Title of warning dialog."
+  },
+  "dialogInformationTitle": {
+    "message": "정보",
+    "description": "Title of information dialog."
+  },
+  "dialogQuestionTitle": {
+    "message": "질문",
+    "description": "Title of question dialog."
+  },
+
+
+  "dialogErrorTitleDatabase": {
+    "message": "저장소 오류, 데이터베이스 접근 불가!",
+    "description": "Title of error dialog for database access errors."
+  },
+  "databaseError": {
+    "message": "데이터베이스 접근이 차단되었습니다 ($ERROR$). 이 애플리케이션에는 쿠키 권한이 필요합니다, 브라우저의 개인정보 및 보안 설정을 확인해주세요.",
+    "description": "Error displayed when the database is not accessible",
+    "placeholders": {
+      "error" : {
+        "content" : "$1",
+        "example" : "SecurityError"
+      }
+    }
+  },
+  "timeoutTooMuchDataWarning": {
+    "message": "팝업 창에서 재빠르게 표시하기에는 데이터 수가 너무 많습니다, 정리 기능으로 데이터 개수를 줄여보시거나 '기록 관리' 창을 열어 확인하세요 (마우스 오른쪽 클릭).\n\n(전체 $total$ 중 $count$ 결과를 표시하지 않았습니다)",
+    "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
+    "placeholders": {
+      "count" : {
+        "content" : "$1",
+        "example" : "10"
+      },
+      "total" : {
+        "content" : "$2",
+        "example" : "100"
+      }
+    }
+  },
+
+  "informClipboardValueCopied": {
+    "message": "값을 클립보드에 복사했습니다",
+    "description": "Information message that clipboard value has been copied."
+  },
+
+  "confirmStartCleanupTitle": {
+    "message": "정리를 시작할까요?",
+    "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
+  },
+  "confirmStartCleanupMessage": {
+    "message": "지난 $nrofdays$일 간 쓰이지 않은 폼 기록 항목 정리 및 삭제 작업을 시작할까요?\n\n(대상 기간은 설정에서 조절할 수 있습니다)",
+    "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
+    "placeholders": {
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
+      }
+    }
+  },
+  "informCleanupInitiated": {
+    "message": "정리를 시작했습니다, 지난 $nrofdays$ 일간 쓰이지 않은 폼 기록 항목이 삭제됩니다.",
+    "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
+    "placeholders": {
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
+      }
+    }
+  },
+
+  "confirmDeleteMultipleTitle": {
+    "message": "선택한 항목을 모두 삭제할까요?",
+    "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
+  },
+  "confirmDeleteMultipleMessage": {
+    "message": "여러 항목을 선택했습니다, 선택한 항목을 모두 삭제할까요?",
+    "description": "Message asking confirmation for deleting multiple selected item."
+  },
+
+  "validationErrorMissingRequired": {
+    "message": "입력되지 않은 필수 필드가 있습니다",
+    "description": "Validation message for missing mandatory values."
+  },
+  "validationErrorLastBeforeFirst": {
+    "message": "'마지막 사용'일은 반드시 '첫 사용'일과 같거나 나중이어야 합니다.",
+    "description": "Validation message for last date being before first date."
+  },
+  "validationErrorAtLastOneField": {
+    "message": "적어도 하나의 필드는 값이 입력되어야 합니다.",
+    "description": "Validation message for no fields having a value."
+  },
+  "validationErrorNotNumeric": {
+    "message": "숫자 값이 아닙니다.",
+    "description": "Validation message for value not being a numeric value."
+  },
+  "validationErrorInvalidURL": {
+    "message": "올바른 URL이 아닙니다.",
+    "description": "Validation message for value not being a valid URL."
+  },
+
+
+  "buttonOkay": {
+    "message": "확인",
+    "description": "Label of the okay button."
+  },
+  "buttonCancel": {
+    "message": "취소",
+    "description": "Label of the cancel button."
+  },
+  "buttonClose": {
+    "message": "닫기",
+    "description": "Label of the close button."
+  },
+  "buttonApply": {
+    "message": "적용",
+    "description": "Label of the apply button."
+  },
+  "buttonDelete": {
+    "message": "삭제",
+    "description": "Label of delete button."
+  },
+  "buttonCleanup": {
+    "message": "정리",
+    "description": "Label of cleanup button."
+  },
+  "buttonModify": {
+    "message": "변경",
+    "description": "Label of modify button."
+  },
+  "buttonAdd": {
+    "message": "추가",
+    "description": "Label of add button."
+  },
+  "buttonExport": {
+    "message": "내보내기",
+    "description": "Label of export button."
+  },
+  "buttonImport": {
+    "message": "가져오기",
+    "description": "Label of import button."
+  },
+  "buttonYes": {
+    "message": "예",
+    "description": "Label of yes button."
+  },
+  "buttonNo": {
+    "message": "아니오",
+    "description": "Label of no button."
+  },
+
+
+  "importErrorTitle": {
+    "message": "가져오기 오류",
+    "description": "Title of modal error dialog for import errors."
+  },
+  "importErrorNotXml": {
+    "message": "XML 파일이 아닙니다, 가져오기를 중단했습니다.",
+    "description": "Error message when trying to import a file which is not XML."
+  },
+  "importErrorNotFound": {
+    "message": "가져올 파일을 찾지 못했습니다.",
+    "description": "Error message when import file is not found."
+  },
+  "importErrorNotReadable": {
+    "message": "가져올 파일을 읽을 수 없습니다.",
+    "description": "Error message when import file is not readable."
+  },
+  "importErrorUnknown": {
+    "message": "가져올 파일을 읽는 중 오류가 발생했습니다.",
+    "description": "Error message when an error occurred reading the import file."
+  },
+  "importErrorCancelled": {
+    "message": "가져올 파일 읽기가 취소되었습니다.",
+    "description": "Error message when reading import file was cancelled."
+  },
+
+
+  "tooltipEraseDatetimeButton": {
+    "message": "날짜 및 시간 지우기",
+    "description": "Tooltip for the erase button: erase date and time"
+  },
+  "tooltipNowDatetimeButton": {
+    "message": "현재 날짜 및 시간으로 설정",
+    "description": "Tooltip for the time button: set the current date and time"
+  },
+
+
+  "labelYesr": {
+    "message": "년",
+    "description": "Label for Year."
+  },
+  "labelMonth": {
+    "message": "월",
+    "description": "Label for Month."
+  },
+  "labelDay": {
+    "message": "일",
+    "description": "Label for Day."
+  },
+  "labelTime": {
+    "message": "시간",
+    "description": "Label for Time."
+  },
+
+
+  "importTitle": {
+    "message": "가져오기",
+    "description": "Title of import window."
+  },
+  "exportTitle": {
+    "message": "내보내기",
+    "description": "Title of the export window."
+  },
+  "exportStatus": {
+    "message": "상태",
+    "description": "Import/Export window: Status header"
+  },
+  "exportNoOfTextEntries": {
+    "message": "텍스트 항목 개수:",
+    "description": "Import/Export window: Number of text entries."
+  },
+  "exportNoOfdMultilineEntries": {
+    "message": "여러 줄 항목 개수:",
+    "description": "Import/Export window: Number of multiline entries."
+  },
+  "exportDownloadLink": {
+    "message": "다운로드 링크:",
+    "description": "Export window: Download link:"
+  },
+  "exportDownloadLinkInfo": {
+    "message": "다운로드 링크를 클릭하여 내보낸 파일을 열거나 저장하세요.",
+    "description": "Short explanation in the export dialog: click download link to open or save locally"
+  },
+
+
+  "aboutTitle": {
+    "message": "정보",
+    "description": "Title of the About window."
+  },
+
+
+  "optionTitle": {
+    "message": "환경설정",
+    "description": "Title of the options window."
+  },
+
+  "optionDefault": {
+    "message": "기본",
+    "description": "The 'default' option in a select list."
+  },
+  "optionAutomatic": {
+    "message": "자동",
+    "description": "The 'automatic' option in a select list."
+  },
+
+  "optionsExpertMode": {
+    "message": "고급 설정 표시",
+    "description": "Options window: Show advanced options checkbox."
+  },
+
+  "optionsDisplayMenu": {
+    "message": "보기",
+    "description": "Options window: Left Display menu."
+  },
+  "optionsMiscellaneousMenu": {
+    "message": "기타",
+    "description": "Options window: Left Miscellaneous menu."
+  },
+  "optionsShortcutsMenu": {
+    "message": "키보드",
+    "description": "Options window: Key bindings (Shortcut keys)"
+  },
+  "optionsDomainlistMenu": {
+    "message": "도메인 필터",
+    "description": "Options window: Left Domain Filter menu."
+  },
+  "optionsFieldlistMenu": {
+    "message": "필드 필터",
+    "description": "Options window: Left Field Filter menu."
+  },
+  "optionsCleanupMenu": {
+    "message": "정리",
+    "description": "Options window: Left Cleanup menu."
+  },
+
+  "optionsDisplayLegend": {
+    "message": "보기",
+    "description": "Options window: The Display legend."
+  },
+  "optionsThemeSelect": {
+    "message": "테마 선택",
+    "description": "Options window: The theme selection dropdown label"
+  },
+  "optionsDateformatSelect": {
+    "message": "날짜 형식 선택",
+    "description": "Options window: The date format selection dropdown label"
+  },
+  "optionsScrollAmountSelect": {
+    "message": "마우스 휠 스크롤할 양 (픽셀)",
+    "description": "Options window: The scroll amount selection dropdown label"
+  },
+
+
+  "optionsMiscellaneousLegend": {
+    "message": "기타",
+    "description": "Options window: The Miscellaneous legend."
+  },
+  "optionsOverrideAutocomplete": {
+    "message": "기본 자동완성 기능을 대체",
+    "description": "Options window: The Override autocomplete checkbox Label."
+  },
+
+  "optionsShortcutsLegend": {
+    "message": "단축 키 조합",
+    "description": "Options window: The Shortcut key combinations legend."
+  },
+  "optionsShortcutsMainDialog": {
+    "message": "(주 대화상자)",
+    "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
+  },
+  "optionsShortcutsSmallDialog": {
+    "message": "(작은 대화상자)",
+    "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
+  },
+  "optionsShortcutsUpdateNotSupported": {
+    "message": "단축 키 교체가 이 브라우저에서는 (아직) 지원되지 않습니다!",
+    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
+  },
+
+  "optionsSaveNewVersionMultiline": {
+    "message": "여러 줄 필드의 새 기록을 저장할 시기:",
+    "description": "Options window, sub heading: Save a new version of a multiline field when:."
+  },
+  "optionsSaveNewVersionMultilineAge": {
+    "message": "직전에 저장한 기록이 다음 기간보다 오래될 때:",
+    "description": "Options window, label before select list with time options: last saved version is older than:."
+  },
+  "optionsSaveNewVersionMultilineCount": {
+    "message": "또는 바뀐 내용 길이가 다음보다 많을 때:",
+    "description": "Options window label before select list with no of characters: or content length changes more than:."
+  },
+  "optionsSaveNewVersionMultilineCharacters": {
+    "message": "글자",
+    "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
+  },
+
+  "optionsOverrideIncognito": {
+    "message": "사생활 보호 모드에서 폼 기록 저장",
+    "description": "Options window, Save formhistory when running in a private browsing tab"
+  },
+  "optionsRetainFieldTypes": {
+    "message": "기록을 유지할 필드 종류",
+    "description": "Options window, Retain which type of field"
+  },
+  "optionsRetainFieldAll": {
+    "message": "한 줄 + 여러 줄",
+    "description": "Options window, Single-line + Multi-line"
+  },
+  "optionsRetainFieldMulti": {
+    "message": "여러 줄만",
+    "description": "Options window, Multi-line only"
+  },
+  "optionsRetainFieldSingle": {
+    "message": "한 줄만",
+    "description": "Options window, Single-line only"
+  },
+
+  "optionsuUdateInterval": {
+    "message": "업데이트 주기",
+    "description": "Options window, Update interval"
+  },
+
+  "optiondomainlistlegend": {
+    "message": "도메인별 기록 기능 사용/중지",
+    "description": "Options window: The Domain Filter legend."
+  },
+  "optionsradiodomainall": {
+    "message": "모두 허용",
+    "description": "Options window, domainfilter: Label for Allow All radiobutton."
+  },
+  "optionsradiodomainblacklist": {
+    "message": "금지 목록",
+    "description": "Options window, domainfilter: Label for Blacklist radiobutton."
+  },
+  "optionsradiodomainwhitelist": {
+    "message": "허용 목록",
+    "description": "Options window, domainfilter: Label for Whitelist radiobutton."
+  },
+
+  "optionsFieldlistlegend": {
+    "message": "특정 필드 기록 기능 사용 중지",
+    "description": "Options window: The Cleanup legend."
+  },
+
+  "optionsCleanupLegend": {
+    "message": "정리",
+    "description": "Options window: The Cleanup legend."
+  },
+  "optionsautocleanup": {
+    "message": "일정 기간마다 자동 정리",
+    "description": "Options window, cleanup: Label for auto cleanup checkbox."
+  },
+  "optionsremovedays": {
+    "message": "다음 기간 동안 쓰이지 않은 폼 기록 삭제: ",
+    "description": "Options window, cleanup: Label before no of days input."
+  },
+  "optionsremovedaysdays": {
+    "message": "일",
+    "description": "Options window, cleanup: Label after no of days input."
+  },
+  "buttoncleanupnow": {
+    "message": "지금 정리",
+    "description": "Options window, cleanup: Label of the cleanup-now button."
+  },
+
+  
+  "popupHeader": {
+    "message": "Form History Control (II)",
+    "description": "Header title of the small popup."
+  },
+  "popupHeaderInfo": {
+    "message": "이 페이지에 관한 기록만 표시됩니다",
+    "description": "Extra info next to the header title of the small popup."
+  },
+  "open_preference_tooltip": {
+    "message": "환경설정 열기",
+    "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
+  },
+  "open_bigdialog_tooltip": {
+    "message": "'기록 관리' 대화상자 열기",
+    "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
+  },
+
+  
+  "notificationTitle": {
+    "message": "테스트 알림",
+    "description": "Title of the test notification."
+  },
+  "notificationContent": {
+    "message": "테스트 메시지: $MESSAGE$.",
+    "description": "Just a test notification.",
+    "placeholders": {
+      "message" : {
+        "content" : "$1",
+        "example" : "Hello world!"
+      }
+    }
+  },
+
+
+
+  "contextMenuItemManageHistory": {
+    "message": "기록 관리",
+    "description": "Title of context menu item that starts the Manage history dialog."
+  },
+  "contextMenuItemRestoreEditorField": {
+    "message": "편집기 필드 복원",
+    "description": "Title of context menu item that displays the editor (wysiwyg) field values."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuHostname": {
+    "message": "일치하는 호스트명",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuLastused": {
+    "message": "가장 최근 항목",
+    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+  },
+  "contextMenuItemRestoreEditorFieldSubmenuMore": {
+    "message": "더 보기...",
+    "description": "Last Submenu-item in ontext-menu 'Restore Edit field' indicating more items."
+  },
+  "contextMenuItemFillMostRecent": {
+    "message": "가장 최근 항목으로 필드 채우기",
+    "description": "Title of context menu item that fills formfields with the most recent used value."
+  },
+  "contextMenuItemFillMostUsed": {
+    "message": "가장 최근 사용한 항목으로 필드 채우기",
+    "description": "Title of context menu item that fills formfields with the most used value."
+  },
+  "contextMenuItemClearFields": {
+    "message": "채워진 필드 비우기",
+    "description": "Title of context menu item that clears all filled fields."
+  },
+  "contextMenuItemShowformfields": {
+    "message": "현재 페이지의 필드 표시",
+    "description": "Title of context menu item that shows info next to input textfields on the page."
+  },
+  "contextMenuItemOptions": {
+    "message": "설정",
+    "description": "Title of context menu item that shows the preferences page."
+  },
+
+
+  "menuFile": {
+    "message": "파일",
+    "description": "Label of File menu."
+  },
+  "menuItemFileImport": {
+    "message": "가져오기",
+    "description": "Label of Import menuitem in the File menu."
+  },
+  "menuItemFileExport": {
+    "message": "내보내기",
+    "description": "Label of Export menuitem in the File menu."
+  },
+  "menuItemFileClose": {
+    "message": "닫기",
+    "description": "Label of Close menuitem in the File menu."
+  },
+
+  "menuEdit": {
+    "message": "편집",
+    "description": "Label of Edit menu."
+  },
+  "menuItemEditAdd": {
+    "message": "추가",
+    "description": "Label of Add menuitem in the Edit menu."
+  },
+  "menuItemEditModify": {
+    "message": "변경",
+    "description": "Label of Modify menuitem in the Edit menu."
+  },
+  "menuItemEditDelete": {
+    "message": "삭제",
+    "description": "Label of Delete menuitem in the Edit menu."
+  },
+  "menuItemEditClipboard": {
+    "message": "클립보드로 복사",
+    "description": "Label of Copy to clipboard menuitem in the Edit menu."
+  },
+  "menuItemEditSelectAll": {
+    "message": "모두 선택",
+    "description": "Label of Select all menuitem in the Edit menu."
+  },
+  "menuItemEditSelectNone": {
+    "message": "선택 해제",
+    "description": "Label of Select none menuitem in the Edit menu."
+  },
+  "menuItemEditSelectInvert": {
+    "message": "선택 반전",
+    "description": "Label of Invert selection menuitem in the Edit menu."
+  },
+
+  "menuDisplay": {
+    "message": "보기",
+    "description": "Label of Display menu."
+  },
+  "menuItemDisplayRefresh": {
+    "message": "새로고침",
+    "description": "Label of Refresh menuitem in the Display menu."
+  },
+
+  "menuExtra": {
+    "message": "기타",
+    "description": "Label of Extra menu."
+  },
+  "menuItemExtraPreferences": {
+    "message": "환경설정",
+    "description": "Label of Preferences menuitem in the Extra menu."
+  },
+  "menuItemExtraCleanupNow": {
+    "message": "지금 정리",
+    "description": "Label of cleanup-now menuitem in the Extra menu."
+  },
+
+  "menuHelp": {
+    "message": "도움말",
+    "description": "Label of Help menu."
+  },
+  "menuItemInfoSubmenu": {
+    "message": "정보",
+    "description": "Label of Info submenu in the context menu."
+  },
+  "menuItemHelpOverview": {
+    "message": "도움말",
+    "description": "Label of Help menuitem in the Help menu."
+  },
+  "menuItemHelpReleasenotes": {
+    "message": "릴리스 노트",
+    "description": "Label of Releasenotes menuitem in the Help menu."
+  },
+  "menuItemHelpAbout": {
+    "message": "정보",
+    "description": "Label of About menuitem in the Help menu."
+  },
+
+  "paMenuItemAddBlacklist": {
+    "message": "현재 페이지를 금지 목록에 추가",
+    "description": "Label pageaction menuitem: Blacklist current page"
+  },
+  "paMenuItemDeleteBlacklist": {
+    "message": "현재 페이지를 금지 목록에서 제외",
+    "description": "Label pageaction menuitem: Remove current page from the blacklist."
+  },
+  "paMenuItemAddWhitelist": {
+    "message": "현재 페이지를 허용 목록에 추가",
+    "description": "Label pageaction menuitem: Whitelist current page."
+  },
+  "paMenuItemDeleteWhitelist": {
+    "message": "현재 페이지를 허용 목록에서 제외",
+    "description": "Label pageaction menuitem: Remove current page from the whitelist."
+  },
+
+  "loading_status": {
+    "message": "불러오는 중...",
+    "description": "Text displayed while data is being loaded."
+  },
+
+  "dateSecond":  {"message": "초"},
+  "dateSeconds": {"message": "초"},
+  "dateMinute":  {"message": "분"},
+  "dateMinutes": {"message": "분"},
+  "dateHour":    {"message": "시"},
+  "dateHours":   {"message": "시"},
+  "dateDay":     {"message": "일"},
+  "dateDays":    {"message": "일"},
+  "dateWeek":    {"message": "주"},
+  "dateWeeks":   {"message": "주"},
+  "dateMonth":   {"message": "월"},
+  "dateMonths":  {"message": "월"},
+  "dateYear":    {"message": "년"},
+  "dateYears":   {"message": "년"},
+
+  "Shift":    {"message": "Shift"},
+  "Ctrl":     {"message": "Ctrl"},
+  "Alt":      {"message": "Alt"},
+  "Command":  {"message": "Command"},
+  "MacCtrl":  {"message": "Ctrl(Mac)"},
+  "Comma":    {"message": "쉼표(,)"},
+  "Period":   {"message": "마침표(.)"},
+  "Home":     {"message": "Home"},
+  "End":      {"message": "End"},
+  "PageUp":   {"message": "Page Up"},
+  "PageDown": {"message": "Page Down"},
+  "Space":    {"message": "Space"},
+  "Insert":   {"message": "Insert"},
+  "Delete":   {"message": "Delete"},
+  "Up":       {"message": "위"},
+  "Down":     {"message": "아래"},
+  "Left":     {"message": "왼쪽"},
+  "Right":    {"message": "오른쪽"}
+}
