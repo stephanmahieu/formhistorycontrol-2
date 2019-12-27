@@ -49,6 +49,9 @@ document.addEventListener("DOMContentLoaded", function() {
     addStylesheetThemesToSelect();
     addMultilineSaveOptionsToSelect();
     addUpdateIntervalOptionsToSelect();
+
+    // this sets the shortcuts keys with the current preferences (taken from commands)
+    // but not the enable state (that is not an attribute of the command)
     addShortcutKeyOptions();
 
     restoreOptions();
@@ -75,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#updateIntervalSelect").addEventListener("change", checkPropertiesChanged);
 
     document.querySelector("#shortcutKeysModify").addEventListener("click", showShortkeyModifySelects);
+    document.querySelector("#shortcutKeysSummary").addEventListener("click", showShortkeySummary);
 
     document.querySelectorAll('input[name=radiogroupDomainlist]').forEach(radio => {
         radio.addEventListener("change", checkPropertiesChanged);
@@ -140,12 +144,11 @@ function restoreOptions() {
         prefScrollAmount         : "auto",
         prefShortcutKeys         : {
             // defaults here must be equal to the defaults in manifest.json
-            _execute_browser_action: OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
-            open_fhc               : OptionsUtil.getDefaultShortcutKey('open_fhc'),
-            toggle_display_fields  : OptionsUtil.getDefaultShortcutKey('toggle_display_fields'),
-            fill_recent            : OptionsUtil.getDefaultShortcutKey('fill_recent'),
-            fill_often             : OptionsUtil.getDefaultShortcutKey('fill_often'),
-            clear_filled           : OptionsUtil.getDefaultShortcutKey('clear_filled')
+            open_fhc_enable             : true,
+            toggle_display_fields_enable: true,
+            fill_recent_enable          : true,
+            fill_often_enable           : true,
+            clear_filled_enable         : true
         },
         prefDomainFilter         : "all",
         prefDomainList           : [],
@@ -167,6 +170,8 @@ function restoreOptions() {
         document.querySelector("#scrollAmountSelect").value = res.prefScrollAmount;
         document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
         document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
+
+        checkShortcutKeyEnable(res.prefShortcutKeys);
 
         checkRadioDomainByValue(res.prefDomainFilter);
 
@@ -354,6 +359,12 @@ function fieldlistChanged() {
 
 function fieldlistInputChanged() {
     setListButtonsState("#fieldlist", "#fieldListItem", "#fieldAdd", "#fieldModify", "#fieldDelete");
+}
+
+function shortcutKeyEnableChanged(event) {
+    const commandName = event.target.getAttribute('data-cmd');
+    shortcutKeyCommandEnableChanged(commandName);
+    checkPropertiesChanged();
 }
 
 function checkPropertiesChanged() {

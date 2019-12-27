@@ -14,10 +14,25 @@ function showShortkeyModifySelects() {
     hideShortcutKeysModifyButton();
 }
 
+function showShortkeySummary() {
+    document.querySelectorAll('.shortcutkey-selects').forEach(
+        sel => {sel.style.display = 'none';
+        });
+    showShortcutKeysModifyButton();
+}
+
 function hideShortcutKeysModifyButton() {
     document.getElementById('shortcutKeysModify').style.display = 'none';
     document.getElementById('shortcut_pane').style.height = '169px';
+    document.getElementById('shortcutKeysSummary').style.display = 'block';
 }
+
+function showShortcutKeysModifyButton() {
+    document.getElementById('shortcutKeysModify').style.display = 'block';
+    document.getElementById('shortcut_pane').style.height = '140px';
+    document.getElementById('shortcutKeysSummary').style.display = 'none';
+}
+
 
 function showShortcutKeysModifyNotAllowedMessage() {
     const msg = document.createElement('span');
@@ -73,6 +88,7 @@ function _createShortcutKeyOption(command, extendedModifiers) {
 
 function _createKeyLabel(command) {
     const labelNode = document.createElement('span');
+    labelNode.id = 'shlblname_' + command.name;
     labelNode.classList.add('shortcutkey-label');
     labelNode.appendChild(document.createTextNode(_shortcutCommandToContextMenuLabel(command.name)));
     return labelNode
@@ -126,6 +142,9 @@ function _createShortcutKeySelects(keys, commandName, extendedModifiers) {
     keySelects.id = commandName;
     keySelects.style.display = 'none';
     keySelects.classList.add('shortcutkey-selects');
+    if (commandName !== '_execute_browser_action') {
+        keySelects.appendChild(_getEnableBox(commandName));
+    }
     keySelects.appendChild(_getMainModifierSelect(commandName, modifier1));
     keySelects.appendChild(_createPlusNode());
     keySelects.appendChild(_getSecondModifierSelect(commandName, modifier2, extendedModifiers));
@@ -144,6 +163,23 @@ function _shortcutCommandToContextMenuLabel(commandName) {
         case "clear_filled":           return browser.i18n.getMessage("contextMenuItemClearFields");
     }
     return "-- Unknown command --";
+}
+
+function _getEnableBox(commandName) {
+    const containerDiv = document.createElement('div');
+    containerDiv.classList.add('shortcutkey-enable');
+    const box = document.createElement('input');
+    box.setAttribute('type', 'checkbox');
+    box.setAttribute('data-cmd', commandName);
+    box.id = "enable_" + commandName;
+    box.checked = true;
+    box.addEventListener("change", shortcutKeyEnableChanged);
+    const label = document.createElement('label');
+    label.setAttribute('for', "enable_" + commandName)
+    label.appendChild(document.createElement('span'));
+    containerDiv.appendChild(box);
+    containerDiv.appendChild(label);
+    return containerDiv;
 }
 
 function _getMainModifierSelect(commandName, selectedModifier) {
@@ -214,13 +250,26 @@ function _createOptionNode(value, label) {
 
 function getAllShortcutKeyValues() {
     return {
-        _execute_browser_action: _getShortcutKeyValue('_execute_browser_action'),
-        open_fhc               : _getShortcutKeyValue('open_fhc'),
-        toggle_display_fields  : _getShortcutKeyValue('toggle_display_fields'),
-        fill_recent            : _getShortcutKeyValue('fill_recent'),
-        fill_often             : _getShortcutKeyValue('fill_often'),
-        clear_filled           : _getShortcutKeyValue('clear_filled')
+        _execute_browser_action     : _getShortcutKeyValue('_execute_browser_action'),
+        open_fhc                    : _getShortcutKeyValue('open_fhc'),
+        open_fhc_enable             : _getShortcutKeyEnable('open_fhc'),
+        toggle_display_fields       : _getShortcutKeyValue('toggle_display_fields'),
+        toggle_display_fields_enable: _getShortcutKeyEnable('toggle_display_fields'),
+        fill_recent                 : _getShortcutKeyValue('fill_recent'),
+        fill_recent_enable          : _getShortcutKeyEnable('fill_recent'),
+        fill_often                  : _getShortcutKeyValue('fill_often'),
+        fill_often_enable           : _getShortcutKeyEnable('fill_often'),
+        clear_filled                : _getShortcutKeyValue('clear_filled'),
+        clear_filled_enable         : _getShortcutKeyEnable('clear_filled')
     };
+}
+
+function _getShortcutKeyEnable(commandName) {
+    if (!document.getElementById('enable_' + commandName)) {
+        // missing (chrome allows max. 4 shortcuts)
+        return false;
+    }
+    return document.getElementById('enable_' + commandName).checked;
 }
 
 function _getShortcutKeyValue(commandName) {
@@ -232,4 +281,45 @@ function _getShortcutKeyValue(commandName) {
     const mod2 = document.getElementById('smod2_' + commandName).value;
     const key  = document.getElementById('skey_'  + commandName).value;
     return mod1 + '+' + mod2 + ((mod2 ==='')?'':'+') + key;
+}
+
+function shortcutKeyCommandEnableChanged(commandName) {
+    const name = document.getElementById('shlblname_' + commandName);
+    const shkeys = document.getElementById('shlbl_' + commandName);
+
+    const enabled = document.getElementById('enable_' + commandName).checked;
+
+    const mod1 = document.getElementById('smod1_' + commandName);
+    let   mod2 = document.getElementById('smod2_' + commandName);
+    const key  = document.getElementById('skey_'  + commandName);
+
+    if (enabled) {
+        name.classList.remove('disabled-shortcut-command');
+        shkeys.classList.remove('disabled-shortcut-command');
+        mod1.removeAttribute("disabled");
+        mod2.removeAttribute("disabled");
+        key.removeAttribute("disabled");
+    } else {
+        name.classList.add('disabled-shortcut-command');
+        shkeys.classList.add('disabled-shortcut-command');
+        mod1.setAttribute("disabled", "true");
+        mod2.setAttribute("disabled", "true");
+        key.setAttribute("disabled", "true");
+    }
+}
+
+function checkShortcutKeyEnable(prefShortcutKeys) {
+    _checkShortcutKeyEnable('open_fhc',              prefShortcutKeys.open_fhc_enable);
+    _checkShortcutKeyEnable('toggle_display_fields', prefShortcutKeys.toggle_display_fields_enable);
+    _checkShortcutKeyEnable('fill_recent',           prefShortcutKeys.fill_recent_enable);
+    _checkShortcutKeyEnable('fill_often',            prefShortcutKeys.fill_often_enable);
+    _checkShortcutKeyEnable('clear_filled',          prefShortcutKeys.clear_filled_enable);
+}
+
+function _checkShortcutKeyEnable(commandName, enable) {
+    const box = document.getElementById('enable_' + commandName);
+    if (box) {
+        box.checked = enable;
+        shortcutKeyCommandEnableChanged(commandName);
+    }
 }

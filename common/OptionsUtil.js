@@ -92,6 +92,27 @@ class OptionsUtil {
         });
     }
 
+    static getShortcutKeysEnablePrefs() {
+        return new Promise((resolve, reject) => {
+            browser.storage.local.get({
+                prefShortcutKeys: {
+                    open_fhc_enable               : true,
+                    toggle_display_fields_enable  : true,
+                    fill_recent_enable            : true,
+                    fill_often_enable             : true,
+                    clear_filled_enable           : true
+                }
+            }).then(
+                result => {
+                    resolve(result);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+    }
+
     static applyShortcutKeysPrefs() {
         OptionsUtil.getShortcutKeysPrefs().then((prefs) => {
 

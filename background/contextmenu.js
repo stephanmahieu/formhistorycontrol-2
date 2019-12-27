@@ -763,33 +763,46 @@ function initShortcutKeys() {
 
 function handleShortcutKeys(command) {
     // console.log("Command! " + command);
-    switch (command) {
-        case "open_fhc":
-            WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
-            break;
+    OptionsUtil.getShortcutKeysEnablePrefs().then(res => {
+        switch (command) {
+            case "open_fhc":
+                if (res.prefShortcutKeys['open_fhc_enable']) {
+                    WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
+                }
+                break;
 
-        case "toggle_display_fields":
-            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
-                showformfields(tabInfo[0].id);
-            });
-            break;
+            case "toggle_display_fields":
+                if (res.prefShortcutKeys['toggle_display_fields_enable']) {
+                    browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                        showformfields(tabInfo[0].id);
+                    });
+                }
+                break;
 
-        case "fill_recent":
-            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
-                fillformfields(tabInfo[0].id, "fillMostRecent");
-            });
-            break;
+            case "fill_recent":
+                if (res.prefShortcutKeys['fill_recent_enable']) {
+                    browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                        fillformfields(tabInfo[0].id, "fillMostRecent");
+                    });
+                }
+                break;
 
-        case "fill_often":
-            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
-                fillformfields(tabInfo[0].id, "fillMostUsed");
-            });
-            break;
+            case "fill_often":
+                if (res.prefShortcutKeys['fill_often_enable']) {
+                    browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                        fillformfields(tabInfo[0].id, "fillMostUsed");
+                    });
+                }
+                break;
 
-        case "clear_filled":
-            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
-                fillformfields(tabInfo[0].id, "clearFields");
-            });
-            break;
-    }
+            case "clear_filled":
+                if (res.prefShortcutKeys['clear_filled_enable']) {
+                    browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                        fillformfields(tabInfo[0].id, "clearFields");
+                    });
+                }
+                break;
+        }
+
+    });
 }
