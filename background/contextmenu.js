@@ -15,9 +15,16 @@
 const IS_FIREFOX = typeof browser.runtime.getBrowserInfo === 'function';
 console.log("IS_FIREFOX = " + IS_FIREFOX);
 
-browser.tabs.onActivated.addListener(handleActivated);
+// keep track of current menu, activating another tab on another window triggers both
+// tab.onActivated and windows.onFocusChanged which triggers both event handlers
+const CUR_MENU = {
+    windowId: -1,
+    url: ""
+};
+browser.tabs.onActivated.addListener(handleTabActivated);
+browser.windows.onFocusChanged.addListener(handleWindowFocusChanged);
 
-// initially set the EditorFieldRestoreMenu for the current active tab
+// initially set the EditorFieldRestoreMenu for the current active window and tab
 setTimeout(()=>{ updateEditorFieldRestoreMenuForActiveTab(); }, 1500);
 
 // create the context menus
@@ -29,86 +36,80 @@ browser.commands.onCommand.addListener(handleShortcutKeys);
 
 
 function updateEditorFieldRestoreMenuForActiveTab() {
-    browser.tabs.query({active: true}).then(tabInfo=>{
-        if (tabInfo.length > 0) {
-            tabInfo.forEach(tab => {
-                updateEditorFieldRestoreMenu(tab.url);
+    browser.windows.getCurrent({populate: true}).then(tabInfo=>{
+        // console.log('Active window is ' + tabInfo.id);
+        if (tabInfo.tabs.length > 0) {
+            tabInfo.tabs.forEach(tab => {
+                if (tab.active) {
+                    // console.log('Active tab is ' + tab.id);
+                    updateEditorFieldRestoreMenu(tab.windowId, tab.url);
+                }
             });
         }
     });
 }
 
-function handleActivated(activeInfo) {
-    // console.log("Tab " + activeInfo.tabId + " was activated");
-    // create submenu-items for multiline restore
-    updateEditorFieldRestoreMenuOnTabActivation(activeInfo.tabId);
+function handleWindowFocusChanged(windowId) {
+    if (windowId > 0) {
+        // console.log("### Window " + windowId + " now has the focus! ###");
+        updateEditorFieldRestoreMenuForActiveTab();
+    }
 }
 
-function updateEditorFieldRestoreMenuOnTabActivation(tabId, attempt = 1) {
+function handleTabActivated(activeInfo) {
+    // console.log("### Tab " + activeInfo.tabId + " was activated for window " + activeInfo.windowId + " ###");
+    // create submenu-items for multiline restore
+    updateEditorFieldRestoreMenuOnTabActivation(activeInfo.windowId, activeInfo.tabId);
+}
+
+function updateEditorFieldRestoreMenuOnTabActivation(windowId, tabId, attempt = 1) {
+    // console.log("Update editorFieldRestoreMenu for Tab " + tabId);
     browser.tabs.get(tabId).then(tabInfo => {
         if (tabInfo.status === 'loading' || ('about:blank' === tabInfo.url && attempt<=10)) {
+            // console.log('TabId ' + tabId + ' has not finished loading, trying again in 500ms');
             setTimeout(() => {
-                updateEditorFieldRestoreMenuOnTabActivation(tabId, ++attempt);
+                updateEditorFieldRestoreMenuOnTabActivation(windowId, tabId, ++attempt);
             }, 500);
         } else {
-            // console.log('TabId ' + tabId+ ' was activated and has url: ' + tabInfo.url);
-            updateEditorFieldRestoreMenu(tabInfo.url);
+            // console.log('TabId ' + tabId + ' was activated and has url: ' + tabInfo.url);
+            updateEditorFieldRestoreMenu(tabInfo.windowId, tabInfo.url);
         }
     });
 }
 
 const MAX_LENGTH_EDITFIELD_ITEM = 35;
-const editorFieldsMenuItemsIds = [];
+const EDITOR_FIELDS_MENUITEM_IDS = [];
 
-function updateEditorFieldRestoreMenu(url) {
+function updateEditorFieldRestoreMenu(windowId, url) {
+    // console.log('>>> updateEditorFieldRestoreMenu for window ' + windowId + ' and tab with url ' + url);
     if (url.includes('moz-extension://')) {
         // skip popup windows
         return;
     }
+    if (CUR_MENU.windowId === windowId && CUR_MENU.url === url) {
+        // console.log('!! skip duplicate call to updateEditorFieldRestoreMenu() for window ' + windowId + ' and tab with url ' + url);
+        return;
+    }
+    CUR_MENU.windowId = windowId;
+    CUR_MENU.url = url;
+
     const hostname = MiscUtil.getHostnameFromUrlString(url);
 
-    removeCurrentMenuItems(editorFieldsMenuItemsIds)
+    removeCurrentMenuItems(EDITOR_FIELDS_MENUITEM_IDS)
     .then(() => {
         return getEditorFieldsByHostname(hostname, 10);
     }).then(hostnameItemsArray => {
-        hostnameItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
+        hostnameItemsArray.forEach(item => {EDITOR_FIELDS_MENUITEM_IDS.push(item);});
         return hostnameItemsArray;
     }).then(hostnameItemsArray => {
         return getEditorFieldsByLastused(hostname, 10, hostnameItemsArray);
     }).then(lastusedItemsArray => {
-        lastusedItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
+        lastusedItemsArray.forEach(item => {EDITOR_FIELDS_MENUITEM_IDS.push(item);});
     }).then(()=>{
         // editorFieldsMenuItemsIds.forEach(item => { console.log('- ' + item.type + ' ' + item.pKey + '  ' + item.value); });
-        return addNewMenuItems(editorFieldsMenuItemsIds);
+        return addNewMenuItems(EDITOR_FIELDS_MENUITEM_IDS);
     });
 }
-
-// function updateEditorFieldRestoreMenu(tabId) {
-//     browser.tabs.get(tabId).then(tabInfo => {
-//         if (tabInfo.status === 'loading') {
-//             // console.log('TabId ' + tabId + ' not completely loaded yet, retry getting tabInfo in 1 sec...');
-//             setTimeout(()=>{ updateEditorFieldRestoreMenu(tabId); }, 1000);
-//         } else {
-//             const hostname = MiscUtil.getHostnameFromUrlString(tabInfo.url);
-//             // console.log('TabId ' + tabId + ' was activated and has url: ' + tabInfo.url + '  (' + hostname + ')');
-//
-//             removeCurrentMenuItems(editorFieldsMenuItemsIds)
-//             .then(() => {
-//                 return getEditorFieldsByHostname(hostname, 10);
-//             }).then(hostnameItemsArray => {
-//                 hostnameItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
-//                 return hostnameItemsArray;
-//             }).then(hostnameItemsArray => {
-//                 return getEditorFieldsByLastused(hostname, 10, hostnameItemsArray);
-//             }).then(lastusedItemsArray => {
-//                 lastusedItemsArray.forEach(item => {editorFieldsMenuItemsIds.push(item);});
-//             }).then(()=>{
-//                 // editorFieldsMenuItemsIds.forEach(item => { console.log('- ' + item.type + ' ' + item.pKey + '  ' + item.value); });
-//                 return addNewMenuItems(editorFieldsMenuItemsIds);
-//             });
-//         }
-//     });
-// }
 
 function addNewMenuItems(menuItemsIds) {
     return new Promise((resolve, reject) => {
