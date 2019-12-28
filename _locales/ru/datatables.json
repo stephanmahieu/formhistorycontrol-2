@@ -1,21 +1,21 @@
 {
-    "sEmptyTable":        "Данных нет",
+    "sProcessing":        "Обработка...",
+    "sLengthMenu":        "Показывать _MENU_",
+    "sZeroRecords":       "Совпадений не найдено",
     "sInfo":              "Показаны от _START_ до _END_ из _TOTAL_",
     "sInfoEmpty":         "Показаны от 0 до 0 из 0",
     "sInfoFiltered":      "(отфильтровано из _MAX_ всех записей)",
     "sInfoPostFix":       "",
-    "sInfoThousands":     ".",
-    "sLengthMenu":        "Показывать _MENU_",
-    "sLoadingRecords":    "Загрузка...",
-    "sProcessing":        "Обработка...",
     "sSearch":            "",
     "sSearchPlaceholder": "Поиск по записям...",
-    "sZeroRecords":       "Совпадений не найдено",
+    "sEmptyTable":        "Данных нет",
+    "sInfoThousands":     ".",
+    "sLoadingRecords":    "Загрузка...",
     "oPaginate": {
-        "sFirst":    "|<---Первая----|",
-        "sLast":     "|--Последняя-->|",
-        "sNext":     "|--Следующая--->",
-        "sPrevious": "<--Предыдущая--|"
+        "sFirst":    "Первая",
+        "sLast":     "Последняя",
+        "sNext":     "Следующая",
+        "sPrevious": "Предыдущая"
     },
     "oAria": {
         "sSortAscending":  ": сортировать по возрастанию",

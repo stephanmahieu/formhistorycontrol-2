@@ -12,7 +12,7 @@
     "sInfoThousands":     ".",
     "sLoadingRecords":    "Een moment geduld aub - bezig met laden...",
     "oPaginate": {
-        "sFirst":     "Eerste",
+        "sFirst":    "Eerste",
         "sLast":     "Laatste",
         "sNext":     "Volgende",
         "sPrevious": "Vorige"
