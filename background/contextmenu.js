@@ -19,10 +19,20 @@ console.log("IS_FIREFOX = " + IS_FIREFOX);
 // tab.onActivated and windows.onFocusChanged which triggers both event handlers
 const CUR_MENU = {
     windowId: -1,
-    url: ""
+    tabId: -1
 };
 browser.tabs.onActivated.addListener(handleTabActivated);
 browser.windows.onFocusChanged.addListener(handleWindowFocusChanged);
+
+const debounce = (fn, time) => {
+    let timeout;
+    return function() {
+        const functionCall = () => fn.apply(this, arguments);
+        clearTimeout(timeout);
+        timeout = setTimeout(functionCall, time);
+    }
+};
+
 
 // initially set the EditorFieldRestoreMenu for the current active window and tab
 setTimeout(()=>{ updateEditorFieldRestoreMenuForActiveTab(); }, 1500);
@@ -42,7 +52,7 @@ function updateEditorFieldRestoreMenuForActiveTab() {
             tabInfo.tabs.forEach(tab => {
                 if (tab.active) {
                     // console.log('Active tab is ' + tab.id);
-                    updateEditorFieldRestoreMenu(tab.windowId, tab.url);
+                    debouncedUdateEditorFieldRestoreMenu(tab.windowId, tab.id, tab.url);
                 }
             });
         }
@@ -72,7 +82,7 @@ function updateEditorFieldRestoreMenuOnTabActivation(windowId, tabId, attempt = 
             }, 500);
         } else {
             // console.log('TabId ' + tabId + ' was activated and has url: ' + tabInfo.url);
-            updateEditorFieldRestoreMenu(tabInfo.windowId, tabInfo.url);
+            debouncedUdateEditorFieldRestoreMenu(tabInfo.windowId, tabInfo.id, tabInfo.url);
         }
     });
 }
@@ -80,18 +90,18 @@ function updateEditorFieldRestoreMenuOnTabActivation(windowId, tabId, attempt = 
 const MAX_LENGTH_EDITFIELD_ITEM = 35;
 const EDITOR_FIELDS_MENUITEM_IDS = [];
 
-function updateEditorFieldRestoreMenu(windowId, url) {
+function updateEditorFieldRestoreMenu(windowId, tabId, url) {
     // console.log('>>> updateEditorFieldRestoreMenu for window ' + windowId + ' and tab with url ' + url);
     if (url.includes('moz-extension://')) {
         // skip popup windows
         return;
     }
-    if (CUR_MENU.windowId === windowId && CUR_MENU.url === url) {
+    if (CUR_MENU.windowId === windowId && CUR_MENU.tabId === tabId) {
         // console.log('!! skip duplicate call to updateEditorFieldRestoreMenu() for window ' + windowId + ' and tab with url ' + url);
         return;
     }
     CUR_MENU.windowId = windowId;
-    CUR_MENU.url = url;
+    CUR_MENU.tabId = tabId;
 
     const hostname = MiscUtil.getHostnameFromUrlString(url);
 
@@ -110,6 +120,7 @@ function updateEditorFieldRestoreMenu(windowId, url) {
         return addNewMenuItems(EDITOR_FIELDS_MENUITEM_IDS);
     });
 }
+let debouncedUdateEditorFieldRestoreMenu = debounce(updateEditorFieldRestoreMenu, 250);
 
 function addNewMenuItems(menuItemsIds) {
     return new Promise((resolve, reject) => {
