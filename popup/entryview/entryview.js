@@ -403,7 +403,6 @@ function toggleMarkdownView(event) {
             tables: true,
             breaks: false,
             pedantic: false,
-            sanitize: true,
             smartLists: true,
             smartypants: true
         });
