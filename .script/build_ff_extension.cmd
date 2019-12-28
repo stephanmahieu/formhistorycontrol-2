@@ -1,6 +1,6 @@
 @echo off
 
-set ZIP_FILE=formhistory_ff_2200.zip
+set ZIP_FILE=formhistory_ff_2400.zip
 set ZIP_APP=7z.exe
 
 echo.
@@ -38,7 +38,7 @@ goto end
 :okay
 echo.
 echo --------
-echo Finished
+echo Finished (deprecated! USE build_extension.py)
 echo --------
 echo.
 :end

@@ -1,6 +1,6 @@
 @echo off
 
-set ZIP_FILE=formhistory_cr_2200.zip
+set ZIP_FILE=formhistory_cr_2400.zip
 set ZIP_APP=7z.exe
 
 echo zipfile=%ZIP_FILE%
@@ -40,7 +40,7 @@ goto end
 :okay
 echo.
 echo --------
-echo Finished
+echo Finished (deprecated! USE build_extension.py)
 echo --------
 echo.
 :end
