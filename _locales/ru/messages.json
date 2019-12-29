@@ -454,7 +454,7 @@
     "description": "Options window, Save formhistory when running in a private browsing tab"
   },
   "optionsRetainFieldTypes": {
-    "message": "Какой тип полей сохранять",
+    "message": "Сохранять поля",
     "description": "Options window, Retain which type of field"
   },
   "optionsRetainFieldAll": {
