@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "Form History Control (II)",
+    "message": "Управление историей форм",
     "description": "The title of this extension"
   },
 
@@ -359,6 +359,11 @@
     "description": "The 'automatic' option in a select list."
   },
 
+  "optionsExpertMode": {
+    "message": "Все параметры",
+    "description": "Options window: Show advanced options checkbox."
+  },
+
   "optionsDisplayMenu": {
     "message": "Отображение",
     "description": "Options window: Left Display menu."
@@ -395,6 +400,10 @@
   "optionsDateformatSelect": {
     "message": "Выбрать формат даты",
     "description": "Options window: The date format selection dropdown label"
+  },
+  "optionsScrollAmountSelect": {
+    "message": "Прокрутка колесом мыши (в пикселях)",
+    "description": "Options window: The scroll amount selection dropdown label"
   },
 
   "optionsMiscellaneousLegend": {
@@ -438,6 +447,32 @@
   "optionsSaveNewVersionMultilineCharacters": {
     "message": "символов",
     "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
+  },
+
+  "optionsOverrideIncognito": {
+    "message": "Сохранение истории форм в приватном просмотре",
+    "description": "Options window, Save formhistory when running in a private browsing tab"
+  },
+  "optionsRetainFieldTypes": {
+    "message": "Какой тип полей сохранять",
+    "description": "Options window, Retain which type of field"
+  },
+  "optionsRetainFieldAll": {
+    "message": "Однострочные + Многострочные",
+    "description": "Options window, Single-line + Multi-line"
+  },
+  "optionsRetainFieldMulti": {
+    "message": "Только многострочные",
+    "description": "Options window, Multi-line only"
+  },
+  "optionsRetainFieldSingle": {
+    "message": "Только однострочные",
+    "description": "Options window, Single-line only"
+  },
+
+  "optionsuUdateInterval": {
+    "message": "Интервал обновления",
+    "description": "Options window, Update interval"
   },
 
   "optiondomainlistlegend": {
