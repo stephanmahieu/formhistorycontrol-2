@@ -52,7 +52,7 @@ function updateEditorFieldRestoreMenuForActiveTab() {
             tabInfo.tabs.forEach(tab => {
                 if (tab.active) {
                     // console.log('Active tab is ' + tab.id);
-                    debouncedUdateEditorFieldRestoreMenu(tab.windowId, tab.id, tab.url);
+                    debouncedUpdateEditorFieldRestoreMenu(tab.windowId, tab.id, tab.url);
                 }
             });
         }
@@ -82,7 +82,7 @@ function updateEditorFieldRestoreMenuOnTabActivation(windowId, tabId, attempt = 
             }, 500);
         } else {
             // console.log('TabId ' + tabId + ' was activated and has url: ' + tabInfo.url);
-            debouncedUdateEditorFieldRestoreMenu(tabInfo.windowId, tabInfo.id, tabInfo.url);
+            debouncedUpdateEditorFieldRestoreMenu(tabInfo.windowId, tabInfo.id, tabInfo.url);
         }
     });
 }
@@ -120,7 +120,7 @@ function updateEditorFieldRestoreMenu(windowId, tabId, url) {
         return addNewMenuItems(EDITOR_FIELDS_MENUITEM_IDS);
     });
 }
-let debouncedUdateEditorFieldRestoreMenu = debounce(updateEditorFieldRestoreMenu, 250);
+let debouncedUpdateEditorFieldRestoreMenu = debounce(updateEditorFieldRestoreMenu, 250);
 
 function addNewMenuItems(menuItemsIds) {
     return new Promise((resolve, reject) => {
