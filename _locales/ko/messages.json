@@ -123,9 +123,9 @@
     "message": "데이터베이스 접근이 차단되었습니다 ($ERROR$). 이 애플리케이션에는 쿠키 권한이 필요합니다, 브라우저의 개인정보 및 보안 설정을 확인해주세요.",
     "description": "Error displayed when the database is not accessible",
     "placeholders": {
-      "error" : {
-        "content" : "$1",
-        "example" : "SecurityError"
+      "error": {
+        "content": "$1",
+        "example": "SecurityError"
       }
     }
   },
@@ -133,13 +133,13 @@
     "message": "팝업 창에서 재빠르게 표시하기에는 데이터 수가 너무 많습니다, 정리 기능으로 데이터 개수를 줄여보시거나 '기록 관리' 창을 열어 확인하세요 (마우스 오른쪽 클릭).\n\n(전체 $total$ 중 $count$ 결과를 표시하지 않았습니다)",
     "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
     "placeholders": {
-      "count" : {
-        "content" : "$1",
-        "example" : "10"
+      "count": {
+        "content": "$1",
+        "example": "10"
       },
-      "total" : {
-        "content" : "$2",
-        "example" : "100"
+      "total": {
+        "content": "$2",
+        "example": "100"
       }
     }
   },
@@ -157,9 +157,9 @@
     "message": "지난 $nrofdays$일 간 쓰이지 않은 폼 기록 항목 정리 및 삭제 작업을 시작할까요?\n\n(대상 기간은 설정에서 조절할 수 있습니다)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays" : {
-        "content" : "$1",
-        "example" : "90"
+      "nrofdays": {
+        "content": "$1",
+        "example": "90"
       }
     }
   },
@@ -167,9 +167,9 @@
     "message": "정리를 시작했습니다, 지난 $nrofdays$ 일간 쓰이지 않은 폼 기록 항목이 삭제됩니다.",
     "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays" : {
-        "content" : "$1",
-        "example" : "90"
+      "nrofdays": {
+        "content": "$1",
+        "example": "90"
       }
     }
   },
@@ -519,7 +519,7 @@
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
 
-  
+
   "popupHeader": {
     "message": "Form History Control (II)",
     "description": "Header title of the small popup."
@@ -537,7 +537,7 @@
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
 
-  
+
   "notificationTitle": {
     "message": "테스트 알림",
     "description": "Title of the test notification."
@@ -546,9 +546,9 @@
     "message": "테스트 메시지: $MESSAGE$.",
     "description": "Just a test notification.",
     "placeholders": {
-      "message" : {
-        "content" : "$1",
-        "example" : "Hello world!"
+      "message": {
+        "content": "$1",
+        "example": "Hello world!"
       }
     }
   },

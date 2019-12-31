@@ -123,9 +123,9 @@
     "message": "Η πρόσβαση στην βάση δεδομένων εμποδίστηκε ($ERROR$). Αυτή η εφαρμογή απαιτεί άδεια στα cookies, παρακαλώ ελέγξτε τις ρυθμίσεις Απόρρητο & Ασφάλεια.",
     "description": "Error displayed when the database is not accessible",
     "placeholders": {
-      "error" : {
-        "content" : "$1",
-        "example" : "SecurityError"
+      "error": {
+        "content": "$1",
+        "example": "SecurityError"
       }
     }
   },
@@ -133,13 +133,13 @@
     "message": "Υπάρχουν πολλά δεδομένα για να εμφανιστούν γρήγορα σε αναδυόμενο παράθυρο, χρησιμοποίησε την επιλογή καθαρισμού για να μειώσεις τον όγκο των δεδομένων ή άνοιξε το παράθυρο 'Διαχείριση Ιστορικού' (δεξί κλικ στο ποντίκι).\n\n($count$ αποτελέσματα από συνολικά $total$ απερρίφθησαν).",
     "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
     "placeholders": {
-      "count" : {
-        "content" : "$1",
-        "example" : "10"
+      "count": {
+        "content": "$1",
+        "example": "10"
       },
-      "total" : {
-        "content" : "$2",
-        "example" : "100"
+      "total": {
+        "content": "$2",
+        "example": "100"
       }
     }
   },
@@ -157,9 +157,9 @@
     "message": "Έναρξη καθαρισμού και αφαίρεσης εγγραφών που δεν χρησιμοποιήθηκαν στις προηγούμενες $nrofdays$ ημέρες;\n\n(Το χρονικό όριο μπορεί να οριστεί στις Ρυθμίσεις)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays" : {
-        "content" : "$1",
-        "example" : "90"
+      "nrofdays": {
+        "content": "$1",
+        "example": "90"
       }
     }
   },
@@ -167,9 +167,9 @@
     "message": "Ο καθαρισμός ξεκίνησε, εγγραφές που δεν χρησιμοποιήθηκαν τις προηγούμενες $nrofdays$ αφαιρούνται.",
     "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays" : {
-        "content" : "$1",
-        "example" : "90"
+      "nrofdays": {
+        "content": "$1",
+        "example": "90"
       }
     }
   },
@@ -545,9 +545,9 @@
     "message": "Δοκιμαστικό μήνυμα: $ΜΗΝΥΜΑ$.",
     "description": "Just a test notification.",
     "placeholders": {
-      "message" : {
-        "content" : "$1",
-        "example" : "Hello world!"
+      "message": {
+        "content": "$1",
+        "example": "Hello world!"
       }
     }
   },

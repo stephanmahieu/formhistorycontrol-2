@@ -19,8 +19,8 @@
     "description": "Label for developer."
   },
 
-  
-  
+
+
   "fieldName": {
     "message": "Feldname",
     "description": "The label for the formfield-name of a formfield entry."
@@ -123,9 +123,9 @@
     "message": "Der Datenbankzugriff wurde blockiert ($ ERROR $). Diese Anwendung benötigt Cookie-Berechtigungen. Bitte überprüfen Sie die Datenschutz- und Sicherheitseinstellungen des Browsers",
     "description": "Error displayed when the database is not accessible",
     "placeholders": {
-      "error" : {
-        "content" : "$1",
-        "example" : "SecurityError"
+      "error": {
+        "content": "$1",
+        "example": "SecurityError"
       }
     }
   },
@@ -133,13 +133,13 @@
     "message": "Zuviele Daten für die Anzeige in einem Popup-Fenster. Verwenden Sie die Bereinigungsoption um die Datenmenge zu reduzieren oder öffnen Sie den erweiterten Dialog 'Verlauf verwalten' (rechte Maustaste).\n\n($count$ Ergebnisse von insgesamt $total$ verworfen)",
     "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
     "placeholders": {
-      "count" : {
-        "content" : "$1",
-        "example" : "10"
+      "count": {
+        "content": "$1",
+        "example": "10"
       },
-      "total" : {
-        "content" : "$2",
-        "example" : "100"
+      "total": {
+        "content": "$2",
+        "example": "100"
       }
     }
   },
@@ -157,9 +157,9 @@
     "message": "Beginne die Bereinigung und entferne die ungenutze Formularhistorie der letzten $nrofdays$ Tage?\n\n(Das Alter kann in den Optionen angepasst werden)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays" : {
-        "content" : "$1",
-        "example" : "90"
+      "nrofdays": {
+        "content": "$1",
+        "example": "90"
       }
     }
   },
@@ -167,9 +167,9 @@
     "message": "Bereinigung gestartet, die ungenutzte Formularhistorie der letzten $nrofdays$ wird gelöscht.",
     "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays" : {
-        "content" : "$1",
-        "example" : "90"
+      "nrofdays": {
+        "content": "$1",
+        "example": "90"
       }
     }
   },
@@ -518,7 +518,7 @@
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
 
-  
+
   "popupHeader": {
     "message": "Form History Control (II)",
     "description": "Header title of the small popup."
@@ -536,7 +536,7 @@
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
 
-  
+
   "notificationTitle": {
     "message": "Benachrichtigung testen",
     "description": "Title of the test notification."
@@ -545,9 +545,9 @@
     "message": "Test Nachricht: $MESSAGE$.",
     "description": "Just a test notification.",
     "placeholders": {
-      "message" : {
-        "content" : "$1",
-        "example" : "Hello world!"
+      "message": {
+        "content": "$1",
+        "example": "Hello world!"
       }
     }
   },

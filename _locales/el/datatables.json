@@ -1,24 +1,24 @@
 {
-	"sEmptyTable":        "Δεν υπάρχουν δεδομένα στον πίνακα",
-	"sInfo":              "Εμφανίζονται _START_ έως _END_ από _TOTAL_ καταχωρήσεις",
-	"sInfoEmpty":         "Εμφανίζονται 0 έως 0 από 0 καταχωρήσεις",
-	"sInfoFiltered":      "(φιλτραρισμένες από _MAX_ συνολικά καταχωρήσεις)",
-	"sInfoPostFix":       "",
-	"sInfoThousands":     ".",
-	"sLengthMenu":        "Δείξε _MENU_ καταχωρήσεις",
-	"sLoadingRecords":    "Φόρτωση...",
-	"sProcessing":        "Επεξεργασία...",
-	"sSearch":            "",
+	"sEmptyTable": "Δεν υπάρχουν δεδομένα στον πίνακα",
+	"sInfo": "Εμφανίζονται _START_ έως _END_ από _TOTAL_ καταχωρήσεις",
+	"sInfoEmpty": "Εμφανίζονται 0 έως 0 από 0 καταχωρήσεις",
+	"sInfoFiltered": "(φιλτραρισμένες από _MAX_ συνολικά καταχωρήσεις)",
+	"sInfoPostFix": "",
+	"sInfoThousands": ".",
+	"sLengthMenu": "Δείξε _MENU_ καταχωρήσεις",
+	"sLoadingRecords": "Φόρτωση...",
+	"sProcessing": "Επεξεργασία...",
+	"sSearch": "",
 	"sSearchPlaceholder": "Αναζήτηση...",
-	"sZeroRecords":       "Δεν βρέθηκαν καταχωρήσεις που να ταιριάζουν",
+	"sZeroRecords": "Δεν βρέθηκαν καταχωρήσεις που να ταιριάζουν",
 	"oPaginate": {
-		"sFirst":    "Πρώτη",
-        "sLast":     "Τελευταία",
-        "sNext":     "Επόμενη",
-        "sPrevious": "Προηγούμενη"
+		"sFirst": "Πρώτη",
+		"sLast": "Τελευταία",
+		"sNext": "Επόμενη",
+		"sPrevious": "Προηγούμενη"
 	},
 	"oAria": {
-		"sSortAscending":  ": Ενεργοποιήστε για αύξουσα ταξινόμηση της στήλης",
+		"sSortAscending": ": Ενεργοποιήστε για αύξουσα ταξινόμηση της στήλης",
 		"sSortDescending": ": Ενεργοποιήστε για φθίνουσα ταξινόμηση της στήλης"
 	},
 	"select": {

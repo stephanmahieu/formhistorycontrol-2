@@ -123,9 +123,9 @@
     "message": "Toegang tot de database is geblokkeerd ($ERROR$). Deze applicatie vereist Cookie permissies, controleer de browser Privacy & Beveiliging opties.",
     "description": "Error displayed when the database is not accessible",
     "placeholders": {
-      "error" : {
-        "content" : "$1",
-        "example" : "SecurityError"
+      "error": {
+        "content": "$1",
+        "example": "SecurityError"
       }
     }
   },
@@ -133,13 +133,13 @@
     "message": "Er is te veel data om snel in een popup venster te kunnen tonen, gebruik de Opschonen optie om de dataset te beperken of open het uitgebreide 'Historie Beheer' venster (rechter muisklik).\n\n($count$ resultaten van totaal $total$ zijn weggelaten)",
     "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
     "placeholders": {
-      "count" : {
-        "content" : "$1",
-        "example" : "10"
+      "count": {
+        "content": "$1",
+        "example": "10"
       },
-      "total" : {
-        "content" : "$2",
-        "example" : "100"
+      "total": {
+        "content": "$2",
+        "example": "100"
       }
     }
   },
@@ -157,9 +157,9 @@
     "message": "Start het opschonen en verwijder historie niet gebruikt in de afgelopen $nrofdays$ dagen?\n\n(Termijn kan aangepast worden in voorkeuren)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays" : {
-        "content" : "$1",
-        "example" : "90"
+      "nrofdays": {
+        "content": "$1",
+        "example": "90"
       }
     }
   },
@@ -167,9 +167,9 @@
     "message": "Het opschonen is gestart, historie niet gebruiikt in de afgelopen $nrofdays$ dagen wordt nu verwijderd.",
     "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays" : {
-        "content" : "$1",
-        "example" : "90"
+      "nrofdays": {
+        "content": "$1",
+        "example": "90"
       }
     }
   },
@@ -518,7 +518,7 @@
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
 
-  
+
   "popupHeader": {
     "message": "Form History Control (II)",
     "description": "Header title of the small popup."
@@ -545,14 +545,14 @@
     "message": "Test bericht: $MESSAGE$.",
     "description": "Just a test notification.",
     "placeholders": {
-      "message" : {
-        "content" : "$1",
-        "example" : "Hallo wereld!"
+      "message": {
+        "content": "$1",
+        "example": "Hallo wereld!"
       }
     }
   },
-  
-  
+
+
 
   "contextMenuItemManageHistory": {
     "message": "Historie Beheer",
