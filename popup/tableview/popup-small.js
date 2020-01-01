@@ -122,6 +122,8 @@ $(document).ready(function() {
     // Prevent the default right-click contextmenu
     document.oncontextmenu = function() {return false;};
 
+    document.onkeyup = onKeyClicked;
+
     $('.context-menu-item').on('click', function(event) {
         onContextMenuClicked(event.currentTarget.id);
     });
@@ -370,4 +372,45 @@ function refreshView() {
     let table = $('#fhcTable').DataTable();
     table.clear();
     populateViewFromDatabase(table);
+}
+
+function deleteSelected() {
+    let deleted = false;
+    let rows = $('#fhcTable').DataTable().rows('.selected');
+    rows.every(
+        function (/* rowIdx, tableLoop, rowLoop */) {
+            let primaryKey = this.data()[0];
+            // console.log('primaryKey database (delete) is: ' + primaryKey);
+            DataTableUtil.deleteItemFromDatabase(primaryKey);
+            deleted = true;
+        }
+    );
+    if (deleted) {
+        DataTableUtil.broadcastItemDeletedFromDatabase();
+    }
+}
+
+function onKeyClicked(event) {
+    const keyName = event.key;
+
+    // Select all is not supported for the small popup (single select only)
+
+    // Delete and Shift+Delete key
+    if (!event.altKey && !event.ctrlKey && keyName === 'Delete') {
+        deleteSelected();
+    }
+
+    // context menu shortcut (Alt+key)
+    if (event.altKey && !event.ctrlKey && !event.shiftKey && isAlpha(keyName)) {
+        // try to find a matching menu-item
+        const menuItems = $("span[data-access-key='" + keyName +"']");
+        if (menuItems.length > 0) {
+            const menuItem = menuItems[0];
+
+            // if no id its a toplevel menu
+            if (menuItem.id) {
+                onContextMenuClicked(menuItem.id);
+            }
+        }
+    }
 }
