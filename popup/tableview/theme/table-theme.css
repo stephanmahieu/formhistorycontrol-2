@@ -1,5 +1,10 @@
 /* common styles for table view */
 
+/* prevent select-all highlighting (can't override default behaviour Ctrl-A event) */
+* {
+    user-select: none;
+}
+
 /* search box */
 #fhcTable_filter input[type=search] {
     width: 115px;

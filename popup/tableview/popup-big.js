@@ -119,7 +119,7 @@ $(document).ready(function() {
         onMenuClicked(event.currentTarget.id);
     });
 
-    // add keyhandler for menu
+    // add keyhandler for esc/del/select-all and menu
     $('body').on('keyup', function(event) {
         onKeyClicked(event);
     });
@@ -574,18 +574,35 @@ function onKeyClicked(event) {
         return;
     }
 
-    if (event.altKey && !event.ctrlKey && !event.shiftKey && isAlpha(keyName)) {
-        // console.log("We have an Alt-key event: " + keyName);
+    // Select all (Ctrl-A seems locale independent)
+    if (!event.altKey && event.ctrlKey && !event.shiftKey && keyName === 'a') {
+        // event.stopImmediatePropagation not effective, user-select style none will prevent showing selected elements
+        selectAll();
+        return;
+    }
 
+    // Delete and Shift+Delete key
+    if (!event.altKey && !event.ctrlKey && keyName === 'Delete') {
+        if (isMenuItemEnabled('delete')) {
+            if (event.shiftKey) {
+                deleteSelectedItems();
+            } else {
+                deleteSelectedItemsAsk();
+            }
+        }
+        return;
+    }
+
+    // context menu shortcut (Alt+key)
+    if (event.altKey && !event.ctrlKey && !event.shiftKey && isAlpha(keyName)) {
         // try to find a matching menu-item
         const menuItems = $("span[data-access-key='" + keyName +"']");
         if (menuItems.length > 0) {
             const menuItem = menuItems[0];
 
             // if no id its a toplevel menu
-            if (!menuItem.id) {
-                // $(menuItem).parent().addClass('hovered');
-                // $(menuItem).parent().find('*').addClass('hovered');
+            if (menuItem.id) {
+                onMenuClicked(menuItem.id);
             }
         }
     }
