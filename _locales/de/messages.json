@@ -3,24 +3,18 @@
     "message": "Form History Control (II)",
     "description": "The title of this extension"
   },
-
   "extensionDescriptionLabel": {
     "message": "Beschreibung",
     "description": "Label for description."
   },
-
   "extensionDescription": {
     "message": "Ein Add-on zur Pflege der Formularhistorie (Suchen, Editieren, Löschen, Export/Import) und einfacher Formularfüller.",
     "description": "Description of this extension."
   },
-
   "extensionDeveloperLabel": {
     "message": "Entwickler",
     "description": "Label for developer."
   },
-
-
-
   "fieldName": {
     "message": "Feldname",
     "description": "The label for the formfield-name of a formfield entry."
@@ -57,8 +51,6 @@
     "message": "Alle",
     "description": "For the paging list, indicates All values displayed in one single page."
   },
-
-
   "operationWindowTile": {
     "message": "Formularfeld",
     "description": "Window title of the formfield edit window."
@@ -95,8 +87,6 @@
     "message": "Kopiere den gesamten Inhalt (HTML)",
     "description": "Contextmenu item: Copy entire HTML to clipboard."
   },
-
-
   "dialogErrorTitle": {
     "message": "Fehler",
     "description": "Title of error dialog."
@@ -113,8 +103,6 @@
     "message": "Frage",
     "description": "Title of question dialog."
   },
-
-
   "dialogErrorTitleDatabase": {
     "message": "Speicherfehler, kein Datenbankzugriff!",
     "description": "Title of error dialog for database access errors."
@@ -143,12 +131,10 @@
       }
     }
   },
-
   "informClipboardValueCopied": {
     "message": "Wert wurde erfolgreich in die Zwischenablage kopiert",
     "description": "Information message that clipboard value has been copied."
   },
-
   "confirmStartCleanupTitle": {
     "message": "Bereinigung starten?",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
@@ -173,7 +159,6 @@
       }
     }
   },
-
   "confirmDeleteMultipleTitle": {
     "message": "Alle ausgewählten Objekte löschen?",
     "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
@@ -182,7 +167,6 @@
     "message": "Mehrere Artikel wurden ausgewählt, ALLE ausgewählten Artikel löschen?",
     "description": "Message asking confirmation for deleting multiple selected item."
   },
-
   "validationErrorMissingRequired": {
     "message": "Nicht alle erforderlichen Felder sind ausgefüllt",
     "description": "Validation message for missing mandatory values."
@@ -203,8 +187,6 @@
     "message": "Wert ist keine gültige URL.",
     "description": "Validation message for value not being a valid URL."
   },
-
-
   "buttonOkay": {
     "message": "Okay",
     "description": "Label of the okay button."
@@ -253,8 +235,6 @@
     "message": "Nein",
     "description": "Label of no button."
   },
-
-
   "importErrorTitle": {
     "message": "Import Fehler.",
     "description": "Title of modal error dialog for import errors."
@@ -279,8 +259,6 @@
     "message": "Das Lesen der Importdatei wurde abgebrochen.",
     "description": "Error message when reading import file was cancelled."
   },
-
-
   "tooltipEraseDatetimeButton": {
     "message": "Löschen Sie das Datum und die Uhrzeit.",
     "description": "Tooltip for the erase button: erase date and time"
@@ -289,8 +267,6 @@
     "message": "Stellen Sie das aktuelle Datum und die Uhrzeit ein.",
     "description": "Tooltip for the time button: set the current date and time"
   },
-
-
   "labelYesr": {
     "message": "Jahr",
     "description": "Label for Year."
@@ -307,8 +283,6 @@
     "message": "Zeit",
     "description": "Label for Time."
   },
-
-
   "importTitle": {
     "message": "Import",
     "description": "Title of import window."
@@ -337,18 +311,14 @@
     "message": "Zum Öffnen oder Speichern auf den Download-Link klicken.",
     "description": "Short explanation in the export dialog: click download link to open or save locally"
   },
-
   "aboutTitle": {
     "message": "Über",
     "description": "Title of the About window."
   },
-
-
   "optionTitle": {
     "message": "Optionen",
     "description": "Title of the options window."
   },
-
   "optionDefault": {
     "message": "standard",
     "description": "The 'default' option in a select list."
@@ -357,12 +327,10 @@
     "message": "automatisch",
     "description": "The 'automatic' option in a select list."
   },
-
-  "XXXoptionsExpertMode": {
-    "message": "Show advanced options",
+  "optionsExpertMode": {
+    "message": "Erweiterte Optionen anzeigen",
     "description": "Options window: Show advanced options checkbox."
   },
-
   "optionsDisplayMenu": {
     "message": "Anzeige",
     "description": "Options window: Left Display menu."
@@ -387,7 +355,6 @@
     "message": "Bereinigung",
     "description": "Options window: Left Cleanup menu."
   },
-
   "optionsDisplayLegend": {
     "message": "Anzeige",
     "description": "Options window: The Display legend."
@@ -400,12 +367,26 @@
     "message": "Wählen Sie das Datumsformat",
     "description": "Options window: The date format selection dropdown label"
   },
-  "XXXoptionsScrollAmountSelect": {
-    "message": "Mousewheel scroll amount (pixels)",
+  "optionsScrollAmountSelect": {
+    "message": "Mausrad Bildlaufanzahl (pixels)",
     "description": "Options window: The scroll amount selection dropdown label"
   },
-
-
+  "optionsContextMenuSelect": {
+    "message": "Kontextmenü",
+    "description": "Options window: The context menu dropdown label (select when it should be displayed)"
+  },
+  "optionContextMenuPage": {
+    "message": "Immer verfügbar",
+    "description": "Option window, contextmenu display: Always available"
+  },
+  "optionContextMenuEditfields": {
+    "message": "Nur auf Eingabefeldern",
+    "description": "Option window, contextmenu display: On edit fields only"
+  },
+  "optionContextMenuNone": {
+    "message": "Kein Kontextmenü",
+    "description": "Option window, contextmenu display: No context menu"
+  },
   "optionsMiscellaneousLegend": {
     "message": "Verschiedenes",
     "description": "Options window: The Miscellaneous legend."
@@ -414,7 +395,6 @@
     "message": "Die integrierte automatische Vervollständigung überschreiben",
     "description": "Options window: The Override autocomplete checkbox Label."
   },
-
   "optionsShortcutsLegend": {
     "message": "Tastenkombinationen",
     "description": "Options window: The Shortcut key combinations legend."
@@ -431,7 +411,6 @@
     "message": "Aktualisieren von Tastenkombinationen wird (aktuell) nicht vom Browser unterstützt!",
     "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
-
   "optionsSaveNewVersionMultiline": {
     "message": "Eine neue Version von mehrzeiligen Eingabefeldern speichern wenn:",
     "description": "Options window, sub heading: Save a new version of a multiline field when:."
@@ -448,33 +427,30 @@
     "message": "Zeichen",
     "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
   },
-
-  "XXXoptionsOverrideIncognito": {
-    "message": "Do save formhistory in private browsing mode",
+  "optionsOverrideIncognito": {
+    "message": "Formularhistorie speichern im Privater Surf Modus",
     "description": "Options window, Save formhistory when running in a private browsing tab"
   },
-  "XXXoptionsRetainFieldTypes": {
-    "message": "Retain which type of field",
+  "optionsRetainFieldTypes": {
+    "message": "Welche Feldtyp speichern",
     "description": "Options window, Retain which type of field"
   },
-  "XXXoptionsRetainFieldAll": {
-    "message": "Single-line + Multi-line",
+  "optionsRetainFieldAll": {
+    "message": "Einzelzeilig + Mehrzeilig",
     "description": "Options window, Single-line + Multi-line"
   },
-  "XXXoptionsRetainFieldMulti": {
-    "message": "Multi-line only",
+  "optionsRetainFieldMulti": {
+    "message": "Nur Mehrzeilig",
     "description": "Options window, Multi-line only"
   },
-  "XXXoptionsRetainFieldSingle": {
-    "message": "Single-line only",
+  "optionsRetainFieldSingle": {
+    "message": "Nur Einzelzeilig",
     "description": "Options window, Single-line only"
   },
-
-  "XXXoptionsuUdateInterval": {
-    "message": "Update interval",
+  "optionsuUdateInterval": {
+    "message": "Aktualisierungsfrequenz",
     "description": "Options window, Update interval"
   },
-
   "optiondomainlistlegend": {
     "message": "Aktiviere/Deaktiviere den Verlauf pro Domain",
     "description": "Options window: The Domain Filter legend."
@@ -491,12 +467,10 @@
     "message": "Whitelist",
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
-
   "optionsFieldlistlegend": {
     "message": "Verlauf für bestimmte Felder deaktivieren",
     "description": "Options window: The Cleanup legend."
   },
-
   "optionsCleanupLegend": {
     "message": "Aufräumen",
     "description": "Options window: The Cleanup legend."
@@ -517,8 +491,6 @@
     "message": "Jetzt bereinigen",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
-
-
   "popupHeader": {
     "message": "Form History Control (II)",
     "description": "Header title of the small popup."
@@ -535,8 +507,6 @@
     "message": "Den erweiterten Dialog 'Verlauf verwalten' öffnen",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
-
-
   "notificationTitle": {
     "message": "Benachrichtigung testen",
     "description": "Title of the test notification."
@@ -551,9 +521,6 @@
       }
     }
   },
-
-
-
   "contextMenuItemManageHistory": {
     "message": "Verlauf verwalten",
     "description": "Title of context menu item that starts the Manage history dialog."
@@ -594,8 +561,6 @@
     "message": "Optionen",
     "description": "Title of context menu item that shows the preferences page."
   },
-
-
   "menuFile": {
     "message": "Datei",
     "description": "Label of File menu."
@@ -612,7 +577,6 @@
     "message": "Schließen",
     "description": "Label of Close menuitem in the File menu."
   },
-
   "menuEdit": {
     "message": "Bearbeiten",
     "description": "Label of Edit menu."
@@ -645,7 +609,6 @@
     "message": "Auswahl umkehren",
     "description": "Label of Invert selection menuitem in the Edit menu."
   },
-
   "menuDisplay": {
     "message": "Anzeige",
     "description": "Label of Display menu."
@@ -654,7 +617,6 @@
     "message": "Aktualisierung",
     "description": "Label of Refresh menuitem in the Display menu."
   },
-
   "menuExtra": {
     "message": "Extras",
     "description": "Label of Extra menu."
@@ -667,7 +629,6 @@
     "message": "Jetzt bereinigen",
     "description": "Label of cleanup-now menuitem in the Extra menu."
   },
-
   "menuHelp": {
     "message": "Hilfe",
     "description": "Label of Help menu."
@@ -688,7 +649,6 @@
     "message": "Über",
     "description": "Label of About menuitem in the Help menu."
   },
-
   "paMenuItemAddBlacklist": {
     "message": "Aktuelle Seite zur Blacklist hinzufügen",
     "description": "Label pageaction menuitem: Blacklist current page"
@@ -705,7 +665,6 @@
     "message": "Akutelle Seite von der Whitelist entfernen",
     "description": "Label pageaction menuitem: Remove current page from the whitelist."
   },
-
   "loading_status": {
     "message": "Laden...",
     "description": "Text displayed while data is being loaded."

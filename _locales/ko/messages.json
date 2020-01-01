@@ -3,24 +3,18 @@
     "message": "Form History Control (II)",
     "description": "The title of this extension"
   },
-
   "extensionDescriptionLabel": {
     "message": "설명",
     "description": "Label for description."
   },
-
   "extensionDescription": {
     "message": "폼 기록 관리 (검색, 보기, 편집, 정리, 내보내기/가져오기) 및 간편한 폼 채우기 기능을 제공합니다.",
     "description": "Description of this extension."
   },
-
   "extensionDeveloperLabel": {
     "message": "개발자",
     "description": "Label for developer."
   },
-
-
-
   "fieldName": {
     "message": "필드명",
     "description": "The label for the formfield-name of a formfield entry."
@@ -57,8 +51,6 @@
     "message": "모두",
     "description": "For the paging list, indicates All values displayed in one single page."
   },
-
-
   "operationWindowTile": {
     "message": "폼 필드",
     "description": "Window title of the formfield edit window."
@@ -95,8 +87,6 @@
     "message": "전체 (HTML) 내용 복사",
     "description": "Contextmenu item: Copy entire HTML to clipboard."
   },
-
-
   "dialogErrorTitle": {
     "message": "오류",
     "description": "Title of error dialog."
@@ -113,8 +103,6 @@
     "message": "질문",
     "description": "Title of question dialog."
   },
-
-
   "dialogErrorTitleDatabase": {
     "message": "저장소 오류, 데이터베이스 접근 불가!",
     "description": "Title of error dialog for database access errors."
@@ -143,12 +131,10 @@
       }
     }
   },
-
   "informClipboardValueCopied": {
     "message": "값을 클립보드에 복사했습니다",
     "description": "Information message that clipboard value has been copied."
   },
-
   "confirmStartCleanupTitle": {
     "message": "정리를 시작할까요?",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
@@ -173,7 +159,6 @@
       }
     }
   },
-
   "confirmDeleteMultipleTitle": {
     "message": "선택한 항목을 모두 삭제할까요?",
     "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
@@ -182,7 +167,6 @@
     "message": "여러 항목을 선택했습니다, 선택한 항목을 모두 삭제할까요?",
     "description": "Message asking confirmation for deleting multiple selected item."
   },
-
   "validationErrorMissingRequired": {
     "message": "입력되지 않은 필수 필드가 있습니다",
     "description": "Validation message for missing mandatory values."
@@ -203,8 +187,6 @@
     "message": "올바른 URL이 아닙니다.",
     "description": "Validation message for value not being a valid URL."
   },
-
-
   "buttonOkay": {
     "message": "확인",
     "description": "Label of the okay button."
@@ -253,8 +235,6 @@
     "message": "아니오",
     "description": "Label of no button."
   },
-
-
   "importErrorTitle": {
     "message": "가져오기 오류",
     "description": "Title of modal error dialog for import errors."
@@ -279,8 +259,6 @@
     "message": "가져올 파일 읽기가 취소되었습니다.",
     "description": "Error message when reading import file was cancelled."
   },
-
-
   "tooltipEraseDatetimeButton": {
     "message": "날짜 및 시간 지우기",
     "description": "Tooltip for the erase button: erase date and time"
@@ -289,8 +267,6 @@
     "message": "현재 날짜 및 시간으로 설정",
     "description": "Tooltip for the time button: set the current date and time"
   },
-
-
   "labelYesr": {
     "message": "년",
     "description": "Label for Year."
@@ -307,8 +283,6 @@
     "message": "시간",
     "description": "Label for Time."
   },
-
-
   "importTitle": {
     "message": "가져오기",
     "description": "Title of import window."
@@ -337,19 +311,14 @@
     "message": "다운로드 링크를 클릭하여 내보낸 파일을 열거나 저장하세요.",
     "description": "Short explanation in the export dialog: click download link to open or save locally"
   },
-
-
   "aboutTitle": {
     "message": "정보",
     "description": "Title of the About window."
   },
-
-
   "optionTitle": {
     "message": "환경설정",
     "description": "Title of the options window."
   },
-
   "optionDefault": {
     "message": "기본",
     "description": "The 'default' option in a select list."
@@ -358,12 +327,10 @@
     "message": "자동",
     "description": "The 'automatic' option in a select list."
   },
-
   "optionsExpertMode": {
     "message": "고급 설정 표시",
     "description": "Options window: Show advanced options checkbox."
   },
-
   "optionsDisplayMenu": {
     "message": "보기",
     "description": "Options window: Left Display menu."
@@ -388,7 +355,6 @@
     "message": "정리",
     "description": "Options window: Left Cleanup menu."
   },
-
   "optionsDisplayLegend": {
     "message": "보기",
     "description": "Options window: The Display legend."
@@ -405,8 +371,22 @@
     "message": "마우스 휠 스크롤할 양 (픽셀)",
     "description": "Options window: The scroll amount selection dropdown label"
   },
-
-
+  "XXXoptionsContextMenuSelect": {
+    "message": "Context menu",
+    "description": "Options window: The context menu dropdown label (select when it should be displayed)"
+  },
+  "XXXoptionContextMenuPage": {
+    "message": "Always available",
+    "description": "Option window, contextmenu display: Always available"
+  },
+  "XXXoptionContextMenuEditfields": {
+    "message": "On edit fields only",
+    "description": "Option window, contextmenu display: On edit fields only"
+  },
+  "XXXoptionContextMenuNone": {
+    "message": "No context menu",
+    "description": "Option window, contextmenu display: No context menu"
+  },
   "optionsMiscellaneousLegend": {
     "message": "기타",
     "description": "Options window: The Miscellaneous legend."
@@ -415,7 +395,6 @@
     "message": "기본 자동완성 기능을 대체",
     "description": "Options window: The Override autocomplete checkbox Label."
   },
-
   "optionsShortcutsLegend": {
     "message": "단축 키 조합",
     "description": "Options window: The Shortcut key combinations legend."
@@ -432,7 +411,6 @@
     "message": "단축 키 교체가 이 브라우저에서는 (아직) 지원되지 않습니다!",
     "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
-
   "optionsSaveNewVersionMultiline": {
     "message": "여러 줄 필드의 새 기록을 저장할 시기:",
     "description": "Options window, sub heading: Save a new version of a multiline field when:."
@@ -449,7 +427,6 @@
     "message": "글자",
     "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
   },
-
   "optionsOverrideIncognito": {
     "message": "사생활 보호 모드에서 폼 기록 저장",
     "description": "Options window, Save formhistory when running in a private browsing tab"
@@ -470,12 +447,10 @@
     "message": "한 줄만",
     "description": "Options window, Single-line only"
   },
-
   "optionsuUdateInterval": {
     "message": "업데이트 주기",
     "description": "Options window, Update interval"
   },
-
   "optiondomainlistlegend": {
     "message": "도메인별 기록 기능 사용/중지",
     "description": "Options window: The Domain Filter legend."
@@ -492,12 +467,10 @@
     "message": "허용 목록",
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
-
   "optionsFieldlistlegend": {
     "message": "특정 필드 기록 기능 사용 중지",
     "description": "Options window: The Cleanup legend."
   },
-
   "optionsCleanupLegend": {
     "message": "정리",
     "description": "Options window: The Cleanup legend."
@@ -518,8 +491,6 @@
     "message": "지금 정리",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
-
-
   "popupHeader": {
     "message": "Form History Control (II)",
     "description": "Header title of the small popup."
@@ -536,8 +507,6 @@
     "message": "'기록 관리' 대화상자 열기",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
-
-
   "notificationTitle": {
     "message": "테스트 알림",
     "description": "Title of the test notification."
@@ -552,9 +521,6 @@
       }
     }
   },
-
-
-
   "contextMenuItemManageHistory": {
     "message": "기록 관리",
     "description": "Title of context menu item that starts the Manage history dialog."
@@ -595,8 +561,6 @@
     "message": "설정",
     "description": "Title of context menu item that shows the preferences page."
   },
-
-
   "menuFile": {
     "message": "파일",
     "description": "Label of File menu."
@@ -613,7 +577,6 @@
     "message": "닫기",
     "description": "Label of Close menuitem in the File menu."
   },
-
   "menuEdit": {
     "message": "편집",
     "description": "Label of Edit menu."
@@ -646,7 +609,6 @@
     "message": "선택 반전",
     "description": "Label of Invert selection menuitem in the Edit menu."
   },
-
   "menuDisplay": {
     "message": "보기",
     "description": "Label of Display menu."
@@ -655,7 +617,6 @@
     "message": "새로고침",
     "description": "Label of Refresh menuitem in the Display menu."
   },
-
   "menuExtra": {
     "message": "기타",
     "description": "Label of Extra menu."
@@ -668,7 +629,6 @@
     "message": "지금 정리",
     "description": "Label of cleanup-now menuitem in the Extra menu."
   },
-
   "menuHelp": {
     "message": "도움말",
     "description": "Label of Help menu."
@@ -689,7 +649,6 @@
     "message": "정보",
     "description": "Label of About menuitem in the Help menu."
   },
-
   "paMenuItemAddBlacklist": {
     "message": "현재 페이지를 금지 목록에 추가",
     "description": "Label pageaction menuitem: Blacklist current page"
@@ -706,7 +665,6 @@
     "message": "현재 페이지를 허용 목록에서 제외",
     "description": "Label pageaction menuitem: Remove current page from the whitelist."
   },
-
   "loading_status": {
     "message": "불러오는 중...",
     "description": "Text displayed while data is being loaded."

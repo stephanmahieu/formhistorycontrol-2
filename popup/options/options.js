@@ -65,37 +65,35 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.querySelector("#themeSelect").addEventListener("change", themeSelectionChanged);
-    document.querySelector("#overrideAutocomplete").addEventListener("change", checkPropertiesChanged);
-    document.querySelector("#overrideIncognito").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#dateformatSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#scrollAmountSelect").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#contextMenuSelect").addEventListener("change", checkPropertiesChanged);
 
-    document.querySelector("#versionAgeSelect").addEventListener("change", checkPropertiesChanged);
-    document.querySelector("#versionLengthSelect").addEventListener("change", checkPropertiesChanged);
-
+    document.querySelector("#overrideAutocomplete").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#overrideIncognito").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#retainTypeSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#retainTypeSelect").addEventListener("change", retainTypeChanged);
     document.querySelector("#updateIntervalSelect").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#versionAgeSelect").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#versionLengthSelect").addEventListener("change", checkPropertiesChanged);
 
     document.querySelector("#shortcutKeysModify").addEventListener("click", showShortkeyModifySelects);
     document.querySelector("#shortcutKeysSummary").addEventListener("click", showShortkeySummary);
+
+    document.querySelector("#autocleanup").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#keepdayshistory").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#btnCleanupNow").addEventListener("click", cleanupNow);
 
     document.querySelectorAll('input[name=radiogroupDomainlist]').forEach(radio => {
         radio.addEventListener("change", checkPropertiesChanged);
         radio.addEventListener("change", domainlistRadioChanged);
     });
-
     document.querySelector('#domainlist').addEventListener("change", domainlistChanged);
     document.querySelector('#domainListItem').addEventListener("keyup", domainlistInputChanged);
+    document.querySelectorAll('.domainbutton').forEach(btn => {btn.addEventListener("click", listButtonClicked)});
 
     document.querySelector('#fieldlist').addEventListener("change", fieldlistChanged);
     document.querySelector('#fieldListItem').addEventListener("keyup", fieldlistInputChanged);
-
-    document.querySelectorAll('.domainbutton').forEach(btn => {btn.addEventListener("click", listButtonClicked)});
-
-    document.querySelector("#autocleanup").addEventListener("change", checkPropertiesChanged);
-    document.querySelector("#keepdayshistory").addEventListener("change", checkPropertiesChanged);
-    document.querySelector("#btnCleanupNow").addEventListener("click", cleanupNow);
 
     document.querySelector("#buttonClose").addEventListener("click", closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
@@ -142,8 +140,14 @@ function restoreOptions() {
         prefUpdateInterval       : "5000",
         prefDateFormat           : "automatic",
         prefScrollAmount         : "auto",
+        prefContextmenuAvail     : "page",
         prefShortcutKeys         : {
             // defaults here must be equal to the defaults in manifest.json
+            _execute_browser_action     : OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
+            open_fhc                    : OptionsUtil.getDefaultShortcutKey('open_fhc'),
+            toggle_display_fields       : OptionsUtil.getDefaultShortcutKey('toggle_display_fields'),
+            fill_recent                 : OptionsUtil.getDefaultShortcutKey('fill_recent'),
+            fill_often                  : OptionsUtil.getDefaultShortcutKey('fill_often'),
             open_fhc_enable             : true,
             toggle_display_fields_enable: true,
             fill_recent_enable          : true,
@@ -168,6 +172,7 @@ function restoreOptions() {
         document.querySelector('#updateIntervalSelect').value = res.prefUpdateInterval;
         document.querySelector("#dateformatSelect").value = res.prefDateFormat;
         document.querySelector("#scrollAmountSelect").value = res.prefScrollAmount;
+        document.querySelector("#contextMenuSelect").value = res.prefContextmenuAvail;
         document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
         document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
 
@@ -210,6 +215,7 @@ function saveOptions(e) {
         updateIntervalChanged:       (currentOptions.prefUpdateInterval !== newOptions.prefUpdateInterval),
         dateFormatChanged:           (currentOptions.prefDateFormat !== newOptions.prefDateFormat),
         scrollAmountChanged:         (currentOptions.prefScrollAmount !== newOptions.prefScrollAmount),
+        contextmenuAvailChanged:     (currentOptions.prefContextmenuAvail !== newOptions.prefContextmenuAvail),
         domainFilterChanged:         (currentOptions.prefDomainFilter !== newOptions.prefDomainFilter || !arrayContentEquals(currentOptions.prefDomainList, newOptions.prefDomainList)),
         fieldFilterChanged:          !arrayContentEquals(currentOptions.prefFieldList, newOptions.prefFieldList)
     };
@@ -243,6 +249,7 @@ function getNewOptions() {
         prefUpdateInterval       : document.querySelector("#updateIntervalSelect").value,
         prefDateFormat           : document.querySelector("#dateformatSelect").value,
         prefScrollAmount         : document.querySelector("#scrollAmountSelect").value,
+        prefContextmenuAvail     : document.querySelector("#contextMenuSelect").value,
         prefShortcutKeys         : getAllShortcutKeyValues(),
         prefDomainFilter         : getCheckedRadioDomainValue(),
         prefDomainList           : getList("#domainlist"),

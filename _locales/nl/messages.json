@@ -3,24 +3,18 @@
     "message": "Form History Control (II)",
     "description": "The title of this extension"
   },
-
   "extensionDescriptionLabel": {
     "message": "Omschrijving",
     "description": "Label for description."
   },
-
   "extensionDescription": {
     "message": "Onderhouden van formulier historie (zoeken, inzien, aanpassen, opschonen, exporteren/importeren) en eenvoudige formulier invuller.",
     "description": "Description of this extension."
   },
-
   "extensionDeveloperLabel": {
     "message": "Ontwikkelaar",
     "description": "Label for developer."
   },
-
-
-
   "fieldName": {
     "message": "Veldnaam",
     "description": "The label for the formfield-name of a formfield entry."
@@ -57,8 +51,6 @@
     "message": "Alle",
     "description": "For the paging list, indicates All values displayed in one single page."
   },
-
-
   "operationWindowTile": {
     "message": "Formulier veld",
     "description": "Window title of the formfield edit window."
@@ -95,8 +87,6 @@
     "message": "Kopiëeer de complete inhoud",
     "description": "Contextmenu item: Copy entire HTML to clipboard."
   },
-
-
   "dialogErrorTitle": {
     "message": "Fout",
     "description": "Title of error dialog."
@@ -113,8 +103,6 @@
     "message": "Vraag",
     "description": "Title of question dialog."
   },
-
-
   "dialogErrorTitleDatabase": {
     "message": "Opslag fout, geen database toegang!",
     "description": "Title of error dialog for database access errors."
@@ -143,12 +131,10 @@
       }
     }
   },
-
   "informClipboardValueCopied": {
     "message": "Waarde succesvol gekopieerd naar het klembord",
     "description": "Information message that clipboard value has been copied."
   },
-
   "confirmStartCleanupTitle": {
     "message": "Start het opschonen?",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
@@ -173,7 +159,6 @@
       }
     }
   },
-
   "confirmDeleteMultipleTitle": {
     "message": "Verwijder alle geselecteerde items?",
     "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
@@ -182,7 +167,6 @@
     "message": "Meerdere items zijn geselecteerd, verwijder ALLE geselecteerde waarden?",
     "description": "Message asking confirmation for deleting multiple selected item."
   },
-
   "validationErrorMissingRequired": {
     "message": "Niet alle verplichte velden zijn ingevuld",
     "description": "Validation message for missing mandatory values."
@@ -203,8 +187,6 @@
     "message": "Waarde is geen correcte URL.",
     "description": "Validation message for value not being a valid URL."
   },
-
-
   "buttonOkay": {
     "message": "Akkoord",
     "description": "Label of the okay button."
@@ -253,8 +235,6 @@
     "message": "Nee",
     "description": "Label of no button."
   },
-
-
   "importErrorTitle": {
     "message": "Importeer fout.",
     "description": "Title of modal error dialog for import errors."
@@ -279,8 +259,6 @@
     "message": "Het lezen van het import bestand is afgebroken.",
     "description": "Error message when reading import file was cancelled."
   },
-
-
   "tooltipEraseDatetimeButton": {
     "message": "Wis de datum en tijd",
     "description": "Tooltip for the erase button: erase date and time"
@@ -289,8 +267,6 @@
     "message": "Zet de huidige datum en tijd",
     "description": "Tooltip for the time button: set the current date and time"
   },
-
-
   "labelYesr": {
     "message": "Jaar",
     "description": "Label for Year."
@@ -307,8 +283,6 @@
     "message": "Tijd",
     "description": "Label for Time."
   },
-
-
   "importTitle": {
     "message": "Importeren",
     "description": "Title of the import window."
@@ -337,19 +311,14 @@
     "message": "Klik op de download link om het export bestand te openen of op te slaan.",
     "description": "Short explanation in the export dialog: click download link to open or save locally"
   },
-
-
   "aboutTitle": {
     "message": "Over",
     "description": "Title of the About window."
   },
-
-
   "optionTitle": {
     "message": "Opties",
     "description": "Title of the options window."
   },
-
   "optionDefault": {
     "message": "standaard",
     "description": "The 'default' option in a select list."
@@ -358,12 +327,10 @@
     "message": "automatisch",
     "description": "The 'automatic' option in a select list."
   },
-
   "optionsExpertMode": {
     "message": "Geavanceerde opties tonen",
     "description": "Options window: Show advanced options checkbox."
   },
-
   "optionsDisplayMenu": {
     "message": "Weergave",
     "description": "Options window: Left Display menu."
@@ -388,7 +355,6 @@
     "message": "Opschonen",
     "description": "Options window: Left Cleanup menu."
   },
-
   "optionsDisplayLegend": {
     "message": "Weergave",
     "description": "Options window: The Display legend."
@@ -405,7 +371,22 @@
     "message": "Muiswiel scroll aantal (pixels)",
     "description": "Options window: The scroll amount selection dropdown label"
   },
-
+  "optionsContextMenuSelect": {
+    "message": "Contextmenu",
+    "description": "Options window: The context menu dropdown label (select when it should be displayed)"
+  },
+  "optionContextMenuPage": {
+    "message": "Altijd beschikbaar",
+    "description": "Option window, contextmenu display: Always available"
+  },
+  "optionContextMenuEditfields": {
+    "message": "Alleen bij invoervelden",
+    "description": "Option window, contextmenu display: On edit fields only"
+  },
+  "optionContextMenuNone": {
+    "message": "Geen contextmenu",
+    "description": "Option window, contextmenu display: No context menu"
+  },
   "optionsMiscellaneousLegend": {
     "message": "Diversen",
     "description": "Options window: The Miscellaneous legend."
@@ -414,7 +395,6 @@
     "message": "Vervang de ingebouwde auto-aanvullen functie",
     "description": "Options window: The Override autocomplete checkbox Label."
   },
-
   "optionsShortcutsLegend": {
     "message": "Sneltoetsen",
     "description": "Options window: The Shortcut key combinations legend."
@@ -431,7 +411,6 @@
     "message": "Aanpassen van de sneltoetsen wordt (nog) niet ondersteund door de browser!",
     "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
-
   "optionsSaveNewVersionMultiline": {
     "message": "Bewaar een nieuwe versie van een meerregelig veld als:",
     "description": "Options window, sub heading: Save a new version of a multiline field when:."
@@ -448,7 +427,6 @@
     "message": "karakters",
     "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
   },
-
   "optionsOverrideIncognito": {
     "message": "Toch formulier historie opslaan in privénavigatie modus",
     "description": "Options window, Save formhistory when running in a private browsing tab"
@@ -469,12 +447,10 @@
     "message": "Alleen eenregelig",
     "description": "Options window, Single-line only"
   },
-
   "optionsuUdateInterval": {
     "message": "Update interval",
     "description": "Options window, Update interval"
   },
-
   "optiondomainlistlegend": {
     "message": "Aanzetten/Uitzetten historie per domein",
     "description": "Options window: The Domain Filter legend."
@@ -491,12 +467,10 @@
     "message": "Witte lijst",
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
-
   "optionsFieldlistlegend": {
     "message": "Historie uitzetten voor specifieke velden",
     "description": "Options window: The Cleanup legend."
   },
-
   "optionsCleanupLegend": {
     "message": "Opschonen",
     "description": "Options window: The Cleanup legend."
@@ -517,8 +491,6 @@
     "message": "Nu Opschonen",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
-
-
   "popupHeader": {
     "message": "Form History Control (II)",
     "description": "Header title of the small popup."
@@ -535,8 +507,6 @@
     "message": "Open het uitgebreide 'Historie Beheer' venster",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
-
-
   "notificationTitle": {
     "message": "Test notificatie",
     "description": "Title of the test notification."
@@ -551,9 +521,6 @@
       }
     }
   },
-
-
-
   "contextMenuItemManageHistory": {
     "message": "Historie Beheer",
     "description": "Title of context menu item that starts the Manage history dialog."
@@ -594,8 +561,6 @@
     "message": "Voorkeuren",
     "description": "Title of context menu item that shows the preferences page."
   },
-
-
   "menuFile": {
     "message": "Bestand",
     "description": "Label of file menu."
@@ -612,7 +577,6 @@
     "message": "Afsluiten",
     "description": "Label of Close menuitem in the File menu."
   },
-
   "menuEdit": {
     "message": "Bewerken",
     "description": "Label of Edit menu."
@@ -645,7 +609,6 @@
     "message": "Inverteer selectie",
     "description": "Label of Invert selection menuitem in the Edit menu."
   },
-
   "menuDisplay": {
     "message": "Tonen",
     "description": "Label of Display menu."
@@ -654,7 +617,6 @@
     "message": "Vernieuwen",
     "description": "Label of Refresh menuitem in the Display menu."
   },
-
   "menuExtra": {
     "message": "Extra",
     "description": "Label of Extra menu."
@@ -667,7 +629,6 @@
     "message": "Nu Opschonen",
     "description": "Label of cleanup-now menuitem in the Extra menu."
   },
-
   "menuHelp": {
     "message": "Help",
     "description": "Label of Help menu."
@@ -688,7 +649,6 @@
     "message": "Over",
     "description": "Label of About menuitem in the Help menu."
   },
-
   "paMenuItemAddBlacklist": {
     "message": "Plaats deze pagina op de zwarte ijst",
     "description": "Label pageaction menuitem: Blacklist current page"
@@ -705,7 +665,6 @@
     "message": "Verwijder deze pagina van de witte lijst.",
     "description": "Label pageaction menuitem: Remove current page from the whitelist."
   },
-
   "loading_status": {
     "message": "Laden...",
     "description": "Text displayed while data is being loaded."

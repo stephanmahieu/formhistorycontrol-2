@@ -6,14 +6,30 @@
  */
 'use strict';
 
-/**
- * Caveat:
- * does not detect switching/focusing window, with multiple windows each window has an active tab and the
- * context menu will reflect only the state of the last activated (switched) tab on that particular window.
- */
-
 const IS_FIREFOX = typeof browser.runtime.getBrowserInfo === 'function';
 console.log("IS_FIREFOX = " + IS_FIREFOX);
+
+browser.runtime.onMessage.addListener(receiveContextEvents);
+
+function receiveContextEvents(fhcEvent, sender, sendResponse) {
+    if (fhcEvent.eventType && fhcEvent.eventType === 888 && fhcEvent.contextmenuAvailChanged) {
+        // remove the context menu and rebuild from scratch
+        const promisesArray = [];
+        while (CONTEXT_FIELDS_MENUITEM_IDS.length > 0) {
+            let itemId = CONTEXT_FIELDS_MENUITEM_IDS.pop();
+            promisesArray.push(browserMenusRemove(itemId));
+        }
+        Promise.all(promisesArray).then(()=>{
+            browser.storage.local.get({
+                prefContextmenuAvail: "page"
+            }).then(res => {
+                _initContextMenu(res.prefContextmenuAvail);
+                _initBrowserActionSubmenu();
+            });
+        });
+    }
+}
+
 
 // keep track of current menu, activating another tab on another window triggers both
 // tab.onActivated and windows.onFocusChanged which triggers both event handlers
@@ -89,6 +105,8 @@ function updateEditorFieldRestoreMenuOnTabActivation(windowId, tabId, attempt = 
 
 const MAX_LENGTH_EDITFIELD_ITEM = 35;
 const EDITOR_FIELDS_MENUITEM_IDS = [];
+let contextAnonMenuItemNo = 10000;
+const CONTEXT_FIELDS_MENUITEM_IDS = [];
 
 function updateEditorFieldRestoreMenu(windowId, tabId, url) {
     // console.log('>>> updateEditorFieldRestoreMenu for window ' + windowId + ' and tab with url ' + url);
@@ -343,10 +361,20 @@ function onMenuCreated() {
 
 
 function initBrowserMenus() {
+    const gettingPref = browser.storage.local.get({
+        prefContextmenuAvail: "page"
+    });
+    gettingPref.then(res => {
+        const contextmenuAvail = res.prefContextmenuAvail;
+        _initToolsMenu();
+        _initContextMenu(contextmenuAvail);
+        _initBrowserActionSubmenu();
+    });
+}
+
+function _initToolsMenu() {
     /*
      * Create the Tools context menu items.
-     *
-     * ===============================(tools_menu)================================
      */
     browserMenusCreate({
         id: "FHCToolsParentMenu",
@@ -377,153 +405,169 @@ function initBrowserMenus() {
             "32": "/theme/icons/menu/32/preferences.png"
         }
     }, onMenuCreated);
-    /* =============================(tools_menu end)============================== */
+}
 
-
+function _initContextMenu(contextmenuAvail) {
     /*
      * Create the right-click context menu.
      * Hide the menu separators for the browser-action, we may only show 6 items
      * including the separators.
-     *
-     * ==============================(context menu)===============================
      */
-    browserMenusCreate({
+    const contextAll     = [];
+    const contextEdFr    = [];
+    const contextEdFrBra = ["browser_action"];
+
+    // Empty the array
+    CONTEXT_FIELDS_MENUITEM_IDS.splice(0, CONTEXT_FIELDS_MENUITEM_IDS.length);
+
+    if (contextmenuAvail === 'page') {
+        contextAll.push("all");
+        contextEdFr.push("page");
+        contextEdFrBra.push("page");
+    } else {
+        contextAll.push("frame", "browser_action",  "page_action");
+        if (contextmenuAvail === 'editfields') {
+            contextAll.push("editable");
+            contextEdFr.push("editable");
+            contextEdFrBra.push("editable");
+        }
+    }
+
+    browserContextMenusCreate({
         id: "manage",
         title: browser.i18n.getMessage("contextMenuItemManageHistory"),
-        contexts: ["all"],
+        contexts: contextAll,
         icons: {
             "16": "/theme/icons/fhc-16.png",
             "32": "/theme/icons/fhc-32.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         type: "separator",
-        contexts: ["page","editable","frame"]
+        contexts: contextEdFr
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "restoreEditorField",
         title: browser.i18n.getMessage("contextMenuItemRestoreEditorField"),
-        contexts: ["all"],
+        contexts: contextAll,
         icons: {
             "16": "/theme/icons/menu/16/refresh.png",
             "32": "/theme/icons/menu/32/refresh.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         type: "separator",
-        contexts: ["page","editable","frame"]
+        contexts: contextEdFr
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "fillMostRecent",
         title: browser.i18n.getMessage("contextMenuItemFillMostRecent"),
-        contexts: ["all"],
+        contexts: contextAll,
         icons: {
             "16": "/theme/icons/menu/16/fillfields.png",
             "32": "/theme/icons/menu/32/fillfields.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "fillMostUsed",
         title: browser.i18n.getMessage("contextMenuItemFillMostUsed"),
-        contexts: ["all"],
+        contexts: contextAll,
         icons: {
             "16": "/theme/icons/menu/16/fillfields.png",
             "32": "/theme/icons/menu/32/fillfields.png"
         }
     }, onMenuCreated);
-// do not show this menu-item for page_action, only 5 items are shown
-    browserMenusCreate({
+    // do not show this menu-item for page_action, only 5 items are shown
+    browserContextMenusCreate({
         id: "clearFields",
         title: browser.i18n.getMessage("contextMenuItemClearFields"),
-        contexts: ["page","editable","frame","browser_action"],
+        contexts: contextEdFrBra,
         icons: {
             "16": "/theme/icons/menu/16/emptyfields.png",
             "32": "/theme/icons/menu/32/emptyfields.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         type: "separator",
-        contexts: ["page","editable","frame"]
+        contexts: contextEdFr
     }, onMenuCreated);
     /*
      * Remainder only for page_action (max 6 are shown for browser-action).
-     * ============================(context menu page)============================
      */
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "showformfields",
         title: browser.i18n.getMessage("contextMenuItemShowformfields"),
-        contexts: ["page","editable","frame"],
+        contexts: contextEdFr,
         icons: {
             "16": "/theme/icons/menu/16/showfields.png",
             "32": "/theme/icons/menu/32/showfields.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         type: "separator",
-        contexts: ["page","editable","frame"]
+        contexts: contextEdFr
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "submenuInfo",
         title: browser.i18n.getMessage("menuItemInfoSubmenu"),
-        contexts: ["page","editable","frame"],
+        contexts: contextEdFr,
         icons: {
             "16": "/theme/icons/menu/16/submenu.png",
             "32": "/theme/icons/menu/32/submenu.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "helpoverview",
         parentId: "submenuInfo",
         title: browser.i18n.getMessage("menuItemHelpOverview"),
-        contexts: ["page","editable","frame"],
+        contexts: contextEdFr,
         icons: {
             "16": "/theme/icons/menu/16/help.png",
             "32": "/theme/icons/menu/32/help.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "releasenotes",
         parentId: "submenuInfo",
         title: browser.i18n.getMessage("menuItemHelpReleasenotes"),
-        contexts: ["page","editable","frame"],
+        contexts: contextEdFr,
         icons: {
             "16": "/theme/icons/menu/16/releasenotes.png",
             "32": "/theme/icons/menu/32/releasenotes.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "about",
         parentId: "submenuInfo",
         title: browser.i18n.getMessage("menuItemHelpAbout"),
-        contexts: ["page","editable","frame"],
+        contexts: contextEdFr,
         icons: {
             "16": "/theme/icons/menu/16/about.png",
             "32": "/theme/icons/menu/32/about.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         type: "separator",
-        contexts: ["page","editable","frame"]
+        contexts: contextEdFr
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "preferences",
         title: browser.i18n.getMessage("contextMenuItemOptions"),
-        contexts: ["page","editable","frame"],
+        contexts: contextEdFr,
         icons: {
             "16": "/theme/icons/menu/16/preferences.png",
             "32": "/theme/icons/menu/32/preferences.png"
         }
     }, onMenuCreated);
-    /* ==========================(context menu page end)========================== */
+}
 
+function _initBrowserActionSubmenu() {
     /*
      * Browser-action (right-click on icon in menu-bar) may only show 6 items,
      * Page-action (right-click on icon in address-bar) may only show 5 items,
      * put remainder in a submenu (browser.menus.ACTION_MENU_TOP_LEVEL_LIMIT)
-     *
-     * =========================(browser_action submenu)==========================
      */
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemRestoreEditorFieldSubmenuMore"),
         contexts: ["browser_action", "page_action"],
@@ -532,7 +576,7 @@ function initBrowserMenus() {
             "32": "/theme/icons/menu/32/submenu.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "clearFieldsPA",
         parentId: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemClearFields"),
@@ -542,12 +586,12 @@ function initBrowserMenus() {
             "32": "/theme/icons/menu/32/emptyfields.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         parentId: "submenuExtra",
         type: "separator",
         contexts: ["page_action"]
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "showformfieldsBA",
         parentId: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemShowformfields"),
@@ -557,12 +601,12 @@ function initBrowserMenus() {
             "32": "/theme/icons/menu/32/showfields.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         parentId: "submenuExtra",
         type: "separator",
         contexts: ["all"]
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "helpoverviewBA",
         parentId: "submenuExtra",
         title: browser.i18n.getMessage("menuItemHelpOverview"),
@@ -572,7 +616,7 @@ function initBrowserMenus() {
             "32": "/theme/icons/menu/32/help.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "releasenotesBA",
         parentId: "submenuExtra",
         title: browser.i18n.getMessage("menuItemHelpReleasenotes"),
@@ -582,7 +626,7 @@ function initBrowserMenus() {
             "32": "/theme/icons/menu/32/releasenotes.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "aboutBA",
         parentId: "submenuExtra",
         title: browser.i18n.getMessage("menuItemHelpAbout"),
@@ -592,12 +636,12 @@ function initBrowserMenus() {
             "32": "/theme/icons/menu/32/about.png"
         }
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         parentId: "submenuExtra",
         type: "separator",
         contexts: ["all"]
     }, onMenuCreated);
-    browserMenusCreate({
+    browserContextMenusCreate({
         id: "preferencesBA",
         parentId: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemOptions"),
@@ -607,9 +651,7 @@ function initBrowserMenus() {
             "32": "/theme/icons/menu/32/preferences.png"
         }
     }, onMenuCreated);
-    /* ===========================(browser_action end)============================ */
 }
-
 
 
 function showformfields(tabId) {
@@ -736,18 +778,29 @@ getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
  * Cross browser (Firefox, Chrome) create menus.
  */
 function browserMenusCreate(menuProperties, onMenuCreated) {
-    if (IS_FIREFOX) {
-        return browser.menus.create(menuProperties, onMenuCreated);
-    } else {
-        // strip unsupported icons
-        delete menuProperties['icons'];
-        // skip unsupported "tools_menu" context
-        if (menuProperties.contexts.includes("tools_menu")) {
-            return null;
+    if (menuProperties.contexts.length) {
+        if (IS_FIREFOX) {
+            return browser.menus.create(menuProperties, onMenuCreated);
+        } else {
+            // strip unsupported icons
+            delete menuProperties['icons'];
+            // skip unsupported "tools_menu" context
+            if (menuProperties.contexts.includes("tools_menu")) {
+                return null;
+            }
+            return chrome.contextMenus.create(menuProperties, onMenuCreated);
         }
-        return chrome.contextMenus.create(menuProperties, onMenuCreated);
     }
 }
+
+function browserContextMenusCreate(menuProperties, onMenuCreated) {
+    if (!menuProperties.id) {
+        menuProperties.id = 'noname' + (++contextAnonMenuItemNo);
+    }
+    CONTEXT_FIELDS_MENUITEM_IDS.push(menuProperties.id);
+    browserMenusCreate(menuProperties, onMenuCreated);
+}
+
 
 /**
  * Cross browser (Firefox, Chrome) remove menu.
