@@ -29,13 +29,15 @@ $(document).ready(function() {
     browser.storage.local.get({
             pageSizeSmall: 12,
             prefDateFormat: 'automatic',
-            prefScrollAmount: 'auto'
+            prefScrollAmount: 'auto',
+            prefColSmallVisible: []
     }).then(result => {
         let pageSizeSmall = result.pageSizeSmall;
         let dateformat = result.prefDateFormat;
         let scrollAmount = result.prefScrollAmount;
+        const prefColSmallVisible = OptionsUtil.initColSmallPrefs(result.prefColSmallVisible);
 
-        table = createDataTable(dateformat, scrollAmount);
+        table = createDataTable(dateformat, scrollAmount, prefColSmallVisible);
 
         // add event listener for saving changed pageSize
         table.on('length.dt', function(e, settings, len) {
@@ -43,6 +45,17 @@ $(document).ready(function() {
                 pageSizeSmall: len
             });
             // console.log( 'New page length: ' + len);
+        });
+
+        // add event listener for saving changed column visibility
+        table.on('column-visibility.dt', function(e, settings, column, state) {
+            if (column > 1) {
+                // console.log('Column '+ column +' has changed to '+ (state ? 'visible' : 'hidden'));
+                prefColSmallVisible[column - 2] = state;
+                browser.storage.local.set({
+                    prefColSmallVisible: prefColSmallVisible
+                });
+            }
         });
 
         $('#fhcTable tbody').on('dblclick', 'tr', function () {
@@ -82,7 +95,8 @@ $(document).ready(function() {
 
         // set the pagesize to the last used value
         table.page.len(pageSizeSmall);
-            populateViewFromDatabase(table, 15, null, null);
+
+        populateViewFromDatabase(table, 15, null, null);
       },
       () => {console.error("Get preferences error", this.error);}
     );
@@ -238,14 +252,22 @@ function onContextMenuClicked(menuItemId) {
 }
 
 
-function createDataTable(dateformat, scrollAmount) {
+function createDataTable(dateformat, scrollAmount, prefColVisible) {
     const languageURL = DataTableUtil.getLanguageURL();
     const i18nFld = DataTableUtil.getLocaleFieldNames();
+    const i18nColVis = browser.i18n.getMessage("buttonColumnVisibility") || 'Column visibility';
+    const i18nColVisRestore = browser.i18n.getMessage("buttonRestoreColumnVisibility") || 'Restore visibility';
 
-    return $('#fhcTable').DataTable( {
+    const table = $('#fhcTable').DataTable( {
         responsive: {details: false},
         scrollY: 300,
-        language: {url: languageURL},
+        language: {
+            url: languageURL,
+            buttons: {
+                colvisRestore: i18nColVisRestore,
+                colvis: i18nColVis
+            }
+        },
         order: [[ 7, "desc" ]],
         paging: true,
         lengthMenu: [10, 12, 20, 50, 100, 500],
@@ -264,7 +286,6 @@ function createDataTable(dateformat, scrollAmount) {
             info: false,
             selector: 'td:not(.details-control)'
         },
-
         columns: [
             {
                 responsivePriority: 1,
@@ -282,7 +303,8 @@ function createDataTable(dateformat, scrollAmount) {
             { title: i18nFld.last, responsivePriority: 7 },
             { title: i18nFld.age, responsivePriority: 6 },
             { title: i18nFld.host, responsivePriority: 8 },
-            { title: i18nFld.uri, responsivePriority: 11 }
+            { title: i18nFld.uri, responsivePriority: 11 },
+            { title: i18nFld.length, responsivePriority: 12 }
         ],
         columnDefs: [
             {
@@ -292,6 +314,7 @@ function createDataTable(dateformat, scrollAmount) {
             },
             {
                 targets: 2,
+                visible: prefColVisible[0],
                 data: 1,
                 className: "dt-head-left",
                 render: function ( data, type/*, full, meta */) {
@@ -300,6 +323,7 @@ function createDataTable(dateformat, scrollAmount) {
             },
             {
                 targets: 3,
+                visible: prefColVisible[1],
                 data: 2,
                 className: "dt-head-left",
                 render: function ( data, type/*, full, meta */) {
@@ -308,11 +332,13 @@ function createDataTable(dateformat, scrollAmount) {
             },
             {
                 targets: 4,
+                visible: prefColVisible[2],
                 data: 3,
                 className: "dt-head-left"
             },
             {
                 targets: 5,
+                visible: prefColVisible[3],
                 data: 4,
                 searchable: false,
                 type: "num",
@@ -323,8 +349,8 @@ function createDataTable(dateformat, scrollAmount) {
             },
             {
                 targets: 6,
+                visible: prefColVisible[4],
                 data: 5,
-                visible: false,
                 searchable: false,
                 render: function ( data, type/*, full, meta */) {
                     return DataTableUtil.formatDate(data, type, dateformat);
@@ -332,6 +358,7 @@ function createDataTable(dateformat, scrollAmount) {
             },
             {
                 targets: 7,
+                visible: prefColVisible[5],
                 data: 6,
                 className: "dt-head-left",
                 render: function ( data, type/*, full, meta */) {
@@ -340,6 +367,7 @@ function createDataTable(dateformat, scrollAmount) {
             },
             {
                 targets: 8,
+                visible: prefColVisible[6],
                 data: 6,
                 className: "dt-head-left",
                 render: function ( data, type/*, full, meta */) {
@@ -348,6 +376,7 @@ function createDataTable(dateformat, scrollAmount) {
             },
             {
                 targets: 9,
+                visible: prefColVisible[7],
                 data: 7,
                 className: "dt-head-left",
                 render: function ( data, type/*, full, meta */) {
@@ -356,16 +385,38 @@ function createDataTable(dateformat, scrollAmount) {
             },
             {
                 targets: 10,
+                visible: prefColVisible[8],
                 data: 8,
                 className: "dt-head-left",
-                visible: false,
                 searchable: true,
                 render: function ( data, type/*, full, meta */) {
                     return DataTableUtil.ellipsis(data, type, 15, false, true);
                 }
+            },
+            {
+                targets: 11,
+                visible: prefColVisible[9],
+                data: 2,
+                type: "num",
+                searchable: false,
+                className: "dt-right",
+                render: function ( data, /*type, full, meta */) {
+                    return (!data) ? "0" : data.length;
+                }
             }
         ]
     } );
+
+    new $.fn.dataTable.Buttons(table, {
+        buttons: [{
+            extend: 'colvis',
+            columns: ':gt(1)',
+            postfixButtons: [ 'colvisRestore' ]
+        }]
+    });
+    table.table().buttons().container().appendTo( $('#colvis-container', table.table().container()));
+
+    return table;
 }
 
 function refreshView() {

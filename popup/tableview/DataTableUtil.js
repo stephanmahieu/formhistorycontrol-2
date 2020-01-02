@@ -35,7 +35,8 @@ class DataTableUtil {
             last: browser.i18n.getMessage("fieldLastUsed") || 'Last used',
             age: browser.i18n.getMessage("fieldAge") || 'Age',
             host: browser.i18n.getMessage("fieldHost") || 'Host',
-            uri: 'URL'
+            uri: 'URL',
+            length: browser.i18n.getMessage("fieldLength") || 'Length'
         }
     }
 

@@ -11,6 +11,11 @@ body {
     padding: 0;
 }
 
+#colvis-container {
+    position: absolute;
+    left: -4px;
+}
+
 #popup-header {
     margin: 2px;
     width: 99%;

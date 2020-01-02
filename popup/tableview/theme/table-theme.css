@@ -24,6 +24,38 @@
     text-align: right;
 }
 
+/* Force styling for column-visibility buttons */
+button.buttons-colvis {
+    margin-top: 0;
+    margin-left: 10px;
+    font-size: 0.86em !important;
+}
+div.dt-button-collection div button,
+button.buttons-colvis{
+    background: var(--button-disabled-bg-color) !important;
+    color: var(--button-disabled-text-color) !important;
+    border-color: var(--button-disabled-border-color) !important;
+    padding: 1px 6px !important;
+    height: 20px;
+}
+div.dt-button-collection div button.active,
+button.buttons-colvis,
+button.dt-button.buttons-colvisRestore {
+    background: var(--button-bg-color) !important;
+    color: var(--button-text-color) !important;
+    border: 1px solid var(--button-border-color) !important;
+}
+div.dt-button-collection div button:hover,
+button.buttons-colvis:hover {
+    background: var(--button-hover-bg-color) !important;
+    color: var(--button-hover-text-color) !important;
+    border-color: var(--button-hover-border-color) !important;
+}
+
+div.dt-button-collection {
+    background: var(--main-bg-color);
+}
+
 /* Disable select (might accidentally occur when double clicking) */
 table.dataTable tbody tr {
     user-select: none;

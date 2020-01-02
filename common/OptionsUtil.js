@@ -183,4 +183,26 @@ class OptionsUtil {
     static doSaveInIncognitoMode(filterPrefs) {
         return filterPrefs.prefSaveInIncognitoMode;
     }
+
+    static initColPrefs(columnVisPrefs) {
+        let newPrefs = [];
+        if (Array.isArray(columnVisPrefs)) {
+            newPrefs = Array.from(columnVisPrefs);
+        }
+        for (let i=newPrefs.length; i<=9; i++) {
+            newPrefs.push(true);
+        }
+        return newPrefs;
+    }
+
+    static initColSmallPrefs(columnVisPrefs) {
+        const newPrefs = OptionsUtil.initColPrefs(columnVisPrefs);
+        if (Array.isArray(columnVisPrefs) && columnVisPrefs.length < 9) {
+            // visibility not set previously, set default hidden columns
+            newPrefs[4] = false;
+            newPrefs[8] = false;
+            newPrefs[9] = false;
+        }
+        return newPrefs;
+    }
 }

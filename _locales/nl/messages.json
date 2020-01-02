@@ -47,9 +47,21 @@
     "message": "Bron",
     "description": "The label for the host where the formfield entry was used."
   },
+  "fieldLength": {
+    "message": "Lengte",
+    "description": "The label for the length of the value/content of a formfield entry."
+  },
   "pagingAll": {
     "message": "Alle",
     "description": "For the paging list, indicates All values displayed in one single page."
+  },
+  "buttonColumnVisibility": {
+    "message": "Kolommen tonen",
+    "description": "Label of the Column visibility button"
+  },
+  "buttonRestoreColumnVisibility": {
+    "message": "Herstel kolommen",
+    "description": "Label of the column Restore visibility button"
   },
   "operationWindowTile": {
     "message": "Formulier veld",

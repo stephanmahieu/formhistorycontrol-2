@@ -21,6 +21,10 @@ https://github.com/DataTables/Responsive/blob/2.2.3/js/dataTables.responsive.js
 DataTable extension Select 1.3.0
 https://github.com/DataTables/Select/blob/1.3.0/js/dataTables.select.js
 
+DataTable extension Buttons 1.6.1
+https://github.com/DataTables/Buttons/blob/1.6.1/js/buttons.colVis.js
+https://github.com/DataTables/Buttons/blob/1.6.1/js/dataTables.buttons.js
+
 jquery plugin custom scrollbar 3.1.5
 https://github.com/malihu/malihu-custom-scrollbar-plugin/blob/3.1.5/jquery.mCustomScrollbar.js
 

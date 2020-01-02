@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/theme/formhistorycontrol-generic.css"/>
     <link rel="stylesheet" href="/theme/navigation.css"/>
     <link rel="stylesheet" href="theme/jquery.mCustomScrollbar.css"/>
+    <link rel="stylesheet" href="theme/buttons.dataTables.css"/>
     <link rel="stylesheet" href="theme/table-theme.css"/>
     <link rel="stylesheet" href="theme/loadingstatus.css"/>
     <link rel="stylesheet" href="theme/popup-small.css"/>
@@ -29,6 +30,7 @@
 <body>
     <div id="overlaystatus"><div data-fhc-i18n="loading_status">Loading...</div></div>
     <div id="root">
+        <span id="colvis-container"></span>
         <div id="popup-header">
             <span class="header-title" data-fhc-i18n="popupHeader">Form History Control (II)</span>
             <!--<span class="header-info" data-fhc-i18n="popupHeaderInfo">showing history for this page only</span>-->
@@ -63,6 +65,8 @@
     <script src="lib/jquery.dataTables.min.js"></script>
     <script src="lib/dataTables.responsive.js"></script>
     <script src="lib/dataTables.select.js"></script>
+    <script src="lib/dataTables.buttons.js"></script>
+    <script src="lib/buttons.colVis.js"></script>
     <script src="lib/jquery.mousewheel.js"></script>
     <script src="lib/jquery.mCustomScrollbar.js"></script>
     <script src="DataTableUtil.js"></script>

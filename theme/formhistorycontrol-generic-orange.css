@@ -14,7 +14,7 @@
     --button-hover-bg-color: #6e6e6e;
     --button-hover-border-color: #000000;
     --button-disabled-text-color: #999999;
-    --button-disabled-bg-color: #485590;
+    --button-disabled-bg-color: #d6d6d6;
     --button-disabled-border-color: var(--button-border-color);
 
     --field-bg-color: #292929;

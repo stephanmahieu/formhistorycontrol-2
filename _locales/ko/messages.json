@@ -47,9 +47,21 @@
     "message": "호스트",
     "description": "The label for the host where the formfield entry was used."
   },
+  "XXXfieldLength": {
+    "message": "Length",
+    "description": "The label for the length of the value/content of a formfield entry."
+  },
   "pagingAll": {
     "message": "모두",
     "description": "For the paging list, indicates All values displayed in one single page."
+  },
+  "XXXbuttonColumnVisibility": {
+    "message": "Column visibility",
+    "description": "Label of the Column visibility button"
+  },
+  "XXXbuttonRestoreColumnVisibility": {
+    "message": "Restore visibility",
+    "description": "Label of the column Restore visibility button"
   },
   "operationWindowTile": {
     "message": "폼 필드",

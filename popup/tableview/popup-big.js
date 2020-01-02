@@ -29,13 +29,15 @@ $(document).ready(function() {
     browser.storage.local.get({
         pageSizeBig: 500,
         prefDateFormat: 'automatic',
-        prefScrollAmount: 'auto'
+        prefScrollAmount: 'auto',
+        prefColBigVisible: []
     }).then(result => {
         let pageSizeBig = result.pageSizeBig;
         let dateformat = result.prefDateFormat;
         let scrollAmount = result.prefScrollAmount;
+        const prefColBigVisible = OptionsUtil.initColPrefs(result.prefColBigVisible);
         DataTableUtil.dateformat = dateformat;
-        table = createDataTable(tableElement, dateformat, scrollAmount);
+        table = createDataTable(tableElement, dateformat, scrollAmount, prefColBigVisible);
 
         // add event listener for saving changed pageSize
         table.on('length.dt', function(e, settings, len) {
@@ -46,23 +48,33 @@ $(document).ready(function() {
             // console.log( 'New page length: '+len);
         });
 
-        // Add event listener for opening and closing details
+        // add event listener for saving changed column visibility
+        table.on('column-visibility.dt', function(e, settings, column, state) {
+            if (column > 1) {
+                // console.log('Column '+ column +' has changed to '+ (state ? 'visible' : 'hidden'));
+                prefColBigVisible[column - 2] = state;
+                browser.storage.local.set({
+                    prefColBigVisible: prefColBigVisible
+                });
+            }
+        });
+
+        // add event listener for opening and closing details
         tableElement.find('tbody').on('click', 'td.my-details-control', function() {
             DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
         });
-
         tableElement.find('tbody').on('dblclick', 'tr', function() {
             DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
         });
 
-        // Add event listener for select events
+        // add event listener for select events
         table.on('select', function (e, dt, type /*, indexes */) {
             if (type === 'row') {
                 selectionChangedHandler();
             }
         });
 
-        // Add event listener for deselect events
+        // add event listener for deselect events
         table.on('deselect', function (e, dt, type /*, indexes*/) {
             if (type === 'row') {
                 selectionChangedHandler();
@@ -149,15 +161,24 @@ $(document).ready(function() {
     setInterval(updateTableRowsAgeColumn, 60*1000);
 });
 
-function createDataTable(tableElement, dateformat, scrollAmount) {
+function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible) {
     let languageURL = DataTableUtil.getLanguageURL();
     const i18nFld = DataTableUtil.getLocaleFieldNames();
     const i18nAll = browser.i18n.getMessage("pagingAll") || 'All';
+    const i18nColVis = browser.i18n.getMessage("buttonColumnVisibility") || 'Column visibility';
+    const i18nColVisRestore = browser.i18n.getMessage("buttonRestoreColumnVisibility") || 'Restore visibility';
 
     return tableElement.DataTable( {
+        dom: 'lBfrtip',
         responsive: {details: false},
         scrollY: '300px',
-        language: {url: languageURL},
+        language: {
+            url: languageURL,
+            buttons: {
+                colvisRestore: i18nColVisRestore,
+                colvis: i18nColVis
+            }
+        },
         paging: true,
         lengthMenu: [[100, 500, 1000, 2000, -1], [100, 500, 1000, 2000, i18nAll]],
         pageLength: 500,
@@ -176,6 +197,11 @@ function createDataTable(tableElement, dateformat, scrollAmount) {
             selector: 'td:not(.my-details-control)'
         },
         order: [[ 7, "desc" ]],
+        buttons: [{
+            extend: 'colvis',
+            columns: ':gt(1)',
+            postfixButtons: [ 'colvisRestore' ]
+        }],
         columns: [
             {
                 responsivePriority: 1,
@@ -193,7 +219,8 @@ function createDataTable(tableElement, dateformat, scrollAmount) {
             { title: i18nFld.last, responsivePriority: 7 },
             { title: i18nFld.age, responsivePriority: 6 },
             { title: i18nFld.host, responsivePriority: 8 },
-            { title: i18nFld.uri, responsivePriority: 11 }
+            { title: i18nFld.uri, responsivePriority: 11 },
+            { title: i18nFld.length, responsivePriority: 12 }
         ],
         columnDefs: [
             {
@@ -203,6 +230,7 @@ function createDataTable(tableElement, dateformat, scrollAmount) {
             },
             {
                 targets: 2,
+                visible: prefColVisible[0],
                 data: 1,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
@@ -211,6 +239,7 @@ function createDataTable(tableElement, dateformat, scrollAmount) {
             },
             {
                 targets: 3,
+                visible: prefColVisible[1],
                 data: 2,
                 className: "dt-head-left",
                 render: function ( data, type /* , full, meta */) {
@@ -219,11 +248,13 @@ function createDataTable(tableElement, dateformat, scrollAmount) {
             },
             {
                 targets: 4,
+                visible: prefColVisible[2],
                 data: 3,
                 className: "dt-head-left"
             },
             {
                 targets: 5,
+                visible: prefColVisible[3],
                 data: 4,
                 type: "num",
                 searchable: false,
@@ -234,6 +265,7 @@ function createDataTable(tableElement, dateformat, scrollAmount) {
             },
             {
                 targets: 6,
+                visible: prefColVisible[4],
                 data: 5,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
@@ -242,6 +274,7 @@ function createDataTable(tableElement, dateformat, scrollAmount) {
             },
             {
                 targets: 7,
+                visible: prefColVisible[5],
                 data: 6,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
@@ -250,6 +283,7 @@ function createDataTable(tableElement, dateformat, scrollAmount) {
             },
             {
                 targets: 8,
+                visible: prefColVisible[6],
                 data: 6,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
@@ -258,6 +292,7 @@ function createDataTable(tableElement, dateformat, scrollAmount) {
             },
             {
                 targets: 9,
+                visible: prefColVisible[7],
                 data: 7,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
@@ -266,10 +301,22 @@ function createDataTable(tableElement, dateformat, scrollAmount) {
             },
             {
                 targets: 10,
+                visible: prefColVisible[8],
                 data: 8,
                 className: "dt-head-left",
                 render: function ( data, type /*, full, meta */) {
                     return DataTableUtil.ellipsis(data, type, 30, false, true);
+                }
+            },
+            {
+                targets: 11,
+                visible: prefColVisible[9],
+                data: 2,
+                type: "num",
+                searchable: false,
+                className: "dt-right",
+                render: function ( data, /*type, full, meta */) {
+                    return (!data) ? "0" : data.length;
                 }
             }
         ]
