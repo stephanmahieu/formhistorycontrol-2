@@ -33,6 +33,12 @@ function showShortcutKeysModifyButton() {
     document.getElementById('shortcutKeysSummary').style.display = 'none';
 }
 
+function hideAllShortcutKeysButtons() {
+    document.getElementById('shortcutKeysModify').style.display = 'none';
+    document.getElementById('shortcutKeysSummary').style.display = 'none';
+    document.getElementById('shortcut_pane').style.height = '169px';
+}
+
 
 function showShortcutKeysModifyNotAllowedMessage() {
     const msg = document.createElement('span');
