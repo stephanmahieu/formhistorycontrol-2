@@ -638,9 +638,15 @@ function onMenuClicked(menuItemId) {
 function onKeyClicked(event) {
     const keyName = event.key;
 
-    if (keyName === 'Escape' && WindowUtil.isModalDialogActive()) {
-        WindowUtil.doCancelModalDialog();
-        return;
+    if (keyName === 'Escape') {
+        if (WindowUtil.isModalDialogActive()) {
+            WindowUtil.doCancelModalDialog();
+            return;
+        }
+        if (WindowUtil.isContextMenuShown()) {
+            WindowUtil.hideContextMenu();
+            return;
+        }
     }
 
     // Select all (Ctrl-A seems locale independent)

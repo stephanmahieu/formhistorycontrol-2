@@ -345,9 +345,10 @@ class WindowUtil {
         const edgeMargin = 10;
 
         const winRect = document.querySelector(queryContainerElement).getBoundingClientRect();
+        const mnuWrapper = document.getElementById('context-menu-wrapper');
 
         document.getElementById('context-menu-container').style.display = 'block';
-        const menuRect = document.getElementById('context-menu-wrapper').getBoundingClientRect();
+        const menuRect = mnuWrapper.getBoundingClientRect();
 
         // get the mouse position and apply an offset to get the mouse-pointer on the first item
         let x = Math.max(edgeMargin, event.pageX - 60);
@@ -363,12 +364,16 @@ class WindowUtil {
             y = winRect.height - (menuRect.height + edgeMargin);
         }
 
-        const mnu = document.getElementById('context-menu-wrapper');
-        mnu.style.top = y + "px";
-        mnu.style.left = x + "px";
+        mnuWrapper.style.top = y + "px";
+        mnuWrapper.style.left = x + "px";
 
         // trigger the transition
-        document.getElementById('context-menu-wrapper').classList.add('show');
+        mnuWrapper.classList.add('show');
+
+        mnuWrapper.addEventListener("mouseleave", function hide() {
+            mnuWrapper.classList.remove('show');
+            mnuWrapper.removeEventListener("mouseleave", hide);
+        });
     }
 
     static hideContextMenuOnClick(event) {
@@ -381,6 +386,10 @@ class WindowUtil {
     static hideContextMenu() {
         document.getElementById('context-menu-wrapper').classList.remove('show');
         window.setTimeout(()=>{document.getElementById('context-menu-container').style.display = 'none';}, 800);
+    }
+
+    static isContextMenuShown() {
+        return document.getElementById('context-menu-wrapper').classList.contains('show');
     }
 
     /**
