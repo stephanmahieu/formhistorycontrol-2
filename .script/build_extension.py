@@ -51,7 +51,7 @@ def cleanup_locale_messages(msg_path):
             del messages[key]["description"]
 
     with open(msg_path, 'w') as f:
-        dump(messages, f, sort_keys=False, indent=2, ensure_ascii=False)
+        dump(messages, f, sort_keys=False, indent=2, ensure_ascii=True)
 # -------------------------------------------------------
 
 
