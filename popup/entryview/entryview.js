@@ -106,26 +106,27 @@ function onKeyClicked(event) {
 
 function copyToClipboardText() {
     const input = document.getElementById('multiline-value');
-    const curContent = input.value;
-    let cleanContent = WindowUtil.htmlToReadableText(curContent);
-    const isDisabled = input.disabled;
-    input.disabled = false;
-    input.value = cleanContent;
-    input.select();
-    document.execCommand('copy');
-    input.value = curContent;
-    input.selectionStart = input.selectionEnd = 0;
-    input.disabled = isDisabled;
+    const cleanContent = WindowUtil.htmlToReadableText(input.value);
+    copyTextToClipboard(cleanContent);
 }
 
 function copyToClipboardAll() {
     const input = document.getElementById('multiline-value');
-    const isDisabled = input.disabled;
-    input.disabled = false;
-    input.select();
-    document.execCommand('copy');
-    input.selectionStart = input.selectionEnd = 0;
-    input.disabled = isDisabled;
+    copyTextToClipboard(input.value);
+}
+
+function copyTextToClipboard(value) {
+    browser.permissions.contains({permissions: ["clipboardWrite"]}).then(result => {
+        if (result) {
+            window.navigator.clipboard.writeText(value).then(function() {
+                // console.log('clipboard successfully set');
+            }, function() {
+                console.error('clipboard write failed!');
+            });
+        } else {
+            console.error('Permission clipboardWrite not available!');
+        }
+    });
 }
 
 function onOkayButton() {

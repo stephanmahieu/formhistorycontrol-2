@@ -223,31 +223,33 @@ class DataTableUtil {
 
     static copyDataToClipboard(data) {
         if (data) {
-            this.copyStringToClipboard(data[2]);
+            this.copyTextToClipboard(data[2]);
         }
     }
 
     static copyDataCleanToClipboard(data) {
         if (data) {
-            this.copyStringCleanToClipboard(data[2]);
+            this.copyTextCleanToClipboard(data[2]);
         }
     }
 
-    static copyStringCleanToClipboard(value) {
+    static copyTextCleanToClipboard(value) {
         const cleanContent = WindowUtil.htmlToReadableText(value);
-        this.copyStringToClipboard(cleanContent);
+        this.copyTextToClipboard(cleanContent);
     }
 
-    static copyStringToClipboard(value) {
-        // create invisible textarea to set value and copy to clipboard (only works for popup scripts)
-        const input = document.createElement('textarea');
-        input.style.position = 'fixed';
-        input.style.opacity = 0;
-        input.value = value;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
+    static copyTextToClipboard(value) {
+        browser.permissions.contains({permissions: ["clipboardWrite"]}).then(result => {
+            if (result) {
+                window.navigator.clipboard.writeText(value).then(function() {
+                    // console.log('clipboard successfully set');
+                }, function() {
+                    console.error('clipboard write failed!');
+                });
+            } else {
+                console.error('Permission clipboardWrite not available!');
+            }
+        });
     }
 
     static createEntryObject(data, doWhat, multiKeys) {

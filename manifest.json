@@ -3,7 +3,7 @@
   "short_name": "FormHistCtrl",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "2.4.2.0",
+  "version": "2.5.0.0",
   "developer": {
     "name": "Stephan Mahieu",
     "url": "https://stephanmahieu.github.io/fhc-home/"
@@ -13,7 +13,7 @@
   "applications": {
     "gecko": {
       "id": "formhistory@yahoo.com",
-      "strict_min_version": "60.0"
+      "strict_min_version": "63.0"
     }
   },
 
@@ -23,7 +23,8 @@
     "activeTab",
     "tabs",
     "storage",
-    "alarms"
+    "alarms",
+    "clipboardWrite"
   ],
 
   "icons": {
@@ -34,11 +35,11 @@
     "128": "theme/icons/fhc-128.png",
     "129": "theme/icons/fhc_icon.svg"
   },
-  
+
   "options_ui": {
-      "open_in_tab": true,
-      "browser_style": false,
-      "page": "popup/options/options.html"
+    "open_in_tab": true,
+    "browser_style": false,
+    "page": "popup/options/options.html"
   },
 
   "background": {
