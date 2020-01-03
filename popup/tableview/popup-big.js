@@ -99,10 +99,12 @@ $(document).ready(function() {
                 let row = table.row( tr );
                 dataRightClicked = row.data();
                 WindowUtil.showContextMenu(event, '#content');
-            }).on('click', 'tr', function(event) {
-            // Event listener for closing the context menu when clicked outside the menu
-            WindowUtil.hideContextMenuOnClick(event);
-        });
+            })
+            .on('click', 'tr', function(event) {
+                // Event listener for closing the context menu when clicked outside the menu
+                WindowUtil.hideContextMenuOnClick(event);
+            }
+        );
 
         // set the pagesize to the last used value
         table.page.len(pageSizeBig);
@@ -341,6 +343,10 @@ function selectInvert() {
     table.rows(curSelected).deselect();
 }
 
+function haveSelectedItems() {
+    const rows = $('#fhcTable').DataTable().rows('.selected');
+    return rows.data().length > 0
+}
 
 function deleteSelectedItemsAsk() {
     let rows = $('#fhcTable').DataTable().rows('.selected');
@@ -482,18 +488,34 @@ function onContextMenuClicked(menuItemId) {
             break;
 
         case "modify-ctx":
-            editEntry(dataRightClicked);
+            // if one or more entries are selected edit the selection, otherwise edit the right-clicked item
+            if (haveSelectedItems()) {
+                editSelectedEntries();
+            } else {
+                editEntry(dataRightClicked);
+            }
             WindowUtil.hideContextMenu();
             break;
 
         case "delete-ctx":
-            DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
-            DataTableUtil.broadcastItemDeletedFromDatabase();
+            // if one or more entries are selected delete selection, otherwise delete the right-clicked item
+            if (haveSelectedItems()) {
+                deleteSelectedItemsAsk();
+            } else {
+                DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
+                DataTableUtil.broadcastItemDeletedFromDatabase();
+            }
             WindowUtil.hideContextMenu();
             break;
 
         case "copy2clipboard-ctx":
-            DataTableUtil.copyDataToClipboard(dataRightClicked);
+            // if one or more entries are selected copy the first selected item, otherwise copy the right-clicked item
+            if (haveSelectedItems()) {
+                const dataRow1 = $('#fhcTable').DataTable().rows('.selected').data()[0];
+                DataTableUtil.copyDataToClipboard(dataRow1);
+            } else {
+                DataTableUtil.copyDataToClipboard(dataRightClicked);
+            }
             WindowUtil.hideContextMenu();
             break;
 
