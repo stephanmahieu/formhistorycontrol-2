@@ -85,9 +85,9 @@ function onContextMenuItemClicked(event) {
 }
 
 function onKeyClicked(event) {
-    const keyName = event.key;
+    const keyCode = event.code;
 
-    if (keyName === 'Escape') {
+    if (keyCode === 'Escape') {
         if (WindowUtil.isModalDialogActive()) {
             WindowUtil.doCancelModalDialog();
         } else if (isModalDatetimeDialogActive()) {
@@ -102,17 +102,35 @@ function onKeyClicked(event) {
             WindowUtil.closeThisPopup();
         }
     }
+
+    // Ctrl+C Copy all
+    if (!event.altKey && event.ctrlKey && !event.shiftKey && keyCode === 'KeyC') {
+        event.preventDefault();
+        copyToClipboardAll();
+    }
+
+    // Shift+Ctrl+C Copy without formatting
+    if (!event.altKey && event.ctrlKey && event.shiftKey && keyCode === 'KeyC') {
+        event.preventDefault();
+        copyToClipboardText();
+    }
 }
 
 function copyToClipboardText() {
-    const input = document.getElementById('multiline-value');
+    const input = getInputElement();
     const cleanContent = WindowUtil.htmlToReadableText(input.value);
     copyTextToClipboard(cleanContent);
 }
 
 function copyToClipboardAll() {
-    const input = document.getElementById('multiline-value');
+    const input = getInputElement();
     copyTextToClipboard(input.value);
+}
+
+function getInputElement() {
+    const type = document.getElementById("typeSelect").value;
+    const inputId = (type === 'input') ? 'value' : 'multiline-value';
+    return document.getElementById(inputId);
 }
 
 function copyTextToClipboard(value) {
