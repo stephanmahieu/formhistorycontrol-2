@@ -225,27 +225,35 @@ function onContextMenuClicked(menuItemId) {
 
         case "modify-ctx":
             // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
-            DataTableUtil.openDetailViewEntry(dataRightClicked, "edit");
+            // if an entry is selected edit the selection, otherwise edit the right-clicked item
+            const dataRowMod = haveSelectedItems() ? $('#fhcTable').DataTable().rows('.selected').data()[0] : dataRightClicked;
+            DataTableUtil.openDetailViewEntry(dataRowMod, "edit");
             WindowUtil.hideContextMenu();
             break;
 
         case "delete-ctx":
             // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
-            // method expects the primary key
-            DataTableUtil.deleteItemFromDatabase(dataRightClicked[0]);
+            // if an entry is selected delete the selection, otherwise delete the right-clicked item
+            const dataRowDel = haveSelectedItems() ? $('#fhcTable').DataTable().rows('.selected').data()[0] : dataRightClicked;
+            // deleteItemFromDatabase method expects the primary key
+            DataTableUtil.deleteItemFromDatabase(dataRowDel[0]);
             DataTableUtil.broadcastItemDeletedFromDatabase();
             WindowUtil.hideContextMenu();
             break;
 
         case "copy2clipboard-ctx":
             // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
-            DataTableUtil.copyDataToClipboard(dataRightClicked);
+            // if an entry is selected copy the selection, otherwise copy the right-clicked item
+            const dataRowCpy = haveSelectedItems() ? $('#fhcTable').DataTable().rows('.selected').data()[0] : dataRightClicked;
+            DataTableUtil.copyDataToClipboard(dataRowCpy);
             WindowUtil.hideContextMenu();
             break;
 
         case "copy2clipboardText-ctx":
             // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
-            DataTableUtil.copyDataCleanToClipboard(dataRightClicked);
+            // if an entry is selected copy the selection, otherwise copy the right-clicked item
+            const dataRowCpyC = haveSelectedItems() ? $('#fhcTable').DataTable().rows('.selected').data()[0] : dataRightClicked;
+            DataTableUtil.copyDataCleanToClipboard(dataRowCpyC);
             WindowUtil.hideContextMenu();
             break;
     }
@@ -444,12 +452,35 @@ function deleteSelected() {
 
 function onKeyClicked(event) {
     const keyName = event.key;
+    const keyCode = event.code;
 
     // Select all is not supported for the small popup (single select only)
 
     // Delete and Shift+Delete key
-    if (!event.altKey && !event.ctrlKey && keyName === 'Delete') {
+    if (!event.altKey && !event.ctrlKey && keyCode === 'Delete') {
         deleteSelected();
+    }
+
+    // Ctrl+C Copy all
+    if (!event.altKey && event.ctrlKey && !event.shiftKey && keyCode === 'KeyC') {
+        event.preventDefault();
+
+        // if one or more entries are selected copy the first selected item
+        if (haveSelectedItems()) {
+            const dataRow1 = $('#fhcTable').DataTable().rows('.selected').data()[0];
+            DataTableUtil.copyDataToClipboard(dataRow1);
+        }
+    }
+
+    // Shift+Ctrl+C Copy without formatting
+    if (!event.altKey && event.ctrlKey && event.shiftKey && keyCode === 'KeyC') {
+        event.preventDefault();
+
+        // if one or more entries are selected copy the first selected item
+        if (haveSelectedItems()) {
+            const dataRow1 = $('#fhcTable').DataTable().rows('.selected').data()[0];
+            DataTableUtil.copyDataCleanToClipboard(dataRow1);
+        }
     }
 
     // context menu shortcut (Alt+key)
