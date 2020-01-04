@@ -10,6 +10,15 @@
 let eventQueue = [];
 let updateInterval = 5000;
 
+const DISPLAY_DURATION = 7000;
+const TRANSITION_DURATION = 1200;
+const FILL_STYLE = [
+    {prop: 'transition', value:'all ' + TRANSITION_DURATION + 'ms ease-in-out'},
+    {prop: 'background', value:'#ffffcc'},
+    {prop: 'color',      value:'#000000'},
+    {prop: 'box-shadow', value:'inset 0 0 0 2px red'}
+];
+
 browser.runtime.onMessage.addListener(receiveEvents);
 
 function receiveEvents(fhcActionEvent /*, sender, sendResponse*/) {
@@ -26,12 +35,14 @@ function receiveEvents(fhcActionEvent /*, sender, sendResponse*/) {
             case "formfieldValueResponseSingle":
                 //console.log("Received action event " + fhcActionEvent.action);
                 _findMultilineFieldAndSetValueSingle(fhcActionEvent);
+                setTimeout(() => { removeAllStyles(); }, DISPLAY_DURATION);
                 break;
 
 
             case "formfieldValueResponse":
                 //console.log("Received action event " + fhcActionEvent.action);
                 _findFieldAndSetValue(fhcActionEvent);
+                setTimeout(() => { removeAllStyles(); }, DISPLAY_DURATION);
                 break;
         }
     }
@@ -150,7 +161,7 @@ function _setMultilineTextValue(element, value) {
         changed = true;
     }
     if (found && value !== "") {
-        _setStyle(element, 'backgroundColor', '#ffffcc', false);
+        _setStyle(element, false);
         if (changed) {
             // trigger update count and last used date
             _manualOnContentChanged(element);
@@ -207,7 +218,7 @@ function _ifMatchSetValue(node, fhcEvent) {
             node.appendChild(DOMPurify.sanitize(fhcEvent.value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
 
             // indicate changed value backgroundColor
-            _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
+            _setStyle(node, doErase);
 
             // trigger update count and last used date
             _manualOnContentChanged(node);
@@ -236,7 +247,7 @@ function _ifMatchSetValue(node, fhcEvent) {
                 }
 
                 // indicate changed value backgroundColor
-                _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
+                _setStyle(node, doErase);
 
                 //console.log("###### setting " + node.type + " id:" + fhcEvent.id);
                 return true;
@@ -255,7 +266,7 @@ function _ifMatchSetValue(node, fhcEvent) {
                 }
 
                 // indicate changed value backgroundColor
-                _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
+                _setStyle(node, doErase);
 
                 return true;
                 break;
@@ -273,7 +284,7 @@ function _ifMatchSetValue(node, fhcEvent) {
                 }
 
                 // indicate changed value backgroundColor
-                _setStyle(node, 'backgroundColor', '#ffffcc', doErase);
+                _setStyle(node, doErase);
 
                 return true;
                 break;
@@ -283,19 +294,52 @@ function _ifMatchSetValue(node, fhcEvent) {
     return false;
 }
 
-function _setStyle(node, styleProperty, styleValue, doErase) {
-    const orgAttribute = 'data-fhc-orgstyle-' + styleProperty;
+function _setStyle(node, doErase) {
     if (doErase) {
-        if (node.hasAttribute(orgAttribute)) {
-            node.style[styleProperty] = node.getAttribute(orgAttribute);
+        FILL_STYLE.forEach(style => {
+            let orgAttribute = 'data-fhc-orgstyle-' + style.prop;
+            if (node.hasAttribute(orgAttribute)) {
+                node.style[style.prop] = node.getAttribute(orgAttribute);
+                node.removeAttribute(orgAttribute);
+            }
+        });
+    } else {
+        FILL_STYLE.forEach(style => {
+            let orgAttribute = 'data-fhc-orgstyle-' + style.prop;
+            if (!node.hasAttribute(orgAttribute)) {
+                // store current value
+                node.setAttribute(orgAttribute, node.style[style.prop]);
+                // apply new style
+                node.style[style.prop] = style.value;
+            }
+        });
+    }
+}
+
+function removeAllStyles(removeAll = false) {
+    document.querySelectorAll("input,textarea,select,select-multiple,select-one").forEach( (elem) => {
+        if (_isDisplayed(elem)) {
+            _removeAllStyles(elem, removeAll);
+        }
+    });
+    document.querySelectorAll("html,div,iframe,body").forEach( (elem) => {
+        if ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem)) {
+            _removeAllStyles(elem, removeAll);
+        }
+    });
+    if (!removeAll) {
+        setTimeout(() => { removeAllStyles(true); }, TRANSITION_DURATION);
+    }
+}
+
+function _removeAllStyles(node, includeTransition) {
+    FILL_STYLE.forEach(style => {
+        let orgAttribute = 'data-fhc-orgstyle-' + style.prop;
+        if ((includeTransition || style.prop !== 'transition') && node.hasAttribute(orgAttribute)) {
+            node.style[style.prop] = node.getAttribute(orgAttribute);
             node.removeAttribute(orgAttribute);
         }
-    } else if (!node.hasAttribute(orgAttribute)) {
-        // store current value
-        node.setAttribute(orgAttribute, node.style[styleProperty]);
-        // apply new style
-        node.style[styleProperty] = styleValue;
-    }
+    });
 }
 
 //----------------------------------------------------------------------------
