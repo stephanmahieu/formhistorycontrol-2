@@ -1,6 +1,8 @@
 body {
     display: flex;
     flex-direction: column;
+    /* hide select-all highlighting (can't override default behaviour Ctrl-A event) */
+    user-select: none;
 }
 
 .content {
