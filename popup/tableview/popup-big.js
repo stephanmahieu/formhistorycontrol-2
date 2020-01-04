@@ -343,11 +343,6 @@ function selectInvert() {
     table.rows(curSelected).deselect();
 }
 
-function haveSelectedItems() {
-    const rows = $('#fhcTable').DataTable().rows('.selected');
-    return rows.data().length > 0
-}
-
 function deleteSelectedItemsAsk() {
     let rows = $('#fhcTable').DataTable().rows('.selected');
 
@@ -637,8 +632,9 @@ function onMenuClicked(menuItemId) {
 
 function onKeyClicked(event) {
     const keyName = event.key;
+    const keyCode = event.code;
 
-    if (keyName === 'Escape') {
+    if (keyCode === 'Escape') {
         if (WindowUtil.isModalDialogActive()) {
             WindowUtil.doCancelModalDialog();
             return;
@@ -650,14 +646,14 @@ function onKeyClicked(event) {
     }
 
     // Select all (Ctrl-A seems locale independent)
-    if (!event.altKey && event.ctrlKey && !event.shiftKey && keyName === 'a') {
+    if (!event.altKey && event.ctrlKey && !event.shiftKey && keyCode === 'KeyA') {
         // event.stopImmediatePropagation not effective, user-select style none will prevent showing selected elements
         selectAll();
         return;
     }
 
     // Delete and Shift+Delete key
-    if (!event.altKey && !event.ctrlKey && keyName === 'Delete') {
+    if (!event.altKey && !event.ctrlKey && keyCode === 'Delete') {
         if (isMenuItemEnabled('delete')) {
             if (event.shiftKey) {
                 deleteSelectedItems();
@@ -666,6 +662,28 @@ function onKeyClicked(event) {
             }
         }
         return;
+    }
+
+    // Ctrl+C Copy all
+    if (!event.altKey && event.ctrlKey && !event.shiftKey && keyCode === 'KeyC') {
+        event.preventDefault();
+
+        // if one or more entries are selected copy the first selected item
+        if (haveSelectedItems()) {
+            const dataRow1 = $('#fhcTable').DataTable().rows('.selected').data()[0];
+            DataTableUtil.copyDataToClipboard(dataRow1);
+        }
+    }
+
+    // Shift+Ctrl+C Copy without formatting
+    if (!event.altKey && event.ctrlKey && event.shiftKey && keyCode === 'KeyC') {
+        event.preventDefault();
+
+        // if one or more entries are selected copy the first selected item
+        if (haveSelectedItems()) {
+            const dataRow1 = $('#fhcTable').DataTable().rows('.selected').data()[0];
+            DataTableUtil.copyDataCleanToClipboard(dataRow1);
+        }
     }
 
     // context menu shortcut (Alt+key)

@@ -153,3 +153,8 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
         }
     };
 }
+
+function haveSelectedItems() {
+    const rows = $('#fhcTable').DataTable().rows('.selected');
+    return rows.data().length > 0
+}
