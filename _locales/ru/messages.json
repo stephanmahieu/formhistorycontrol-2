@@ -47,20 +47,20 @@
     "message": "Сайт",
     "description": "The label for the host where the formfield entry was used."
   },
-  "XXXfieldLength": {
-    "message": "Length",
+  "fieldLength": {
+    "message": "Длина",
     "description": "The label for the length of the value/content of a formfield entry."
   },
   "pagingAll": {
     "message": "Все",
     "description": "For the paging list, indicates All values displayed in one single page."
   },
-  "XXXbuttonColumnVisibility": {
-    "message": "Column visibility",
+  "buttonColumnVisibility": {
+    "message": "Видимость столбца",
     "description": "Label of the Column visibility button"
   },
-  "XXXbuttonRestoreColumnVisibility": {
-    "message": "Restore visibility",
+  "buttonRestoreColumnVisibility": {
+    "message": "Восстановить видимость",
     "description": "Label of the column Restore visibility button"
   },
   "operationWindowTile": {
@@ -383,20 +383,20 @@
     "message": "Прокрутка колесом мыши (в пикселях)",
     "description": "Options window: The scroll amount selection dropdown label"
   },
-  "XXXoptionsContextMenuSelect": {
-    "message": "Context menu",
+  "optionsContextMenuSelect": {
+    "message": "Контекстное меню",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"
   },
-  "XXXoptionContextMenuPage": {
-    "message": "Always available",
+  "optionContextMenuPage": {
+    "message": "Доступно везде",
     "description": "Option window, contextmenu display: Always available"
   },
-  "XXXoptionContextMenuEditfields": {
-    "message": "On edit fields only",
+  "optionContextMenuEditfields": {
+    "message": "Только в редактируемых полях",
     "description": "Option window, contextmenu display: On edit fields only"
   },
-  "XXXoptionContextMenuNone": {
-    "message": "No context menu",
+  "optionContextMenuNone": {
+    "message": "Без контекстного меню",
     "description": "Option window, contextmenu display: No context menu"
   },
   "optionsMiscellaneousLegend": {
@@ -480,7 +480,7 @@
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
   "optionsFieldlistlegend": {
-    "message": "Отключить историю определенных полей",
+    "message": "Отключить историю указанных полей",
     "description": "Options window: The Cleanup legend."
   },
   "optionsCleanupLegend": {
@@ -558,7 +558,7 @@
     "description": "Title of context menu item that fills formfields with the most recent used value."
   },
   "contextMenuItemFillMostUsed": {
-    "message": "Заполнить наиболее используемыми",
+    "message": "Заполнить часто используемыми",
     "description": "Title of context menu item that fills formfields with the most used value."
   },
   "contextMenuItemClearFields": {
