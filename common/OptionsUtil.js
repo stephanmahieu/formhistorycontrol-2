@@ -150,15 +150,20 @@ class OptionsUtil {
     }
 
     static isDomainBlocked(domain, filterPrefs) {
+        if (!domain) {
+            // internal browser windows like about: have no domain, add-ons can not access these
+            return true;
+        }
+
         switch (filterPrefs.prefDomainFilter) {
             case 'all':
                 return false;
 
             case 'blacklist':
-                return filterPrefs.prefDomainList.includes(domain);
+                return OptionsUtil._wildcardListMatch(domain, filterPrefs.prefDomainList);
 
             case 'whitelist':
-                return !filterPrefs.prefDomainList.includes(domain);
+                return !OptionsUtil._wildcardListMatch(domain, filterPrefs.prefDomainList);
 
             default:
                 console.warn('Unimplemented domainfilter ' + filterPrefs.prefDomainFilter);
@@ -166,8 +171,8 @@ class OptionsUtil {
         }
     }
 
-    static isTextFieldBlocked(fieldname, filterPrefs) {
-        return filterPrefs.prefFieldList.length > 0 && filterPrefs.prefFieldList.includes(fieldname);
+    static isTextFieldBlocked(domain, fieldname, filterPrefs) {
+        return filterPrefs.prefFieldList.length > 0 && OptionsUtil._wildcardFieldMatch(domain, fieldname, filterPrefs.prefFieldList);
     }
 
     static doRetainSinglelineField(filterPrefs) {
@@ -204,5 +209,86 @@ class OptionsUtil {
             newPrefs[9] = false;
         }
         return newPrefs;
+    }
+
+    /**
+     * Check if field matches any field in the fieldList,
+     * if field in fieldlist contains an optional domain also check against given fieldDomain.
+     */
+    static _wildcardFieldMatch(fieldDomain, fieldname, fieldList) {
+        return fieldList.some( (fieldItem) => {
+            let filterField = fieldItem;
+            let domainMatch = true;
+            if (fieldItem.includes(':')) {
+                // check for domain match
+                domainMatch = false;
+                const parts = fieldItem.split(':');
+                const filterDomain = parts[0];
+                filterField = parts[1];
+                domainMatch = OptionsUtil._wildcardMatch(fieldDomain, filterDomain);
+            }
+            if (domainMatch) {
+                return OptionsUtil._wildcardMatch(fieldname, filterField);
+            }
+        });
+    }
+
+    /** check if value matches any item in the matchList, item may contain wildcards. */
+    static _wildcardListMatch(value, matchList) {
+        return matchList.some((matchItem) => OptionsUtil._wildcardMatch(value, matchItem));
+    }
+
+    /**
+     * check if value matches the matchValue, matchValue may contain wildcards.
+     *
+     * Valid wildcards are:
+     * - matchValue starting and/or ending with '*'
+     * - matchValue is '<empty>' which only matches an empty value
+     *
+     */
+    static _wildcardMatch(value, matchValue) {
+        console.log('Checking value [' + value + '] against matchValue [' + matchValue + ']');
+        if (matchValue === '<empty>' && value === '') {
+            return true;
+        }
+        const matchProp = OptionsUtil._getWildcardProps(matchValue);
+
+        if (!matchProp.startsWithWildcard && !matchProp.endsWithWildcard) {
+            // match exactly?
+            return matchValue === value;
+        }
+        if (matchProp.startsWithWildcard && matchProp.endsWithWildcard) {
+            // substring match?
+            return value.includes(matchProp.valueClean);
+        }
+        if (matchProp.startsWithWildcard) {
+            // matches end?
+            return value.endsWith(matchProp.valueClean);
+        }
+        // matches begin?
+        return value.startsWith(matchProp.valueClean);
+    }
+
+    static _getWildcardProps(matchValue) {
+        const result = {
+            startsWithWildcard: false,
+            endsWithWildcard: false,
+            valueClean: ''
+        };
+
+        let startIdx = 0;
+        let endIdx = matchValue.length;
+
+        if (matchValue.startsWith('*')) {
+            result.startsWithWildcard = true;
+            startIdx = 1;
+        }
+        if (matchValue.endsWith('*')) {
+            result.endsWithWildcard = true;
+            --endIdx;
+        }
+        result.valueClean = matchValue.substring(startIdx, endIdx);
+
+        return result;
     }
 }

@@ -290,7 +290,7 @@ function blockedByFilter(fhcEvent) {
         //console.log('type:' + fhcEvent.type + ' name:' + fhcEvent.name + ' host:' + fhcEvent.host + ' is blocked by domain');
         return true;
     }
-    if (fhcEvent.eventType === 1 && OptionsUtil.isTextFieldBlocked(fhcEvent.name, filterPrefs)) {
+    if (fhcEvent.eventType === 1 && OptionsUtil.isTextFieldBlocked(fhcEvent.host, fhcEvent.name, filterPrefs)) {
         //console.log('type:' + fhcEvent.type + ' name:' + fhcEvent.name + ' host:' + fhcEvent.host + ' is blocked by field');
         return true;
     }
