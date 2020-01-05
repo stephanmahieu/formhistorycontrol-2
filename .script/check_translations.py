@@ -23,9 +23,9 @@ def check_locale_message(base_msg, other_msg, other_path):
         missing_key = 'XXX' + key
         if key not in other_msg:
             if missing_key in other_msg:
-                print('  {:25} missing known key'.format(key))
+                print('  {:30} missing known key'.format(key))
             else:
-                print('  {:25} new missing key!!! (use --fix option)'.format(key))
+                print('  {:30} new missing key!!! (use --fix option)'.format(key))
             other_msg_fixed[missing_key] = base_msg[key]
             okay = False
         else:
