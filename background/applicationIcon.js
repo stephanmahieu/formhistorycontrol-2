@@ -11,9 +11,11 @@
 // tab.onActivated and windows.onFocusChanged which triggers both event handlers
 const CUR_APP = {
     windowId: -1,
-    tabId: -1
+    tabId: -1,
+    url: ''
 };
 browser.tabs.onActivated.addListener(handleTabActivated);
+browser.tabs.onUpdated.addListener(handleTabUpdated);
 browser.windows.onFocusChanged.addListener(handleWindowFocusChanged);
 
 browser.runtime.onMessage.addListener(receiveIconEvents);
@@ -77,6 +79,12 @@ function handleWindowFocusChanged(windowId) {
     }
 }
 
+function handleTabUpdated(tabId, changeInfo, tab) {
+    if (changeInfo.status === 'complete') {
+        updateApplicationIconOnTabActivation(tab.windowId, tab.id);
+    }
+}
+
 function handleTabActivated(activeInfo) {
     // set application icon
     updateApplicationIconOnTabActivation(activeInfo.windowId, activeInfo.tabId);
@@ -103,12 +111,13 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
         // skip popup windows
         return;
     }
-    if (CUR_APP.windowId === windowId && CUR_APP.tabId === tabId) {
+    if (CUR_APP.windowId === windowId && CUR_APP.tabId === tabId && CUR_APP.url === url) {
         // console.log('!! skip duplicate call to updateApplicationIcon() for window ' + windowId + ' and tab with url ' + url);
         return;
     }
     CUR_APP.windowId = windowId;
     CUR_APP.tabId = tabId;
+    CUR_APP.url = url;
 
     // reflect state in icon: disabled/enabled icon when domainfilter is active, normal icon otherwise
     OptionsUtil.getFilterPrefs().then(prefs => {
