@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Stephan Mahieu
+ * Copyright (c) 2019. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -7,14 +7,25 @@
 
 'use strict';
 
-/**
- * Caveat:
- * will set the same application icon in all open windows but state will reflect only the last activated tab
- * because switching (focusing) window is not detected.
- */
-
+// keep track of current tab, activating another tab on another window triggers both
+// tab.onActivated and windows.onFocusChanged which triggers both event handlers
+const CUR_APP = {
+    windowId: -1,
+    tabId: -1
+};
 browser.tabs.onActivated.addListener(handleTabActivated);
+browser.windows.onFocusChanged.addListener(handleWindowFocusChanged);
+
 browser.runtime.onMessage.addListener(receiveIconEvents);
+
+const debounceFunc = (fn, time) => {
+    let timeout;
+    return function() {
+        const functionCall = () => fn.apply(this, arguments);
+        clearTimeout(timeout);
+        timeout = setTimeout(functionCall, time);
+    }
+};
 
 // initially update icon for the active tab
 setTimeout(()=>{ updateIconForActiveTab(); }, 1500);
@@ -38,53 +49,84 @@ function updateIconForActiveTab() {
     browser.tabs.query({active: true}).then(tabInfo => {
         if (tabInfo.length > 0) {
             tabInfo.forEach(tab => {
-                updateApplicationIcon(tab.id, tab.url, tab.incognito);
+                updateApplicationIcon(tab.windowId, tab.id, tab.url, tab.incognito);
             });
         }
     });
 }
 
+function updateApplicationIconForActiveTab() {
+    browser.windows.getCurrent({populate: true}).then(tabInfo=>{
+        // console.log('Active window is ' + tabInfo.id);
+        if (tabInfo.tabs.length > 0) {
+            tabInfo.tabs.forEach(tab => {
+                if (tab.active) {
+                    // console.log('Active tab is ' + tab.id);
+                    debouncedUpdateApplicationIcon(tab.windowId, tab.id, tab.url, tab.incognito);
+                }
+            });
+        }
+    });
+}
+
+function handleWindowFocusChanged(windowId) {
+    if (windowId > 0) {
+        // console.log("### Window " + windowId + " now has the focus! ###");
+        // updateApplicationIconOnTabActivation();
+        updateApplicationIconForActiveTab();
+    }
+}
+
 function handleTabActivated(activeInfo) {
     // set application icon
-    updateApplicationIconOnTabActivation(activeInfo.tabId);
+    updateApplicationIconOnTabActivation(activeInfo.windowId, activeInfo.tabId);
 
     // activates via manifest (page_action, show_matches)
     //browser.pageAction.show(activeInfo.tabId);
 }
 
-function updateApplicationIconOnTabActivation(tabId, attempt = 1) {
+function updateApplicationIconOnTabActivation(windowId, tabId, attempt = 1) {
     browser.tabs.get(tabId).then(tabInfo => {
         if (tabInfo.status === 'loading' || ('about:blank' === tabInfo.url && attempt<=10)) {
             setTimeout(() => {
-                updateApplicationIconOnTabActivation(tabId, ++attempt);
+                updateApplicationIconOnTabActivation(windowId, tabId, ++attempt);
             }, 500);
         } else {
-            updateApplicationIcon(tabInfo.id, tabInfo.url, tabInfo.incognito);
+            debouncedUpdateApplicationIcon(tabInfo.windowId, tabInfo.id, tabInfo.url, tabInfo.incognito);
         }
     });
 }
 
-function updateApplicationIcon(tabId, url, incognito) {
+function updateApplicationIcon(windowId, tabId, url, incognito) {
     // skip popup windows
-    if (!url.includes('moz-extension://')) {
-        // reflect state in icon: disabled/enabled icon when domainfilter is active, normal icon otherwise
-
-        OptionsUtil.getFilterPrefs().then(prefs => {
-            if (incognito && !OptionsUtil.doSaveInIncognitoMode(prefs)) {
-                setApplicationIcon(tabId, DISABLED_PNG_ICON, DISABLED_SVG_ICON);
-            } else if (OptionsUtil.isDomainfilterActive(prefs)) {
-                setApplicationIcon(tabId, "/theme/icons/fhc-nn.png", "/theme/icons/fhc_icon.svg");
-            } else {
-                const host = MiscUtil.getHostnameFromUrlString(url);
-                if (OptionsUtil.isDomainBlocked(host, prefs)) {
-                    setApplicationIcon(tabId, DISABLED_PNG_ICON, DISABLED_SVG_ICON);
-                } else {
-                    setApplicationIcon(tabId, ENABLED_PNG_ICON, ENABLED_SVG_ICON);
-                }
-            }
-        });
+    if (url.includes('moz-extension://')) {
+        // skip popup windows
+        return;
     }
+    if (CUR_APP.windowId === windowId && CUR_APP.tabId === tabId) {
+        // console.log('!! skip duplicate call to updateApplicationIcon() for window ' + windowId + ' and tab with url ' + url);
+        return;
+    }
+    CUR_APP.windowId = windowId;
+    CUR_APP.tabId = tabId;
+
+    // reflect state in icon: disabled/enabled icon when domainfilter is active, normal icon otherwise
+    OptionsUtil.getFilterPrefs().then(prefs => {
+        if (incognito && !OptionsUtil.doSaveInIncognitoMode(prefs)) {
+            setApplicationIcon(tabId, DISABLED_PNG_ICON, DISABLED_SVG_ICON);
+        } else if (OptionsUtil.isDomainfilterActive(prefs)) {
+            setApplicationIcon(tabId, "/theme/icons/fhc-nn.png", "/theme/icons/fhc_icon.svg");
+        } else {
+            const host = MiscUtil.getHostnameFromUrlString(url);
+            if (OptionsUtil.isDomainBlocked(host, prefs)) {
+                setApplicationIcon(tabId, DISABLED_PNG_ICON, DISABLED_SVG_ICON);
+            } else {
+                setApplicationIcon(tabId, ENABLED_PNG_ICON, ENABLED_SVG_ICON);
+            }
+        }
+    });
 }
+let debouncedUpdateApplicationIcon = debounceFunc(updateApplicationIcon, 100);
 
 function setApplicationIcon(tabId, fixedPath, scalablePath) {
     browser.browserAction.setIcon({
