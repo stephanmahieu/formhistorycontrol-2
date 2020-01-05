@@ -123,7 +123,7 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
     OptionsUtil.getFilterPrefs().then(prefs => {
         if (incognito && !OptionsUtil.doSaveInIncognitoMode(prefs)) {
             setApplicationIcon(tabId, DISABLED_PNG_ICON, DISABLED_SVG_ICON);
-        } else if (OptionsUtil.isDomainfilterActive(prefs)) {
+        } else if (!OptionsUtil.isDomainfilterActive(prefs)) {
             setApplicationIcon(tabId, "/theme/icons/fhc-nn.png", "/theme/icons/fhc_icon.svg");
         } else {
             const host = MiscUtil.getHostnameFromUrlString(url);

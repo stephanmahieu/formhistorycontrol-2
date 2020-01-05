@@ -146,7 +146,7 @@ class OptionsUtil {
     }
 
     static isDomainfilterActive(filterPrefs) {
-        return 'all' === filterPrefs.prefDomainFilter;
+        return 'all' !== filterPrefs.prefDomainFilter;
     }
 
     static isDomainBlocked(domain, filterPrefs) {
