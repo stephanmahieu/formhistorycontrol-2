@@ -1,10 +1,10 @@
 body {
-    display: flex;
-    flex-direction: column;
+    width: max-content;
 }
 
 .content {
-    flex: 1 0 auto;
     margin: 8px;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
