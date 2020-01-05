@@ -35,9 +35,11 @@ function receiveContextEvents(fhcEvent, sender, sendResponse) {
 // tab.onActivated and windows.onFocusChanged which triggers both event handlers
 const CUR_MENU = {
     windowId: -1,
-    tabId: -1
+    tabId: -1,
+    url: ''
 };
 browser.tabs.onActivated.addListener(handleTabActivated);
+browser.tabs.onUpdated.addListener(handleTabUpdated);
 browser.windows.onFocusChanged.addListener(handleWindowFocusChanged);
 
 const debounce = (fn, time) => {
@@ -82,6 +84,12 @@ function handleWindowFocusChanged(windowId) {
     }
 }
 
+function handleTabUpdated(tabId, changeInfo, tab) {
+    if (changeInfo.status === 'complete') {
+        updateEditorFieldRestoreMenuOnTabActivation(tab.windowId, tab.id);
+    }
+}
+
 function handleTabActivated(activeInfo) {
     // console.log("### Tab " + activeInfo.tabId + " was activated for window " + activeInfo.windowId + " ###");
     // create submenu-items for multiline restore
@@ -114,12 +122,13 @@ function updateEditorFieldRestoreMenu(windowId, tabId, url) {
         // skip popup windows
         return;
     }
-    if (CUR_MENU.windowId === windowId && CUR_MENU.tabId === tabId) {
+    if (CUR_MENU.windowId === windowId && CUR_MENU.tabId === tabId && CUR_MENU.url === url) {
         // console.log('!! skip duplicate call to updateEditorFieldRestoreMenu() for window ' + windowId + ' and tab with url ' + url);
         return;
     }
     CUR_MENU.windowId = windowId;
     CUR_MENU.tabId = tabId;
+    CUR_MENU.url = url;
 
     const hostname = MiscUtil.getHostnameFromUrlString(url);
 
