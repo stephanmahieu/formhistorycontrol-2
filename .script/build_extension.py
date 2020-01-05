@@ -133,7 +133,7 @@ if os.path.isdir(distSubDirectoryPath):
 # copy files to .dist/temp_target directory
 print(f'Copying files to .dist/temp_{buildTarget} directory')
 ignorefiles = ignore_patterns(
-    '.dist', '.script', '.git', '.gitignore', '.idea', '*.zip', '*.iml', '*.bak', 'todo-list.md', '*.md')
+    '.dist', '.script', '.github', '.git', '.gitignore', '.idea', '*.zip', '*.iml', '*.bak', 'todo-list.md', '*.md')
 copytree(sourceDirectoryPath, distSubDirectoryPath, ignore=ignorefiles)
 
 # remove unfinished translations
