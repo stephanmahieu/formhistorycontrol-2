@@ -36,7 +36,7 @@ function receiveContextEvents(fhcEvent, sender, sendResponse) {
 const CUR_MENU = {
     windowId: -1,
     tabId: -1,
-    url: ''
+    host: ''
 };
 browser.tabs.onActivated.addListener(handleTabActivated);
 browser.tabs.onUpdated.addListener(handleTabUpdated);
@@ -122,15 +122,15 @@ function updateEditorFieldRestoreMenu(windowId, tabId, url) {
         // skip popup windows
         return;
     }
-    if (CUR_MENU.windowId === windowId && CUR_MENU.tabId === tabId && CUR_MENU.url === url) {
-        // console.log('!! skip duplicate call to updateEditorFieldRestoreMenu() for window ' + windowId + ' and tab with url ' + url);
+
+    const hostname = MiscUtil.getHostnameFromUrlString(url);
+    if (CUR_MENU.windowId === windowId && CUR_MENU.tabId === tabId && CUR_MENU.host === hostname) {
+        // console.log('!! skip duplicate call to updateEditorFieldRestoreMenu() for window ' + windowId + ' and tab with host ' + hostname);
         return;
     }
     CUR_MENU.windowId = windowId;
     CUR_MENU.tabId = tabId;
-    CUR_MENU.url = url;
-
-    const hostname = MiscUtil.getHostnameFromUrlString(url);
+    CUR_MENU.host = hostname;
 
     removeCurrentMenuItems(EDITOR_FIELDS_MENUITEM_IDS)
     .then(() => {

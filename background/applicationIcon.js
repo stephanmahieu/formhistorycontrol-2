@@ -12,7 +12,7 @@
 const CUR_APP = {
     windowId: -1,
     tabId: -1,
-    url: ''
+    host: ''
 };
 browser.tabs.onActivated.addListener(handleTabActivated);
 browser.tabs.onUpdated.addListener(handleTabUpdated);
@@ -111,13 +111,16 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
         // skip popup windows
         return;
     }
-    if (CUR_APP.windowId === windowId && CUR_APP.tabId === tabId && CUR_APP.url === url) {
-        // console.log('!! skip duplicate call to updateApplicationIcon() for window ' + windowId + ' and tab with url ' + url);
+
+    const host = MiscUtil.getHostnameFromUrlString(url);
+
+    if (CUR_APP.windowId === windowId && CUR_APP.tabId === tabId && CUR_APP.host === host) {
+        // console.log('!! skip duplicate call to updateApplicationIcon() for window ' + windowId + ' and tab with host ' + host);
         return;
     }
     CUR_APP.windowId = windowId;
     CUR_APP.tabId = tabId;
-    CUR_APP.url = url;
+    CUR_APP.host = host;
 
     // reflect state in icon: disabled/enabled icon when domainfilter is active, normal icon otherwise
     OptionsUtil.getFilterPrefs().then(prefs => {
@@ -126,7 +129,6 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
         } else if (!OptionsUtil.isDomainfilterActive(prefs)) {
             setApplicationIcon(tabId, "/theme/icons/fhc-nn.png", "/theme/icons/fhc_icon.svg");
         } else {
-            const host = MiscUtil.getHostnameFromUrlString(url);
             if (OptionsUtil.isDomainBlocked(host, prefs)) {
                 setApplicationIcon(tabId, DISABLED_PNG_ICON, DISABLED_SVG_ICON);
             } else {
