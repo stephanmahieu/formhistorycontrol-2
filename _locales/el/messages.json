@@ -47,20 +47,20 @@
     "message": "Εξυπηρετητής",
     "description": "The label for the host where the formfield entry was used."
   },
-  "XXXfieldLength": {
-    "message": "Length",
+  "fieldLength": {
+    "message": "Μήκος",
     "description": "The label for the length of the value/content of a formfield entry."
   },
   "pagingAll": {
     "message": "Όλα",
     "description": "For the paging list, indicates All values displayed in one single page."
   },
-  "XXXbuttonColumnVisibility": {
-    "message": "Column visibility",
+  "buttonColumnVisibility": {
+    "message": "Ορατότητα στήλης",
     "description": "Label of the Column visibility button"
   },
-  "XXXbuttonRestoreColumnVisibility": {
-    "message": "Restore visibility",
+  "buttonRestoreColumnVisibility": {
+    "message": "Επαναφορά ορατότητας",
     "description": "Label of the column Restore visibility button"
   },
   "operationWindowTile": {
@@ -339,8 +339,8 @@
     "message": "αυτόματη",
     "description": "The 'automatic' option in a select list."
   },
-  "XXXoptionsExpertMode": {
-    "message": "Show advanced options",
+  "optionsExpertMode": {
+    "message": "Εμφάνιση ρυθμίσεων για προχωρημένους",
     "description": "Options window: Show advanced options checkbox."
   },
   "optionsDisplayMenu": {
@@ -379,24 +379,24 @@
     "message": "Διάλεξε μορφή ημερομηνίας",
     "description": "Options window: The date format selection dropdown label"
   },
-  "XXXoptionsScrollAmountSelect": {
-    "message": "Mousewheel scroll amount (pixels)",
+  "optionsScrollAmountSelect": {
+    "message": "Ποσό κύλισης ροδέλας ποντικιού (εικονοστοιχεία)",
     "description": "Options window: The scroll amount selection dropdown label"
   },
-  "XXXoptionsContextMenuSelect": {
-    "message": "Context menu",
+  "optionsContextMenuSelect": {
+    "message": "Μενού περιβάλλοντος",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"
   },
-  "XXXoptionContextMenuPage": {
-    "message": "Always available",
+  "optionContextMenuPage": {
+    "message": "Πάντα διαθέσιμο",
     "description": "Option window, contextmenu display: Always available"
   },
-  "XXXoptionContextMenuEditfields": {
-    "message": "On edit fields only",
+  "optionContextMenuEditfields": {
+    "message": "Μόνο στα πεδία επεξεργασίας",
     "description": "Option window, contextmenu display: On edit fields only"
   },
-  "XXXoptionContextMenuNone": {
-    "message": "No context menu",
+  "optionContextMenuNone": {
+    "message": "Απουσία μενού περιβάλλοντος",
     "description": "Option window, contextmenu display: No context menu"
   },
   "optionsMiscellaneousLegend": {
@@ -439,28 +439,28 @@
     "message": "Χαρακτήρες",
     "description": "Options window, content length select-options list: The 'characters' text preceded by the number."
   },
-  "XXXoptionsOverrideIncognito": {
-    "message": "Do save formhistory in private browsing mode",
+  "optionsOverrideIncognito": {
+    "message": "Αποθήκευση ιστορικού φόρμας σε λειτουργία ιδιωτικής πλοήγησης",
     "description": "Options window, Save formhistory when running in a private browsing tab"
   },
-  "XXXoptionsRetainFieldTypes": {
-    "message": "Retain which type of field",
+  "optionsRetainFieldTypes": {
+    "message": "Διατήρηση τύπου πεδίου",
     "description": "Options window, Retain which type of field"
   },
-  "XXXoptionsRetainFieldAll": {
-    "message": "Single-line + Multi-line",
+  "optionsRetainFieldAll": {
+    "message": "Μία γραμμή + Πολλαπλές γραμμές",
     "description": "Options window, Single-line + Multi-line"
   },
-  "XXXoptionsRetainFieldMulti": {
-    "message": "Multi-line only",
+  "optionsRetainFieldMulti": {
+    "message": "Μόνο πολλαπλές γραμμές",
     "description": "Options window, Multi-line only"
   },
-  "XXXoptionsRetainFieldSingle": {
-    "message": "Single-line only",
+  "optionsRetainFieldSingle": {
+    "message": "Μόνο μία γραμμή",
     "description": "Options window, Single-line only"
   },
-  "XXXoptionsuUdateInterval": {
-    "message": "Update interval",
+  "optionsuUdateInterval": {
+    "message": "Χρονικό διάστημα μέχρι την επόμενη ανανέωση",
     "description": "Options window, Update interval"
   },
   "optiondomainlistlegend": {
