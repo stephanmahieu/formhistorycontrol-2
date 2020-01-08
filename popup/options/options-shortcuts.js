@@ -33,18 +33,11 @@ function showShortcutKeysModifyButton() {
     document.getElementById('shortcutKeysSummary').style.display = 'none';
 }
 
-function hideAllShortcutKeysButtons() {
-    document.getElementById('shortcutKeysModify').style.display = 'none';
-    document.getElementById('shortcutKeysSummary').style.display = 'none';
-    document.getElementById('shortcut_pane').style.height = '169px';
-}
-
-
 function showShortcutKeysModifyNotAllowedMessage() {
-    const msg = document.createElement('span');
+    const msg = document.createElement('div');
     msg.id = 'shortcut_update_unsupported';
     msg.appendChild(document.createTextNode(browser.i18n.getMessage("optionsShortcutsUpdateNotSupported")));
-    document.getElementById('shortcut_pane').appendChild(msg);
+    document.getElementById('shortcut_message').appendChild(msg);
 }
 
 function addShortcutKeyOptions() {
@@ -80,7 +73,8 @@ function _addShortcutKeyOptions(extendedModifiers) {
 // - key (mandatory). [A-Z, 0-9, F1-F12, Comma, Period, Home, End, PageUp, PageDown, Space, Insert, Delete, Up, Down, Left, Right]
 function _createShortcutKeyOption(command, extendedModifiers) {
     let keyRow = null;
-    const keys = command.shortcut.split('+');
+    const keys = [];
+    command.shortcut.split('+').forEach(item => keys.push(item.trim()));
     if (keys.length > 1) {
         keyRow = document.createElement('div');
         const labelsContainer = document.createElement('div');
@@ -302,12 +296,16 @@ function shortcutKeyCommandEnableChanged(commandName) {
     if (enabled) {
         name.classList.remove('disabled-shortcut-command');
         shkeys.classList.remove('disabled-shortcut-command');
+    } else {
+        name.classList.add('disabled-shortcut-command');
+        shkeys.classList.add('disabled-shortcut-command');
+    }
+
+    if (enabled && browser.commands.update) {
         mod1.removeAttribute("disabled");
         mod2.removeAttribute("disabled");
         key.removeAttribute("disabled");
     } else {
-        name.classList.add('disabled-shortcut-command');
-        shkeys.classList.add('disabled-shortcut-command');
         mod1.setAttribute("disabled", "true");
         mod2.setAttribute("disabled", "true");
         key.setAttribute("disabled", "true");

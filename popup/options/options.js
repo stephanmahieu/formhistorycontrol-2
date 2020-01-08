@@ -100,8 +100,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // if update shortcut commands is not supported (chrome), hide the shortcut edit button
     if (!browser.commands.update) {
-        // ToDo allow disabling/enabling shortcuts
-        hideAllShortcutKeysButtons();
         showShortcutKeysModifyNotAllowedMessage();
     }
 

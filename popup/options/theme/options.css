@@ -256,16 +256,16 @@ input[type="Radio"]:checked+label span:before{
 }
 
 #shortcut_update_unsupported {
-    position: absolute;
-    left: 5px;
-    bottom: 0;
+    margin: 2px 4px;
+    padding: 3px;
     font-style: italic;
     font-weight: bold;
+    border-radius: 6px;
 }
 #shortcut_update_unsupported:hover {
-    margin-top: 14px;
     color: #292929;
     background-color: #fff3af;
+    margin-bottom: 0;
     cursor: help;
     border: 1px #292929 solid;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.51);
