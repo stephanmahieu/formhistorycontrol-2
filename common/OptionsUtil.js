@@ -114,6 +114,9 @@ class OptionsUtil {
     }
 
     static applyShortcutKeysPrefs() {
+        if (!browser.commands.update) {
+            return;
+        }
         OptionsUtil.getShortcutKeysPrefs().then((prefs) => {
 
             // get all shortcut commands (max 4 for chrome)
