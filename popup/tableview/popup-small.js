@@ -282,7 +282,7 @@ function createDataTable(dateformat, scrollAmount, prefColVisible) {
         pageLength: 12,
         fnDrawCallback: function(){
             $('.dataTables_scrollBody').mCustomScrollbar({
-                scrollInertia: 1000,
+                scrollInertia: 500,
                 showArrows: true,
                 scrollButtons:{ enable: true, scrollAmount: 13 },
                 mouseWheel:{ scrollAmount: scrollAmount },
