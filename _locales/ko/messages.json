@@ -47,20 +47,20 @@
     "message": "호스트",
     "description": "The label for the host where the formfield entry was used."
   },
-  "XXXfieldLength": {
-    "message": "Length",
+  "fieldLength": {
+    "message": "길이",
     "description": "The label for the length of the value/content of a formfield entry."
   },
   "pagingAll": {
     "message": "모두",
     "description": "For the paging list, indicates All values displayed in one single page."
   },
-  "XXXbuttonColumnVisibility": {
-    "message": "Column visibility",
+  "buttonColumnVisibility": {
+    "message": "표시할 열",
     "description": "Label of the Column visibility button"
   },
-  "XXXbuttonRestoreColumnVisibility": {
-    "message": "Restore visibility",
+  "buttonRestoreColumnVisibility": {
+    "message": "표시 여부 복원",
     "description": "Label of the column Restore visibility button"
   },
   "operationWindowTile": {
@@ -383,20 +383,20 @@
     "message": "마우스 휠 스크롤할 양 (픽셀)",
     "description": "Options window: The scroll amount selection dropdown label"
   },
-  "XXXoptionsContextMenuSelect": {
-    "message": "Context menu",
+  "optionsContextMenuSelect": {
+    "message": "문맥 메뉴",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"
   },
-  "XXXoptionContextMenuPage": {
-    "message": "Always available",
+  "optionContextMenuPage": {
+    "message": "항상 표시",
     "description": "Option window, contextmenu display: Always available"
   },
-  "XXXoptionContextMenuEditfields": {
-    "message": "On edit fields only",
+  "optionContextMenuEditfields": {
+    "message": "편집 필드에서만",
     "description": "Option window, contextmenu display: On edit fields only"
   },
-  "XXXoptionContextMenuNone": {
-    "message": "No context menu",
+  "optionContextMenuNone": {
+    "message": "항상 숨김",
     "description": "Option window, contextmenu display: No context menu"
   },
   "optionsMiscellaneousLegend": {
