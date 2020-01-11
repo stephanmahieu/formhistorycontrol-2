@@ -19,6 +19,8 @@ const LBL_I18N_MONTH   = browser.i18n.getMessage("dateMonth");
 const LBL_I18N_MONTHS  = browser.i18n.getMessage("dateMonths");
 const LB_I18NL_YEAR    = browser.i18n.getMessage("dateYear");
 const LBL_I18N_YEARS   = browser.i18n.getMessage("dateYears");
+const WEEKDAYS_SHORT = [];
+const WEEKDAYS_LONG = [];
 
 class DateUtil {
 
@@ -377,6 +379,8 @@ class DateUtil {
                     case 'yy':return DateUtil._padZero(aDate.getFullYear() % 100, 2);
                     case 'MM':return DateUtil._padZero(aDate.getMonth()+1, 2);
                     case 'M':return aDate.getMonth()+1;
+                    case 'dddd':return WEEKDAYS_LONG[aDate.getDay()];
+                    case 'ddd':return WEEKDAYS_SHORT[aDate.getDay()];
                     case 'dd':return DateUtil._padZero(aDate.getDate(), 2);
                     case 'd':return aDate.getDate();
                     case 'H':return aDate.getHours();
@@ -396,3 +400,15 @@ class DateUtil {
         );
     }
 }
+
+// init weekdays for OS locale
+function _initWeekDays() {
+    const forLocale = browser.i18n.getUILanguage();
+    let baseDate = new Date(Date.UTC(2017, 0, 1)); // just a Sunday
+    for(let i = 0; i < 7; i++) {
+        WEEKDAYS_SHORT.push(baseDate.toLocaleDateString(forLocale, { weekday: 'short' }));
+        WEEKDAYS_LONG.push(baseDate.toLocaleDateString(forLocale, { weekday: 'long' }));
+        baseDate.setDate(baseDate.getDate() + 1);
+    }
+}
+_initWeekDays();
