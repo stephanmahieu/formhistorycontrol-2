@@ -250,7 +250,7 @@ class OptionsUtil {
      *
      */
     static _wildcardMatch(value, matchValue) {
-        console.log('Checking value [' + value + '] against matchValue [' + matchValue + ']');
+        // console.log('Checking value [' + value + '] against matchValue [' + matchValue + ']');
         if (matchValue === '<empty>' && value === '') {
             return true;
         }
