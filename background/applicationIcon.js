@@ -7,13 +7,6 @@
 
 'use strict';
 
-// keep track of current tab, activating another tab on another window triggers both
-// tab.onActivated and windows.onFocusChanged which triggers both event handlers
-const CUR_APP = {
-    windowId: -1,
-    tabId: -1,
-    host: ''
-};
 browser.tabs.onActivated.addListener(handleTabActivated);
 browser.tabs.onUpdated.addListener(handleTabUpdated);
 browser.windows.onFocusChanged.addListener(handleWindowFocusChanged);
@@ -33,6 +26,8 @@ const debounceFunc = (fn, time) => {
 setTimeout(()=>{ updateIconForActiveTab(); }, 1500);
 
 
+const DEFAULT_PNG_ICON = "/theme/icons/fhc-nn.png";
+const DEFAULT_SVG_ICON = "/theme/icons/fhc_icon.svg";
 const DISABLED_PNG_ICON = "/theme/icons/state/fhc_icon_disabled_nn.png";
 const DISABLED_SVG_ICON = "/theme/icons/state/fhc_icon_disabled.svg";
 const ENABLED_PNG_ICON = "/theme/icons/state/fhc_icon_enabled_nn.png";
@@ -114,20 +109,12 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
 
     const host = MiscUtil.getHostnameFromUrlString(url);
 
-    if (CUR_APP.windowId === windowId && CUR_APP.tabId === tabId && CUR_APP.host === host) {
-        // console.log('!! skip duplicate call to updateApplicationIcon() for window ' + windowId + ' and tab with host ' + host);
-        return;
-    }
-    CUR_APP.windowId = windowId;
-    CUR_APP.tabId = tabId;
-    CUR_APP.host = host;
-
     // reflect state in icon: disabled/enabled icon when domainfilter is active, normal icon otherwise
     OptionsUtil.getFilterPrefs().then(prefs => {
         if (incognito && !OptionsUtil.doSaveInIncognitoMode(prefs)) {
             setApplicationIcon(tabId, DISABLED_PNG_ICON, DISABLED_SVG_ICON);
         } else if (!OptionsUtil.isDomainfilterActive(prefs)) {
-            setApplicationIcon(tabId, "/theme/icons/fhc-nn.png", "/theme/icons/fhc_icon.svg");
+            setApplicationIcon(tabId, DEFAULT_PNG_ICON, DEFAULT_SVG_ICON);
         } else {
             if (OptionsUtil.isDomainBlocked(host, prefs)) {
                 setApplicationIcon(tabId, DISABLED_PNG_ICON, DISABLED_SVG_ICON);
