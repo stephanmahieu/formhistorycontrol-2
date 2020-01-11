@@ -56,7 +56,7 @@
     "description": "For the paging list, indicates All values displayed in one single page."
   },
   "buttonColumnVisibility": {
-    "message": "Видимость столбца",
+    "message": "Настройка столбцов",
     "description": "Label of the Column visibility button"
   },
   "buttonRestoreColumnVisibility": {
