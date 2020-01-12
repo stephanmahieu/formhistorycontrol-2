@@ -3,6 +3,7 @@
 /* prevent select-all highlighting (can't override default behaviour Ctrl-A event) */
 * {
     user-select: none;
+    -moz-user-select: none; /* older FF versions */
 }
 
 /* search box */
