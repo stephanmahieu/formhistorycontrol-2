@@ -75,9 +75,13 @@ body {
     padding-left: 5px;
 }
 
-#fhcTable_filter {
-    padding-right: 5px;
+#fhcTable_filter input[type=search] {
+    width: 150px;
 }
+#fhcTable_filter input[type=search]:focus {
+    width: 270px;
+}
+
 
 td.details-control {
     background: url('../../../theme/icons/details_open.png') no-repeat center center;

@@ -35,6 +35,12 @@ td.my-details-control {
   cursor: pointer;
 }
 
+#fhcTable_filter input[type=search] {
+  width: 180px;
+}
+#fhcTable_filter input[type=search]:focus {
+  width: 300px;
+}
 
 /* hide the plus-icon when resizing window to a amall width */
 table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child::before,
