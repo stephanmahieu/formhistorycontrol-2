@@ -36,10 +36,10 @@ td.my-details-control {
 }
 
 #fhcTable_filter input[type=search] {
-  width: 180px;
+  min-width: 115px;
 }
 #fhcTable_filter input[type=search]:focus {
-  width: 300px;
+  min-width: 300px;
 }
 
 /* hide the plus-icon when resizing window to a amall width */

@@ -76,10 +76,10 @@ body {
 }
 
 #fhcTable_filter input[type=search] {
-    width: 150px;
+    min-width: 85px;
 }
 #fhcTable_filter input[type=search]:focus {
-    width: 270px;
+    min-width: 270px;
 }
 
 

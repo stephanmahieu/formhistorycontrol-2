@@ -12,7 +12,7 @@
 }
 #fhcTable_filter input[type=search] {
     -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
+    transition: min-width 0.4s ease-in-out;
     background: url("search-dark.png") no-repeat 3px 3px;
     padding-left: 22px;
 }

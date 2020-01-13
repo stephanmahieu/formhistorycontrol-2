@@ -130,6 +130,7 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
                     // only update display after 15 rows and when finished
                     if (count === refreshEvery) {
                         table.draw();
+                        adjustSearchBox();
                     }
                 } else {
                     ++countNotShown;
@@ -145,6 +146,8 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
                 // hide page control if all entries are shown
                 $('#fhcTable_paginate').toggle((-1 !== table.page.len()));
 
+                adjustSearchBox();
+
                 if (timeout) {
                     // populating table aborted due to timeout, inform the user
                     WindowUtil.showModalWarning({titleId: 'dialogWarningTitle', msgId: 'timeoutTooMuchDataWarning', args: [countNotShown, count+countNotShown]});
@@ -152,6 +155,13 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
             }
         }
     };
+}
+
+function adjustSearchBox() {
+    // adjust size searchbox for placeholder to fit nicely
+    const inpSearch = $("#fhcTable_filter input")[0];
+    const placeholderText = inpSearch.getAttribute("placeholder");
+    inpSearch.setAttribute("size", placeholderText.length + 2);
 }
 
 function haveSelectedItems() {
