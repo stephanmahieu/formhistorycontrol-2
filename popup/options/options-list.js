@@ -152,6 +152,10 @@ function setListButtonsState(selectId, inputId, btnAddId, btnModId, btnDelId) {
     const lstSelect = document.querySelector(selectId);
     const inputValue = document.querySelector(inputId).value;
 
+    if (lstSelect.selectedIndex < 0 && inputValue && _listItemExist(lstSelect, inputValue)) {
+        _selectItemInList(lstSelect, inputValue);
+    }
+
     if (lstSelect.selectedIndex < 0 || !inputValue) {
         if (inputValue) {
             btnAdd.removeAttribute("disabled");
@@ -182,4 +186,13 @@ function _listItemExist(selectElm, optionValue) {
         }
     }
     return exist;
+}
+
+function _selectItemInList(selectElm, optionValue) {
+    const options = selectElm.options;
+    for(let i = 0; i < options.length; i++) {
+        if (options[i].textContent === optionValue) {
+            selectElm.selectedIndex = i;
+        }
+    }
 }

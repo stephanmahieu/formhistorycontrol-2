@@ -90,10 +90,12 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     document.querySelector('#domainlist').addEventListener("change", domainlistChanged);
     document.querySelector('#domainListItem').addEventListener("keyup", domainlistInputChanged);
+    document.querySelector('#domainListItem').addEventListener("paste", domainlistInputPasted);
     document.querySelectorAll('.domainbutton').forEach(btn => {btn.addEventListener("click", listButtonClicked)});
 
     document.querySelector('#fieldlist').addEventListener("change", fieldlistChanged);
     document.querySelector('#fieldListItem').addEventListener("keyup", fieldlistInputChanged);
+    document.querySelector('#fieldListItem').addEventListener("paste", fieldlistInputPasted);
 
     document.querySelector("#buttonClose").addEventListener("click", closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
@@ -357,6 +359,9 @@ function domainlistChanged() {
 function domainlistInputChanged() {
     setListButtonsState("#domainlist", "#domainListItem", "#listAdd", "#listModify", "#listDelete");
 }
+function domainlistInputPasted(event) {
+    window.setTimeout(() => {domainlistInputChanged(); }, 10);
+}
 
 function fieldlistChanged() {
     copySelectedItemToInput("#fieldlist", "#fieldListItem");
@@ -365,6 +370,9 @@ function fieldlistChanged() {
 
 function fieldlistInputChanged() {
     setListButtonsState("#fieldlist", "#fieldListItem", "#fieldAdd", "#fieldModify", "#fieldDelete");
+}
+function fieldlistInputPasted(event) {
+    window.setTimeout(() => {fieldlistInputChanged(); }, 10);
 }
 
 function shortcutKeyEnableChanged(event) {
