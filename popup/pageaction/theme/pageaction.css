@@ -1,3 +1,9 @@
+* {
+    /* prevent select-all highlighting */
+    user-select: none;
+    -moz-user-select: none; /* older FF versions */
+}
+
 body {
     width: max-content;
 }
