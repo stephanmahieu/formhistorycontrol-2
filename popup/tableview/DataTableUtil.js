@@ -223,7 +223,7 @@ class DataTableUtil {
 
     static copyDataToClipboard(data) {
         if (data) {
-            this.copyTextToClipboard(data[2]);
+            MiscUtil.copyTextToClipboard(data[2]);
         }
     }
 
@@ -235,21 +235,7 @@ class DataTableUtil {
 
     static copyTextCleanToClipboard(value) {
         const cleanContent = WindowUtil.htmlToReadableText(value);
-        this.copyTextToClipboard(cleanContent);
-    }
-
-    static copyTextToClipboard(value) {
-        browser.permissions.contains({permissions: ["clipboardWrite"]}).then(result => {
-            if (result) {
-                window.navigator.clipboard.writeText(value).then(function() {
-                    // console.log('clipboard successfully set');
-                }, function() {
-                    console.error('clipboard write failed!');
-                });
-            } else {
-                console.error('Permission clipboardWrite not available!');
-            }
-        });
+        MiscUtil.copyTextToClipboard(cleanContent);
     }
 
     static createEntryObject(data, doWhat, multiKeys) {

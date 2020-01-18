@@ -18,4 +18,18 @@ class MiscUtil {
         link.setAttribute('href', url);
         return link.hostname;
     }
+
+    static copyTextToClipboard(value) {
+        browser.permissions.contains({permissions: ["clipboardWrite"]}).then(result => {
+            if (result) {
+                window.navigator.clipboard.writeText(value).then(function() {
+                    // console.log('clipboard successfully set');
+                }, function() {
+                    console.error('clipboard write failed!');
+                });
+            } else {
+                console.error('Permission clipboardWrite not available!');
+            }
+        });
+    }
 }

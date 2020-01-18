@@ -119,32 +119,18 @@ function onKeyClicked(event) {
 function copyToClipboardText() {
     const input = getInputElement();
     const cleanContent = WindowUtil.htmlToReadableText(input.value);
-    copyTextToClipboard(cleanContent);
+    MiscUtil.copyTextToClipboard(cleanContent);
 }
 
 function copyToClipboardAll() {
     const input = getInputElement();
-    copyTextToClipboard(input.value);
+    MiscUtil.copyTextToClipboard(input.value);
 }
 
 function getInputElement() {
     const type = document.getElementById("typeSelect").value;
     const inputId = (type === 'input') ? 'value' : 'multiline-value';
     return document.getElementById(inputId);
-}
-
-function copyTextToClipboard(value) {
-    browser.permissions.contains({permissions: ["clipboardWrite"]}).then(result => {
-        if (result) {
-            window.navigator.clipboard.writeText(value).then(function() {
-                // console.log('clipboard successfully set');
-            }, function() {
-                console.error('clipboard write failed!');
-            });
-        } else {
-            console.error('Permission clipboardWrite not available!');
-        }
-    });
 }
 
 function onOkayButton() {
