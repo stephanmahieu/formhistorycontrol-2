@@ -267,7 +267,7 @@ function getAllShortcutKeyValues() {
 function _getShortcutKeyEnable(commandName) {
     if (!document.getElementById('enable_' + commandName)) {
         // missing (chrome allows max. 4 shortcuts)
-        return false;
+        return true;
     }
     return document.getElementById('enable_' + commandName).checked;
 }
