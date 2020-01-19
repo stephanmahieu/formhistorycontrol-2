@@ -519,20 +519,6 @@
     "message": "Открыть основное окно менджера истории",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
-  "notificationTitle": {
-    "message": "Тестовое уведомление",
-    "description": "Title of the test notification."
-  },
-  "notificationContent": {
-    "message": "Тестовое сообщение: $MESSAGE$.",
-    "description": "Just a test notification.",
-    "placeholders": {
-      "message": {
-        "content": "$1",
-        "example": "Дарова Мир! :)"
-      }
-    }
-  },
   "contextMenuItemManageHistory": {
     "message": "Менеджер истории форм",
     "description": "Title of context menu item that starts the Manage history dialog."
