@@ -11,7 +11,3 @@ progress[value] {
 progress::-moz-progress-bar {
     background: #045015;
 }
-
-#linkInfo {
-    color: #9a9a9a;
-}
