@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Stephan Mahieu
+ * Copyright (c) 2020. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -33,17 +33,13 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
 document.addEventListener("DOMContentLoaded", function(/*event*/) {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
 
-    document.getElementById("buttonExport").addEventListener("click", handleExport);
+    document.getElementById("buttonExport").addEventListener("click", download);
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
-
-    // start the export immediately and display the download link
-    handleExport();
 });
 
 
-
-function handleExport(/*evt*/) {
+function download() {
     let timeStarted = showBusy();
 
     let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
@@ -105,15 +101,43 @@ function handleExport(/*evt*/) {
                 //console.log("No more entries!");
                 //console.log("Exporting " + textEntries.length + " text-entries and " + multilines.length + " multiline entries");
 
+                // update stats
                 document.getElementById('count-text').textContent = textEntries.length;
                 document.getElementById('count-multiline').textContent = multilines.length;
 
+                let exportFilename = 'formhistory-export-' + currentDateFilenameSafe() + '.xml';
                 let content = XmlUtil.serializeToXMLString(textEntries, multilines);
-                setDownloadLink(content);
+                let file = new Blob([content], {type: 'text/xml'});
+                let downloadUrl = URL.createObjectURL(file);
+
+                browser.downloads.download({
+                    url: downloadUrl,
+                    saveAs: true,
+                    filename: exportFilename,
+                    conflictAction: 'overwrite'
+                }).then(
+                    (id) => {
+                        // console.log(`Download started, id: ${id}`);
+                        file = null;
+                        content = null;
+                    },
+                    (error) => {
+                        console.error(`Download failed. ${error}`);
+                        file = null;
+                        content = null;
+                    }
+                );
             }
         }
     };
+}
 
+function currentDateFilenameSafe() {
+    // return date as 'yyyyMMdd_HHmmss'
+    return DateUtil.getCurrentISOdateString()
+        .replace(/[: -]/g, '')
+        .replace(/T/g, '_')
+        .replace(/\.\d*/, '');
 }
 
 function onKeyClicked(event) {
@@ -127,18 +151,6 @@ function onKeyClicked(event) {
         }
     }
 }
-
-
-function setDownloadLink(content) {
-    let alink = document.getElementById('link');
-
-    alink.setAttribute('href', 'data:application/xml;charset=utf-8,' + encodeURIComponent(content));
-    alink.setAttribute('download', "formhistory.xml");
-
-    alink.style.display = "inline";
-    document.getElementById('linkInfo').style.display = "block";
-}
-
 
 function showBusy() {
     document.querySelector('#overlaystatus').classList.add('spinner');
