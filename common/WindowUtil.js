@@ -34,16 +34,20 @@ class WindowUtil {
 
     /**
      * Show a notification message.
-     * @param message
+     * @param i18nTitleId
+     * @param i18nMessageId
+     * @param clearTimeout
      */
-    static notify(message) {
-        let title = browser.i18n.getMessage("notificationTitle");
-        let content = browser.i18n.getMessage("notificationContent", message);
+    static notify(i18nTitleId, i18nMessageId, clearTimeout= 0) {
         browser.notifications.create({
             "type": "basic",
             "iconUrl": browser.extension.getURL("theme/icons/fhc-48.png"),
-            "title": title,
-            "message": content
+            "title": browser.i18n.getMessage(i18nTitleId),
+            "message": browser.i18n.getMessage(i18nMessageId)
+        }).then((notId) => {
+            if (clearTimeout) {
+                setTimeout(()=>{ browser.notifications.clear(notId); }, clearTimeout);
+            }
         });
     }
 
