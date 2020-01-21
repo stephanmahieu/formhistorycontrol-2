@@ -252,8 +252,14 @@
     "description": "Title of modal error dialog for import errors."
   },
   "importErrorNotXml": {
-    "message": "XML 파일이 아닙니다, 가져오기를 중단했습니다.",
-    "description": "Error message when trying to import a file which is not XML."
+    "message": "$filetype$ 파일이 아닙니다, 가져오기를 중단했습니다.",
+    "description": "Error message when trying to import a file which is not of the required type.",
+    "placeholders": {
+      "filetype": {
+        "content": "$1",
+        "example": "text/xml"
+      }
+    }
   },
   "importErrorNotFound": {
     "message": "가져올 파일을 찾지 못했습니다.",

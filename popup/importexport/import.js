@@ -52,78 +52,24 @@ function handleFileSelect(evt) {
 function handleImport() {
     document.getElementById("buttonImport").setAttribute("disabled", "disabled");
 
-    let fileList = document.getElementById('files').files;
-    for (let i = 0, f; f = fileList[i]; i++) {
-        // console.log(
-        //     "Selected file: " + f.name + ", " +
-        //     "type " + (f.type || "n/a" ) + ", " +
-        //     f.size + " bytes, " +
-        //     "last modified: " + (f.lastModified ? new Date(f.lastModified).toISOString() : "n/a")
-        // );
+    const fileList = document.getElementById('files').files;
 
-        // only process xml files
-        if ('text/xml' !== f.type) {
-            // console.log("Not an xml file, skipping...");
-            WindowUtil.showModalError({titleId:"importErrorTitle", msgId:"importErrorNotXml"});
-            continue;
-        }
+    FileUtil.upload(fileList, 'text/xml', 'import-progress').then(content => {
+        const result = XmlUtil.parseXMLdata(content);
+        // console.log("found " + result.entries.length + " text-entries and " + result.multiline.length + " multiline-entries");
 
-        // console.log("Importing file " + f.name + "...");
-        let reader = new FileReader();
+        document.getElementById('count-text').textContent = result.entries.length;
+        document.getElementById('count-multiline').textContent = result.multiline.length;
+        document.getElementById('import-progress').value = 100;
 
-        reader.onerror = function(evt) {
-            switch(evt.target.error.code) {
-                case evt.target.error.NOT_FOUND_ERR:
-                    WindowUtil.showModalError({titleId:"importErrorTitle", msgId:"importErrorNotFound"});
-                    break;
-                case evt.target.error.NOT_READABLE_ERR:
-                    WindowUtil.showModalError({titleId:"importErrorTitle", msgId:"importErrorNotReadable"});
-                    break;
-                case evt.target.error.ABORT_ERR:
-                    break; // noop
-                default:
-                    WindowUtil.showModalError({titleId:"importErrorTitle", msgId:"importErrorUnknown"});
-            }
-        };
+        _storeTextEntries(result.entries);
+        _storeMultilineEntries(result.multiline);
 
-        reader.onloadstart = function(/*evt*/) {
-            document.getElementById('import-progress').value = 0;
-            // console.log("- loading...");
-        };
-
-        reader.onprogress = function(evt){
-            let percentLoaded = 0;
-            if (evt.lengthComputable) {
-                percentLoaded = Math.round((evt.loaded / evt.total) * 100);
-            }
-            document.getElementById('import-progress').value = percentLoaded;
-            // console.log("- progress ", percentLoaded, "%");
-        };
-
-        reader.onabort = function(/*evt*/) {
-            // console.log("- cancelled");
-            WindowUtil.showModalError({titleId:"importErrorTitle", msgId:"importErrorUnknown"});
-        };
-
-        reader.onload = function(/*evt*/) {
-            let result = XmlUtil.parseXMLdata(reader.result);
-            // console.log("found " + result.entries.length + " text-entries and " + result.multiline.length + " multiline-entries");
-
-            document.getElementById('count-text').textContent = result.entries.length;
-            document.getElementById('count-multiline').textContent = result.multiline.length;
-            document.getElementById('import-progress').value = 100;
-
-            _storeTextEntries(result.entries);
-            _storeMultilineEntries(result.multiline);
-
-            // notify popup(s) that new data has been added so they can update their view
-            browser.runtime.sendMessage({
-                eventType: 777
-            });
-        };
-
-        reader.readAsText(f, "utf-8");
-    }
+        // notify popup(s) that new data has been added so they can update their view
+        browser.runtime.sendMessage({
+            eventType: 777
+        });
+    });
 }
 
 function onKeyClicked(event) {

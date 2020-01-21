@@ -252,8 +252,14 @@
     "description": "Title of modal error dialog for import errors."
   },
   "importErrorNotXml": {
-    "message": "Keine XML-Datei, Import abgebrochen.",
-    "description": "Error message when trying to import a file which is not XML."
+    "message": "Keine $filetype$-Datei, Import abgebrochen.",
+    "description": "Error message when trying to import a file which is not of the required type.",
+    "placeholders": {
+      "filetype": {
+        "content": "$1",
+        "example": "text/xml"
+      }
+    }
   },
   "importErrorNotFound": {
     "message": "Importdatei nicht gefunden.",

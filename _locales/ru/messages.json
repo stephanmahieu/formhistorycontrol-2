@@ -252,8 +252,14 @@
     "description": "Title of modal error dialog for import errors."
   },
   "importErrorNotXml": {
-    "message": "Не xml-файл, импорт прерван.",
-    "description": "Error message when trying to import a file which is not XML."
+    "message": "Не $filetype$-файл, импорт прерван.",
+    "description": "Error message when trying to import a file which is not of the required type.",
+    "placeholders": {
+      "filetype": {
+        "content": "$1",
+        "example": "text/xml"
+      }
+    }
   },
   "importErrorNotFound": {
     "message": "Файл импорта не найден.",

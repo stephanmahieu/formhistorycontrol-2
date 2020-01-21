@@ -252,8 +252,14 @@
     "description": "Title of modal error dialog for import errors."
   },
   "importErrorNotXml": {
-    "message": "Μη έγκυρο αρχείο XML, η εισαγωγή ακυρώθηκε.",
-    "description": "Error message when trying to import a file which is not XML."
+    "message": "Μη έγκυρο αρχείο $filetype$, η εισαγωγή ακυρώθηκε.",
+    "description": "Error message when trying to import a file which is not of the required type.",
+    "placeholders": {
+      "filetype": {
+        "content": "$1",
+        "example": "text/xml"
+      }
+    }
   },
   "importErrorNotFound": {
     "message": "Το αρχείο εισαγωγής δεν βρέθηκε.",

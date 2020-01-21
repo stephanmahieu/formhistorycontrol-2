@@ -107,26 +107,9 @@ function download() {
 
                 let exportFilename = 'formhistory-export-' + currentDateFilenameSafe() + '.xml';
                 let content = XmlUtil.serializeToXMLString(textEntries, multilines);
-                let file = new Blob([content], {type: 'text/xml'});
-                let downloadUrl = URL.createObjectURL(file);
-
-                browser.downloads.download({
-                    url: downloadUrl,
-                    saveAs: true,
-                    filename: exportFilename,
-                    conflictAction: 'overwrite'
-                }).then(
-                    (id) => {
-                        // console.log(`Download started, id: ${id}`);
-                        file = null;
-                        content = null;
-                    },
-                    (error) => {
-                        console.error(`Download failed. ${error}`);
-                        file = null;
-                        content = null;
-                    }
-                );
+                FileUtil.download(content, 'text/xml', exportFilename).then(result => {
+                    content = null;
+                });
             }
         }
     };

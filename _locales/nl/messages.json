@@ -252,8 +252,14 @@
     "description": "Title of modal error dialog for import errors."
   },
   "importErrorNotXml": {
-    "message": "Bestand is niet van het type xml, importeren is afgebroken.",
-    "description": "Error message when trying to import a file which is not XML."
+    "message": "Bestand is niet van het type $filetype$, importeren is afgebroken.",
+    "description": "Error message when trying to import a file which is not of the required type.",
+    "placeholders": {
+      "filetype": {
+        "content": "$1",
+        "example": "text/xml"
+      }
+    }
   },
   "importErrorNotFound": {
     "message": "Import bestand niet gevonden.",
