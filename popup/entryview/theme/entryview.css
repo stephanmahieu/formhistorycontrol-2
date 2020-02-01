@@ -221,6 +221,11 @@ textarea[disabled] {
     padding-right: 12px;
 }
 
+#textWrapOverlayLabel:hover {
+    background-color: var(--button-hover-bg-color);
+    color: var(--button-hover-text-color);
+}
+
 #textWrapOverlayLabel.wrap-active {
     color: var(--button-text-color);
 }
