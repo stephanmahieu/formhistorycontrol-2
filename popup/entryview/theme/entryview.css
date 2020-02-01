@@ -210,6 +210,25 @@ textarea[disabled] {
     font-size: 10px;
 }
 
+#textWrapOverlayLabel {
+    line-height: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    right: 65px;
+    background-color: var(--button-bg-color);
+    color: var(--button-disabled-text-color);
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+#textWrapOverlayLabel.wrap-active {
+    color: var(--button-text-color);
+}
+
+.linewrap {
+    white-space: pre-wrap;
+}
+
 #togglePreview input {
     margin-right: 0;
     padding-right: 0;

@@ -55,6 +55,8 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     document.getElementById("md-view").addEventListener("click", toggleMarkdownView);
     document.getElementById("wiki-view").addEventListener("click", toggleWikiView);
 
+    document.getElementById("textWrapOverlayLabel").addEventListener("click", toggleTextWrap);
+
     // context menu
     document.querySelector("body").addEventListener("contextmenu", showContextMenu);
     document.querySelector("body").addEventListener("click", hideContextMenu);
@@ -338,7 +340,8 @@ function hidePreview(prefix) {
     if (isPreviewActive(prefix)) {
         const overlayLabel = document.getElementById(prefix + 'ViewOverlayLabel');
         const htmlOverlay = document.getElementById(prefix + 'ViewOverlay');
-        overlayLabel.style.display = htmlOverlay.style.display = 'none';
+        const wrapLabel = document.getElementById('textWrapOverlayLabel');
+        wrapLabel.style.display = overlayLabel.style.display = htmlOverlay.style.display = 'none';
         document.getElementById(prefix + "-view").checked = false;
         _removeChildren(htmlOverlay);
     }
@@ -355,6 +358,7 @@ function toggleHTMLView(event) {
     const checkbox = event.target;
     const htmlOverlay = document.getElementById('htmlViewOverlay');
     const overlayLabel = document.getElementById('htmlViewOverlayLabel');
+    const wrapLabel = document.getElementById('textWrapOverlayLabel');
     if (checkbox.checked) {
         // show HTML overlay
         _removeChildren(htmlOverlay);
@@ -362,6 +366,7 @@ function toggleHTMLView(event) {
         // use DOMPurify renderer (sanitized)
         htmlOverlay.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
         overlayLabel.style.display = htmlOverlay.style.display = '';
+        wrapLabel.style.display = 'none';
     } else {
         // remove overlay
         overlayLabel.style.display = htmlOverlay.style.display = 'none';
@@ -376,6 +381,7 @@ function toggleTextView(event) {
     const checkbox = event.target;
     const textOverlay = document.getElementById('textViewOverlay');
     const overlayLabel = document.getElementById('textViewOverlayLabel');
+    const wrapLabel = document.getElementById('textWrapOverlayLabel');
     if (checkbox.checked) {
         // show TEXT overlay
         _removeChildren(textOverlay);
@@ -383,11 +389,26 @@ function toggleTextView(event) {
         const preElement = document.createElement('pre');
         preElement.appendChild(document.createTextNode(value));
         textOverlay.appendChild(preElement);
-        overlayLabel.style.display = textOverlay.style.display = '';
+        wrapLabel.style.display = overlayLabel.style.display = textOverlay.style.display = '';
+        if (wrapLabel.classList.contains('wrap-active')) {
+            preElement.classList.add('linewrap');
+        }
     } else {
         // remove overlay
-        overlayLabel.style.display = textOverlay.style.display = 'none';
+        wrapLabel.style.display = overlayLabel.style.display = textOverlay.style.display = 'none';
         _removeChildren(textOverlay);
+    }
+}
+
+function toggleTextWrap(event) {
+    const preElement = document.querySelector('#textViewOverlay > pre');
+    const wrapLabel = document.getElementById('textWrapOverlayLabel');
+    if (preElement.classList.contains('linewrap')) {
+        preElement.classList.remove('linewrap');
+        wrapLabel.classList.remove('wrap-active');
+    } else {
+        preElement.classList.add('linewrap');
+        wrapLabel.classList.add('wrap-active');
     }
 }
 
@@ -398,6 +419,7 @@ function toggleMarkdownView(event) {
     const checkbox = event.target;
     const mdOverlay = document.getElementById('mdViewOverlay');
     const overlayLabel = document.getElementById('mdViewOverlayLabel');
+    const wrapLabel = document.getElementById('textWrapOverlayLabel');
     if (checkbox.checked) {
         // show Markdown overlay
         _removeChildren(mdOverlay);
@@ -414,6 +436,7 @@ function toggleMarkdownView(event) {
         const value = marked(document.getElementById('multiline-value').value);
         mdOverlay.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
         overlayLabel.style.display = mdOverlay.style.display = '';
+        wrapLabel.style.display = 'none';
     } else {
         // remove overlay
         overlayLabel.style.display = mdOverlay.style.display = 'none';
@@ -428,6 +451,7 @@ function toggleWikiView(event) {
     const checkbox = event.target;
     const wikiOverlay = document.getElementById('wikiViewOverlay');
     const overlayLabel = document.getElementById('wikiViewOverlayLabel');
+    const wrapLabel = document.getElementById('textWrapOverlayLabel');
     if (checkbox.checked) {
         // show Markdown overlay
         _removeChildren(wikiOverlay);
@@ -435,6 +459,7 @@ function toggleWikiView(event) {
         const value = wiky.process(document.getElementById('multiline-value').value);
         wikiOverlay.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
         overlayLabel.style.display = wikiOverlay.style.display = '';
+        wrapLabel.style.display = 'none';
     } else {
         // remove overlay
         overlayLabel.style.display = wikiOverlay.style.display = 'none';
