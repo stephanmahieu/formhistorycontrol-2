@@ -203,7 +203,11 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
         buttons: [{
             extend: 'colvis',
             columns: ':gt(1)',
-            postfixButtons: [ 'colvisRestore' ]
+            postfixButtons: [ 'colvisRestore' ],
+            text: '<span class="column-selector" title="'+i18nColVis+'"/>',
+            columnText: function(dt, idx, title) {
+                return '<span class="col-select"><span class="check"/></span>'+title;
+            }
         }],
         columns: [
             {
@@ -236,7 +240,7 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
                 visible: prefColVisible[0],
                 data: 1,
                 className: "dt-head-left",
-                render: function ( data, type /*, full, meta */) {
+                render: function ( data, type /*, row */) {
                     return DataTableUtil.ellipsis(data, type, 25, false, true);
                 }
             },
@@ -245,7 +249,7 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
                 visible: prefColVisible[1],
                 data: 2,
                 className: "dt-head-left",
-                render: function ( data, type /* , full, meta */) {
+                render: function ( data, type /*, row */) {
                     return DataTableUtil.ellipsis(data, type, 40, false, true);
                 }
             },
@@ -262,7 +266,7 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
                 type: "num",
                 searchable: false,
                 className: "dt-right",
-                render: function ( data, /*type, full, meta */) {
+                render: function ( data, /*type, row */) {
                     return (!data) ? "" : data;
                 }
             },
@@ -271,7 +275,7 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
                 visible: prefColVisible[4],
                 data: 5,
                 className: "dt-head-left",
-                render: function ( data, type /*, full, meta */) {
+                render: function ( data, type /*, row */) {
                     return DataTableUtil.formatDate(data, type, dateformat);
                 }
             },
@@ -280,7 +284,7 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
                 visible: prefColVisible[5],
                 data: 6,
                 className: "dt-head-left",
-                render: function ( data, type /*, full, meta */) {
+                render: function ( data, type /*, row */) {
                     return DataTableUtil.formatDate(data, type, dateformat);
                 }
             },
@@ -289,7 +293,7 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
                 visible: prefColVisible[6],
                 data: 6,
                 className: "dt-head-left",
-                render: function ( data, type /*, full, meta */) {
+                render: function ( data, type /*, row */) {
                     return DataTableUtil.formatAge(data, type);
                 }
             },
@@ -298,7 +302,7 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
                 visible: prefColVisible[7],
                 data: 7,
                 className: "dt-head-left",
-                render: function ( data, type /*, full, meta */) {
+                render: function ( data, type /*, row */) {
                     return DataTableUtil.ellipsis(data, type, 20, false, true);
                 }
             },
@@ -307,7 +311,7 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
                 visible: prefColVisible[8],
                 data: 8,
                 className: "dt-head-left",
-                render: function ( data, type /*, full, meta */) {
+                render: function ( data, type /*, row */) {
                     return DataTableUtil.ellipsis(data, type, 30, false, true);
                 }
             },
@@ -318,7 +322,7 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
                 type: "num",
                 searchable: false,
                 className: "dt-right",
-                render: function ( data, /*type, full, meta */) {
+                render: function ( data, /*type, row */) {
                     return (!data) ? "0" : data.length;
                 }
             }

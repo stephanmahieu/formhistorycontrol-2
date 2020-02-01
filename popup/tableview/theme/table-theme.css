@@ -23,34 +23,73 @@
 
 /* Force styling for column-visibility buttons */
 button.buttons-colvis {
-    margin-top: 0;
+    margin-top: 3px;
     margin-left: 10px;
-    font-size: 0.86em !important;
+    width: 25px;
+    height: 16px;
+    border: none !important;
+    min-width: unset !important;
+    background: url('../../../theme/icons/dialog/column_select.png') no-repeat center center !important;
 }
-div.dt-button-collection div button,
-button.buttons-colvis{
+button.buttons-colvis:hover {
+    border: none !important;
+    background: url('../../../theme/icons/dialog/column_select.png') no-repeat center center !important;
+    filter: unset !important;
+}
+span.column-selector {
+    display: inline-block;
+    width: 25px;
+    height: 16px;
+    margin-top: -8px;
+    margin-left: -8px;
+}
+div.dt-button-collection div button {
     background: var(--button-disabled-bg-color) !important;
     color: var(--button-disabled-text-color) !important;
     border-color: var(--button-disabled-border-color) !important;
     padding: 1px 6px !important;
-    height: 20px;
 }
 div.dt-button-collection div button.active,
-button.buttons-colvis,
 button.dt-button.buttons-colvisRestore {
     background: var(--button-bg-color) !important;
     color: var(--button-text-color) !important;
     border: 1px solid var(--button-border-color) !important;
 }
-div.dt-button-collection div button:hover,
-button.buttons-colvis:hover {
+div.dt-button-collection div button:hover {
     background: var(--button-hover-bg-color) !important;
     color: var(--button-hover-text-color) !important;
     border-color: var(--button-hover-border-color) !important;
 }
-
 div.dt-button-collection {
     background: var(--main-bg-color);
+}
+button.buttons-columnVisibility > span:first-child {
+    width: 100%;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+span.col-select {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    width: 16px;
+    height: 14px;
+    margin-left: 2px;
+    margin-right: 6px;
+    border-radius: 4px;
+    box-shadow: inset 2px 2px 2px rgba(0,0,0,0.5), 2px 2px 0 rgba(188, 188, 188, 0.4);
+}
+button.buttons-columnVisibility.active span span.col-select {
+    width: 16px;
+    height: 16px;
+    margin-bottom: 2px;
+}
+button.buttons-columnVisibility.active span span.col-select span.check {
+    display: inline-block;
+    border: 4px solid #4b4b4b;
+    border-top: none;
+    border-right: none;
 }
 
 /* Disable select (might accidentally occur when double clicking) */

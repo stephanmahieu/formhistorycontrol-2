@@ -132,3 +132,11 @@ td.details-control {
 .mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonDown{ background-position: -32px -92px; }
 .mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonLeft{ background-position: -40px -112px; }
 .mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonRight{ background-position: -40px -128px; }
+
+/* column-visibility checkmarks */
+button.buttons-columnVisibility.active span span.col-select span.check {
+    border-color: #e6e6e6;
+}
+button.buttons-colvis {
+    filter: brightness(95%);
+}
