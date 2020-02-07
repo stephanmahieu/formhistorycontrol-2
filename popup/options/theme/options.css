@@ -72,8 +72,9 @@ a:link:hover {
 #expertmode-wrapper {
     top: 4px;
     position: absolute;
-    width: 540px;
     text-align: right;
+    width: 97%;
+    max-width: 575px;
 }
 #expertmode-container {
     position: relative;
