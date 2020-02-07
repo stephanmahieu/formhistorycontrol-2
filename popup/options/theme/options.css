@@ -69,16 +69,11 @@ a:link:hover {
     grid-column: 1;
     grid-row: 1;
 }
-#expertmode-wrapper {
-    top: 4px;
-    position: absolute;
-    text-align: right;
-    width: 97%;
-    max-width: 575px;
-}
+
 #expertmode-container {
-    position: relative;
-    top: 4px;
+    text-align: right;
+    width: 100%;
+    margin-top: -20px;
     font-size: 11px;
 }
 

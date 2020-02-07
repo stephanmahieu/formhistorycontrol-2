@@ -68,6 +68,11 @@
             <fieldset>
                 <legend data-fhc-i18n="optionTitle">Options</legend>
 
+                <div id="expertmode-container">
+                    <input type="checkbox" id="expertMode">
+                    <label for="expertMode"><span></span><div id="expertModeLabel" data-fhc-i18n="optionsExpertMode">Show advanced options</div></label>
+                </div>
+
                 <fieldset id="fld_display" class="sub-fieldset">
                     <legend data-fhc-i18n="optionsDisplayLegend">Display</legend>
 
@@ -224,12 +229,6 @@
         </div>
     </div>
 </form>
-<div id="expertmode-wrapper">
-    <div id="expertmode-container">
-        <input type="checkbox" id="expertMode">
-        <label for="expertMode"><span></span><div id="expertModeLabel" data-fhc-i18n="optionsExpertMode">Show advanced options</div></label>
-    </div>
-</div>
 <script src="/common/browser-polyfill.min.js"></script>
 <script src="/common/CleanupConst.js"></script>
 <script src="/common/OptionsUtil.js"></script>
