@@ -107,8 +107,10 @@ function onKeyClicked(event) {
 
     // Ctrl+C Copy all
     if (!event.altKey && event.ctrlKey && !event.shiftKey && keyCode === 'KeyC') {
-        event.preventDefault();
-        copyToClipboardAll();
+        if (!window.getSelection()) {
+            event.preventDefault();
+            copyToClipboardAll();
+        }
     }
 
     // Shift+Ctrl+C Copy without formatting
