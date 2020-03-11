@@ -123,9 +123,9 @@
     "message": "Доступ к базе данных заблокирован ($ERROR$). Это приложение требует разрешенных cookie, проверьте настройки приватности и защиты браузера",
     "description": "Error displayed when the database is not accessible",
     "placeholders": {
-      "error": {
-        "content": "$1",
-        "example": "SecurityError"
+      "error" : {
+        "content" : "$1",
+        "example" : "SecurityError"
       }
     }
   },
@@ -133,13 +133,13 @@
     "message": "Слишком много данных для быстрого просмотра, используйте настройки очистки или откройте окно 'Управление историей' (правый клик мыши).\n\n($count$ записей из $total$ скрыты)",
     "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
     "placeholders": {
-      "count": {
-        "content": "$1",
-        "example": "10"
+      "count" : {
+        "content" : "$1",
+        "example" : "10"
       },
-      "total": {
-        "content": "$2",
-        "example": "100"
+      "total" : {
+        "content" : "$2",
+        "example" : "100"
       }
     }
   },
@@ -155,9 +155,9 @@
     "message": "Удалить историю форм, не использованную более $nrofdays$ дней?\n\n(возраст назначается в настройках)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays": {
-        "content": "$1",
-        "example": "90"
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
       }
     }
   },
@@ -165,9 +165,9 @@
     "message": "Удаляется история форм, не использованная более $nrofdays$ дней.",
     "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays": {
-        "content": "$1",
-        "example": "90"
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
       }
     }
   },
@@ -524,6 +524,20 @@
   "open_bigdialog_tooltip": {
     "message": "Открыть основное окно менджера истории",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
+  },
+  "notificationTitle": {
+    "message": "Тестовое уведомление",
+    "description": "Title of the test notification."
+  },
+  "notificationContent": {
+    "message": "Тестовое сообщение: $MESSAGE$.",
+    "description": "Just a test notification.",
+    "placeholders": {
+      "message" : {
+        "content" : "$1",
+        "example" : "Hello world!"
+      }
+    }
   },
   "contextMenuItemManageHistory": {
     "message": "Менеджер истории форм",
