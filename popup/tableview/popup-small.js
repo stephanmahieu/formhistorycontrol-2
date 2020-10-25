@@ -423,7 +423,7 @@ function createDataTable(dateformat, scrollAmount, prefColVisible) {
             postfixButtons: [ 'colvisRestore' ],
             text: '<span class="column-selector" title="' + i18nColVis + '"/>',
             columnText: function(dt, idx, title) {
-                return '<span class="col-select"><span class="check"/></span>'+title;
+                return '<span class="col-select"><span class="check"/></span><span class="col-select-title">'+title+'</span>';
             }
         }]
     });
