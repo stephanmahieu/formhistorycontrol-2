@@ -40,5 +40,5 @@ https://github.com/markedjs/marked/blob/v0.8.0/lib/marked.js
 
 Location /common
 ---------------------------
-DOMPurify 2.0.7
-https://github.com/cure53/DOMPurify/blob/2.0.7/dist/purify.js
+DOMPurify 2.2.0
+https://github.com/cure53/DOMPurify/blob/2.2.0/dist/purify.js
