@@ -13,6 +13,12 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
             case 777:
                 refreshView();
                 break;
+            case 808:
+                // restore this window to default size and position
+                browser.windows.getCurrent({populate: false}).then((window)=>{
+                    WindowUtil.restoreToDefault(window.id, FHC_WINDOW_MANAGE);
+                });
+                break;
         }
     }
 });
@@ -150,17 +156,16 @@ $(document).ready(function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function() {
             // resizing has stopped
-            let buttonSpace = 160;
-            if (window.innerWidth < 768) {
-                // miscellaneous DataTable components will stack on top of each other, leave more room for the buttons
-                buttonSpace = 220;
-            }
-            $('.dataTables_scrollBody').css('height', window.innerHeight-buttonSpace+"px");
+            resizeTable();
             $('#fhcTable').DataTable().draw();
+            WindowUtil.saveWindowPrefs(FHC_WINDOW_MANAGE);
         }, 250);
     });
 
     setInterval(updateTableRowsAgeColumn, 60*1000);
+
+    // no event available for window move, check periodically
+    setInterval(function() {WindowUtil.checkAndSaveCurrentWindowPosition(FHC_WINDOW_MANAGE);}, 5*1000);
 });
 
 function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible) {

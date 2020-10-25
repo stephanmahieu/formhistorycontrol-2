@@ -13,6 +13,12 @@ const DEFAULT_DEVELOPER_URL = 'https://stephanmahieu.github.io/fhc-home/';
 browser.runtime.onMessage.addListener(fhcEvent=>{
     if (fhcEvent.eventType) {
         switch (fhcEvent.eventType) {
+            case 808:
+                // restore this window to default size and position
+                browser.windows.getCurrent({populate: false}).then((window)=>{
+                    WindowUtil.restoreToDefault(window.id, FHC_WINDOW_ABOUT);
+                });
+                break;
             case 888:
                 if (fhcEvent.interfaceThemeChanged) {
                     // options have changed, reload
@@ -47,8 +53,19 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
 
     // esc key handler
     document.addEventListener("keyup", onKeyClicked);
+
+    // no event available for window move, check periodically
+    setInterval(function() {WindowUtil.checkAndSaveCurrentWindowPosition(FHC_WINDOW_ABOUT);}, 5*1000);
 });
 
+let resizeTimer;
+window.addEventListener("resize", function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        // resizing has stopped
+        WindowUtil.saveWindowPrefs(FHC_WINDOW_ABOUT);
+    }, 250);
+});
 
 function getDeveloperInfo(manifest) {
     let developerName = DEFAULT_DEVELOPER_NAME;

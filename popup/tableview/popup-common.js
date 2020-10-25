@@ -129,6 +129,7 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
 
                     // only update display after 15 rows and when finished
                     if (count === refreshEvery) {
+                        resizeTable();
                         table.draw();
                         adjustSearchBox();
                     }
@@ -140,6 +141,7 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
             }
             else {
                 //console.log("No more entries!");
+                resizeTable();
                 table.draw();
                 $("#overlaystatus").removeClass('spinner').hide();
 
@@ -155,6 +157,15 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
             }
         }
     };
+}
+
+function resizeTable() {
+    let buttonSpace = 160;
+    if (window.innerWidth < 768) {
+        // miscellaneous DataTable components will stack on top of each other, leave more room for the buttons
+        buttonSpace = 220;
+    }
+    $('.dataTables_scrollBody').css('height', window.innerHeight-buttonSpace+"px");
 }
 
 function adjustSearchBox() {

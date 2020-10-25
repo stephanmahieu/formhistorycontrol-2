@@ -35,6 +35,20 @@ class OptionsUtil {
         });
     }
 
+    static getFieldfillModePrefs() {
+        const defaultValue = "auto";
+        return new Promise((resolve, reject) => {
+            browser.storage.local.get({prefFieldfillMode:defaultValue}).then(
+                result => {
+                    resolve(result);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+    }
+
     static getCleanupPrefs() {
         return new Promise((resolve, reject) => {
             browser.storage.local.get({

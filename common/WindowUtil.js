@@ -1,20 +1,22 @@
 /*
- * Copyright (c) 2018. Stephan Mahieu
+ * Copyright (c) 2020. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
 
-const FHC_WINDOW_MANAGE  = { path:"popup/tableview/popup-big.html", width:1000, height:500, type:"popup", currentId: -1 };
-const FHC_WINDOW_OPTIONS = { path:"popup/options/options.html",     width: 575, height:450, type:"popup", currentId: -1 };
-const FHC_WINDOW_ABOUT   = { path:"popup/about/about.html",         width: 600, height:300, type:"popup", currentId: -1 };
-const FHC_WINDOW_IMPORT  = { path:"popup/importexport/import.html", width: 350, height:250, type:"popup", currentId: -1 };
-const FHC_WINDOW_EXPORT  = { path:"popup/importexport/export.html", width: 350, height:250, type:"popup", currentId: -1 };
-const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 550, height:315, type:"popup", currentId: -1 };
-const FHC_WINDOW_EDITRVW = { path:"popup/entryview/entryview.html", width: 550, height:415, type:"popup", currentId: -1 };
+const FHC_WINDOW_MANAGE  = { path:"popup/tableview/popup-big.html", width:1000, height:500, type:"popup", currentId: -1, pref: 'prefPosSizeTableview' };
+const FHC_WINDOW_OPTIONS = { path:"popup/options/options.html",     width: 600, height:450, type:"popup", currentId: -1, pref: 'prefPosSizeOptions' };
+const FHC_WINDOW_ABOUT   = { path:"popup/about/about.html",         width: 600, height:300, type:"popup", currentId: -1, pref: 'prefPosSizeAbout' };
+const FHC_WINDOW_IMPORT  = { path:"popup/importexport/import.html", width: 350, height:250, type:"popup", currentId: -1, pref: 'prefPosSizeImport' };
+const FHC_WINDOW_EXPORT  = { path:"popup/importexport/export.html", width: 350, height:250, type:"popup", currentId: -1, pref: 'prefPosSizeExport' };
+const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 550, height:315, type:"popup", currentId: -1, pref: 'prefPosSizeEntryview' };
+const FHC_WINDOW_EDITRVW = { path:"popup/entryview/entryview.html", width: 550, height:415, type:"popup", currentId: -1, pref: 'prefPosSizeEntryview' }; // same pref as entryvw
 
 const FHC_WINDOW_HELP     = { path:"https://stephanmahieu.github.io/fhc-home/",                               width: 990, height:900, type:"normal", currentId: -1, tabId: -1 };
 const FHC_WINDOW_RELNOTES = { path:"https://stephanmahieu.github.io/fhc-home/ReleaseNotes/fhc-releasenotes/", width: 990, height:900, type:"normal", currentId: -1, tabId: -1 };
+
+const FHC_ALL_POPUPS = [FHC_WINDOW_MANAGE, FHC_WINDOW_OPTIONS, FHC_WINDOW_ABOUT, FHC_WINDOW_IMPORT, FHC_WINDOW_EXPORT, FHC_WINDOW_ENTRYVW, FHC_WINDOW_EDITRVW];
 
 // these paths are shown in tabs in the same window
 const TAB_GROUP = [FHC_WINDOW_HELP, FHC_WINDOW_RELNOTES];
@@ -96,83 +98,160 @@ class WindowUtil {
 
     static createNewPopupWindow(fhcWindowObject) {
         let popupURL = fhcWindowObject.path.startsWith('http') ? fhcWindowObject.path : browser.extension.getURL(fhcWindowObject.path);
-        browser.windows.create({
-            url: popupURL,
-            type: fhcWindowObject.type,
-            height: fhcWindowObject.height,
-            width: fhcWindowObject.width
-        }).then(
-            (windowInfo) => {
-                // console.log(`Created window: ${windowInfo.id} (${fhcWindowObject.path})`);
-                fhcWindowObject.currentId = windowInfo.id;
+        WindowUtil._getWindowPrefs(fhcWindowObject).then((fhcWindowObject) => {
+            browser.windows.create({
+                url: popupURL,
+                type: fhcWindowObject.type,
+                height: fhcWindowObject.height,
+                width: fhcWindowObject.width,
+                left: fhcWindowObject.left,
+                top: fhcWindowObject.top
+            }).then(
+                (windowInfo) => {
+                    // console.log(`Created window: ${windowInfo.id} (${fhcWindowObject.path})`);
+                    fhcWindowObject.currentId = windowInfo.id;
 
-                if ('tabId' in fhcWindowObject) {
-                    // only one tab in the newly created window
-                    fhcWindowObject.tabId = windowInfo.tabs[0].id;
-
-                    // set windowId for all (future) url's to be displayed as tabs in this window
-                    TAB_GROUP.forEach((wObj) => {
-                        wObj.currentId = windowInfo.id;
+                    // Workaround for bug https://bugzilla.mozilla.org/show_bug.cgi?id=1271047
+                    // - Panel window type is not opening on given position.
+                    browser.windows.update(windowInfo.id, {
+                        left: fhcWindowObject.left,
+                        top: fhcWindowObject.top
                     });
-                }
 
-                // bugfix! Window content not displayed on Ubuntu, create 1 px too small, resize after creation
-                return fhcWindowObject;                
-            },
-            (error) => {
-                console.error(`Error: ${error}`);
+                    if ('tabId' in fhcWindowObject) {
+                        // only one tab in the newly created window
+                        fhcWindowObject.tabId = windowInfo.tabs[0].id;
+
+                        // set windowId for all (future) url's to be displayed as tabs in this window
+                        TAB_GROUP.forEach((wObj) => {
+                            wObj.currentId = windowInfo.id;
+                        });
+                    }
+
+                    if (fhcWindowObject.path.includes('options.html')) {
+                        setTimeout(()=>{ WindowUtil._optionsCloseButton(fhcWindowObject); }, 250);
+                    }
+                },
+                (error) => {
+                    console.error(`Error: ${error}`);
+                }
+            );
+        });
+    }
+
+    /**
+     * Restore the window identified by its windowID to its original size and default position. Position is relative to
+     * the browser window.
+     * @param windowID
+     * @param fhcWindowObject
+     */
+    static restoreToDefault(windowID, fhcWindowObject) {
+        browser.windows.getAll({populate: false, windowTypes: ['normal']}).then((windows) => {
+            // try to find the browser window (assume smallest id represents the originating browser window)
+            let browserWin = null;
+            for (let item of windows) {
+                if (!browserWin || item.id < browserWin.id) {
+                    browserWin = item;
+                }
             }
-        ).then(
-            fhcWobj => {
-                setTimeout(()=>{ WindowUtil._updateWindowContent(fhcWobj); }, 250);
-            },
-            (error) => {
-                console.error(`Error: ${error}`);
+            browser.windows.update(windowID, {
+                focused: true,
+                left: (browserWin) ? browserWin.left+22 : 22,
+                top: (browserWin) ? browserWin.top+22 : 22,
+                width: fhcWindowObject.width,
+                height: fhcWindowObject.height
+            });
+        });
+    }
+
+    static saveWindowPrefs(fhcWindowObject) {
+        browser.storage.local.get({prefSaveWindowProperties: false}).then(pref => {
+            if (pref.prefSaveWindowProperties) {
+                const winPrefs = {
+                    [fhcWindowObject.pref]: {
+                        width: window.outerWidth,
+                        height: window.outerHeight,
+                        top: window.screenY,
+                        left: window.screenX
+                    }
+                };
+                browser.storage.local.set(winPrefs);
+            }
+        });
+    }
+
+    static _getWindowPrefs(fhcWindowObject) {
+        return new Promise((resolve, reject) => {
+            browser.storage.local.get({[fhcWindowObject.pref]: null, prefSaveWindowProperties: false}).then(
+                pref => {
+                    if (pref.prefSaveWindowProperties && pref[fhcWindowObject.pref]) {
+                        // overwrite existing properties with the same key
+                        // const fhcWindowObjectClone = Object.assign(fhcWindowObject, pref[fhcWindowObject.pref]);
+                        const fhcWindowObjectClone = Object.create(fhcWindowObject);
+                        fhcWindowObjectClone.top = pref[fhcWindowObject.pref].top;
+                        fhcWindowObjectClone.left = pref[fhcWindowObject.pref].left;
+                        fhcWindowObjectClone.width = pref[fhcWindowObject.pref].width;
+                        fhcWindowObjectClone.height = pref[fhcWindowObject.pref].height;
+                        resolve(fhcWindowObjectClone);
+                    } else {
+                        // no existing pref
+                        resolve(fhcWindowObject);
+                    }
+                },
+                () => {
+                    resolve(fhcWindowObject);
+                }
+            );
+        });
+    }
+
+    static checkAndSaveCurrentWindowPosition(fhcWindowObject) {
+        // save current position when different from the stored position
+        browser.storage.local.get({[fhcWindowObject.pref]: null, prefSaveWindowProperties: false}).then(
+            pref => {
+                if (pref.prefSaveWindowProperties) {
+                    if (pref[fhcWindowObject.pref]) {
+                        // existing pref saved before
+                        const curPref = pref[fhcWindowObject.pref];
+                        if (window.screenY !== curPref.top || window.screenX !== curPref.left) {
+                            // update existing pref with changed position
+                            WindowUtil.saveWindowPrefs(fhcWindowObject);
+                        }
+                    } else {
+                        // save new pref with current position
+                        WindowUtil.saveWindowPrefs(fhcWindowObject);
+                    }
+                }
             }
         );
     }
 
-    static _updateWindowContent(fhcWindowObject) {
-        WindowUtil._optionsCloseButton(fhcWindowObject);
-
-        const winPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
-        let os = 'other';
-        let platform = window.navigator.platform;
-        if (winPlatforms.indexOf(platform) !== -1) {
-            os = 'windows';
-        }
-
-        if (os === 'other') {
-            // console.log('_updateWindowContent, winId=' + fhcWindowObject.currentId + '  height=' + fhcWindowObject.height);
-            setTimeout(()=>{
-                //console.log('Update height after 500ms');
-                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
-                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
-            }, 500);
-            setTimeout(()=>{
-                //console.log('Update height after 1500ms');
-                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
-                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
-            }, 1500);
-            setTimeout(()=>{
-                //console.log('Update height after 3000ms');
-                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height-1});
-                browser.windows.update(fhcWindowObject.currentId, {height: fhcWindowObject.height});
-            }, 3000);
-        }
+    static removeAllSavedWindowPrefs() {
+        return new Promise((resolve, reject) => {
+            // remove all stored positions and sizes
+            const keysToRemove = [];
+            FHC_ALL_POPUPS.forEach(fhcWindowObject => {
+                keysToRemove.push(fhcWindowObject.pref);
+            });
+            browser.storage.local.remove(keysToRemove).then(()=>{
+                // notify popups to resize and reposition themselves
+                browser.runtime.sendMessage({eventType: 808});
+                resolve();
+            }, (errorMsg)=>{
+                reject(errorMsg);
+            });
+        });
     }
 
     static _optionsCloseButton(fhcWindowObject) {
         // console.log('_optionsCloseButton, path=' + fhcWindowObject.path);
-        if (fhcWindowObject.path.includes('options.html')) {
-            // Send a notification to the options popup (via a background-script) that it should add a close-button.
-            // The background script re-sends the message delayed (as 999) to give the popup time to finish loading.
-            // We can not delay here because when the popup that triggered this event closes, the timed delay would be
-            // cancelled ans no message would be sent.
-            setTimeout(()=>{browser.runtime.sendMessage({eventType: 998});}, 100);
-            setTimeout(()=>{browser.runtime.sendMessage({eventType: 998});}, 250);
-            setTimeout(()=>{browser.runtime.sendMessage({eventType: 998});}, 500);
-        }
+        // Send a notification to the options popup (via a background-script) that it should add a close-button.
+        // The background script re-sends the message delayed (as 999) to give the popup time to finish loading.
+        // We can not delay here because when the popup that triggered this event closes, the timed delay would be
+        // cancelled and no message would be sent.
+        setTimeout(()=>{browser.runtime.sendMessage({eventType: 998});}, 100);
+        setTimeout(()=>{browser.runtime.sendMessage({eventType: 998});}, 250);
+        setTimeout(()=>{browser.runtime.sendMessage({eventType: 998});}, 500);
     }
 
     static closeThisPopup() {

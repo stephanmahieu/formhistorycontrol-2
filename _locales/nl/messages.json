@@ -147,6 +147,10 @@
     "message": "Waarde succesvol gekopieerd naar het klembord",
     "description": "Information message that clipboard value has been copied."
   },
+  "informWindowPrefsReset": {
+    "message": "Alle opgeslagen venster afmetingen en posities zijn hersteld.",
+    "description": "Information message that all stored window sizes and positions have been reset."
+  },
   "confirmStartCleanupTitle": {
     "message": "Start het opschonen?",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
@@ -373,6 +377,10 @@
     "message": "Opschonen",
     "description": "Options window: Left Cleanup menu."
   },
+  "optionsFieldfillMenu": {
+    "message": "Formulier Vullen",
+    "description": "Options window: Left Form Fill menu."
+  },
   "optionsDisplayLegend": {
     "message": "Weergave",
     "description": "Options window: The Display legend."
@@ -384,6 +392,18 @@
   "optionsDateformatSelect": {
     "message": "Kies het datum formaat",
     "description": "Options window: The date format selection dropdown label"
+  },
+  "optionsSaveWindowProperties": {
+    "message": "Onthoud venster positie en afmetingen",
+    "description": "Options window: The Remember window size and position checkbox Label."
+  },
+  "buttonResetWindowProperties": {
+    "message": "Herstel",
+    "description": "Options window: The Reset (window size and position) button Label."
+  },
+  "buttonResetTitleWindowProperties": {
+    "message": "Herstel alle venster posities en afmetingen",
+    "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
   "optionsScrollAmountSelect": {
     "message": "Muiswiel scroll aantal (pixels)",
@@ -487,7 +507,7 @@
   },
   "optionsFieldlistlegend": {
     "message": "Historie uitzetten voor specifieke velden",
-    "description": "Options window: The Cleanup legend."
+    "description": "Options window: The Fieldlist legend."
   },
   "optionsCleanupLegend": {
     "message": "Opschonen",
@@ -508,6 +528,30 @@
   "buttoncleanupnow": {
     "message": "Nu Opschonen",
     "description": "Options window, cleanup: Label of the cleanup-now button."
+  },
+  "optionsFieldfillLegend":  {
+    "message": "Form Field Fill",
+    "description": "Options window: The Form Field Fill legend."
+  },
+  "optionsFieldfillModeSelect": {
+    "message": "Veld vullen modus",
+    "description": "Options window, Field Fill Mode options"
+  },
+  "optionFieldFillAuto":  {
+    "message": "Automatisch",
+    "description": "Options window, Field Fill Mode option: Automatic "
+  },
+  "optionFieldFillClipboard": {
+    "message": "Gebruik klembord",
+    "description": "Options window, Field Fill Mode option: Use clipboard"
+  },
+  "optionFieldFillClean":  {
+    "message": "Uitsluitend geschoonde tekst",
+    "description": "Options window, Field Fill Mode option: Insert clean text only"
+  },
+  "optionFieldFillRaw": {
+    "message": "Gehele (ruwe) tekst",
+    "description": "Options window, Field Fill Mode option: Insert entire (raw) content"
   },
   "popupHeader": {
     "message": "Form History Control (II)",

@@ -147,6 +147,10 @@
     "message": "Η τιμή αντιγράφτηκε με επιτυχία στο πρόχειρο.",
     "description": "Information message that clipboard value has been copied."
   },
+  "XXXinformWindowPrefsReset": {
+    "message": "All stored window sizes and positions have been reset.",
+    "description": "Information message that all stored window sizes and positions have been reset."
+  },
   "confirmStartCleanupTitle": {
     "message": "Έναρξη καθαρισμού;",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
@@ -373,6 +377,10 @@
     "message": "Καθαρισμός",
     "description": "Options window: Left Cleanup menu."
   },
+  "XXXoptionsFieldfillMenu": {
+    "message": "Form Fill",
+    "description": "Options window: Left Form Fill menu."
+  },
   "optionsDisplayLegend": {
     "message": "Προβολή",
     "description": "Options window: The Display legend."
@@ -384,6 +392,18 @@
   "optionsDateformatSelect": {
     "message": "Διάλεξε μορφή ημερομηνίας",
     "description": "Options window: The date format selection dropdown label"
+  },
+  "XXXoptionsSaveWindowProperties": {
+    "message": "Remember window size and position",
+    "description": "Options window: The Remember window size and position checkbox Label."
+  },
+  "XXXbuttonResetWindowProperties": {
+    "message": "Reset",
+    "description": "Options window: The Reset (window size and position) button Label."
+  },
+  "XXXbuttonResetTitleWindowProperties": {
+    "message": "Reset all window positions and sizes",
+    "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
   "optionsScrollAmountSelect": {
     "message": "Ποσό κύλισης ροδέλας ποντικιού (εικονοστοιχεία)",
@@ -487,7 +507,7 @@
   },
   "optionsFieldlistlegend": {
     "message": "Απενεργοποίηση Ιστορικού για συγκεκριμένα πεδία.",
-    "description": "Options window: The Cleanup legend."
+    "description": "Options window: The Fieldlist legend."
   },
   "optionsCleanupLegend": {
     "message": "Καθαρισμός",
@@ -508,6 +528,30 @@
   "buttoncleanupnow": {
     "message": "Καθαρισμός Τώρα",
     "description": "Options window, cleanup: Label of the cleanup-now button."
+  },
+  "XXXoptionsFieldfillLegend": {
+    "message": "Form Field Fill",
+    "description": "Options window: The Form Field Fill legend."
+  },
+  "XXXoptionsFieldfillModeSelect": {
+    "message": "Field Fill mode",
+    "description": "Options window, Field Fill Mode options"
+  },
+  "XXXoptionFieldFillAuto": {
+    "message": "Automatic",
+    "description": "Options window, Field Fill Mode option: Automatic "
+  },
+  "XXXoptionFieldFillClipboard": {
+    "message": "Use clipboard",
+    "description": "Options window, Field Fill Mode option: Use clipboard"
+  },
+  "XXXoptionFieldFillClean": {
+    "message": "Insert clean text only",
+    "description": "Options window, Field Fill Mode option: Insert clean text only"
+  },
+  "XXXoptionFieldFillRaw": {
+    "message": "Insert entire (raw) content",
+    "description": "Options window, Field Fill Mode option: Insert entire (raw) content"
   },
   "popupHeader": {
     "message": "Form History Control (II)",

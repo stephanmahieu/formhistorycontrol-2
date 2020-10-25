@@ -147,6 +147,10 @@
     "message": "Wert wurde erfolgreich in die Zwischenablage kopiert",
     "description": "Information message that clipboard value has been copied."
   },
+  "informWindowPrefsReset": {
+    "message": "Alle gespeicherten Fensterppositionen und -größe sind wiederhergestellt.",
+    "description": "Information message that all stored window sizes and positions have been reset."
+  },
   "confirmStartCleanupTitle": {
     "message": "Bereinigung starten?",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
@@ -373,6 +377,10 @@
     "message": "Bereinigung",
     "description": "Options window: Left Cleanup menu."
   },
+  "optionsFieldfillMenu": {
+    "message": "Formular Füllen",
+    "description": "Options window: Left Form Fill menu."
+  },
   "optionsDisplayLegend": {
     "message": "Anzeige",
     "description": "Options window: The Display legend."
@@ -384,6 +392,18 @@
   "optionsDateformatSelect": {
     "message": "Wählen Sie das Datumsformat",
     "description": "Options window: The date format selection dropdown label"
+  },
+  "optionsSaveWindowProperties": {
+    "message": "Speichern Fensterposition und -größe",
+    "description": "Options window: The Remember window size and position checkbox Label."
+  },
+  "buttonResetWindowProperties": {
+    "message": "Reset",
+    "description": "Options window: The Reset (window size and position) button Label."
+  },
+  "buttonResetTitleWindowProperties": {
+    "message": "Alle Fensterpositionen und -größe wiederherstellen",
+    "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
   "optionsScrollAmountSelect": {
     "message": "Mausrad Bildlaufanzahl (pixels)",
@@ -487,7 +507,7 @@
   },
   "optionsFieldlistlegend": {
     "message": "Verlauf für bestimmte Felder deaktivieren",
-    "description": "Options window: The Cleanup legend."
+    "description": "Options window: The Fieldlist legend."
   },
   "optionsCleanupLegend": {
     "message": "Aufräumen",
@@ -508,6 +528,30 @@
   "buttoncleanupnow": {
     "message": "Jetzt bereinigen",
     "description": "Options window, cleanup: Label of the cleanup-now button."
+  },
+  "optionsFieldfillLegend":  {
+    "message": "Formular Feld Füllen",
+    "description": "Options window: The Form Field Fill legend."
+  },
+  "optionsFieldfillModeSelect": {
+    "message": "Feld füll Modus",
+    "description": "Options window, Field Fill Mode options"
+  },
+  "optionFieldFillAuto":  {
+    "message": "Automatisch",
+    "description": "Options window, Field Fill Mode option: Automatic "
+  },
+  "optionFieldFillClipboard": {
+    "message": "Zwischenablage verwenden",
+    "description": "Options window, Field Fill Mode option: Use clipboard"
+  },
+  "optionFieldFillClean":  {
+    "message": "Nur sauberen Text einfügen",
+    "description": "Options window, Field Fill Mode option: Insert clean text only"
+  },
+  "optionFieldFillRaw": {
+    "message": "Gesamten (Roh-) Inhalt einfügen",
+    "description": "Options window, Field Fill Mode option: Insert entire (raw) content"
   },
   "popupHeader": {
     "message": "Form History Control (II)",

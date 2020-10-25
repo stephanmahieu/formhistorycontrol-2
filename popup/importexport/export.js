@@ -13,6 +13,12 @@
 browser.runtime.onMessage.addListener(fhcEvent=>{
     if (fhcEvent.eventType) {
         switch (fhcEvent.eventType) {
+            case 808:
+                // restore this window to default size and position
+                browser.windows.getCurrent({populate: false}).then((window)=>{
+                    WindowUtil.restoreToDefault(window.id, FHC_WINDOW_EXPORT);
+                });
+                break;
             case 888:
                 if (fhcEvent.interfaceThemeChanged) {
                     // options have changed, reload
@@ -36,8 +42,19 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     document.getElementById("buttonExport").addEventListener("click", download);
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
+
+    // no event available for window move, check periodically
+    setInterval(function() {WindowUtil.checkAndSaveCurrentWindowPosition(FHC_WINDOW_EXPORT);}, 5*1000);
 });
 
+let resizeTimer;
+window.addEventListener("resize", function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        // resizing has stopped
+        WindowUtil.saveWindowPrefs(FHC_WINDOW_EXPORT);
+    }, 250);
+});
 
 function download() {
     let timeStarted = showBusy();

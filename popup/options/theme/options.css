@@ -282,3 +282,11 @@ input[type="Radio"]:checked+label span:before{
     margin-right: 5px;
     filter: drop-shadow(2px 2px 2px rgba(90, 90, 90, 0.7));
 }
+
+.inline-button {
+    height: 20px;
+    font-size: 11px;
+    padding: 0 8px;
+    min-width: unset;
+    float: right;
+}

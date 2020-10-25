@@ -49,18 +49,21 @@
                         <span data-fhc-i18n="optionsCleanupMenu" class="optionLabel">Cleanup</span>
                     </a>
                 </li>
-                <div  class="expert-pref">
-                    <li>
-                        <a id="domainhistory" href="#" class="optionLink">
-                            <span data-fhc-i18n="optionsDomainlistMenu" class="optionLabel">Domain Filter</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a id="fieldhistory" href="#" class="optionLink">
-                            <span data-fhc-i18n="optionsFieldlistMenu" class="optionLabel">Field Filter</span>
-                        </a>
-                    </li>
-                </div>
+                <li class="expert-pref">
+                    <a id="fieldfill" href="#" class="optionLink">
+                        <span data-fhc-i18n="optionsFieldfillMenu" class="optionLabel">Form Fill</span>
+                    </a>
+                </li>
+                <li class="expert-pref">
+                    <a id="domainhistory" href="#" class="optionLink">
+                        <span data-fhc-i18n="optionsDomainlistMenu" class="optionLabel">Domain Filter</span>
+                    </a>
+                </li>
+                <li class="expert-pref">
+                    <a id="fieldhistory" href="#" class="optionLink">
+                        <span data-fhc-i18n="optionsFieldlistMenu" class="optionLabel">Field Filter</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -70,7 +73,7 @@
 
                 <div id="expertmode-container">
                     <input type="checkbox" id="expertMode">
-                    <label for="expertMode"><span></span><div id="expertModeLabel" data-fhc-i18n="optionsExpertMode">Show advanced options</div></label>
+                    <label for="expertMode"><span></span><div data-fhc-i18n="optionsExpertMode">Show advanced options</div></label>
                 </div>
 
                 <fieldset id="fld_display" class="sub-fieldset">
@@ -108,8 +111,13 @@
                         <option>HH:mm</option>
                     </select>
 
+                    <br/><br/>
+                    <input type="checkbox" id="saveWindowProperties">
+                    <label for="saveWindowProperties"><span></span><div data-fhc-i18n="optionsSaveWindowProperties">Remember window size and position</div></label>
+                    <button id="resetWindowProperties" class="inline-button" title="Reset all window positions and sizes" data-fhc-i18n="buttonResetWindowProperties" data-fhc-i18n-title="buttonResetTitleWindowProperties">Reset</button>
+
                     <div class="expert-pref">
-                        <br/><br/>
+                        <br/>
                         <label for="scrollAmountSelect" data-fhc-i18n="optionsScrollAmountSelect">Scrolling amount (pixels)</label>
                         <select id="scrollAmountSelect" class="rightalign">
                             <option data-fhc-i18n="optionAutomatic" value="auto">automatic</option>
@@ -168,7 +176,7 @@
                     </select>
 
                     <div class="expert-pref">
-                        <br/><br/>
+                        <br/>
                         <label id="versionLengthSelectLabel" for="versionLengthSelect" data-fhc-i18n="optionsSaveNewVersionMultilineCount">or content length changes more than</label>
                         <select id="versionLengthSelect" class="rightalign">
                         </select>
@@ -192,6 +200,20 @@
                     <label for="keepdayshistory" data-fhc-i18n="optionsRemoveDaysDays">days</label><br/>
                     <button id="btnCleanupNow" data-fhc-i18n="buttonCleanupNow">Clean Up Now</button>
                 </fieldset>
+
+                <div  class="expert-pref">
+                    <fieldset id="fld_fieldfill" class="sub-fieldset" style="display:none">
+                        <legend data-fhc-i18n="optionsFieldfillLegend">Form Field Fill</legend>
+                        <br/>
+                        <label for="fieldfillModeSelect" data-fhc-i18n="optionsFieldfillModeSelect">Field Fill mode</label>
+                        <select id="fieldfillModeSelect" class="rightalign">
+                            <option data-fhc-i18n="optionFieldFillAuto" value="auto">Automatic</option>
+                            <option data-fhc-i18n="optionFieldFillClipboard" value="clip">Use clipboard</option>
+                            <option data-fhc-i18n="optionFieldFillClean" value="clean">Insert clean text only</option>
+                            <option data-fhc-i18n="optionFieldFillRaw" value="raw">Insert entire (HTML) content</option>
+                        </select>
+                    </fieldset>
+                </div>
 
                 <div  class="expert-pref">
                     <fieldset id="fld_domainhistory" class="sub-fieldset" style="display:none">
@@ -222,6 +244,7 @@
                 </div>
             </fieldset>
 
+            <div id="fileinput" style="display: none"><input type="file" id="files" name="files[]"/></div>
             <div id="buttons">
                 <button id="buttonApply" type="submit" data-fhc-i18n="buttonApply">Apply</button>
                 <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>
@@ -231,6 +254,7 @@
 </form>
 <script src="/common/browser-polyfill.min.js"></script>
 <script src="/common/CleanupConst.js"></script>
+<script src="/common/FileUtil.js"></script>
 <script src="/common/OptionsUtil.js"></script>
 <script src="/common/ThemeUtil.js"></script>
 <script src="/common/WindowUtil.js"></script>

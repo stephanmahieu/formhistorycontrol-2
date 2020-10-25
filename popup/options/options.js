@@ -15,6 +15,12 @@ browser.runtime.onMessage.addListener(fhcEvent => {
                 // console.log('received a ' + fhcEvent.eventType + ' event, unhide close button.');
                 document.querySelector("#buttonClose").style.display = "inline";
                 break;
+            case 808:
+                // restore to default size and position
+                browser.windows.getCurrent({populate: false}).then((window)=>{
+                    WindowUtil.restoreToDefault(window.id, FHC_WINDOW_OPTIONS);
+                });
+                break;
             case 888:
                 if (fhcEvent.interfaceThemeChanged) {
                     // options have changed, reload
@@ -66,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("#themeSelect").addEventListener("change", themeSelectionChanged);
     document.querySelector("#dateformatSelect").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#saveWindowProperties").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#resetWindowProperties").addEventListener("click", resetAllWindowProperties);
     document.querySelector("#scrollAmountSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#contextMenuSelect").addEventListener("change", checkPropertiesChanged);
 
@@ -84,6 +92,8 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#keepdayshistory").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#btnCleanupNow").addEventListener("click", cleanupNow);
 
+    document.querySelector("#fieldfillModeSelect").addEventListener("change", checkPropertiesChanged);
+
     document.querySelectorAll('input[name=radiogroupDomainlist]').forEach(radio => {
         radio.addEventListener("change", checkPropertiesChanged);
         radio.addEventListener("change", domainlistRadioChanged);
@@ -100,6 +110,10 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#buttonClose").addEventListener("click", closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
 
+    document.querySelector("div.titleSidebar img.logo").addEventListener("dblclick", handleClick);
+    document.getElementById('files').addEventListener('change', handleFileSelect);
+
+
     // if update shortcut commands is not supported (chrome), hide the shortcut edit button
     if (!browser.commands.update) {
         showShortcutKeysModifyNotAllowedMessage();
@@ -107,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // if this is a large window, options have been opened from outside the app, in that case show all options at once
     if (document.body.clientHeight > 600) {
-        // unkide fieldsets
+        // unhide fieldsets
         document.querySelectorAll('.sub-fieldset').forEach(fldset => {
             fldset.style.display = "block";
         });
@@ -117,10 +131,22 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // no event available for window move, check periodically
+    setInterval(function() {WindowUtil.checkAndSaveCurrentWindowPosition(FHC_WINDOW_OPTIONS);}, 5*1000);
+
     // check if database is accessible
     // !! opening database in a popup script behaves differently across current/beta/nightly versions,
     // !! also db is usually opened from a background script so maybe activate (much) later
     // WindowUtil.isDatabaseAccessible()
+});
+
+let resizeTimer;
+window.addEventListener("resize", function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        // resizing has stopped
+        WindowUtil.saveWindowPrefs(FHC_WINDOW_OPTIONS);
+    }, 250);
 });
 
 function closeThisPopup(event) {
@@ -134,6 +160,7 @@ function restoreOptions() {
     let gettingItem = browser.storage.local.get({
         prefExpertMode           : false,
         prefInterfaceTheme       : "default",
+        prefSaveWindowProperties : false,
         prefUseCustomAutocomplete: false,
         prefSaveInIncognitoMode  : false,
         prefMultilineThresholds  : {age: "10", length: "500"},
@@ -155,6 +182,7 @@ function restoreOptions() {
             fill_often_enable           : true,
             clear_filled_enable         : true
         },
+        prefFieldfillMode        : "auto",
         prefDomainFilter         : "all",
         prefDomainList           : [],
         prefFieldList            : [],
@@ -162,40 +190,48 @@ function restoreOptions() {
         prefKeepDaysHistory      : CleanupConst.DEFAULT_DAYS_TO_KEEP
     });
     gettingItem.then(res => {
-        //console.log('checkbox value got from storage is [' + res.prefUseCustomAutocomplete + ']');
-        document.querySelector('#expertMode').checked = res.prefExpertMode;
-        document.querySelector('#themeSelect').value = res.prefInterfaceTheme;
-        document.querySelector("#overrideAutocomplete").checked = res.prefUseCustomAutocomplete;
-        document.querySelector("#overrideIncognito").checked = res.prefSaveInIncognitoMode;
-        document.querySelector('#versionAgeSelect').value = res.prefMultilineThresholds.age;
-        document.querySelector('#versionLengthSelect').value = res.prefMultilineThresholds.length;
-        document.querySelector('#retainTypeSelect').value = res.prefRetainType;
-        document.querySelector('#updateIntervalSelect').value = res.prefUpdateInterval;
-        document.querySelector("#dateformatSelect").value = res.prefDateFormat;
-        document.querySelector("#scrollAmountSelect").value = res.prefScrollAmount;
-        document.querySelector("#contextMenuSelect").value = res.prefContextmenuAvail;
-        document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
-        document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
-
-        checkShortcutKeyEnable(res.prefShortcutKeys);
-
-        checkRadioDomainByValue(res.prefDomainFilter);
-
-        setListOptions("#domainlist", res.prefDomainList);
-        document.querySelector("#domainListItem").value = "";
-
-        setListOptions("#fieldlist", res.prefFieldList);
-        document.querySelector("#fieldListItem").value = "";
-
-        domainlistRadioChanged();
-        domainlistChanged();
-        fieldlistChanged();
-        retainTypeChanged();
-        showHideExpertPrefs();
-
-        currentOptions = Object.assign({}, res);
-        checkPropertiesChanged();
+        applyPreferences(res, true);
     });
+}
+
+function applyPreferences(res, fromStore) {
+    //console.log('checkbox value got from storage is [' + res.prefUseCustomAutocomplete + ']');
+    document.querySelector('#expertMode').checked = res.prefExpertMode;
+    document.querySelector('#themeSelect').value = res.prefInterfaceTheme;
+    document.querySelector("#saveWindowProperties").checked = res.prefSaveWindowProperties;
+    document.querySelector("#overrideAutocomplete").checked = res.prefUseCustomAutocomplete;
+    document.querySelector("#overrideIncognito").checked = res.prefSaveInIncognitoMode;
+    document.querySelector('#versionAgeSelect').value = res.prefMultilineThresholds.age;
+    document.querySelector('#versionLengthSelect').value = res.prefMultilineThresholds.length;
+    document.querySelector('#retainTypeSelect').value = res.prefRetainType;
+    document.querySelector('#updateIntervalSelect').value = res.prefUpdateInterval;
+    document.querySelector("#dateformatSelect").value = res.prefDateFormat;
+    document.querySelector("#scrollAmountSelect").value = res.prefScrollAmount;
+    document.querySelector("#contextMenuSelect").value = res.prefContextmenuAvail;
+    document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
+    document.querySelector("#fieldfillModeSelect").value = res.prefFieldfillMode;
+    document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
+
+    checkShortcutKeyEnable(res.prefShortcutKeys);
+
+    checkRadioDomainByValue(res.prefDomainFilter);
+
+    setListOptions("#domainlist", res.prefDomainList);
+    document.querySelector("#domainListItem").value = "";
+
+    setListOptions("#fieldlist", res.prefFieldList);
+    document.querySelector("#fieldListItem").value = "";
+
+    domainlistRadioChanged();
+    domainlistChanged();
+    fieldlistChanged();
+    retainTypeChanged();
+    showHideExpertPrefs();
+
+    if (fromStore) {
+        currentOptions = Object.assign({}, res);
+    }
+    checkPropertiesChanged();
 }
 
 function saveOptions(e) {
@@ -208,6 +244,7 @@ function saveOptions(e) {
     const notifyMsg = {
         eventType: 888,
         interfaceThemeChanged:       (currentOptions.prefInterfaceTheme !== newOptions.prefInterfaceTheme),
+        saveWindowPropertiesChanged: (currentOptions.prefSaveWindowProperties !== newOptions.prefSaveWindowProperties),
         overrideAutocompleteChanged: (currentOptions.prefUseCustomAutocomplete !== newOptions.prefUseCustomAutocomplete),
         overrideIncognitoChanged:    (currentOptions.prefSaveInIncognitoMode !== newOptions.prefSaveInIncognitoMode),
         multilineThresholdsChanged:  (currentOptions.prefMultilineThresholds.age !== newOptions.prefMultilineThresholds.age
@@ -242,6 +279,7 @@ function getNewOptions() {
     return {
         prefExpertMode           : document.querySelector("#expertMode").checked,
         prefInterfaceTheme       : document.querySelector("#themeSelect").value,
+        prefSaveWindowProperties : document.querySelector("#saveWindowProperties").checked,
         prefUseCustomAutocomplete: document.querySelector("#overrideAutocomplete").checked,
         prefSaveInIncognitoMode  : document.querySelector("#overrideIncognito").checked,
         prefMultilineThresholds  : {age   : document.querySelector("#versionAgeSelect").value,
@@ -252,12 +290,29 @@ function getNewOptions() {
         prefScrollAmount         : document.querySelector("#scrollAmountSelect").value,
         prefContextmenuAvail     : document.querySelector("#contextMenuSelect").value,
         prefShortcutKeys         : getAllShortcutKeyValues(),
+        prefFieldfillMode        : document.querySelector("#fieldfillModeSelect").value,
         prefDomainFilter         : getCheckedRadioDomainValue(),
         prefDomainList           : getList("#domainlist"),
         prefFieldList            : getList("#fieldlist"),
         prefAutomaticCleanup     : document.querySelector("#autocleanup").checked,
         prefKeepDaysHistory      : document.querySelector("#keepdayshistory").value
     };
+}
+
+function resetAllWindowProperties() {
+    WindowUtil.removeAllSavedWindowPrefs().then(()=>{
+
+        // restore myself to default size and position except when I was opened in a tab
+        if (document.querySelector("#buttonClose").style.display !== "") {
+            browser.windows.getCurrent({populate: false}).then((window)=>{
+                WindowUtil.restoreToDefault(window.id, FHC_WINDOW_OPTIONS);
+            });
+        }
+
+        WindowUtil.showModalInformation({titleId:'dialogInformationTitle', msgId:'informWindowPrefsReset'});
+    }, (errMsg) => {
+        console.error("Error removing SavedWindowPrefs", errMsg);
+    });
 }
 
 function selectOptionSection(event) {
@@ -306,7 +361,7 @@ function showHideExpertPrefs() {
 
     Array.from(document.getElementsByClassName('expert-pref')).forEach(elem => {
         if (expertModeChecked) {
-            elem.style.display = 'unset';
+            elem.style.display = 'inherit';
         } else {
             elem.style.display = 'none';
         }
@@ -473,4 +528,35 @@ function cleanupNow(event) {
     // notify popup(s) that new data has been added so they can update their view
     // do not do that immediately because cleanup is performed asynchronously
     window.setTimeout(()=>{browser.runtime.sendMessage({eventType: 777});}, 800);
+}
+
+function handleClick(e) {
+    if (e.shiftKey && e.ctrlKey && !e.altKey) {
+        downloadprefs();
+    } else if (e.shiftKey && e.altKey && e.ctrlKey) {
+        uploadprefs();
+    }
+}
+function downloadprefs() {
+    console.log('Download prefs...');
+    const curPrefs = JSON.stringify(getNewOptions(), null, '  ');
+    FileUtil.download(curPrefs, 'text/json', 'formhistory-preferences.json').then(success => {
+        console.log(`Download succeeded: ${success}`);
+    });
+}
+function uploadprefs() {
+    console.log('Enable upload prefs.');
+    document.querySelector('#fileinput').style.display = 'block';
+}
+function handleFileSelect() {
+    document.querySelector('#fileinput').style.display = 'none';
+    console.log('Uploading prefs...');
+    const fileList = document.getElementById('files').files;
+    FileUtil.upload(fileList, 'application/json').then(content => {
+        const importedPrefs = JSON.parse(content);
+        console.log('JSON file read okay, applying preferences...');
+        applyPreferences(importedPrefs, false);
+        themeSelectionChanged();
+        console.log('Done');
+    });
 }
