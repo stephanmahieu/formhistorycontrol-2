@@ -130,7 +130,7 @@
     }
   },
   "timeoutTooMuchDataWarning": {
-    "message": "Υπάρχουν πολλά δεδομένα για να εμφανιστούν γρήγορα σε αναδυόμενο παράθυρο, χρησιμοποίησε την επιλογή καθαρισμού για να μειώσεις τον όγκο των δεδομένων ή άνοιξε το παράθυρο 'Διαχείριση Ιστορικού' (δεξί κλικ στο ποντίκι).\n\n($count$ αποτελέσματα από συνολικά $total$ απερρίφθησαν).",
+    "message": "Υπάρχουν πολλά δεδομένα για να εμφανιστούν γρήγορα σε αναδυόμενο παράθυρο, χρησιμοποίησε την επιλογή καθαρισμού για να μειώσεις τον όγκο των δεδομένων ή άνοιξε το παράθυρο «Διαχείριση Ιστορικού» (δεξί κλικ στο ποντίκι).\n\n($count$ αποτελέσματα από συνολικά $total$ απερρίφθησαν).",
     "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
     "placeholders": {
       "count": {
@@ -148,7 +148,7 @@
     "description": "Information message that clipboard value has been copied."
   },
   "XXXinformWindowPrefsReset": {
-    "message": "All stored window sizes and positions have been reset.",
+    "message": "Όλα τα αποθηκευμένα μεγέθη και θέσεις των παραθύρων έχουν επαναφερθεί στις αρχικές τιμές.",
     "description": "Information message that all stored window sizes and positions have been reset."
   },
   "confirmStartCleanupTitle": {
@@ -188,7 +188,7 @@
     "description": "Validation message for missing mandatory values."
   },
   "validationErrorLastBeforeFirst": {
-    "message": "Η 'Χρησιμοποιήθηκε τελευταία φορά' ημερομηνία πρέπει να είναι ίση ή μεταγενέστερη από την 'Χρησιμοποιήθηκε πρώτη φορά' ημερομηνία.",
+    "message": "Η «Χρησιμοποιήθηκε τελευταία φορά» ημερομηνία πρέπει να είναι ίση ή μεταγενέστερη από την «Χρησιμοποιήθηκε πρώτη φορά» ημερομηνία.",
     "description": "Validation message for last date being before first date."
   },
   "validationErrorAtLastOneField": {
@@ -378,7 +378,7 @@
     "description": "Options window: Left Cleanup menu."
   },
   "XXXoptionsFieldfillMenu": {
-    "message": "Form Fill",
+    "message": "Συμπλήρωση Φόρμας",
     "description": "Options window: Left Form Fill menu."
   },
   "optionsDisplayLegend": {
@@ -394,15 +394,15 @@
     "description": "Options window: The date format selection dropdown label"
   },
   "XXXoptionsSaveWindowProperties": {
-    "message": "Remember window size and position",
+    "message": "Απομνημόνευση μεγέθους και θέσης παραθύρου",
     "description": "Options window: The Remember window size and position checkbox Label."
   },
   "XXXbuttonResetWindowProperties": {
-    "message": "Reset",
+    "message": "Επαναφορά",
     "description": "Options window: The Reset (window size and position) button Label."
   },
   "XXXbuttonResetTitleWindowProperties": {
-    "message": "Reset all window positions and sizes",
+    "message": "Επαναφορά όλων των θέσεων και μεγεθών στα παράθυρα",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
   "optionsScrollAmountSelect": {
@@ -530,27 +530,27 @@
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
   "XXXoptionsFieldfillLegend": {
-    "message": "Form Field Fill",
+    "message": "Συμπλήρωση Πεδίου Φόρμας",
     "description": "Options window: The Form Field Fill legend."
   },
   "XXXoptionsFieldfillModeSelect": {
-    "message": "Field Fill mode",
+    "message": "Λειτουργία Συμπλήρωσης Πεδίου",
     "description": "Options window, Field Fill Mode options"
   },
   "XXXoptionFieldFillAuto": {
-    "message": "Automatic",
+    "message": "Αυτόματο",
     "description": "Options window, Field Fill Mode option: Automatic "
   },
   "XXXoptionFieldFillClipboard": {
-    "message": "Use clipboard",
+    "message": "Χρήση Πρόχειρου",
     "description": "Options window, Field Fill Mode option: Use clipboard"
   },
   "XXXoptionFieldFillClean": {
-    "message": "Insert clean text only",
+    "message": "Εισαγωγή καθαρού κειμένου μόνο",
     "description": "Options window, Field Fill Mode option: Insert clean text only"
   },
   "XXXoptionFieldFillRaw": {
-    "message": "Insert entire (raw) content",
+    "message": "Εισαγωγή ολόκληρου (ακατέργαστου) περιεχομένου",
     "description": "Options window, Field Fill Mode option: Insert entire (raw) content"
   },
   "popupHeader": {
@@ -566,7 +566,7 @@
     "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
   },
   "open_bigdialog_tooltip": {
-    "message": "Άνοιγμα του διαλόγου 'Διαχείριση Ιστορικού' για προχωρημένους.",
+    "message": "Άνοιγμα του διαλόγου «Διαχείριση Ιστορικού» για προχωρημένους.",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
   "notificationTitle": {
@@ -752,17 +752,17 @@
   "Alt":      {"message": "Alt"},
   "Command":  {"message": "Command"},
   "MacCtrl":  {"message": "Ctrl(Mac)"},
-  "Comma":    {"message": "Comma"},
-  "Period":   {"message": "Period"},
+  "Comma":    {"message": "Κόμμα"},
+  "Period":   {"message": "Τελεία"},
   "Home":     {"message": "Home"},
   "End":      {"message": "End"},
   "PageUp":   {"message": "Page Up"},
   "PageDown": {"message": "Page Down"},
-  "Space":    {"message": "Space"},
+  "Space":    {"message": "Διάστημα"},
   "Insert":   {"message": "Insert"},
   "Delete":   {"message": "Delete"},
-  "Up":       {"message": "Up"},
-  "Down":     {"message": "Down"},
-  "Left":     {"message": "Left"},
-  "Right":    {"message": "Right"}
+  "Up":       {"message": "Πάνω"},
+  "Down":     {"message": "Κάτω"},
+  "Left":     {"message": "Αριστερά"},
+  "Right":    {"message": "Δεξιά"}
 }
