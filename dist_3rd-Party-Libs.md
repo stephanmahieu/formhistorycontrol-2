@@ -9,11 +9,11 @@ https://code.jquery.com/jquery-3.5.1.min.js
 Reference (not part of distribution): jQuery core 3.5.1 - human-readable source code
 https://code.jquery.com/jquery-3.5.1.js
 
-jQuery plugin DataTables 1.10.21 - minified
-https://github.com/DataTables/DataTables/blob/1.10.21/media/js/jquery.dataTables.min.js
+jQuery plugin DataTables 1.10.20 - minified
+https://github.com/DataTables/DataTables/blob/1.10.20/media/js/jquery.dataTables.min.js
 
-Reference (not part of distribution): jQuery plugin DataTables 1.10.21 - human-readable source code
-https://github.com/DataTables/DataTables/blob/1.10.21/media/js/jquery.dataTables.js
+Reference (not part of distribution): jQuery plugin DataTables 1.10.20 - human-readable source code
+https://github.com/DataTables/DataTables/blob/1.10.20/media/js/jquery.dataTables.js
 
 DataTable extension Responsive 2.2.6
 https://github.com/DataTables/Responsive/blob/2.2.6/js/dataTables.responsive.js
