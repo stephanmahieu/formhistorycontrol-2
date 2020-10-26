@@ -147,7 +147,7 @@
     "message": "Η τιμή αντιγράφτηκε με επιτυχία στο πρόχειρο.",
     "description": "Information message that clipboard value has been copied."
   },
-  "XXXinformWindowPrefsReset": {
+  "informWindowPrefsReset": {
     "message": "Όλα τα αποθηκευμένα μεγέθη και θέσεις των παραθύρων έχουν επαναφερθεί στις αρχικές τιμές.",
     "description": "Information message that all stored window sizes and positions have been reset."
   },
@@ -377,7 +377,7 @@
     "message": "Καθαρισμός",
     "description": "Options window: Left Cleanup menu."
   },
-  "XXXoptionsFieldfillMenu": {
+  "optionsFieldfillMenu": {
     "message": "Συμπλήρωση Φόρμας",
     "description": "Options window: Left Form Fill menu."
   },
@@ -393,15 +393,15 @@
     "message": "Διάλεξε μορφή ημερομηνίας",
     "description": "Options window: The date format selection dropdown label"
   },
-  "XXXoptionsSaveWindowProperties": {
+  "optionsSaveWindowProperties": {
     "message": "Απομνημόνευση μεγέθους και θέσης παραθύρου",
     "description": "Options window: The Remember window size and position checkbox Label."
   },
-  "XXXbuttonResetWindowProperties": {
+  "buttonResetWindowProperties": {
     "message": "Επαναφορά",
     "description": "Options window: The Reset (window size and position) button Label."
   },
-  "XXXbuttonResetTitleWindowProperties": {
+  "buttonResetTitleWindowProperties": {
     "message": "Επαναφορά όλων των θέσεων και μεγεθών στα παράθυρα",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
@@ -529,27 +529,27 @@
     "message": "Καθαρισμός Τώρα",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
-  "XXXoptionsFieldfillLegend": {
+  "optionsFieldfillLegend": {
     "message": "Συμπλήρωση Πεδίου Φόρμας",
     "description": "Options window: The Form Field Fill legend."
   },
-  "XXXoptionsFieldfillModeSelect": {
+  "optionsFieldfillModeSelect": {
     "message": "Λειτουργία Συμπλήρωσης Πεδίου",
     "description": "Options window, Field Fill Mode options"
   },
-  "XXXoptionFieldFillAuto": {
+  "optionFieldFillAuto": {
     "message": "Αυτόματο",
     "description": "Options window, Field Fill Mode option: Automatic "
   },
-  "XXXoptionFieldFillClipboard": {
+  "optionFieldFillClipboard": {
     "message": "Χρήση Πρόχειρου",
     "description": "Options window, Field Fill Mode option: Use clipboard"
   },
-  "XXXoptionFieldFillClean": {
+  "optionFieldFillClean": {
     "message": "Εισαγωγή καθαρού κειμένου μόνο",
     "description": "Options window, Field Fill Mode option: Insert clean text only"
   },
-  "XXXoptionFieldFillRaw": {
+  "optionFieldFillRaw": {
     "message": "Εισαγωγή ολόκληρου (ακατέργαστου) περιεχομένου",
     "description": "Options window, Field Fill Mode option: Insert entire (raw) content"
   },
