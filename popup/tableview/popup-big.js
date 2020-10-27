@@ -116,7 +116,7 @@ $(document).ready(function() {
         table.page.len(pageSizeBig);
 
         // populate tableview with data from the database
-        populateViewFromDatabase(table, 25, null, null);
+        populateViewFromDatabase(table, 25, null, null, true);
         selectionChangedHandler();
       },
       () => {console.error("Get preferences error", this.error);}
@@ -405,7 +405,7 @@ function refreshView() {
     let table = $('#fhcTable').DataTable();
     table.clear();
     selectionChangedHandler();
-    populateViewFromDatabase(table, 25, null, null);
+    populateViewFromDatabase(table, 25, null, null, true);
 }
 
 function updateTableRowsAgeColumn() {

@@ -74,7 +74,7 @@ function databaseChangeSingleItem(what, primaryKey, fhcEntry) {
 }
 
 
-function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
+function populateViewFromDatabase(table, refreshEvery, forFields, forHost, doResize) {
     // check if database is accessible
     if (!WindowUtil.isDatabaseAccessible()) {
         return;
@@ -129,7 +129,9 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
 
                     // only update display after 15 rows and when finished
                     if (count === refreshEvery) {
-                        resizeTable();
+                        if (doResize) {
+                            resizeTable();
+                        }
                         table.draw();
                         adjustSearchBox();
                     }
@@ -141,7 +143,9 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost) {
             }
             else {
                 //console.log("No more entries!");
-                resizeTable();
+                if (doResize) {
+                    resizeTable();
+                }
                 table.draw();
                 $("#overlaystatus").removeClass('spinner').hide();
 

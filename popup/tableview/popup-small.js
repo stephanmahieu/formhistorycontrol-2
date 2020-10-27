@@ -96,7 +96,7 @@ $(document).ready(function() {
         // set the pagesize to the last used value
         table.page.len(pageSizeSmall);
 
-        populateViewFromDatabase(table, 15, null, null);
+        populateViewFromDatabase(table, 15, null, null, false);
       },
       () => {console.error("Get preferences error", this.error);}
     );
@@ -124,10 +124,10 @@ $(document).ready(function() {
             }
         }).then(fieldsMsg => {
             // console.log(`received ${fieldsMsg.fields.length} fields!`);
-            populateViewFromDatabase(table, 15, fieldsMsg.fields, fieldsMsg.host);
+            populateViewFromDatabase(table, 15, fieldsMsg.fields, fieldsMsg.host, false);
         }).catch(reason => {
             // console.warn(`Could not get formfields from active tab, showing all instead. Error: ${reason}`);
-            populateViewFromDatabase(table, 15, null, null);
+            populateViewFromDatabase(table, 15, null, null, false);
         });
     * ------------------------------------------------------------------------------------------------------------
     */
@@ -164,7 +164,7 @@ $(document).ready(function() {
 
 
 function startResize(e) {
-    // only allow resizing the height
+    // only allow resizing the height, width is already at maximum (platform restriction)
     const startPosX = e.clientX;
     const startPosY = e.clientY;
     const initWidth = document.body.clientWidth;
@@ -177,9 +177,9 @@ function startResize(e) {
         //const deltaY = e.clientY - startPosY;
         const deltaY = Math.max(e.clientY - startPosY, 0);
 
-        // max size:= 800 x 600
+        // max size:= 800 x 600 (platform restriction)
         // const newWidth = Math.max(Math.min(initWidth - deltaX, 800), 500);
-        const newHeight = Math.max(Math.min(initHeight + deltaY, 600), 450);
+        const newHeight = Math.max(Math.min(initHeight + deltaY, 600), 400);
 
         // resize window
         //document.body.style.width = newWidth + 'px';
@@ -435,7 +435,7 @@ function createDataTable(dateformat, scrollAmount, prefColVisible) {
 function refreshView() {
     let table = $('#fhcTable').DataTable();
     table.clear();
-    populateViewFromDatabase(table);
+    populateViewFromDatabase(table, null, null, false, false);
 }
 
 function deleteSelected() {
