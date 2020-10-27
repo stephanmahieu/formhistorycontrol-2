@@ -147,6 +147,10 @@
     "message": "Значение скопировано в буфер обмена",
     "description": "Information message that clipboard value has been copied."
   },
+  "informWindowPrefsReset": {
+    "message": "Все запомненные позиции и размеры окон были сброшены.",
+    "description": "Information message that all stored window sizes and positions have been reset."
+  },
   "confirmStartCleanupTitle": {
     "message": "Начать очистку?",
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
@@ -373,6 +377,10 @@
     "message": "Очистка",
     "description": "Options window: Left Cleanup menu."
   },
+  "optionsFieldfillMenu": {
+    "message": "Заполнение форм",
+    "description": "Options window: Left Form Fill menu."
+  },
   "optionsDisplayLegend": {
     "message": "Отображение",
     "description": "Options window: The Display legend."
@@ -384,6 +392,18 @@
   "optionsDateformatSelect": {
     "message": "Выбрать формат даты",
     "description": "Options window: The date format selection dropdown label"
+  },
+  "optionsSaveWindowProperties": {
+    "message": "Запоминать позицию и размер окна",
+    "description": "Options window: The Remember window size and position checkbox Label."
+  },
+  "buttonResetWindowProperties": {
+    "message": "Сбросить",
+    "description": "Options window: The Reset (window size and position) button Label."
+  },
+  "buttonResetTitleWindowProperties": {
+    "message": "Сбросить позиции и размеры всех окон",
+    "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
   "optionsScrollAmountSelect": {
     "message": "Прокрутка колесом мыши (в пикселях)",
@@ -508,6 +528,30 @@
   "buttoncleanupnow": {
     "message": "Очистить сейчас",
     "description": "Options window, cleanup: Label of the cleanup-now button."
+  },
+  "optionsFieldfillLegend":  {
+    "message": "Заполнение полей ввода",
+    "description": "Options window: The Form Field Fill legend."
+  },
+  "optionsFieldfillModeSelect": {
+    "message": "Метод заполнения",
+    "description": "Options window, Field Fill Mode options"
+  },
+  "optionFieldFillAuto":  {
+    "message": "Автоматически",
+    "description": "Options window, Field Fill Mode option: Automatic "
+  },
+  "optionFieldFillClipboard": {
+    "message": "Из буфера обмена",
+    "description": "Options window, Field Fill Mode option: Use clipboard"
+  },
+  "optionFieldFillClean":  {
+    "message": "Вставлять только чистый текст",
+    "description": "Options window, Field Fill Mode option: Insert clean text only"
+  },
+  "optionFieldFillRaw": {
+    "message": "Вставлять всё (сырое) содержание",
+    "description": "Options window, Field Fill Mode option: Insert entire (raw) content"
   },
   "popupHeader": {
     "message": "Менеджер истории форм",
