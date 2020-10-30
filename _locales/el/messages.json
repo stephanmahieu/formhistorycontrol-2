@@ -12,7 +12,7 @@
     "description": "Description of this extension."
   },
   "extensionDeveloperLabel": {
-    "message": "Προγραμματιστής",
+    "message": "Δημιουργός",
     "description": "Label for developer."
   },
   "fieldName": {
@@ -72,7 +72,7 @@
     "description": "Edit a single field, info displayed in edit window."
   },
   "operationEditOneField": {
-    "message": "Επεξεργασία υπάρχουσας εγγραφής καταχώρησης",
+    "message": "Επεξεργασία υπάρχουσας καταχώρησης",
     "description": "Edit a single field, info displayed in edit window."
   },
   "operationEditMultipleFields": {
@@ -120,7 +120,7 @@
     "description": "Title of error dialog for database access errors."
   },
   "databaseError": {
-    "message": "Η πρόσβαση στην βάση δεδομένων εμποδίστηκε ($ERROR$). Αυτή η εφαρμογή απαιτεί άδεια στα cookies, παρακαλώ ελέγξτε τις ρυθμίσεις Απόρρητο & Ασφάλεια.",
+    "message": "Η πρόσβαση στην βάση δεδομένων εμποδίστηκε ($ERROR$). Αυτή η εφαρμογή απαιτεί άδεια στα cookies, παρακαλώ ελέγξτε τις ρυθμίσεις «Απόρρητο & Ασφάλεια» στον περιηγητή.",
     "description": "Error displayed when the database is not accessible",
     "placeholders": {
       "error": {
@@ -130,7 +130,7 @@
     }
   },
   "timeoutTooMuchDataWarning": {
-    "message": "Υπάρχουν πολλά δεδομένα για να εμφανιστούν γρήγορα σε αναδυόμενο παράθυρο, χρησιμοποίησε την επιλογή καθαρισμού για να μειώσεις τον όγκο των δεδομένων ή άνοιξε το παράθυρο «Διαχείριση Ιστορικού» (δεξί κλικ στο ποντίκι).\n\n($count$ αποτελέσματα από συνολικά $total$ απερρίφθησαν).",
+    "message": "Υπάρχουν πολλά δεδομένα για να εμφανιστούν γρήγορα σε αναδυόμενο παράθυρο, χρησιμοποιήστε την επιλογή καθαρισμού για να μειώσετε τον όγκο των δεδομένων ή ανοίξτε το παράθυρο «Διαχείριση Ιστορικού» (δεξί κλικ στο ποντίκι).\n\n($count$ αποτελέσματα από συνολικά $total$ απερρίφθησαν).",
     "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
     "placeholders": {
       "count": {
@@ -156,7 +156,7 @@
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
   },
   "confirmStartCleanupMessage": {
-    "message": "Έναρξη καθαρισμού και αφαίρεσης εγγραφών που δεν χρησιμοποιήθηκαν στις προηγούμενες $nrofdays$ ημέρες;\n\n(Το χρονικό όριο μπορεί να οριστεί στις Ρυθμίσεις)",
+    "message": "Έναρξη καθαρισμού και αφαίρεσης καταχωρήσεων που δεν χρησιμοποιήθηκαν στις προηγούμενες $nrofdays$ ημέρες;\n\n(Το χρονικό όριο μπορεί να οριστεί στις Ρυθμίσεις).",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
       "nrofdays": {
@@ -166,7 +166,7 @@
     }
   },
   "informCleanupInitiated": {
-    "message": "Ο καθαρισμός ξεκίνησε, εγγραφές που δεν χρησιμοποιήθηκαν τις προηγούμενες $nrofdays$ αφαιρούνται.",
+    "message": "Ο καθαρισμός ξεκίνησε, καταχωρήσεις που δεν χρησιμοποιήθηκαν τις προηγούμενες $nrofdays$ αφαιρούνται.",
     "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
     "placeholders": {
       "nrofdays": {
@@ -330,7 +330,7 @@
     "description": "Export window: Download link:"
   },
   "exportDownloadLinkInfo": {
-    "message": "Κάνε κλικ στον σύνδεσμο λήψης για να ανοίξεις ή να αποθηκεύσεις το αρχείο εξαγωγής.",
+    "message": "Κάντε κλικ στον σύνδεσμο λήψης για να ανοίξετε ή να αποθηκεύσετε το αρχείο εξαγωγής.",
     "description": "Short explanation in the export dialog: click download link to open or save locally"
   },
   "aboutTitle": {
@@ -342,11 +342,11 @@
     "description": "Title of the options window."
   },
   "optionDefault": {
-    "message": "προεπιλεγμένο",
+    "message": "Προεπιλεγμένο",
     "description": "The 'default' option in a select list."
   },
   "optionAutomatic": {
-    "message": "αυτόματη",
+    "message": "Αυτόματη",
     "description": "The 'automatic' option in a select list."
   },
   "optionsExpertMode": {
@@ -522,7 +522,7 @@
     "description": "Options window, cleanup: Label before no of days input."
   },
   "optionsremovedaysdays": {
-    "message": "Ημέρες",
+    "message": "ημέρες",
     "description": "Options window, cleanup: Label after no of days input."
   },
   "buttoncleanupnow": {
@@ -558,7 +558,7 @@
     "description": "Header title of the small popup."
   },
   "popupHeaderInfo": {
-    "message": "Προβολή ιστορικού για αυτή τη σελίδα μόνο.",
+    "message": "Προβολή ιστορικού για αυτή τη σελίδα μόνο",
     "description": "Extra info next to the header title of the small popup."
   },
   "open_preference_tooltip": {
@@ -566,7 +566,7 @@
     "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
   },
   "open_bigdialog_tooltip": {
-    "message": "Άνοιγμα του διαλόγου «Διαχείριση Ιστορικού» για προχωρημένους.",
+    "message": "Άνοιγμα του διαλόγου «Διαχείριση Ιστορικού» για προχωρημένους",
     "description": "Tooltip for icon displayed in dialog which opens the main 'Manage History' dialog."
   },
   "notificationTitle": {
@@ -608,7 +608,7 @@
     "description": "Title of context menu item that fills formfields with the most recent used value."
   },
   "contextMenuItemFillMostUsed": {
-    "message": "Γέμισμα πεδίων με τις πιο συχνά χρησιμοποιημένες καταχωρήσεις.",
+    "message": "Γέμισμα πεδίων με τις πιο συχνά χρησιμοποιημένες καταχωρήσεις",
     "description": "Title of context menu item that fills formfields with the most used value."
   },
   "contextMenuItemClearFields": {
@@ -616,7 +616,7 @@
     "description": "Title of context menu item that clears all filled fields."
   },
   "contextMenuItemShowformfields": {
-    "message": "Εμφάνιση πεδίων στην τρέχουσα σελίδα.",
+    "message": "Εμφάνιση πεδίων στην τρέχουσα σελίδα",
     "description": "Title of context menu item that shows info next to input textfields om the page."
   },
   "contextMenuItemOptions": {
