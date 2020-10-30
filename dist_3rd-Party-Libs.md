@@ -3,7 +3,7 @@ Third Party Libraries:
 
 Location /popup/tableview/lib
 -------------------------------------------
-jQuery core 3.4.1 - minified
+jQuery core 3.5.1 - minified
 https://code.jquery.com/jquery-3.5.1.min.js
 
 Reference (not part of distribution): jQuery core 3.5.1 - human-readable source code
