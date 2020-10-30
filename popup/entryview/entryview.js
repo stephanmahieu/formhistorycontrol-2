@@ -185,7 +185,7 @@ function onOkayButton() {
                 return;
             }
             setNewValuesToObjEntryData();
-            storeEntry(1);
+            storeEntry(11);
             WindowUtil.closeThisPopup();
             break;
 

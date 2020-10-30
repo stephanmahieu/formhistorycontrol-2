@@ -21,6 +21,13 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
                 }
                 break;
 
+            case 11:
+                // Process Text (manual added, no filters apply)
+                fhcEvent.value = JSON.parse(fhcEvent.value);
+                //console.log("Received a content event for " + fhcEvent.id + " content is: " + fhcEvent.value);
+                saveOrUpdateTextField(fhcEvent);
+                break;
+
             case 2:
                 if (!blockedByFilter(fhcEvent)) {
                     // Process non-text like radiobuttons, checkboxes etcetera
