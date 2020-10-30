@@ -15,6 +15,7 @@ table#fhcTable tbody tr {
 
 /* Text color table info */
 .dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_paginate .ellipsis,
 .dataTables_info,
 .dataTables_length label,
 .dataTables_filter label {

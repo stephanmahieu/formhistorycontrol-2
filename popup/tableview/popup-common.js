@@ -169,7 +169,7 @@ function resizeTable() {
         // miscellaneous DataTable components will stack on top of each other, leave more room for the buttons
         buttonSpace = 220;
     }
-    $('.dataTables_scrollBody').css('height', window.innerHeight-buttonSpace+"px");
+    $('.dataTables_scrollBody').css('max-height', "none").css('height', window.innerHeight-buttonSpace+"px");
 }
 
 function adjustSearchBox() {

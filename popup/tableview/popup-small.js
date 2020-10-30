@@ -193,7 +193,7 @@ function startResize(e) {
 
         // adjust table
         //$('#fhcTable').resize();
-        $('.dataTables_scrollBody').css('height', (window.innerHeight - 110) + "px");
+        $('.dataTables_scrollBody').css('max-height', "none").css('height', (window.innerHeight - 110) + "px");
         $('#fhcTable').DataTable().draw();
     }
 
