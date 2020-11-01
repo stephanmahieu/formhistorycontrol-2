@@ -207,6 +207,10 @@ class WindowUtil {
 
     static checkAndSaveCurrentWindowPosition(fhcWindowObject) {
         // save current position when different from the stored position
+        if (fhcWindowObject.pref === 'prefPosSizeOptions' && document.body.clientHeight > 600) {
+            // do not remember size and position for options window opened from outside the add-on
+            return;
+        }
         browser.storage.local.get({[fhcWindowObject.pref]: null, prefSaveWindowProperties: false}).then(
             pref => {
                 if (pref.prefSaveWindowProperties) {
