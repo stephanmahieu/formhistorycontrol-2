@@ -43,15 +43,15 @@ def remove_dir(top):
 
 # -------------------------------------------------------
 def cleanup_locale_messages(msg_path):
-    with open(msg_path, 'r', encoding='utf-8') as f:
-        messages = load(f)
+    with open(msg_path, 'r', encoding='utf-8') as json_file:
+        messages = load(json_file)
 
     for key in messages:
         if "description" in messages[key]:
             del messages[key]["description"]
 
-    with open(msg_path, 'w') as f:
-        dump(messages, f, sort_keys=False, indent=2, ensure_ascii=True)
+    with open(msg_path, 'w', encoding='utf-8') as json_file:
+        dump(messages, json_file, sort_keys=False, indent=2, ensure_ascii=False)
 # -------------------------------------------------------
 
 
