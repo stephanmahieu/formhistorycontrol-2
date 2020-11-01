@@ -34,24 +34,24 @@ class WindowUtil {
         return false;
     }
 
-    /**
-     * Show a notification message.
-     * @param i18nTitleId
-     * @param i18nMessageId
-     * @param clearTimeout
-     */
-    static notify(i18nTitleId, i18nMessageId, clearTimeout= 0) {
-        browser.notifications.create({
-            "type": "basic",
-            "iconUrl": browser.extension.getURL("theme/icons/fhc-48.png"),
-            "title": browser.i18n.getMessage(i18nTitleId),
-            "message": browser.i18n.getMessage(i18nMessageId)
-        }).then((notId) => {
-            if (clearTimeout) {
-                setTimeout(()=>{ browser.notifications.clear(notId); }, clearTimeout);
-            }
-        });
-    }
+    // /**
+    //  * Show a notification message.
+    //  * @param i18nTitleId
+    //  * @param i18nMessageId
+    //  * @param clearTimeout
+    //  */
+    // static notify(i18nTitleId, i18nMessageId, clearTimeout= 0) {
+    //     browser.notifications.create({
+    //         "type": "basic",
+    //         "iconUrl": browser.extension.getURL("theme/icons/fhc-48.png"),
+    //         "title": browser.i18n.getMessage(i18nTitleId),
+    //         "message": browser.i18n.getMessage(i18nMessageId)
+    //     }).then((notId) => {
+    //         if (clearTimeout) {
+    //             setTimeout(()=>{ browser.notifications.clear(notId); }, clearTimeout);
+    //         }
+    //     });
+    // }
 
 
     static createOrFocusWindow(fhcWindowObject) {
