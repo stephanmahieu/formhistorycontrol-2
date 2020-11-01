@@ -289,7 +289,7 @@
     "message": "Stellen Sie das aktuelle Datum und die Uhrzeit ein.",
     "description": "Tooltip for the time button: set the current date and time"
   },
-  "labelYesr": {
+  "labelYear": {
     "message": "Jahr",
     "description": "Label for Year."
   },

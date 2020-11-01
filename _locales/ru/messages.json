@@ -289,7 +289,7 @@
     "message": "Установить текущую дату и время",
     "description": "Tooltip for the time button: set the current date and time"
   },
-  "labelYesr": {
+  "labelYear": {
     "message": "Год",
     "description": "Label for Year."
   },

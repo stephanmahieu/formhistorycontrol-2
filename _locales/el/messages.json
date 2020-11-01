@@ -289,7 +289,7 @@
     "message": "Ρύθμιση της ημέρας/ώρας",
     "description": "Tooltip for the time button: set the current date and time"
   },
-  "labelYesr": {
+  "labelYear": {
     "message": "Έτος",
     "description": "Label for Year."
   },
