@@ -25,16 +25,18 @@ def check_locale_message(base_msg, other_msg, other_path):
             if missing_key in other_msg:
                 print('  {:30} missing known key'.format(key))
             else:
-                print('  {:30} new missing key!!! (use --fix option)'.format(key))
+                if create_fixfile:
+                    print('  {:30} new missing key!!!'.format(key))
+                else:
+                    print('  {:30} new missing key!!! (use --fix option)'.format(key))
             other_msg_fixed[missing_key] = base_msg[key]
             okay = False
         else:
             other_msg_fixed[key] = other_msg[key]
 
     if okay:
-        print(f'  no missing keys')
-
-    if create_fixfile:
+        print('  no missing keys')
+    elif create_fixfile:
         other_fixed_path = other_path + '.fix'
         with open(other_fixed_path, 'w+', encoding='utf-8') as fix:
             dump(other_msg_fixed, fix, sort_keys=False, indent=2, ensure_ascii=False)
