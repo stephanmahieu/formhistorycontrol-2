@@ -71,7 +71,6 @@ button.buttons-columnVisibility > span:first-child {
 }
 span.col-select {
     position: relative;
-    top: 2px;
     display: inline-block;
     width: 16px;
     height: 14px;
