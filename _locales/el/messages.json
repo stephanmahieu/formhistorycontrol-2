@@ -252,7 +252,7 @@
     "description": "Label of no button."
   },
   "importErrorTitle": {
-    "message": "Σφάλμα εισαγωγής.",
+    "message": "Σφάλμα εισαγωγής",
     "description": "Title of modal error dialog for import errors."
   },
   "importErrorNotXml": {
@@ -281,12 +281,12 @@
     "message": "Η ανάγνωση του αρχείου εισαγωγής ακυρώθηκε.",
     "description": "Error message when reading import file was cancelled."
   },
-  "XXXexportErrorTitle": {
-    "message": "Export error",
+  "exportErrorTitle": {
+    "message": "Σφάλμα εξαγωγής",
     "description": "Title of modal error dialog for export errors."
   },
-  "XXXexportErrorNoPermission": {
-    "message": "Downloads permission is required but has been denied.",
+  "exportErrorNoPermission": {
+    "message": "Απαιτείται άδεια για Λήψεις αλλά έχει απορριφθεί.",
     "description": "Error message during export if user denied requested download permission."
   },
   "tooltipEraseDatetimeButton": {
