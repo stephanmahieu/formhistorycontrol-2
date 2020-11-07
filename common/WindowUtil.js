@@ -458,8 +458,8 @@ class WindowUtil {
         mnuWrapper.classList.add('show');
 
         mnuWrapper.addEventListener("mouseleave", function hide() {
-            mnuWrapper.classList.remove('show');
             mnuWrapper.removeEventListener("mouseleave", hide);
+            WindowUtil.hideContextMenu();
         });
     }
 
@@ -472,7 +472,7 @@ class WindowUtil {
 
     static hideContextMenu() {
         document.getElementById('context-menu-wrapper').classList.remove('show');
-        window.setTimeout(()=>{document.getElementById('context-menu-container').style.display = 'none';}, 800);
+        window.setTimeout(()=>{document.getElementById('context-menu-container').style.display = 'none';}, 200);
     }
 
     static isContextMenuShown() {
