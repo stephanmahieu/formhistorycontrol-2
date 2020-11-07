@@ -59,77 +59,94 @@ window.addEventListener("resize", function() {
 function download() {
     let timeStarted = showBusy();
 
-    let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
-    req.onerror = function (/*event*/) {
-        hideBusy(timeStarted);
-        console.error("Database open error", this.error);
-    };
-    req.onsuccess = function (event) {
-        let db = event.target.result;
-        //console.log("Database opened successfully.");
+    browser.permissions.request({permissions: ["downloads"]}).then((response) => {
+        if (!response) {
+            // the downloads permission is denied by user
+            hideBusy(timeStarted);
+            console.warn("Permission downloads required for export is denied by the user");
+            WindowUtil.showModalWarning({titleId: "exportErrorTitle", msgId: "exportErrorNoPermission"});
 
-        let textEntries = [];
-        let multilines = [];
+        } else {
+            // downloads permission (previously) granted by user
 
-        let count = 0;
-        let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readonly").objectStore(DbConst.DB_STORE_TEXT);
-        let cursorReq = objStore.index(DbConst.DB_TEXT_IDX_LAST).openCursor(null, "prev");
-        cursorReq.onsuccess = function(evt) {
-            let cursor = evt.target.result;
-            if (cursor) {
-                let fhcEntry = cursor.value;
-                //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
-
-                count += 1;
-                if (fhcEntry.type === 'input') {
-                    textEntries.push({
-                        name: fhcEntry.name,
-                        value: fhcEntry.value,
-                        used: fhcEntry.used,
-                        first: fhcEntry.first,
-                        last: fhcEntry.last,
-                        /* new */
-                        type: fhcEntry.type,
-                        host: fhcEntry.host,
-                        url: fhcEntry.uri,
-                        pagetitle: fhcEntry.pagetitle
-                    });
-                } else {
-                    multilines.push({
-                        id: "",
-                        name: fhcEntry.name,
-                        type: fhcEntry.type,
-                        formid: "",
-                        host: fhcEntry.host,
-                        url: fhcEntry.uri,
-                        first: fhcEntry.first,
-                        last: fhcEntry.last,
-                        content: fhcEntry.value,
-                        /* new */
-                        used: fhcEntry.used,
-                        pagetitle: fhcEntry.pagetitle
-                    });
-                }
-
-                cursor.continue();
-            }
-            else {
+            let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
+            req.onerror = function (/*event*/) {
                 hideBusy(timeStarted);
-                //console.log("No more entries!");
-                //console.log("Exporting " + textEntries.length + " text-entries and " + multilines.length + " multiline entries");
+                console.error("Database open error", this.error);
+            };
+            req.onsuccess = function (event) {
+                let db = event.target.result;
+                //console.log("Database opened successfully.");
 
-                // update stats
-                document.getElementById('count-text').textContent = textEntries.length;
-                document.getElementById('count-multiline').textContent = multilines.length;
+                let textEntries = [];
+                let multilines = [];
 
-                let exportFilename = 'formhistory-export-' + currentDateFilenameSafe() + '.xml';
-                let content = XmlUtil.serializeToXMLString(textEntries, multilines);
-                FileUtil.download(content, 'text/xml', exportFilename).then(result => {
-                    content = null;
-                });
-            }
+                let count = 0;
+                let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readonly").objectStore(DbConst.DB_STORE_TEXT);
+                let cursorReq = objStore.index(DbConst.DB_TEXT_IDX_LAST).openCursor(null, "prev");
+                cursorReq.onsuccess = function(evt) {
+                    let cursor = evt.target.result;
+                    if (cursor) {
+                        let fhcEntry = cursor.value;
+                        //console.log("Entry [" + cursor.key + "] name:[" + fhcEntry.name + "] value:[" + fhcEntry.value + "] used:[" + fhcEntry.used + "] host:" + fhcEntry.host + "] type:[" + fhcEntry.type + "} KEY=[" + fhcEntry.fieldkey + "]");
+
+                        count += 1;
+                        if (fhcEntry.type === 'input') {
+                            textEntries.push({
+                                name: fhcEntry.name,
+                                value: fhcEntry.value,
+                                used: fhcEntry.used,
+                                first: fhcEntry.first,
+                                last: fhcEntry.last,
+                                /* new */
+                                type: fhcEntry.type,
+                                host: fhcEntry.host,
+                                url: fhcEntry.uri,
+                                pagetitle: fhcEntry.pagetitle
+                            });
+                        } else {
+                            multilines.push({
+                                id: "",
+                                name: fhcEntry.name,
+                                type: fhcEntry.type,
+                                formid: "",
+                                host: fhcEntry.host,
+                                url: fhcEntry.uri,
+                                first: fhcEntry.first,
+                                last: fhcEntry.last,
+                                content: fhcEntry.value,
+                                /* new */
+                                used: fhcEntry.used,
+                                pagetitle: fhcEntry.pagetitle
+                            });
+                        }
+
+                        cursor.continue();
+                    }
+                    else {
+                        hideBusy(timeStarted);
+                        //console.log("No more entries!");
+                        //console.log("Exporting " + textEntries.length + " text-entries and " + multilines.length + " multiline entries");
+
+                        // update stats
+                        document.getElementById('count-text').textContent = textEntries.length;
+                        document.getElementById('count-multiline').textContent = multilines.length;
+
+                        let exportFilename = 'formhistory-export-' + currentDateFilenameSafe() + '.xml';
+                        let content = XmlUtil.serializeToXMLString(textEntries, multilines);
+                        FileUtil.download(content, 'text/xml', exportFilename).then(result => {
+                            content = null;
+                        });
+                    }
+                }
+            };
         }
-    };
+    })
+    .catch((error) => {
+        // downloads permission could not be granted
+        hideBusy(timeStarted);
+        console.error(`Error, download permission could not be granted. ${error}`);
+    });
 }
 
 function currentDateFilenameSafe() {

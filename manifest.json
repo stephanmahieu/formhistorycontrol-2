@@ -3,7 +3,7 @@
   "short_name": "FormHistCtrl",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "2.5.4.0",
+  "version": "2.5.5.0",
   "developer": {
     "name": "Stephan Mahieu",
     "url": "https://stephanmahieu.github.io/fhc-home/"
@@ -17,14 +17,17 @@
     }
   },
 
+  "optional_permissions": [
+    "downloads"
+  ],
+
   "permissions": [
     "menus",
     "activeTab",
     "tabs",
     "storage",
     "alarms",
-    "clipboardWrite",
-    "downloads"
+    "clipboardWrite"
   ],
 
   "icons": {

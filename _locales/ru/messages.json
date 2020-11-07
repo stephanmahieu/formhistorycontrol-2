@@ -281,6 +281,14 @@
     "message": "Чтение файла импорта отменено.",
     "description": "Error message when reading import file was cancelled."
   },
+  "XXXexportErrorTitle": {
+    "message": "Export error",
+    "description": "Title of modal error dialog for export errors."
+  },
+  "XXXexportErrorNoPermission": {
+    "message": "Downloads permission is required but has been denied.",
+    "description": "Error message during export if user denied requested download permission."
+  },
   "tooltipEraseDatetimeButton": {
     "message": "Очистить дату и время",
     "description": "Tooltip for the erase button: erase date and time"
@@ -324,14 +332,6 @@
   "exportNoOfdMultilineEntries": {
     "message": "Количество многострочных записей:",
     "description": "Import/Export window: Number of multiline entries."
-  },
-  "exportDownloadLink": {
-    "message": "Ссылка для загрузки:",
-    "description": "Export window: Download link:"
-  },
-  "exportDownloadLinkInfo": {
-    "message": "Нажмите на ссылку загрузки, чтобы открыть или сохранить файл экспорта.",
-    "description": "Short explanation in the export dialog: click download link to open or save locally"
   },
   "aboutTitle": {
     "message": "О расширении",
@@ -529,7 +529,7 @@
     "message": "Очистить сейчас",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
-  "optionsFieldfillLegend":  {
+  "optionsFieldfillLegend": {
     "message": "Заполнение полей ввода",
     "description": "Options window: The Form Field Fill legend."
   },
@@ -537,7 +537,7 @@
     "message": "Метод заполнения",
     "description": "Options window, Field Fill Mode options"
   },
-  "optionFieldFillAuto":  {
+  "optionFieldFillAuto": {
     "message": "Автоматически",
     "description": "Options window, Field Fill Mode option: Automatic "
   },
@@ -545,7 +545,7 @@
     "message": "Из буфера обмена",
     "description": "Options window, Field Fill Mode option: Use clipboard"
   },
-  "optionFieldFillClean":  {
+  "optionFieldFillClean": {
     "message": "Вставлять только чистый текст",
     "description": "Options window, Field Fill Mode option: Insert clean text only"
   },
@@ -577,9 +577,9 @@
     "message": "Тестовое сообщение: $MESSAGE$.",
     "description": "Just a test notification.",
     "placeholders": {
-      "message" : {
-        "content" : "$1",
-        "example" : "Hello world!"
+      "message": {
+        "content": "$1",
+        "example": "Hello world!"
       }
     }
   },
@@ -731,38 +731,100 @@
     "message": "Загрузка...",
     "description": "Text displayed while data is being loaded."
   },
-
-  "dateSecond":  {"message": "секунда"},
-  "dateSeconds": {"message": "секунд"},
-  "dateMinute":  {"message": "минута"},
-  "dateMinutes": {"message": "минут"},
-  "dateHour":    {"message": "час"},
-  "dateHours":   {"message": "часов"},
-  "dateDay":     {"message": "день"},
-  "dateDays":    {"message": "дней"},
-  "dateWeek":    {"message": "неделя"},
-  "dateWeeks":   {"message": "недель"},
-  "dateMonth":   {"message": "месяц"},
-  "dateMonths":  {"message": "месяцев"},
-  "dateYear":    {"message": "год"},
-  "dateYears":   {"message": "лет"},
-
-  "Shift":    {"message": "Shift"},
-  "Ctrl":     {"message": "Ctrl"},
-  "Alt":      {"message": "Alt"},
-  "Command":  {"message": "Command"},
-  "MacCtrl":  {"message": "Ctrl(Mac)"},
-  "Comma":    {"message": "Comma"},
-  "Period":   {"message": "Period"},
-  "Home":     {"message": "Home"},
-  "End":      {"message": "End"},
-  "PageUp":   {"message": "Page Up"},
-  "PageDown": {"message": "Page Down"},
-  "Space":    {"message": "Space"},
-  "Insert":   {"message": "Insert"},
-  "Delete":   {"message": "Delete"},
-  "Up":       {"message": "Up"},
-  "Down":     {"message": "Down"},
-  "Left":     {"message": "Left"},
-  "Right":    {"message": "Right"}
+  "dateSecond": {
+    "message": "секунда"
+  },
+  "dateSeconds": {
+    "message": "секунд"
+  },
+  "dateMinute": {
+    "message": "минута"
+  },
+  "dateMinutes": {
+    "message": "минут"
+  },
+  "dateHour": {
+    "message": "час"
+  },
+  "dateHours": {
+    "message": "часов"
+  },
+  "dateDay": {
+    "message": "день"
+  },
+  "dateDays": {
+    "message": "дней"
+  },
+  "dateWeek": {
+    "message": "неделя"
+  },
+  "dateWeeks": {
+    "message": "недель"
+  },
+  "dateMonth": {
+    "message": "месяц"
+  },
+  "dateMonths": {
+    "message": "месяцев"
+  },
+  "dateYear": {
+    "message": "год"
+  },
+  "dateYears": {
+    "message": "лет"
+  },
+  "Shift": {
+    "message": "Shift"
+  },
+  "Ctrl": {
+    "message": "Ctrl"
+  },
+  "Alt": {
+    "message": "Alt"
+  },
+  "Command": {
+    "message": "Command"
+  },
+  "MacCtrl": {
+    "message": "Ctrl(Mac)"
+  },
+  "Comma": {
+    "message": "Comma"
+  },
+  "Period": {
+    "message": "Period"
+  },
+  "Home": {
+    "message": "Home"
+  },
+  "End": {
+    "message": "End"
+  },
+  "PageUp": {
+    "message": "Page Up"
+  },
+  "PageDown": {
+    "message": "Page Down"
+  },
+  "Space": {
+    "message": "Space"
+  },
+  "Insert": {
+    "message": "Insert"
+  },
+  "Delete": {
+    "message": "Delete"
+  },
+  "Up": {
+    "message": "Up"
+  },
+  "Down": {
+    "message": "Down"
+  },
+  "Left": {
+    "message": "Left"
+  },
+  "Right": {
+    "message": "Right"
+  }
 }

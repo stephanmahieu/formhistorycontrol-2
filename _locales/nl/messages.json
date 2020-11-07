@@ -281,6 +281,14 @@
     "message": "Het lezen van het import bestand is afgebroken.",
     "description": "Error message when reading import file was cancelled."
   },
+  "exportErrorTitle": {
+    "message": "Exporteer fout",
+    "description": "Title of modal error dialog for export errors."
+  },
+  "exportErrorNoPermission": {
+    "message": "Downloads permissie is vereist maar is afgewezen.",
+    "description": "Error message during export if user denied requested download permission."
+  },
   "tooltipEraseDatetimeButton": {
     "message": "Wis de datum en tijd",
     "description": "Tooltip for the erase button: erase date and time"
@@ -324,14 +332,6 @@
   "exportNoOfdMultilineEntries": {
     "message": "Aantal meerregelige velden:",
     "description": "Import/Export window: Number of multiline entries."
-  },
-  "exportDownloadLink": {
-    "message": "Download link:",
-    "description": "Export window: Download link:"
-  },
-  "exportDownloadLinkInfo": {
-    "message": "Klik op de download link om het export bestand te openen of op te slaan.",
-    "description": "Short explanation in the export dialog: click download link to open or save locally"
   },
   "aboutTitle": {
     "message": "Over",

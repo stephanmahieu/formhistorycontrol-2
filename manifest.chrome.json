@@ -3,9 +3,13 @@
   "short_name": "FormHistCtrl",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "2.5.4.0",
+  "version": "2.5.5.0",
   "author": "Stephan Mahieu",
   "default_locale": "en",
+
+  "optional_permissions": [
+    "downloads"
+  ],
 
   "permissions": [
     "contextMenus",
@@ -13,8 +17,7 @@
     "tabs",
     "storage",
     "alarms",
-    "clipboardWrite",
-    "downloads"
+    "clipboardWrite"
   ],
 
   "icons": {

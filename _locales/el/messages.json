@@ -281,6 +281,14 @@
     "message": "Η ανάγνωση του αρχείου εισαγωγής ακυρώθηκε.",
     "description": "Error message when reading import file was cancelled."
   },
+  "XXXexportErrorTitle": {
+    "message": "Export error",
+    "description": "Title of modal error dialog for export errors."
+  },
+  "XXXexportErrorNoPermission": {
+    "message": "Downloads permission is required but has been denied.",
+    "description": "Error message during export if user denied requested download permission."
+  },
   "tooltipEraseDatetimeButton": {
     "message": "Διαγραφή της ημέρας/ώρας",
     "description": "Tooltip for the erase button: erase date and time"
@@ -324,14 +332,6 @@
   "exportNoOfdMultilineEntries": {
     "message": "Αριθμός πολλαπλών καταχωρήσεων:",
     "description": "Import/Export window: Number of multiline entries."
-  },
-  "exportDownloadLink": {
-    "message": "Σύνδεσμος λήψης:",
-    "description": "Export window: Download link:"
-  },
-  "exportDownloadLinkInfo": {
-    "message": "Κάντε κλικ στον σύνδεσμο λήψης για να ανοίξετε ή να αποθηκεύσετε το αρχείο εξαγωγής.",
-    "description": "Short explanation in the export dialog: click download link to open or save locally"
   },
   "aboutTitle": {
     "message": "Πληροφορίες",
@@ -731,38 +731,100 @@
     "message": "Φόρτωση...",
     "description": "Text displayed while data is being loaded."
   },
-
-  "dateSecond":  {"message": "δευτερόλεπτο"},
-  "dateSeconds": {"message": "δευτερόλεπτα"},
-  "dateMinute":  {"message": "λεπτό"},
-  "dateMinutes": {"message": "λεπτά"},
-  "dateHour":    {"message": "ώρα"},
-  "dateHours":   {"message": "ώρες"},
-  "dateDay":     {"message": "μέρα"},
-  "dateDays":    {"message": "μέρες"},
-  "dateWeek":    {"message": "εβδομάδα"},
-  "dateWeeks":   {"message": "εβδομάδες"},
-  "dateMonth":   {"message": "μήνας"},
-  "dateMonths":  {"message": "μήνες"},
-  "dateYear":    {"message": "έτος"},
-  "dateYears":   {"message": "έτη"},
-
-  "Shift":    {"message": "Shift"},
-  "Ctrl":     {"message": "Ctrl"},
-  "Alt":      {"message": "Alt"},
-  "Command":  {"message": "Command"},
-  "MacCtrl":  {"message": "Ctrl(Mac)"},
-  "Comma":    {"message": "Κόμμα"},
-  "Period":   {"message": "Τελεία"},
-  "Home":     {"message": "Home"},
-  "End":      {"message": "End"},
-  "PageUp":   {"message": "Page Up"},
-  "PageDown": {"message": "Page Down"},
-  "Space":    {"message": "Διάστημα"},
-  "Insert":   {"message": "Insert"},
-  "Delete":   {"message": "Delete"},
-  "Up":       {"message": "Πάνω"},
-  "Down":     {"message": "Κάτω"},
-  "Left":     {"message": "Αριστερά"},
-  "Right":    {"message": "Δεξιά"}
+  "dateSecond": {
+    "message": "δευτερόλεπτο"
+  },
+  "dateSeconds": {
+    "message": "δευτερόλεπτα"
+  },
+  "dateMinute": {
+    "message": "λεπτό"
+  },
+  "dateMinutes": {
+    "message": "λεπτά"
+  },
+  "dateHour": {
+    "message": "ώρα"
+  },
+  "dateHours": {
+    "message": "ώρες"
+  },
+  "dateDay": {
+    "message": "μέρα"
+  },
+  "dateDays": {
+    "message": "μέρες"
+  },
+  "dateWeek": {
+    "message": "εβδομάδα"
+  },
+  "dateWeeks": {
+    "message": "εβδομάδες"
+  },
+  "dateMonth": {
+    "message": "μήνας"
+  },
+  "dateMonths": {
+    "message": "μήνες"
+  },
+  "dateYear": {
+    "message": "έτος"
+  },
+  "dateYears": {
+    "message": "έτη"
+  },
+  "Shift": {
+    "message": "Shift"
+  },
+  "Ctrl": {
+    "message": "Ctrl"
+  },
+  "Alt": {
+    "message": "Alt"
+  },
+  "Command": {
+    "message": "Command"
+  },
+  "MacCtrl": {
+    "message": "Ctrl(Mac)"
+  },
+  "Comma": {
+    "message": "Κόμμα"
+  },
+  "Period": {
+    "message": "Τελεία"
+  },
+  "Home": {
+    "message": "Home"
+  },
+  "End": {
+    "message": "End"
+  },
+  "PageUp": {
+    "message": "Page Up"
+  },
+  "PageDown": {
+    "message": "Page Down"
+  },
+  "Space": {
+    "message": "Διάστημα"
+  },
+  "Insert": {
+    "message": "Insert"
+  },
+  "Delete": {
+    "message": "Delete"
+  },
+  "Up": {
+    "message": "Πάνω"
+  },
+  "Down": {
+    "message": "Κάτω"
+  },
+  "Left": {
+    "message": "Αριστερά"
+  },
+  "Right": {
+    "message": "Δεξιά"
+  }
 }

@@ -252,7 +252,7 @@
     "description": "Label of no button."
   },
   "importErrorTitle": {
-    "message": "Import error.",
+    "message": "Import error",
     "description": "Title of modal error dialog for import errors."
   },
   "importErrorNotXml": {
@@ -280,6 +280,14 @@
   "importErrorCancelled": {
     "message": "Reading import file was cancelled.",
     "description": "Error message when reading import file was cancelled."
+  },
+  "exportErrorTitle": {
+    "message": "Export error",
+    "description": "Title of modal error dialog for export errors."
+  },
+  "exportErrorNoPermission": {
+    "message": "Downloads permission is required but has been denied.",
+    "description": "Error message during export if user denied requested download permission."
   },
   "tooltipEraseDatetimeButton": {
     "message": "Erase the date and time",
@@ -324,14 +332,6 @@
   "exportNoOfdMultilineEntries": {
     "message": "Number of multiline entries:",
     "description": "Import/Export window: Number of multiline entries."
-  },
-  "exportDownloadLink": {
-    "message": "Download link:",
-    "description": "Export window: Download link:"
-  },
-  "exportDownloadLinkInfo": {
-    "message": "Click on the download link to open or save the export file.",
-    "description": "Short explanation in the export dialog: click download link to open or save locally"
   },
   "aboutTitle": {
     "message": "About",
