@@ -535,8 +535,7 @@ function onFormSubmit(event) {
                         formid: formFormid,
                         host: formHost,
                         url: location.href,
-                        pagetitle: pagetitle,
-                        incognito: browser.extension.inIncognitoContext
+                        pagetitle: pagetitle
                     });
                     break;
                 case "radio":
@@ -552,8 +551,7 @@ function onFormSubmit(event) {
                         formid: formFormid,
                         host: formHost,
                         url: location.href,
-                        pagetitle: pagetitle,
-                        incognito: browser.extension.inIncognitoContext
+                        pagetitle: pagetitle
                     });
                     break;
                 case "select":
@@ -576,8 +574,7 @@ function onFormSubmit(event) {
                                 formid: formFormid,
                                 host: formHost,
                                 url: location.href,
-                                pagetitle: pagetitle,
-                                incognito: browser.extension.inIncognitoContext
+                                pagetitle: pagetitle
                             });
                         }
                     }
@@ -588,6 +585,7 @@ function onFormSubmit(event) {
         _processFormElementEvent({
             eventType: 2,
             host: formHost,
+            incognito: browser.extension.inIncognitoContext,
             formElements: allFormElements
         });
     }
