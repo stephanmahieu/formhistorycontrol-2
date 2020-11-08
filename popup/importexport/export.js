@@ -6,7 +6,8 @@
  */
 
 //import {DateUtil} from '../common/DateUtil.js';
-//import {XmlUtil}  from '../common/XmlUtil.js';
+//import {XmlUtil}  from './XmlUtil.js';
+//import {JsonUtil} from './XmlUtil.js';
 
 'use strict';
 
@@ -132,9 +133,29 @@ function download() {
                         document.getElementById('count-text').textContent = textEntries.length;
                         document.getElementById('count-multiline').textContent = multilines.length;
 
-                        let exportFilename = 'formhistory-export-' + currentDateFilenameSafe() + '.xml';
-                        let content = XmlUtil.serializeToXMLString(textEntries, multilines);
-                        FileUtil.download(content, 'text/xml', exportFilename).then(result => {
+                        let content;
+                        let fileType;
+                        let fileExtension;
+
+                        // TODO Json/Xml select in export form
+                        // const format = 'json';
+                        const format = 'xml';
+
+                        switch (format) {
+                            case 'json':
+                                content = JsonUtil.serializeToJson(textEntries, multilines);
+                                fileType = 'application/json';
+                                fileExtension = '.json';
+                                break;
+                            case 'xml':
+                                content = XmlUtil.serializeToXMLString(textEntries, multilines);
+                                fileType = 'text/xml';
+                                fileExtension = '.xml';
+                                break;
+                        }
+
+                        const exportFilename = 'formhistory-export-' + currentDateFilenameSafe() + fileExtension;
+                        FileUtil.download(content, fileType, exportFilename).then(result => {
                             content = null;
                         });
                     }

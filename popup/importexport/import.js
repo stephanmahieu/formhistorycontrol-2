@@ -6,7 +6,8 @@
  */
 
 //import {DateUtil} from '../common/DateUtil.js';
-//import {XmlUtil}  from '../common/XmlUtil.js';
+//import {XmlUtil}  from './XmlUtil.js';
+//import {JsonUtil} from './XmlUtil.js';
 
 'use strict';
 
@@ -71,22 +72,39 @@ function handleImport() {
 
     const fileList = document.getElementById('files').files;
 
-    FileUtil.upload(fileList, 'text/xml', 'import-progress').then(content => {
-        const result = XmlUtil.parseXMLdata(content);
-        // console.log("found " + result.entries.length + " text-entries and " + result.multiline.length + " multiline-entries");
+    if (fileList && fileList.length === 1) {
+        if (fileList[0].type === 'application/json') {
+            FileUtil.upload(fileList, 'application/json', 'import-progress').then(content => {
+                const result = JsonUtil.parseJSONdata(content);
+                processImportedEntries(result);
+            });
+        } else {
+            FileUtil.upload(fileList, 'text/xml', 'import-progress').then(content => {
+                const result = XmlUtil.parseXMLdata(content);
+                processImportedEntries(result);
+            });
+        }
+    }
+}
 
-        document.getElementById('count-text').textContent = result.entries.length;
-        document.getElementById('count-multiline').textContent = result.multiline.length;
-        document.getElementById('import-progress').value = 100;
+function processImportedEntries(result) {
+    // console.log("found " + result.entries.length + " text-entries and " + result.multiline.length + " multiline-entries");
 
-        _storeTextEntries(result.entries);
-        _storeMultilineEntries(result.multiline);
+    updateTotals(result.entries.length, result.multiline.length);
 
-        // notify popup(s) that new data has been added so they can update their view
-        browser.runtime.sendMessage({
-            eventType: 777
-        });
+    _storeTextEntries(result.entries);
+    _storeMultilineEntries(result.multiline);
+
+    // notify popup(s) that new data has been added so they can update their view
+    browser.runtime.sendMessage({
+        eventType: 777
     });
+}
+
+function updateTotals(entriesCount, multilineCount) {
+    document.getElementById('count-text').textContent = entriesCount;
+    document.getElementById('count-multiline').textContent = multilineCount;
+    document.getElementById('import-progress').value = 100;
 }
 
 function onKeyClicked(event) {
