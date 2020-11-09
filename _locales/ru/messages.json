@@ -282,11 +282,11 @@
     "description": "Error message when reading import file was cancelled."
   },
   "XXXexportErrorTitle": {
-    "message": "Export error",
+    "message": "Ошибка при экспорте",
     "description": "Title of modal error dialog for export errors."
   },
   "XXXexportErrorNoPermission": {
-    "message": "Downloads permission is required but has been denied.",
+    "message": "Требуется разрешение на загрузки, в чём было отказано.",
     "description": "Error message during export if user denied requested download permission."
   },
   "tooltipEraseDatetimeButton": {
