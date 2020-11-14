@@ -248,3 +248,29 @@ textarea[disabled] {
 #togglePreview label {
     padding-right: 4px;
 }
+
+
+#mdViewOverlay.viewOverlay pre {
+    padding: 9px;
+    color: #333;
+    background-color: #e6e6e6;
+    border: 1px solid #bbb;
+}
+
+#mdViewOverlay.viewOverlay > p > code {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #c7254e;
+    background-color: #e6e6e6;
+}
+
+#mdViewOverlay.viewOverlay blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    border-left: 5px solid #ddd;
+}
+
+#mdViewOverlay.viewOverlay thead tr th,
+#mdViewOverlay.viewOverlay tbody tr td {
+    border-top: 2px solid #ddd;
+}
