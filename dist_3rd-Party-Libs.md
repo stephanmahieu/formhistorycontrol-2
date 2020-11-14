@@ -34,8 +34,8 @@ https://github.com/jquery/jquery-mousewheel/blob/3.1.13/jquery.mousewheel.js
 
 Location /popup/entryview/renderjs
 ----------------------------------------------------
-marked 0.8.0 (markdown parser and compiler)
-https://github.com/markedjs/marked/blob/v0.8.0/lib/marked.js
+marked 1.2.3 (markdown parser and compiler)
+https://github.com/markedjs/marked/blob/v1.2.3/lib/marked.js
 
 
 Location /common
