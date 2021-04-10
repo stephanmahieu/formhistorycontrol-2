@@ -929,7 +929,7 @@ function _getUpdateIntervalPref() {
 function createDomObserver() {
     return new MutationObserver(mutations => {
         mutations.forEach((mutation) => {
-            //console.log('Detected a mutation!  type = ' + mutation.type);
+            // console.log('Detected a mutation!  type = ' + mutation.type);
             if (mutation.type === 'attributes') {
                 const targetElem = mutation.target;
                 if ('style' === mutation.attributeName) {
@@ -946,10 +946,32 @@ function createDomObserver() {
                 }
             } else if (mutation.addedNodes) {
                 mutation.addedNodes.forEach(elem => {
+                    // console.log('element ' + elem.nodeName + ' has been added! ');
                     addElementHandlers(elem);
                 });
             }
         });
+    });
+}
+
+// instantiate an observer for adding event handlers to dynamically created DOM elements
+function addBodyObserver(aDocument) {
+    createDomObserver().observe(
+        aDocument.querySelector("body"),
+        {
+            childList: true,
+            attributes: true,
+            attributeFilter: ['contenteditable','designMode','style'],
+            attributeOldValue: true,
+            subtree: true
+        }
+    );
+}
+
+function addHandler(aDocument, selector, eventType, aFunction) {
+    aDocument.querySelectorAll(selector).forEach( (elem) => {
+        // console.log("adding " + eventType + " handler to " + selector + "-element with elem-id: [" + elem.id + '] name: [' + elem.name + ']');
+        elem.addEventListener(eventType, aFunction);
     });
 }
 
@@ -972,6 +994,37 @@ function addElementHandlers(element) {
                 Array.from(element.childNodes).forEach(elem => addElementHandlers(elem));
             }
             break;
+        case 'IFRAME':
+            const iframeDocument = element.contentDocument;
+            if (iframeDocument) {
+                if ('about:blank' === iframeDocument.URL) {
+                    // initial blank content, wait for new source to load
+                    element.addEventListener('load', (event) => {
+                        const newIframeDocument = event.target.contentDocument;
+                        // console.log('iframe was (re)loaded!!!!!' + newIframeDocument.URL);
+                        addAllHandlers(newIframeDocument);
+                    });
+                }
+                else {
+                    // console.log('Dynamic iframe has been added! ' + element.className);
+                    addAllHandlers(iframeDocument);
+                }
+                // else if (iframeDocument.readyState === 'uninitialized') {
+                //     // console.log('Dynamic iframe (not yet loaded)! ' + element.className);
+                //     const iframeWindow = element.contentWindow;
+                //     iframeWindow.addEventListener('DOMContentLoaded', (event) => {
+                //         console.log('iframe DOMContent loaded! ' + element.className);
+                //         document.querySelectorAll("iframe").forEach( (iframe) => {
+                //             const iframeDocument = iframe.contentDocument;
+                //             addAllHandlers(iframeDocument);
+                //         });
+                //     });
+                // } else {
+                //     // console.log('Dynamic iframe has been added! ' + element.className);
+                //     addAllHandlers(iframeDocument);
+                // }
+            }
+            break;
         default:
             if (element.hasChildNodes()) {
                 Array.from(element.childNodes).forEach(elem => addElementHandlers(elem));
@@ -979,26 +1032,21 @@ function addElementHandlers(element) {
     }
 }
 
-function addHandler(selector, eventType, aFunction) {
-    document.querySelectorAll(selector).forEach( (elem) => {
-        // console.log("adding " + eventType + " handler to " + selector + "-element with elem-id: [" + elem.id + '] name: [' + elem.name + ']');
-        elem.addEventListener(eventType, aFunction);
-    });
+function addAllHandlers(aDocument) {
+    if (aDocument && 'about:blank' !== aDocument.URL) {
+        // console.log('addAllHandlers::document readystate: ' + aDocument.readyState + ' ' + aDocument.URL);
+        aDocument.querySelector("html").addEventListener("keyup", onContentChanged);
+        addHandler(aDocument, "form", "submit", onFormSubmit);
+        addHandler(aDocument, "input", "change", onContentChanged);
+        addHandler(aDocument, "input,textarea", "paste", onContentChanged);
+        addBodyObserver(aDocument);
+    }
 }
 
-document.querySelector("html").addEventListener("keyup", onContentChanged);
-addHandler("form", "submit", onFormSubmit);
-addHandler("input", "change", onContentChanged);
-addHandler("input,textarea", "paste", onContentChanged);
+addAllHandlers(document);
 
-// instantiate an observer for adding event handlers to dynamically created DOM elements
-createDomObserver().observe(
-    document.querySelector("body"),
-    {
-        childList: true,
-        attributes: true,
-        attributeFilter: ['contenteditable','designMode','style'],
-        attributeOldValue: true,
-        subtree: true
-    }
-);
+document.querySelectorAll("iframe").forEach( (iframe) => {
+    // console.log('Existing iframe was added ' + iframe.className);
+    const iframeDocument = iframe.contentDocument;
+    addAllHandlers(iframeDocument);
+});
