@@ -34,11 +34,11 @@ https://github.com/jquery/jquery-mousewheel/blob/3.1.13/jquery.mousewheel.js
 
 Location /popup/entryview/renderjs
 ----------------------------------------------------
-marked 1.2.3 (markdown parser and compiler)
-https://github.com/markedjs/marked/blob/v1.2.3/lib/marked.js
+marked 2.0.2 (markdown parser and compiler)
+https://github.com/markedjs/marked/blob/v2.0.2/lib/marked.js
 
 
 Location /common
 ---------------------------
-DOMPurify 2.2.2
-https://github.com/cure53/DOMPurify/blob/2.2.2/dist/purify.js
+DOMPurify 2.2.7
+https://github.com/cure53/DOMPurify/blob/2.2.7/dist/purify.js
