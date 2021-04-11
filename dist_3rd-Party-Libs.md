@@ -3,11 +3,11 @@ Third Party Libraries:
 
 Location /popup/tableview/lib
 -------------------------------------------
-jQuery core 3.5.1 - minified
-https://code.jquery.com/jquery-3.5.1.min.js
+jQuery core 3.6.0 - minified
+https://code.jquery.com/jquery-3.6.0.min.js
 
-Reference (not part of distribution): jQuery core 3.5.1 - human-readable source code
-https://code.jquery.com/jquery-3.5.1.js
+Reference (not part of distribution): jQuery core 3.6.0 - human-readable source code
+https://code.jquery.com/jquery-3.6.0.js
 
 jQuery plugin DataTables 1.10.21 - minified
 https://github.com/DataTables/DataTables/blob/1.10.21/media/js/jquery.dataTables.min.js
