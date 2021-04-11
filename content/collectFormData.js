@@ -240,6 +240,11 @@ function _ifMatchSetValue(node, fhcEvent) {
             case "url":
             case "email":
             case "date":
+            case "time":
+            case "week":
+            case "month":
+            case "datetime":
+            case "datetime-local":
                 if (node.value !== fhcEvent.value) {
                     node.value = fhcEvent.value;
                     // trigger update count and last used date
@@ -699,14 +704,13 @@ function _contentChangedHandler(type, node) {
  */
 function _isTextInputSubtype(type) {
     // exclude "password", never save those!
-    // also exclude number, range and color
-    // and exclude the not fully supported: date, datetime-local, month, time, week
-    return ("text" === type || "search" === type || "tel" === type || "url" === type || "email" === type || "textarea" === type);
+    return ("text" === type || "search" === type || "tel" === type || "url" === type || "email" === type
+            || "textarea" === type || "week" === type || "month" === type || "date" === type || "time" === type
+            || "datetime-local" === type || "datetime" === type);
 }
 
 function _isFormElementInputSubtype(type) {
-    return ("radio" === type || "checkbox" === type || "color" === type || "date" === type || "datetime" === type || "datetime-local" === type
-         || "number" === type || "month" === type || "week" === type || "time" === type || "range" === type);
+    return ("radio" === type || "checkbox" === type || "color" === type || "number" === type || "range" === type);
 }
 
 
