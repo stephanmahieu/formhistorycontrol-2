@@ -123,9 +123,9 @@
     "message": "Доступ к базе данных заблокирован ($ERROR$). Это приложение требует разрешенных cookie, проверьте настройки приватности и защиты браузера",
     "description": "Error displayed when the database is not accessible",
     "placeholders": {
-      "error": {
-        "content": "$1",
-        "example": "SecurityError"
+      "error" : {
+        "content" : "$1",
+        "example" : "SecurityError"
       }
     }
   },
@@ -133,13 +133,13 @@
     "message": "Слишком много данных для быстрого просмотра, используйте настройки очистки или откройте окно 'Управление историей' (правый клик мыши).\n\n($count$ записей из $total$ скрыты)",
     "description": "Warning displayed when there is too much data to display within a reasonable amount of time.",
     "placeholders": {
-      "count": {
-        "content": "$1",
-        "example": "10"
+      "count" : {
+        "content" : "$1",
+        "example" : "10"
       },
-      "total": {
-        "content": "$2",
-        "example": "100"
+      "total" : {
+        "content" : "$2",
+        "example" : "100"
       }
     }
   },
@@ -159,9 +159,9 @@
     "message": "Удалить историю форм, не использованную более $nrofdays$ дней?\n\n(возраст назначается в настройках)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays": {
-        "content": "$1",
-        "example": "90"
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
       }
     }
   },
@@ -169,9 +169,9 @@
     "message": "Удаляется история форм, не использованная более $nrofdays$ дней.",
     "description": "Information message that cleanup has been initiated (see also key: optionsremovedays).",
     "placeholders": {
-      "nrofdays": {
-        "content": "$1",
-        "example": "90"
+      "nrofdays" : {
+        "content" : "$1",
+        "example" : "90"
       }
     }
   },
@@ -510,7 +510,7 @@
     "description": "Options window: The Fieldlist legend."
   },
   "optionsCleanupLegend": {
-    "message": "Осистка",
+    "message": "Очистка",
     "description": "Options window: The Cleanup legend."
   },
   "optionsautocleanup": {
@@ -577,9 +577,9 @@
     "message": "Тестовое сообщение: $MESSAGE$.",
     "description": "Just a test notification.",
     "placeholders": {
-      "message": {
-        "content": "$1",
-        "example": "Hello world!"
+      "message" : {
+        "content" : "$1",
+        "example" : "Hello world!"
       }
     }
   },
@@ -731,100 +731,38 @@
     "message": "Загрузка...",
     "description": "Text displayed while data is being loaded."
   },
-  "dateSecond": {
-    "message": "секунда"
-  },
-  "dateSeconds": {
-    "message": "секунд"
-  },
-  "dateMinute": {
-    "message": "минута"
-  },
-  "dateMinutes": {
-    "message": "минут"
-  },
-  "dateHour": {
-    "message": "час"
-  },
-  "dateHours": {
-    "message": "часов"
-  },
-  "dateDay": {
-    "message": "день"
-  },
-  "dateDays": {
-    "message": "дней"
-  },
-  "dateWeek": {
-    "message": "неделя"
-  },
-  "dateWeeks": {
-    "message": "недель"
-  },
-  "dateMonth": {
-    "message": "месяц"
-  },
-  "dateMonths": {
-    "message": "месяцев"
-  },
-  "dateYear": {
-    "message": "год"
-  },
-  "dateYears": {
-    "message": "лет"
-  },
-  "Shift": {
-    "message": "Shift"
-  },
-  "Ctrl": {
-    "message": "Ctrl"
-  },
-  "Alt": {
-    "message": "Alt"
-  },
-  "Command": {
-    "message": "Command"
-  },
-  "MacCtrl": {
-    "message": "Ctrl(Mac)"
-  },
-  "Comma": {
-    "message": "Comma"
-  },
-  "Period": {
-    "message": "Period"
-  },
-  "Home": {
-    "message": "Home"
-  },
-  "End": {
-    "message": "End"
-  },
-  "PageUp": {
-    "message": "Page Up"
-  },
-  "PageDown": {
-    "message": "Page Down"
-  },
-  "Space": {
-    "message": "Space"
-  },
-  "Insert": {
-    "message": "Insert"
-  },
-  "Delete": {
-    "message": "Delete"
-  },
-  "Up": {
-    "message": "Up"
-  },
-  "Down": {
-    "message": "Down"
-  },
-  "Left": {
-    "message": "Left"
-  },
-  "Right": {
-    "message": "Right"
-  }
+
+  "dateSecond":  {"message": "секунда"},
+  "dateSeconds": {"message": "секунд"},
+  "dateMinute":  {"message": "минута"},
+  "dateMinutes": {"message": "минут"},
+  "dateHour":    {"message": "час"},
+  "dateHours":   {"message": "часов"},
+  "dateDay":     {"message": "день"},
+  "dateDays":    {"message": "дней"},
+  "dateWeek":    {"message": "неделя"},
+  "dateWeeks":   {"message": "недель"},
+  "dateMonth":   {"message": "месяц"},
+  "dateMonths":  {"message": "месяцев"},
+  "dateYear":    {"message": "год"},
+  "dateYears":   {"message": "лет"},
+
+  "Shift":    {"message": "Shift"},
+  "Ctrl":     {"message": "Ctrl"},
+  "Alt":      {"message": "Alt"},
+  "Command":  {"message": "Command"},
+  "MacCtrl":  {"message": "Ctrl(Mac)"},
+  "Comma":    {"message": "Comma"},
+  "Period":   {"message": "Period"},
+  "Home":     {"message": "Home"},
+  "End":      {"message": "End"},
+  "PageUp":   {"message": "Page Up"},
+  "PageDown": {"message": "Page Down"},
+  "Space":    {"message": "Space"},
+  "Insert":   {"message": "Insert"},
+  "Delete":   {"message": "Delete"},
+  "Up":       {"message": "Up"},
+  "Down":     {"message": "Down"},
+  "Left":     {"message": "Left"},
+  "Right":    {"message": "Right"}
 }
