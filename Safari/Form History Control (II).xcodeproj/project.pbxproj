@@ -1,0 +1,623 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3B958128282871CA008B500C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B958127282871CA008B500C /* AppDelegate.swift */; };
+		3B95812C282871CA008B500C /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B95812A282871CA008B500C /* Main.html */; };
+		3B95812E282871CA008B500C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B95812D282871CA008B500C /* Icon.png */; };
+		3B958130282871CA008B500C /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 3B95812F282871CA008B500C /* Style.css */; };
+		3B958132282871CA008B500C /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 3B958131282871CA008B500C /* Script.js */; };
+		3B958134282871CA008B500C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B958133282871CA008B500C /* ViewController.swift */; };
+		3B958137282871CA008B500C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B958135282871CA008B500C /* Main.storyboard */; };
+		3B958139282871CB008B500C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B958138282871CB008B500C /* Assets.xcassets */; };
+		3B958142282871CB008B500C /* Form History Control (II) Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3B958141282871CB008B500C /* Form History Control (II) Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3B958147282871CB008B500C /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B958146282871CB008B500C /* SafariWebExtensionHandler.swift */; };
+		3B958161282871CB008B500C /* background in Resources */ = {isa = PBXBuildFile; fileRef = 3B958154282871CB008B500C /* background */; };
+		3B958162282871CB008B500C /* popup in Resources */ = {isa = PBXBuildFile; fileRef = 3B958155282871CB008B500C /* popup */; };
+		3B958163282871CB008B500C /* Form History Control (II) in Resources */ = {isa = PBXBuildFile; fileRef = 3B958156282871CB008B500C /* Form History Control (II) */; };
+		3B958164282871CB008B500C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3B958157282871CB008B500C /* LICENSE */; };
+		3B958165282871CB008B500C /* content in Resources */ = {isa = PBXBuildFile; fileRef = 3B958158282871CB008B500C /* content */; };
+		3B958166282871CB008B500C /* manifest.firefox.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B958159282871CB008B500C /* manifest.firefox.json */; };
+		3B958167282871CB008B500C /* manifest.chrome.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B95815A282871CB008B500C /* manifest.chrome.json */; };
+		3B958168282871CB008B500C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3B95815B282871CB008B500C /* README.md */; };
+		3B958169282871CB008B500C /* common in Resources */ = {isa = PBXBuildFile; fileRef = 3B95815C282871CB008B500C /* common */; };
+		3B95816A282871CB008B500C /* theme in Resources */ = {isa = PBXBuildFile; fileRef = 3B95815D282871CB008B500C /* theme */; };
+		3B95816B282871CB008B500C /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B95815E282871CB008B500C /* manifest.json */; };
+		3B95816C282871CB008B500C /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 3B95815F282871CB008B500C /* _locales */; };
+		3B95816D282871CB008B500C /* dist_3rd-Party-Libs.md in Resources */ = {isa = PBXBuildFile; fileRef = 3B958160282871CB008B500C /* dist_3rd-Party-Libs.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3B958143282871CB008B500C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B95811C282871CA008B500C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3B958140282871CB008B500C;
+			remoteInfo = "Form History Control (II) Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3B95814F282871CB008B500C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3B958142282871CB008B500C /* Form History Control (II) Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		3B958124282871CA008B500C /* Form History Control (II).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Form History Control (II).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B958127282871CA008B500C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3B95812B282871CA008B500C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
+		3B95812D282871CA008B500C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		3B95812F282871CA008B500C /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		3B958131282871CA008B500C /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		3B958133282871CA008B500C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3B958136282871CA008B500C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3B958138282871CB008B500C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3B95813A282871CB008B500C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B95813B282871CB008B500C /* Form_History_Control__II_.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Form_History_Control__II_.entitlements; sourceTree = "<group>"; };
+		3B95813C282871CB008B500C /* Form History Control (II).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Form History Control (II).entitlements"; sourceTree = "<group>"; };
+		3B958141282871CB008B500C /* Form History Control (II) Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Form History Control (II) Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B958146282871CB008B500C /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		3B958148282871CB008B500C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B958149282871CB008B500C /* Form_History_Control__II__Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Form_History_Control__II__Extension.entitlements; sourceTree = "<group>"; };
+		3B958154282871CB008B500C /* background */ = {isa = PBXFileReference; lastKnownFileType = folder; name = background; path = ../../background; sourceTree = "<group>"; };
+		3B958155282871CB008B500C /* popup */ = {isa = PBXFileReference; lastKnownFileType = folder; name = popup; path = ../../popup; sourceTree = "<group>"; };
+		3B958156282871CB008B500C /* Form History Control (II) */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Form History Control (II)"; sourceTree = SOURCE_ROOT; };
+		3B958157282871CB008B500C /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
+		3B958158282871CB008B500C /* content */ = {isa = PBXFileReference; lastKnownFileType = folder; name = content; path = ../../content; sourceTree = "<group>"; };
+		3B958159282871CB008B500C /* manifest.firefox.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.firefox.json; path = ../../manifest.firefox.json; sourceTree = "<group>"; };
+		3B95815A282871CB008B500C /* manifest.chrome.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.chrome.json; path = ../../manifest.chrome.json; sourceTree = "<group>"; };
+		3B95815B282871CB008B500C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		3B95815C282871CB008B500C /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = common; path = ../../common; sourceTree = "<group>"; };
+		3B95815D282871CB008B500C /* theme */ = {isa = PBXFileReference; lastKnownFileType = folder; name = theme; path = ../../theme; sourceTree = "<group>"; };
+		3B95815E282871CB008B500C /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../manifest.json; sourceTree = "<group>"; };
+		3B95815F282871CB008B500C /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../_locales; sourceTree = "<group>"; };
+		3B958160282871CB008B500C /* dist_3rd-Party-Libs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "dist_3rd-Party-Libs.md"; path = "../../dist_3rd-Party-Libs.md"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3B958121282871CA008B500C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B95813E282871CB008B500C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3B95811B282871CA008B500C = {
+			isa = PBXGroup;
+			children = (
+				3B958126282871CA008B500C /* Form History Control (II) */,
+				3B958145282871CB008B500C /* Form History Control (II) Extension */,
+				3B958125282871CA008B500C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3B958125282871CA008B500C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3B958124282871CA008B500C /* Form History Control (II).app */,
+				3B958141282871CB008B500C /* Form History Control (II) Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3B958126282871CA008B500C /* Form History Control (II) */ = {
+			isa = PBXGroup;
+			children = (
+				3B958127282871CA008B500C /* AppDelegate.swift */,
+				3B958133282871CA008B500C /* ViewController.swift */,
+				3B958135282871CA008B500C /* Main.storyboard */,
+				3B958138282871CB008B500C /* Assets.xcassets */,
+				3B95813A282871CB008B500C /* Info.plist */,
+				3B95813B282871CB008B500C /* Form_History_Control__II_.entitlements */,
+				3B95813C282871CB008B500C /* Form History Control (II).entitlements */,
+				3B958129282871CA008B500C /* Resources */,
+			);
+			path = "Form History Control (II)";
+			sourceTree = "<group>";
+		};
+		3B958129282871CA008B500C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3B95812A282871CA008B500C /* Main.html */,
+				3B95812D282871CA008B500C /* Icon.png */,
+				3B95812F282871CA008B500C /* Style.css */,
+				3B958131282871CA008B500C /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3B958145282871CB008B500C /* Form History Control (II) Extension */ = {
+			isa = PBXGroup;
+			children = (
+				3B958153282871CB008B500C /* Resources */,
+				3B958146282871CB008B500C /* SafariWebExtensionHandler.swift */,
+				3B958148282871CB008B500C /* Info.plist */,
+				3B958149282871CB008B500C /* Form_History_Control__II__Extension.entitlements */,
+			);
+			path = "Form History Control (II) Extension";
+			sourceTree = "<group>";
+		};
+		3B958153282871CB008B500C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3B958154282871CB008B500C /* background */,
+				3B958155282871CB008B500C /* popup */,
+				3B958156282871CB008B500C /* Form History Control (II) */,
+				3B958157282871CB008B500C /* LICENSE */,
+				3B958158282871CB008B500C /* content */,
+				3B958159282871CB008B500C /* manifest.firefox.json */,
+				3B95815A282871CB008B500C /* manifest.chrome.json */,
+				3B95815B282871CB008B500C /* README.md */,
+				3B95815C282871CB008B500C /* common */,
+				3B95815D282871CB008B500C /* theme */,
+				3B95815E282871CB008B500C /* manifest.json */,
+				3B95815F282871CB008B500C /* _locales */,
+				3B958160282871CB008B500C /* dist_3rd-Party-Libs.md */,
+			);
+			name = Resources;
+			path = "Form History Control (II) Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3B958123282871CA008B500C /* Form History Control (II) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B958150282871CB008B500C /* Build configuration list for PBXNativeTarget "Form History Control (II)" */;
+			buildPhases = (
+				3B958120282871CA008B500C /* Sources */,
+				3B958121282871CA008B500C /* Frameworks */,
+				3B958122282871CA008B500C /* Resources */,
+				3B95814F282871CB008B500C /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3B958144282871CB008B500C /* PBXTargetDependency */,
+			);
+			name = "Form History Control (II)";
+			productName = "Form History Control (II)";
+			productReference = 3B958124282871CA008B500C /* Form History Control (II).app */;
+			productType = "com.apple.product-type.application";
+		};
+		3B958140282871CB008B500C /* Form History Control (II) Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B95814C282871CB008B500C /* Build configuration list for PBXNativeTarget "Form History Control (II) Extension" */;
+			buildPhases = (
+				3B95813D282871CB008B500C /* Sources */,
+				3B95813E282871CB008B500C /* Frameworks */,
+				3B95813F282871CB008B500C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Form History Control (II) Extension";
+			productName = "Form History Control (II) Extension";
+			productReference = 3B958141282871CB008B500C /* Form History Control (II) Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3B95811C282871CA008B500C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					3B958123282871CA008B500C = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+					3B958140282871CB008B500C = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 3B95811F282871CA008B500C /* Build configuration list for PBXProject "Form History Control (II)" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3B95811B282871CA008B500C;
+			productRefGroup = 3B958125282871CA008B500C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3B958123282871CA008B500C /* Form History Control (II) */,
+				3B958140282871CB008B500C /* Form History Control (II) Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3B958122282871CA008B500C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B95812E282871CA008B500C /* Icon.png in Resources */,
+				3B958137282871CA008B500C /* Main.storyboard in Resources */,
+				3B958132282871CA008B500C /* Script.js in Resources */,
+				3B95812C282871CA008B500C /* Main.html in Resources */,
+				3B958139282871CB008B500C /* Assets.xcassets in Resources */,
+				3B958130282871CA008B500C /* Style.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B95813F282871CB008B500C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B958167282871CB008B500C /* manifest.chrome.json in Resources */,
+				3B958161282871CB008B500C /* background in Resources */,
+				3B958163282871CB008B500C /* Form History Control (II) in Resources */,
+				3B958164282871CB008B500C /* LICENSE in Resources */,
+				3B958166282871CB008B500C /* manifest.firefox.json in Resources */,
+				3B95816B282871CB008B500C /* manifest.json in Resources */,
+				3B95816C282871CB008B500C /* _locales in Resources */,
+				3B958162282871CB008B500C /* popup in Resources */,
+				3B95816D282871CB008B500C /* dist_3rd-Party-Libs.md in Resources */,
+				3B958168282871CB008B500C /* README.md in Resources */,
+				3B958169282871CB008B500C /* common in Resources */,
+				3B95816A282871CB008B500C /* theme in Resources */,
+				3B958165282871CB008B500C /* content in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3B958120282871CA008B500C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B958134282871CA008B500C /* ViewController.swift in Sources */,
+				3B958128282871CA008B500C /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B95813D282871CB008B500C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B958147282871CB008B500C /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3B958144282871CB008B500C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3B958140282871CB008B500C /* Form History Control (II) Extension */;
+			targetProxy = 3B958143282871CB008B500C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3B95812A282871CA008B500C /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B95812B282871CA008B500C /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		3B958135282871CA008B500C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B958136282871CA008B500C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3B95814A282871CB008B500C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3B95814B282871CB008B500C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		3B95814D282871CB008B500C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Form History Control (II) Extension/Form_History_Control__II__Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Form History Control (II) Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Form History Control (II) Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 2.5.6.1;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "moe.prem.Form-History-Control-2.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3B95814E282871CB008B500C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Form History Control (II) Extension/Form_History_Control__II__Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Form History Control (II) Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Form History Control (II) Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 2.5.6.1;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "moe.prem.Form-History-Control-2.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		3B958151282871CB008B500C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Form History Control (II)/Form History Control (II).entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Form History Control (II)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Form History Control (II)";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 2.5.6.1;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "moe.prem.Form-History-Control-2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3B958152282871CB008B500C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Form History Control (II)/Form History Control (II).entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Form History Control (II)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Form History Control (II)";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 2.5.6.1;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "moe.prem.Form-History-Control-2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3B95811F282871CA008B500C /* Build configuration list for PBXProject "Form History Control (II)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B95814A282871CB008B500C /* Debug */,
+				3B95814B282871CB008B500C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B95814C282871CB008B500C /* Build configuration list for PBXNativeTarget "Form History Control (II) Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B95814D282871CB008B500C /* Debug */,
+				3B95814E282871CB008B500C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B958150282871CB008B500C /* Build configuration list for PBXNativeTarget "Form History Control (II)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B958151282871CB008B500C /* Debug */,
+				3B958152282871CB008B500C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3B95811C282871CA008B500C /* Project object */;
+}

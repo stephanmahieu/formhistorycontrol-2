@@ -9,6 +9,9 @@
 const IS_FIREFOX = typeof browser.runtime.getBrowserInfo === 'function';
 console.log("IS_FIREFOX = " + IS_FIREFOX);
 
+const IS_SAFARI = navigator.userAgent.includes("Safari");
+console.log("IS_SAFARI = " + IS_SAFARI);
+
 browser.runtime.onMessage.addListener(receiveContextEvents);
 
 function receiveContextEvents(fhcEvent, sender, sendResponse) {
@@ -784,13 +787,23 @@ getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
 
 
 /**
- * Cross browser (Firefox, Chrome) create menus.
+ * Cross browser (Firefox, Chrome, Safari) create menus.
  */
 function browserMenusCreate(menuProperties, onMenuCreated) {
     if (menuProperties.contexts.length) {
         if (IS_FIREFOX) {
             return browser.menus.create(menuProperties, onMenuCreated);
-        } else {
+        }
+        else if (IS_SAFARI) {
+            // strip unsupported icons
+            delete menuProperties['icons'];
+            // skip unsupported "tools_menu" context
+            if (menuProperties.contexts.includes("tools_menu")) {
+                return null;
+            }
+            return browser.menus.create(menuProperties, onMenuCreated);
+        }
+        else {
             // strip unsupported icons
             delete menuProperties['icons'];
             // skip unsupported "tools_menu" context
@@ -812,20 +825,20 @@ function browserContextMenusCreate(menuProperties, onMenuCreated) {
 
 
 /**
- * Cross browser (Firefox, Chrome) remove menu.
+ * Cross browser (Firefox, Chrome, Safari) remove menu.
  */
 function browserMenusRemove(menuItemId, onMenuRemoved) {
-    if (IS_FIREFOX) {
+    if (IS_FIREFOX || IS_SAFARI) {
         return browser.menus.remove(menuItemId, onMenuRemoved);
     }
     return chrome.contextMenus.remove(menuItemId, onMenuRemoved);
 }
 
 /**
- * Cross browser (Firefox, Chrome) return onClicked handler.
+ * Cross browser (Firefox, Chrome, Safari) return onClicked handler.
  */
 function getBrowserMenusOnClickedHandler() {
-    if (IS_FIREFOX) {
+    if (IS_FIREFOX || IS_SAFARI) {
         return browser.menus.onClicked;
     }
     return chrome.contextMenus.onClicked;
