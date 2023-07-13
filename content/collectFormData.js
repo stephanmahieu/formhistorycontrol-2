@@ -961,7 +961,7 @@ function createDomObserver() {
 // instantiate an observer for adding event handlers to dynamically created DOM elements
 function addBodyObserver(aDocument) {
     createDomObserver().observe(
-        aDocument.querySelector("body"),
+        aDocument.body,
         {
             childList: true,
             attributes: true,
