@@ -425,6 +425,18 @@
     "message": "No context menu",
     "description": "Option window, contextmenu display: No context menu"
   },
+  "pageActionSelect": {
+    "message": "Address bar icon",
+    "description": "Options window: The Address bar icon dropdown label (select when it should be displayed)"
+  },
+  "optionPageActionAlways": {
+    "message": "Always available",
+    "description": "Option window, Address bar icon display: Always available"
+  },
+  "optionPageActionNone": {
+    "message": "No address bar icon",
+    "description": "Option window, Address bar icon display: No context menu"
+  },
   "optionsMiscellaneousLegend": {
     "message": "Miscellaneous",
     "description": "Options window: The Miscellaneous legend."
@@ -590,6 +602,10 @@
   "contextMenuItemRestoreEditorField": {
     "message": "Restore editor field",
     "description": "Title of context menu item that displays the editor (wysiwyg) field values."
+  },
+  "contextMenuItemRestoreTextField": {
+    "message": "Restore text field",
+    "description": "Title of context menu item that displays the text field values."
   },
   "contextMenuItemRestoreEditorFieldSubmenuHostname": {
     "message": "Matching Hostname",

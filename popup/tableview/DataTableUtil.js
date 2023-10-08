@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2023. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -16,7 +16,7 @@ class DataTableUtil {
         let languageURL = '';
         let uiLanguage = browser.i18n.getUILanguage();
         if (uiLanguage && uiLanguage.length >= 2) {
-            languageURL = browser.extension.getURL('/_locales/' + uiLanguage.substring(0, 2) + '/datatables.json');
+            languageURL = browser.runtime.getURL('/_locales/' + uiLanguage.substring(0, 2) + '/datatables.json');
             // console.log("setting languageURL for DataTables: " + languageURL);
         }
         return languageURL;

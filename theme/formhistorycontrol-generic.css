@@ -88,9 +88,9 @@ button:disabled:hover {
 }
 
 input, select, textarea {
-    background-color: var(--field-bg-color);
+    background-color: var(--field-bg-color) !important;
     color: var(--field-text-color);
-    border: 2px inset var(--field-border-color);
+    border: 2px inset var(--field-border-color) !important;
 }
 
 input, select, textarea, fieldset {

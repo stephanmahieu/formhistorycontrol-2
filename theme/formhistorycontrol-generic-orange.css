@@ -37,7 +37,7 @@
 }
 
 input, select, textarea, fieldset, legend {
-    border: 1px solid var( --field-border-color);
+    border: 1px solid var( --field-border-color) !important;
 }
 
 button {

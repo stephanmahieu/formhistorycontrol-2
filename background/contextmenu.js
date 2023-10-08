@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Stephan Mahieu
+ * Copyright (c) 2023. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -10,6 +10,7 @@ const IS_FIREFOX = typeof browser.runtime.getBrowserInfo === 'function';
 console.log("IS_FIREFOX = " + IS_FIREFOX);
 
 browser.runtime.onMessage.addListener(receiveContextEvents);
+// MF3 browser.runtime.onInstalled.addListener(receiveContextEvents);
 
 function receiveContextEvents(fhcEvent, sender, sendResponse) {
     if (fhcEvent.eventType && fhcEvent.eventType === 888 && fhcEvent.contextmenuAvailChanged) {
@@ -28,32 +29,51 @@ function receiveContextEvents(fhcEvent, sender, sendResponse) {
             });
         });
     }
-}
+    else if (fhcEvent.eventType && fhcEvent.eventType === 12345) {
+        console.log('handling contextmenu shown...');
+        const nodeName = fhcEvent.nodeName;
+        const fieldName = fhcEvent.fieldName;
+        const hostname = fhcEvent.host;
 
-
-// keep track of current menu, activating another tab on another window triggers both
-// tab.onActivated and windows.onFocusChanged which triggers both event handlers
-const CUR_MENU = {
-    windowId: -1,
-    tabId: -1,
-    host: ''
-};
-browser.tabs.onActivated.addListener(handleTabActivated);
-browser.tabs.onUpdated.addListener(handleTabUpdated);
-browser.windows.onFocusChanged.addListener(handleWindowFocusChanged);
-
-const debounce = (fn, time) => {
-    let timeout;
-    return function() {
-        const functionCall = () => fn.apply(this, arguments);
-        clearTimeout(timeout);
-        timeout = setTimeout(functionCall, time);
+        removeCurrentMenuItems(EDITOR_FIELDS_MENUITEM_IDS, TEXT_FIELDS_MENUITEM_IDS)
+        .then(() => {
+            if (nodeName !== 'input') {
+                return getEditorFieldsByHostname(hostname, 10);
+            }
+            return [];
+        }).then(hostnameItemsArray => {
+            hostnameItemsArray.forEach(item => {EDITOR_FIELDS_MENUITEM_IDS.push(item);});
+            return hostnameItemsArray;
+        }).then(hostnameItemsArray => {
+            if (nodeName !== 'input') {
+                return getEditorFieldsByLastused(hostname, 10, hostnameItemsArray);
+            }
+            return [];
+        }).then(lastusedItemsArray => {
+            lastusedItemsArray.forEach(item => {EDITOR_FIELDS_MENUITEM_IDS.push(item);});
+        }).then(() => {
+            if (nodeName === 'input') {
+                return getTextFieldsByLastused(10);
+            }
+            return [];
+        }).then(lastusedTextItemsArray => {
+            lastusedTextItemsArray.forEach(item => {TEXT_FIELDS_MENUITEM_IDS.push(item);});
+        }).then(()=>{
+            // editorFieldsMenuItemsIds.forEach(item => { console.log('- ' + item.type + ' ' + item.pKey + '  ' + item.value); });
+            return addNewMenuItems(EDITOR_FIELDS_MENUITEM_IDS, TEXT_FIELDS_MENUITEM_IDS);
+        }).then(()=>{
+            if (IS_FIREFOX) {
+                browser.menus.update('restoreEditorField', {"enabled": (nodeName !== 'input')});
+                browser.menus.update('restoreTextField', {"enabled": (nodeName === 'input')});
+                browser.menus.refresh();
+            } else {
+                chrome.contextMenus.update('restoreEditorField', {"enabled": (nodeName !== 'input')});
+                chrome.contextMenus.update('restoreTextField', {"enabled": (nodeName === 'input')});
+                chrome.contextMenus.refresh();
+            }
+        });
     }
-};
-
-
-// initially set the EditorFieldRestoreMenu for the current active window and tab
-setTimeout(()=>{ updateEditorFieldRestoreMenuForActiveTab(); }, 1500);
+}
 
 // create the context menus
 initBrowserMenus();
@@ -62,94 +82,13 @@ initBrowserMenus();
 initShortcutKeys();
 browser.commands.onCommand.addListener(handleShortcutKeys);
 
-
-function updateEditorFieldRestoreMenuForActiveTab() {
-    browser.windows.getCurrent({populate: true}).then(tabInfo=>{
-        // console.log('Active window is ' + tabInfo.id);
-        if (tabInfo.tabs.length > 0) {
-            tabInfo.tabs.forEach(tab => {
-                if (tab.active) {
-                    // console.log('Active tab is ' + tab.id);
-                    debouncedUpdateEditorFieldRestoreMenu(tab.windowId, tab.id, tab.url);
-                }
-            });
-        }
-    });
-}
-
-function handleWindowFocusChanged(windowId) {
-    if (windowId > 0) {
-        // console.log("### Window " + windowId + " now has the focus! ###");
-        updateEditorFieldRestoreMenuForActiveTab();
-    }
-}
-
-function handleTabUpdated(tabId, changeInfo, tab) {
-    if (changeInfo.status === 'complete') {
-        updateEditorFieldRestoreMenuOnTabActivation(tab.windowId, tab.id);
-    }
-}
-
-function handleTabActivated(activeInfo) {
-    // console.log("### Tab " + activeInfo.tabId + " was activated for window " + activeInfo.windowId + " ###");
-    // create submenu-items for multiline restore
-    updateEditorFieldRestoreMenuOnTabActivation(activeInfo.windowId, activeInfo.tabId);
-}
-
-function updateEditorFieldRestoreMenuOnTabActivation(windowId, tabId, attempt = 1) {
-    // console.log("Update editorFieldRestoreMenu for Tab " + tabId);
-    browser.tabs.get(tabId).then(tabInfo => {
-        if (tabInfo.status === 'loading' || ('about:blank' === tabInfo.url && attempt<=10)) {
-            // console.log('TabId ' + tabId + ' has not finished loading, trying again in 500ms');
-            setTimeout(() => {
-                updateEditorFieldRestoreMenuOnTabActivation(windowId, tabId, ++attempt);
-            }, 500);
-        } else {
-            // console.log('TabId ' + tabId + ' was activated and has url: ' + tabInfo.url);
-            debouncedUpdateEditorFieldRestoreMenu(tabInfo.windowId, tabInfo.id, tabInfo.url);
-        }
-    });
-}
-
 const MAX_LENGTH_EDITFIELD_ITEM = 35;
 const EDITOR_FIELDS_MENUITEM_IDS = [];
+const TEXT_FIELDS_MENUITEM_IDS = [];
 let contextAnonMenuItemNo = 10000;
 const CONTEXT_FIELDS_MENUITEM_IDS = [];
 
-function updateEditorFieldRestoreMenu(windowId, tabId, url) {
-    // console.log('>>> updateEditorFieldRestoreMenu for window ' + windowId + ' and tab with url ' + url);
-    if (url.includes('moz-extension://')) {
-        // skip popup windows
-        return;
-    }
-
-    const hostname = MiscUtil.getHostnameFromUrlString(url);
-    if (CUR_MENU.windowId === windowId && CUR_MENU.tabId === tabId && CUR_MENU.host === hostname) {
-        // console.log('!! skip duplicate call to updateEditorFieldRestoreMenu() for window ' + windowId + ' and tab with host ' + hostname);
-        return;
-    }
-    CUR_MENU.windowId = windowId;
-    CUR_MENU.tabId = tabId;
-    CUR_MENU.host = hostname;
-
-    removeCurrentMenuItems(EDITOR_FIELDS_MENUITEM_IDS)
-    .then(() => {
-        return getEditorFieldsByHostname(hostname, 10);
-    }).then(hostnameItemsArray => {
-        hostnameItemsArray.forEach(item => {EDITOR_FIELDS_MENUITEM_IDS.push(item);});
-        return hostnameItemsArray;
-    }).then(hostnameItemsArray => {
-        return getEditorFieldsByLastused(hostname, 10, hostnameItemsArray);
-    }).then(lastusedItemsArray => {
-        lastusedItemsArray.forEach(item => {EDITOR_FIELDS_MENUITEM_IDS.push(item);});
-    }).then(()=>{
-        // editorFieldsMenuItemsIds.forEach(item => { console.log('- ' + item.type + ' ' + item.pKey + '  ' + item.value); });
-        return addNewMenuItems(EDITOR_FIELDS_MENUITEM_IDS);
-    });
-}
-let debouncedUpdateEditorFieldRestoreMenu = debounce(updateEditorFieldRestoreMenu, 250);
-
-function addNewMenuItems(menuItemsIds) {
+function addNewMenuItems(menuItemsIds, menuTextItemIds) {
     return new Promise((resolve, reject) => {
 
         const promisesArray = [];
@@ -167,20 +106,30 @@ function addNewMenuItems(menuItemsIds) {
                     title = browser.i18n.getMessage('contextMenuItemRestoreEditorFieldSubmenuLastused');
                 }
                 promisesArray.push(
-                    createSubmenuItem("editfld" + item.type, "--- " + title + ": ---", false)
+                    createSubmenuItem("editfld" + item.type, "restoreEditorField", "--- " + title + ": ---", false)
                 );
             }
             promisesArray.push(
-                createSubmenuItem("editfld" + item.pKey, '[' + DateUtil.toDateStringShorter(item.last) + '] ' + item.value, true)
+                createSubmenuItem("editfld" + item.pKey, "restoreEditorField", '[' + DateUtil.toDateStringShorter(item.last) + '] ' + item.value, true)
             );
         });
-
         if (menuItemsIds.length > 0) {
             promisesArray.push(
-                createSubmenuSeparator("editfldMoreSeparator")
+                createSubmenuSeparator("editfldMoreSeparator", "restoreEditorField")
             );
             promisesArray.push(
-                createSubmenuItem("editfldMore", browser.i18n.getMessage('contextMenuItemRestoreEditorFieldSubmenuMore'), true)
+                createSubmenuItem("editfldMore", "restoreEditorField", browser.i18n.getMessage('contextMenuItemRestoreEditorFieldSubmenuMore'), true)
+            );
+        }
+
+        menuTextItemIds.forEach(item => {
+            promisesArray.push(
+                createSubmenuItem("textfld" + item.pKey, "restoreTextField", '[' + DateUtil.toDateStringShorter(item.last) + '] ' + item.value, true)
+            );
+        });
+        if (menuTextItemIds.length > 0) {
+            promisesArray.push(
+                createSubmenuItem("textfldMore", "restoreTextField", browser.i18n.getMessage('contextMenuItemRestoreEditorFieldSubmenuMore'), true)
             );
         }
 
@@ -191,7 +140,7 @@ function addNewMenuItems(menuItemsIds) {
     });
 }
 
-function createSubmenuItem(id, title, enabled) {
+function createSubmenuItem(id, parentId, title, enabled) {
     let icons;
     if (!enabled) {
         icons = undefined;
@@ -208,7 +157,7 @@ function createSubmenuItem(id, title, enabled) {
     }
     return browserMenusCreate({
         id:       id,
-        parentId: "restoreEditorField",
+        parentId: parentId,
         title:    title,
         contexts: ["all"],
         enabled:  enabled,
@@ -216,16 +165,16 @@ function createSubmenuItem(id, title, enabled) {
     }, onMenuCreated);
 }
 
-function createSubmenuSeparator(id) {
+function createSubmenuSeparator(id, parentId) {
     return browserMenusCreate({
         id:       id,
-        parentId: "restoreEditorField",
+        parentId: parentId,
         type:     "separator",
         contexts: ["all"]
     }, onMenuCreated);
 }
 
-function removeCurrentMenuItems(menuItemsIds) {
+function removeCurrentMenuItems(menuItemsIds, menuItemsTextIds) {
     return new Promise((resolve, reject) => {
 
         const promisesArray = [];
@@ -247,6 +196,14 @@ function removeCurrentMenuItems(menuItemsIds) {
                 promisesArray.push(browserMenusRemove("editfld" + item.type));
             }
             promisesArray.push(browserMenusRemove("editfld" + item.pKey));
+        }
+
+        if (menuItemsTextIds.length > 0) {
+            promisesArray.push(browserMenusRemove("textfldMore"));
+        }
+        while (menuItemsTextIds.length > 0) {
+            let item = menuItemsTextIds.pop();
+            promisesArray.push(browserMenusRemove("textfld" + item.pKey));
         }
 
         Promise.all(promisesArray).then(
@@ -351,6 +308,46 @@ function getEditorFieldsByLastused(hostname, maxItems, excludeItems) {
     });
 }
 
+function getTextFieldsByLastused(maxItems) {
+    return new Promise((resolve, reject) => {
+        let result = [];
+
+        let objStore = getObjectStore(DbConst.DB_STORE_TEXT, "readonly");
+        let index = objStore.index(DbConst.DB_TEXT_IDX_LAST);
+        let req = index.openCursor(null, "prev");
+        req.onsuccess = evt => {
+            let cursor = evt.target.result;
+            if (cursor && result.length < maxItems) {
+                let fhcEntry = cursor.value;
+                let primaryKey = cursor.primaryKey;
+                // console.log("Entry most recent [" + cursor.key + "] primaryKey:[" + primaryKey + "] name:[" + fhcEntry.name + "] type:[" + fhcEntry.type + "}");
+
+                if (fhcEntry.type == 'input') {
+                    let value = removeTagsAndShorten(fhcEntry.value);
+                    if (value) {
+                        let item = {
+                            type: 'txt_lastused',
+                            pKey: primaryKey,
+                            last: fhcEntry.last,
+                            name: fhcEntry.name,
+                            value: value
+                        };
+                        result.push(item);
+                    }
+                }
+                cursor.continue();
+            }
+            else {
+                // no more items
+                resolve(result);
+            }
+        };
+        req.onerror = ()=>{
+            reject(this.error);
+        };
+    });
+}
+
 function removeTagsAndShorten(value) {
     // remove tags, replace newlines/tabs with spaces, remove non-printable chars, replace consecutive spaces with one space
     let str = value.replace(/<\/?[^>]+(>|$)/g, "").replace(/[\t\r\n]+/g,' ').replace('&nbsp;',' ').replace(/\s\s+/g, ' ').trim();
@@ -422,24 +419,30 @@ function _initContextMenu(contextmenuAvail) {
      * Hide the menu separators for the browser-action, we may only show 6 items
      * including the separators.
      */
-    const contextAll     = [];
-    const contextEdFr    = [];
-    const contextEdFrBra = ["browser_action"];
+    const contextAll = ["browser_action", "page_action"];
+    const contextPage = [];
+    const contextAllButPageAction = ["browser_action"];
+    const contextFillTextField = [];
+    // MF3 const contextAll = ["action", "page"];
+    // MF3 const contextPage = [];
+    // MF3 const contextAllButPageAction = ["action"];
+    // MF3 const contextFillTextField = [];
 
     // Empty the array
     CONTEXT_FIELDS_MENUITEM_IDS.splice(0, CONTEXT_FIELDS_MENUITEM_IDS.length);
 
     if (contextmenuAvail === 'page') {
-        contextAll.push("all");
-        contextEdFr.push("page");
-        contextEdFrBra.push("page");
+        // show context menu always
+        contextAll.push("page", "frame", "editable");
+        contextPage.push("page");
+        contextAllButPageAction.push("page", "frame", "editable");
+        contextFillTextField.push("editable");
+    } else if (contextmenuAvail === 'editfields') {
+        // show context menu on editfields only
+        contextAll.push("frame", "editable");
+        contextFillTextField.push("editable");
     } else {
-        contextAll.push("frame", "browser_action",  "page_action");
-        if (contextmenuAvail === 'editfields') {
-            contextAll.push("editable");
-            contextEdFr.push("editable");
-            contextEdFrBra.push("editable");
-        }
+        // show context menu never
     }
 
     browserContextMenusCreate({
@@ -453,7 +456,7 @@ function _initContextMenu(contextmenuAvail) {
     }, onMenuCreated);
     browserContextMenusCreate({
         type: "separator",
-        contexts: contextEdFr
+        contexts: contextPage
     }, onMenuCreated);
     browserContextMenusCreate({
         id: "restoreEditorField",
@@ -465,8 +468,17 @@ function _initContextMenu(contextmenuAvail) {
         }
     }, onMenuCreated);
     browserContextMenusCreate({
+        id: "restoreTextField",
+        title: "Herstel tekst veld", // browser.i18n.getMessage("contextMenuItemRestoreTextField"),
+        contexts: contextFillTextField,
+        icons: {
+            "16": "/theme/icons/menu/16/refresh.png",
+            "32": "/theme/icons/menu/32/refresh.png"
+        }
+    }, onMenuCreated);
+    browserContextMenusCreate({
         type: "separator",
-        contexts: contextEdFr
+        contexts: contextPage
     }, onMenuCreated);
     browserContextMenusCreate({
         id: "fillMostRecent",
@@ -486,11 +498,10 @@ function _initContextMenu(contextmenuAvail) {
             "32": "/theme/icons/menu/32/fillfields.png"
         }
     }, onMenuCreated);
-    // do not show this menu-item for page_action, only 5 items are shown
     browserContextMenusCreate({
         id: "clearFields",
         title: browser.i18n.getMessage("contextMenuItemClearFields"),
-        contexts: contextEdFrBra,
+        contexts: contextAllButPageAction, // everywhere but page_action where max was 5 items (now 6)
         icons: {
             "16": "/theme/icons/menu/16/emptyfields.png",
             "32": "/theme/icons/menu/32/emptyfields.png"
@@ -498,7 +509,7 @@ function _initContextMenu(contextmenuAvail) {
     }, onMenuCreated);
     browserContextMenusCreate({
         type: "separator",
-        contexts: contextEdFr
+        contexts: contextPage
     }, onMenuCreated);
     /*
      * Remainder only for page_action (max 6 are shown for browser-action).
@@ -506,7 +517,7 @@ function _initContextMenu(contextmenuAvail) {
     browserContextMenusCreate({
         id: "showformfields",
         title: browser.i18n.getMessage("contextMenuItemShowformfields"),
-        contexts: contextEdFr,
+        contexts: contextPage,
         icons: {
             "16": "/theme/icons/menu/16/showfields.png",
             "32": "/theme/icons/menu/32/showfields.png"
@@ -514,12 +525,12 @@ function _initContextMenu(contextmenuAvail) {
     }, onMenuCreated);
     browserContextMenusCreate({
         type: "separator",
-        contexts: contextEdFr
+        contexts: contextPage
     }, onMenuCreated);
     browserContextMenusCreate({
         id: "submenuInfo",
         title: browser.i18n.getMessage("menuItemInfoSubmenu"),
-        contexts: contextEdFr,
+        contexts: contextPage,
         icons: {
             "16": "/theme/icons/menu/16/submenu.png",
             "32": "/theme/icons/menu/32/submenu.png"
@@ -529,7 +540,7 @@ function _initContextMenu(contextmenuAvail) {
         id: "helpoverview",
         parentId: "submenuInfo",
         title: browser.i18n.getMessage("menuItemHelpOverview"),
-        contexts: contextEdFr,
+        contexts: contextPage,
         icons: {
             "16": "/theme/icons/menu/16/help.png",
             "32": "/theme/icons/menu/32/help.png"
@@ -539,7 +550,7 @@ function _initContextMenu(contextmenuAvail) {
         id: "releasenotes",
         parentId: "submenuInfo",
         title: browser.i18n.getMessage("menuItemHelpReleasenotes"),
-        contexts: contextEdFr,
+        contexts: contextPage,
         icons: {
             "16": "/theme/icons/menu/16/releasenotes.png",
             "32": "/theme/icons/menu/32/releasenotes.png"
@@ -549,7 +560,7 @@ function _initContextMenu(contextmenuAvail) {
         id: "about",
         parentId: "submenuInfo",
         title: browser.i18n.getMessage("menuItemHelpAbout"),
-        contexts: contextEdFr,
+        contexts: contextPage,
         icons: {
             "16": "/theme/icons/menu/16/about.png",
             "32": "/theme/icons/menu/32/about.png"
@@ -557,12 +568,12 @@ function _initContextMenu(contextmenuAvail) {
     }, onMenuCreated);
     browserContextMenusCreate({
         type: "separator",
-        contexts: contextEdFr
+        contexts: contextPage
     }, onMenuCreated);
     browserContextMenusCreate({
         id: "preferences",
         title: browser.i18n.getMessage("contextMenuItemOptions"),
-        contexts: contextEdFr,
+        contexts: contextPage,
         icons: {
             "16": "/theme/icons/menu/16/preferences.png",
             "32": "/theme/icons/menu/32/preferences.png"
@@ -580,6 +591,7 @@ function _initBrowserActionSubmenu() {
         id: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemRestoreEditorFieldSubmenuMore"),
         contexts: ["browser_action", "page_action"],
+        // MF3 contexts: ["action", "page"],
         icons: {
             "16": "/theme/icons/menu/16/submenu.png",
             "32": "/theme/icons/menu/32/submenu.png"
@@ -589,7 +601,8 @@ function _initBrowserActionSubmenu() {
         id: "clearFieldsPA",
         parentId: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemClearFields"),
-        contexts: ["page_action"],
+        contexts: ["page_action"],  // show only for page_action here
+        // MF3 contexts: ["page"],  // show only for page_action here
         icons: {
             "16": "/theme/icons/menu/16/emptyfields.png",
             "32": "/theme/icons/menu/32/emptyfields.png"
@@ -599,6 +612,7 @@ function _initBrowserActionSubmenu() {
         parentId: "submenuExtra",
         type: "separator",
         contexts: ["page_action"]
+        // MF3 contexts: ["page"]
     }, onMenuCreated);
     browserContextMenusCreate({
         id: "showformfieldsBA",
@@ -777,6 +791,10 @@ getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
             if (info.menuItemId.startsWith('editfld')) {
                 const pKey = info.menuItemId.replace('editfld','');
                 //console.log('Restore editorfield request with pKey ' + pKey + ' from context menu for tabId ' + tab.id);
+                getSingleElementByPrimaryKeyAndNotify(pKey, tab.id);
+            } else if (info.menuItemId.startsWith('textfld')) {
+                const pKey = info.menuItemId.replace('textfld','');
+                //console.log('Restore textfield request with pKey ' + pKey + ' from context menu for tabId ' + tab.id);
                 getSingleElementByPrimaryKeyAndNotify(pKey, tab.id);
             }
     }

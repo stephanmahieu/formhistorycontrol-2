@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Stephan Mahieu
+ * Copyright (c) 2023. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -34,7 +34,11 @@ function receiveEvents(fhcActionEvent /*, sender, sendResponse*/) {
 
             case "formfieldValueResponseSingle":
                 //console.log("Received action event " + fhcActionEvent.action);
-                _findMultilineFieldAndSetValueSingle(fhcActionEvent);
+                if (fhcActionEvent.nodeName === "input") {
+                    _findTextFieldAndSetValueSingle(fhcActionEvent);
+                } else {
+                    _findMultilineFieldAndSetValueSingle(fhcActionEvent);
+                }
                 setTimeout(() => { removeAllStyles(); }, DISPLAY_DURATION);
                 break;
 
@@ -56,6 +60,14 @@ function receiveEvents(fhcActionEvent /*, sender, sendResponse*/) {
 //----------------------------------------------------------------------------
 // fill formfields response handling methods
 //----------------------------------------------------------------------------
+
+function _findTextFieldAndSetValueSingle(fhcEvent) {
+    let found = false;
+    // try to set the value in the active element
+    if (document.activeElement) {
+        found = _setTextValue(document.activeElement, fhcEvent.value);
+    }
+}
 
 function _findMultilineFieldAndSetValueSingle(fhcEvent) {
     // try to set the value in the field it came from (same name/type)
@@ -161,6 +173,24 @@ function _setMultilineTextValue(element, value) {
         changed = true;
     }
     if (found && value !== "") {
+        _setStyle(element, false);
+        if (changed) {
+            // trigger update count and last used date
+            _manualOnContentChanged(element);
+        }
+    }
+    return found;
+}
+
+function _setTextValue(element, value) {
+    let found = false;
+    if (element.nodeName.toLowerCase()==='input') {
+        found = true;
+        let changed = false;
+        if (element.value !== value) {
+            element.value = value;
+            changed = true;
+        }
         _setStyle(element, false);
         if (changed) {
             // trigger update count and last used date
@@ -1036,9 +1066,47 @@ function addElementHandlers(element) {
     }
 }
 
+function onContextMenuShow(evt) {
+    console.log("Showing menu...");
+    let elem = evt.target;
+
+    // menus API cannot be used from content scripts, send message to background script to manipulate the contextmenu
+    // TODO if element is not input or textarea or div/iframe/... but for example p it can be some data inside a parent div which is contenteditable
+
+    let nodeName = elem.nodeName.toLowerCase();
+    let editable = true;
+    console.log("Showing menu for nodeName ", nodeName);
+
+    if (nodeName !== 'input' && nodeName !== 'textarea') {
+        // try to find find editable parent (for example we might have clicked on html content inside editable parent div)
+        let prev = elem;
+        while (elem && !((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem))) {
+            prev = elem;
+            elem = elem.parentNode;
+        }
+        if (!elem) {
+            elem = prev;
+        }
+        nodeName = elem.nodeName.toLowerCase();
+        editable = ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem));
+    }
+    const fieldName = (elem.name) ? elem.name : ((elem.id) ? elem.id : "");
+    const host = _getHost(elem.ownerDocument.location);
+
+    browser.runtime.sendMessage( {
+        eventType: 12345,
+        nodeName: nodeName,
+        fieldName: fieldName,
+        host: host,
+        editable: editable
+    });
+}
+
 function addAllHandlers(aDocument) {
     if (aDocument && 'about:blank' !== aDocument.URL) {
         // console.log('addAllHandlers::document readystate: ' + aDocument.readyState + ' ' + aDocument.URL);
+        aDocument.addEventListener('contextmenu', onContextMenuShow);
+
         aDocument.querySelector("html").addEventListener("keyup", onContentChanged);
         addHandler(aDocument, "form", "submit", onFormSubmit);
         addHandler(aDocument, "input", "change", onContentChanged);

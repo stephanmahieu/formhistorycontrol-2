@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Stephan Mahieu
+ * Copyright (c) 2023. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#resetWindowProperties").addEventListener("click", resetAllWindowProperties);
     document.querySelector("#scrollAmountSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#contextMenuSelect").addEventListener("change", checkPropertiesChanged);
+    document.querySelector("#pageActionSelect").addEventListener("change", checkPropertiesChanged);
 
     document.querySelector("#overrideAutocomplete").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#overrideIncognito").addEventListener("change", checkPropertiesChanged);
@@ -169,9 +170,11 @@ function restoreOptions() {
         prefDateFormat           : "automatic",
         prefScrollAmount         : "auto",
         prefContextmenuAvail     : "page",
+        prefPageactionAvail      : "always",
         prefShortcutKeys         : {
             // defaults here must be equal to the defaults in manifest.json
             _execute_browser_action     : OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
+            // MF3 _execute_action      : OptionsUtil.getDefaultShortcutKey('_execute_action'),
             open_fhc                    : OptionsUtil.getDefaultShortcutKey('open_fhc'),
             toggle_display_fields       : OptionsUtil.getDefaultShortcutKey('toggle_display_fields'),
             fill_recent                 : OptionsUtil.getDefaultShortcutKey('fill_recent'),
@@ -208,6 +211,7 @@ function applyPreferences(res, fromStore) {
     document.querySelector("#dateformatSelect").value = res.prefDateFormat;
     document.querySelector("#scrollAmountSelect").value = res.prefScrollAmount;
     document.querySelector("#contextMenuSelect").value = res.prefContextmenuAvail;
+    document.querySelector("#pageActionSelect").value = res.prefPageactionAvail;
     document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
     document.querySelector("#fieldfillModeSelect").value = res.prefFieldfillMode;
     document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
@@ -289,6 +293,7 @@ function getNewOptions() {
         prefDateFormat           : document.querySelector("#dateformatSelect").value,
         prefScrollAmount         : document.querySelector("#scrollAmountSelect").value,
         prefContextmenuAvail     : document.querySelector("#contextMenuSelect").value,
+        prefPageactionAvail      : document.querySelector("#pageActionSelect").value,
         prefShortcutKeys         : getAllShortcutKeyValues(),
         prefFieldfillMode        : document.querySelector("#fieldfillModeSelect").value,
         prefDomainFilter         : getCheckedRadioDomainValue(),

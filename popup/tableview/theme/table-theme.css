@@ -15,6 +15,12 @@
     transition: min-width 0.4s ease-in-out;
     background: url("search-dark.png") no-repeat 3px 3px;
     padding-left: 22px;
+    padding-top: 1px !important;
+    padding-bottom: 2px !important;
+}
+#fhcTable_length select {
+    padding-top: 1px;
+    padding-bottom: 2px;
 }
 
 #fhcTable_length option {

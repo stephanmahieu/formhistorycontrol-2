@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019. Stephan Mahieu
+ * Copyright (c) 2023. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -107,6 +107,17 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
         return;
     }
 
+    // Only show pageaction when preference is set
+    browser.storage.local.get({
+        prefPageactionAvail: 'always'
+    }).then(res => {
+        if (res.prefPageactionAvail === 'always') {
+            browser.pageAction.show(tabId);
+        } else {
+            browser.pageAction.hide(tabId);
+        }
+    });
+
     const host = MiscUtil.getHostnameFromUrlString(url);
 
     // reflect state in icon: disabled/enabled icon when domainfilter is active, normal icon otherwise
@@ -127,6 +138,7 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
 let debouncedUpdateApplicationIcon = debounceFunc(updateApplicationIcon, 100);
 
 function setApplicationIcon(tabId, fixedPath, scalablePath) {
+    // MF3 browser.action.setIcon({
     browser.browserAction.setIcon({
         tabId: tabId,
         path: {

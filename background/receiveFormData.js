@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Stephan Mahieu
+ * Copyright (c) 2023. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -84,7 +84,6 @@ function receiveEvents(fhcEvent, sender, sendResponse) {
 
             case 444:
                 // item(s) have been deleted from the database (by popup script)
-                browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
                 return true;
 
             case 555:
@@ -789,9 +788,6 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
     let updateReq = objStore.put(fhcEntry, key);
     updateReq.onsuccess = function(/*updateEvent*/) {
         // console.log("Update okay, id: " + updateEvent.target.result);
-        if ("input" !== fhcEvent.type) {
-            browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
-        }
 
         // notify change so popup (if open) can update itself
         browser.runtime.sendMessage({
@@ -847,9 +843,6 @@ function _insertNewEntry(objStore, fhcEvent) {
     };
     insertReq.onsuccess = function(insertEvent) {
         //console.log("Insert succeeded, new record-key is " + insertEvent.target.result);
-        if ("input" !== fhcEvent.type) {
-            browser.extension.getBackgroundPage().updateEditorFieldRestoreMenuForActiveTab();
-        }
 
         // notify change so popup (if open) can update itself
         browser.runtime.sendMessage({
