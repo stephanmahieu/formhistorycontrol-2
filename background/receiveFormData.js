@@ -176,13 +176,13 @@ function deleteExpiredItems(expirationDate) {
             let cursor = evt.target.result;
             if (cursor) {
                 const fhcEntry = cursor.value;
-                console.log("Expired: " + DateUtil.toDateStringShorter(fhcEntry.last) + "   " + fhcEntry.name + " (" + fhcEntry.type + ")");
+                // console.log("Expired: " + DateUtil.toDateStringShorter(fhcEntry.last) + "   " + fhcEntry.name + " (" + fhcEntry.type + ")");
 
                 const request = cursor.delete();
                 request.onsuccess = function() {
                     noOfRecordsDeleted++;
 
-                    console.log('Delete ' + noOfRecordsDeleted + ' of ' + noOfRecordsExpired + ' succeeded');
+                    // console.log('Delete ' + noOfRecordsDeleted + ' of ' + noOfRecordsExpired + ' succeeded');
 
                     if (noOfRecordsExpired <= FAST_UPDATE_LIMIT) {
                         // for small quantities, notify the table to update itself (if open) for each deleted record (slow)
@@ -191,8 +191,14 @@ function deleteExpiredItems(expirationDate) {
                             primaryKey: cursor.primaryKey,
                             fhcEntry: null,
                             what: 'delete'
-                        }).then(null, null /* ignore error, popup is not open */
-                        );
+                        }).then(null, null
+                        )
+                        .catch((err) => {
+                            /* ignore error if popup is not open */
+                            if (err.message && !err.message.includes('Receiving end does not exist')) {
+                                throw(err)
+                            }
+                        });
                     }
                 };
 
@@ -204,6 +210,12 @@ function deleteExpiredItems(expirationDate) {
                     // for large quantities, notify the table to update itself only after all entries have been deleted (fast)
                     browser.runtime.sendMessage({
                         eventType: 777
+                    })
+                    .catch((err) => {
+                        /* ignore error if popup is not open */
+                        if (err.message && !err.message.includes('Receiving end does not exist')) {
+                            throw(err)
+                        }
                     });
                 }
             }
@@ -548,8 +560,14 @@ function updateSingleValue(fhcEvent) {
                 primaryKey: primaryKey,
                 fhcEntry: fhcEntry,
                 what: 'update'
-            }).then(null, null /* ignore error, popup is not open */
+            }).then(null, null
             )
+            .catch((err) => {
+                /* ignore error if popup is not open */
+                if (err.message && !err.message.includes('Receiving end does not exist')) {
+                    throw(err)
+                }
+            })
         };
         updateReq.onerror = function(/*updateEvent*/) {
             console.error("Update failed for text record with record-key " + key, this.error);
@@ -594,8 +612,14 @@ function updateMultipleValues(fhcEvent) {
                     primaryKey: primaryKey,
                     fhcEntry: fhcEntry,
                     what: 'update'
-                }).then(null, null /* ignore error, popup is not open */
+                }).then(null, null
                 )
+                .catch((err) => {
+                    /* ignore error if popup is not open */
+                    if (err.message && !err.message.includes('Receiving end does not exist')) {
+                        throw(err)
+                    }
+                })
             };
             updateReq.onerror = function(/*updateEvent*/) {
                 console.error("Update failed for text record (loop) with record-key " + key, this.error);
@@ -795,8 +819,14 @@ function _updateEntry(objStore, key, fhcEntry, fhcEvent) {
             primaryKey: key,
             fhcEntry: fhcEntry,
             what: 'update'
-        }).then(null, null /* ignore error, popup is not open */
+        }).then(null, null
         )
+        .catch((err) => {
+            /* ignore error if popup is not open */
+            if (err.message && !err.message.includes('Receiving end does not exist')) {
+                throw(err)
+            }
+        })
     };
     updateReq.onerror = function(/*updateEvent*/) {
         console.error("Update failed for text record with record-key " + key, this.error);
@@ -850,8 +880,14 @@ function _insertNewEntry(objStore, fhcEvent) {
             primaryKey: insertEvent.target.result,
             fhcEntry: fhcEntry,
             what: 'add'
-        }).then(null, null /* ignore error, popup is not open */
-        );
+        }).then(null, null
+        )
+        .catch((err) => {
+            /* ignore error if popup is not open */
+            if (err.message && !err.message.includes('Receiving end does not exist')) {
+                throw(err)
+            }
+        });
     };
 }
 
