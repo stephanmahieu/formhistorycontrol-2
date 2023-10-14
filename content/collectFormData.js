@@ -1067,7 +1067,7 @@ function addElementHandlers(element) {
 }
 
 function onContextMenuShow(evt) {
-    console.log("Showing menu...");
+    // console.log("Showing menu...");
     let elem = evt.target;
 
     // menus API cannot be used from content scripts, send message to background script to manipulate the contextmenu
@@ -1075,7 +1075,7 @@ function onContextMenuShow(evt) {
 
     let nodeName = elem.nodeName.toLowerCase();
     let editable = true;
-    console.log("Showing menu for nodeName ", nodeName);
+    // console.log("Showing menu for nodeName ", nodeName);
 
     if (nodeName !== 'input' && nodeName !== 'textarea') {
         // try to find find editable parent (for example we might have clicked on html content inside editable parent div)
@@ -1091,7 +1091,12 @@ function onContextMenuShow(evt) {
         editable = ((_isContentEditable(elem) && _isDisplayed(elem)) || _isDesignModeOn(elem));
     }
     const fieldName = (elem.name) ? elem.name : ((elem.id) ? elem.id : "");
-    const host = _getHost(elem.ownerDocument.location);
+    let host
+    if (elem.ownerDocument) {
+        host = _getHost(elem.ownerDocument.location);
+    } else {
+        host = _getHost(elem.location);
+    }
 
     browser.runtime.sendMessage( {
         eventType: 12345,
