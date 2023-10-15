@@ -28,6 +28,9 @@
 }
 
 /* Force styling for column-visibility buttons */
+div.dt-buttons {
+    margin-left: 12px;
+}
 button.buttons-colvis {
     margin-top: 3px;
     margin-left: 10px;
