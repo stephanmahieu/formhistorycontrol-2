@@ -990,9 +990,13 @@ function createDomObserver() {
 
 // instantiate an observer for adding event handlers to dynamically created DOM elements
 function addBodyObserver(aDocument) {
+    let body = aDocument.querySelector("body");
+    if (body === null) {
+        // probably a frameset, its use is deprecated
+        body = aDocument.body;
+    }
     createDomObserver().observe(
-        aDocument.querySelector("body"),
-        {
+        body, {
             childList: true,
             attributes: true,
             attributeFilter: ['contenteditable','designMode','style'],
