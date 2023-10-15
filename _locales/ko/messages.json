@@ -147,8 +147,8 @@
     "message": "값을 클립보드에 복사했습니다",
     "description": "Information message that clipboard value has been copied."
   },
-  "XXXinformWindowPrefsReset": {
-    "message": "All stored window sizes and positions have been reset.",
+  "informWindowPrefsReset": {
+    "message": "보관된 창 크기와 위치 정보를 초기화했습니다.",
     "description": "Information message that all stored window sizes and positions have been reset."
   },
   "confirmStartCleanupTitle": {
@@ -281,12 +281,12 @@
     "message": "가져올 파일 읽기가 취소되었습니다.",
     "description": "Error message when reading import file was cancelled."
   },
-  "XXXexportErrorTitle": {
-    "message": "Export error",
+  "exportErrorTitle": {
+    "message": "내보내기 오류",
     "description": "Title of modal error dialog for export errors."
   },
-  "XXXexportErrorNoPermission": {
-    "message": "Downloads permission is required but has been denied.",
+  "exportErrorNoPermission": {
+    "message": "다운로드 권한이 필요하지만 거부되었습니다.",
     "description": "Error message during export if user denied requested download permission."
   },
   "tooltipEraseDatetimeButton": {
@@ -377,8 +377,8 @@
     "message": "정리",
     "description": "Options window: Left Cleanup menu."
   },
-  "XXXoptionsFieldfillMenu": {
-    "message": "Form Fill",
+  "optionsFieldfillMenu": {
+    "message": "폼 채우기",
     "description": "Options window: Left Form Fill menu."
   },
   "optionsDisplayLegend": {
@@ -393,16 +393,16 @@
     "message": "날짜 형식 선택",
     "description": "Options window: The date format selection dropdown label"
   },
-  "XXXoptionsSaveWindowProperties": {
-    "message": "Remember window size and position",
+  "optionsSaveWindowProperties": {
+    "message": "창 크기와 위치 기억",
     "description": "Options window: The Remember window size and position checkbox Label."
   },
-  "XXXbuttonResetWindowProperties": {
-    "message": "Reset",
+  "buttonResetWindowProperties": {
+    "message": "초기화",
     "description": "Options window: The Reset (window size and position) button Label."
   },
-  "XXXbuttonResetTitleWindowProperties": {
-    "message": "Reset all window positions and sizes",
+  "buttonResetTitleWindowProperties": {
+    "message": "모든 창 위치 및 크기 초기화",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
   "optionsScrollAmountSelect": {
@@ -502,7 +502,7 @@
     "description": "Options window, Update interval"
   },
   "optiondomainlistlegend": {
-    "message": "도메인별 기록 기능 사용/중지",
+    "message": "도메인별 기록 사용/중지",
     "description": "Options window: The Domain Filter legend."
   },
   "optionsradiodomainall": {
@@ -518,7 +518,7 @@
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
   "optionsFieldlistlegend": {
-    "message": "특정 필드 기록 기능 사용 중지",
+    "message": "특정 필드 기록 중지",
     "description": "Options window: The Fieldlist legend."
   },
   "optionsCleanupLegend": {
@@ -541,28 +541,28 @@
     "message": "지금 정리",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
-  "XXXoptionsFieldfillLegend": {
-    "message": "Form Field Fill",
+  "optionsFieldfillLegend": {
+    "message": "폼 필드 채우기",
     "description": "Options window: The Form Field Fill legend."
   },
-  "XXXoptionsFieldfillModeSelect": {
-    "message": "Field Fill mode",
+  "optionsFieldfillModeSelect": {
+    "message": "필드 채우기 방법",
     "description": "Options window, Field Fill Mode options"
   },
-  "XXXoptionFieldFillAuto": {
-    "message": "Automatic",
+  "optionFieldFillAuto": {
+    "message": "자동",
     "description": "Options window, Field Fill Mode option: Automatic "
   },
-  "XXXoptionFieldFillClipboard": {
-    "message": "Use clipboard",
+  "optionFieldFillClipboard": {
+    "message": "클립보드 사용",
     "description": "Options window, Field Fill Mode option: Use clipboard"
   },
-  "XXXoptionFieldFillClean": {
-    "message": "Insert clean text only",
+  "optionFieldFillClean": {
+    "message": "평문 텍스트만 삽입",
     "description": "Options window, Field Fill Mode option: Insert clean text only"
   },
-  "XXXoptionFieldFillRaw": {
-    "message": "Insert entire (raw) content",
+  "optionFieldFillRaw": {
+    "message": "전체 (원본) 내용 그대로 삽입",
     "description": "Options window, Field Fill Mode option: Insert entire (raw) content"
   },
   "popupHeader": {
@@ -624,7 +624,7 @@
     "description": "Title of context menu item that fills formfields with the most recent used value."
   },
   "contextMenuItemFillMostUsed": {
-    "message": "가장 최근 사용한 항목으로 필드 채우기",
+    "message": "가장 자주 사용한 항목으로 필드 채우기",
     "description": "Title of context menu item that fills formfields with the most used value."
   },
   "contextMenuItemClearFields": {
