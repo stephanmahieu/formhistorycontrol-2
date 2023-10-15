@@ -69,38 +69,23 @@ div.dt-button-collection div button:hover {
 div.dt-button-collection {
     background: var(--main-bg-color);
 }
+div.dt-button-collection .dt-button-active:after {
+    color: var(--button-text-color) !important;
+}
 button.buttons-columnVisibility > span:first-child {
     width: 100%;
     display: inline-block;
     text-align: left;
     vertical-align: middle;
 }
-span.col-select {
-    position: relative;
-    display: inline-block;
-    width: 16px;
-    height: 14px;
-    margin-left: 2px;
-    margin-right: 6px;
-    border-radius: 4px;
-    box-shadow: inset 2px 2px 2px rgba(0,0,0,0.5), 2px 2px 0 rgba(188, 188, 188, 0.4);
+span.col-select span.check{
+    color: var(--button-text-color);
 }
 span.col-select-title {
-    margin-left: 25px;
+    color: var(--button-text-color);
 }
 button.active span.col-select-title {
     margin-left: 15px;
-}
-button.buttons-columnVisibility.active span span.col-select {
-    width: 16px;
-    height: 16px;
-    margin-bottom: 2px;
-}
-button.buttons-columnVisibility.active span span.col-select span.check {
-    display: inline-block;
-    border: 4px solid #4b4b4b;
-    border-top: none;
-    border-right: none;
 }
 
 /* Disable select (might accidentally occur when double clicking) */
