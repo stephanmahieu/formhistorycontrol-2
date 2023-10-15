@@ -84,9 +84,12 @@ def remove_script_line(filepath, substring):
 # -------------------------------------------------------
 def post_process_firefox():
     script = 'browser-polyfill.min.js'
+    srcmap_script = script + '.map'
     print('Post processing firefox:')
 
     # remove the script itself
+    print(f'  remove script {srcmap_script}')
+    os.remove(os.path.join(distSubDirectoryPath, 'common', srcmap_script))
     print(f'  remove script {script}')
     os.remove(os.path.join(distSubDirectoryPath, 'common', script))
 
