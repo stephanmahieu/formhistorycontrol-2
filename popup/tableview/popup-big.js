@@ -149,7 +149,12 @@ $(document).ready(function() {
         // this only works when the close-button is used
         browser.runtime.sendMessage({eventType: 666}).then(null,
             error=>console.log(`Error sending close event: ${error}`)
-        )
+        ).catch((err) => {
+            /* ignore error if no child windows are opened */
+            if (err.message && !err.message.includes('Receiving end does not exist')) {
+                throw(err)
+            }
+        })
     });
 
     $(window).on('resize', function() {
