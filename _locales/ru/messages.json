@@ -522,7 +522,7 @@
     "description": "Options window: The Fieldlist legend."
   },
   "optionsCleanupLegend": {
-    "message": "Осистка",
+    "message": "Очистка",
     "description": "Options window: The Cleanup legend."
   },
   "optionsautocleanup": {
