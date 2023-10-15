@@ -267,9 +267,16 @@ function saveOptions(e) {
 
     // inform all content scripts (all tabs)
     browser.tabs.query({status: "complete"}).then(tabs => {
-        tabs.forEach(tab => {
-            browser.tabs.sendMessage(tab.id, notifyMsg).then(null, null);
-        });
+        if (tabs.forEach) {
+            tabs.forEach(tab => {
+                browser.tabs.sendMessage(tab.id, notifyMsg).then(null, null);
+            }).catch((err) => {
+                /* ignore error if no receiving end */
+                if (err.message && !err.message.includes('Receiving end does not exist')) {
+                    throw(err)
+                }
+            });
+        }
     });
 
     // activate the new shortcut keys
