@@ -6,6 +6,12 @@
     -moz-user-select: none; /* older FF versions */
 }
 
+/* left align column header with data columns */
+table.dataTable.compact thead th, table.dataTable.compact thead td {
+    /*padding: 4px 17px;*/
+    padding: 4px;
+}
+
 /* search box */
 #fhcTable_filter {
     padding-right: 5px;
@@ -54,15 +60,16 @@ span.column-selector {
 }
 div.dt-button-collection div button {
     background: var(--button-disabled-bg-color) !important;
-    color: var(--button-disabled-text-color) !important;
-    border-color: var(--button-disabled-border-color) !important;
-    padding: 1px 6px !important;
+    margin-bottom: 2px !important;
 }
-div.dt-button-collection div button.active,
-button.dt-button.buttons-colvisRestore {
+div.dt-button-collection div button.dt-button-active {
     background: var(--button-bg-color) !important;
-    color: var(--button-text-color) !important;
-    border: 1px solid var(--button-border-color) !important;
+}
+div.dt-button-collection div button.buttons-colvisRestore {
+    background: var(--button-bg-color) !important;
+    color: var(--button-text-color);
+    margin-top: 8px;
+    font-style: italic;
 }
 div.dt-button-collection div button:hover {
     background: var(--button-hover-bg-color) !important;
@@ -72,23 +79,28 @@ div.dt-button-collection div button:hover {
 div.dt-button-collection {
     background: var(--main-bg-color);
 }
-div.dt-button-collection .dt-button-active:after {
-    color: var(--button-text-color) !important;
-}
-button.buttons-columnVisibility > span:first-child {
-    width: 100%;
-    display: inline-block;
-    text-align: left;
-    vertical-align: middle;
-}
-span.col-select span.check{
-    color: var(--button-text-color);
-}
 span.col-select-title {
     color: var(--button-text-color);
 }
-button.active span.col-select-title {
-    margin-left: 15px;
+.buttons-columnVisibility:after {
+    /* create a box even when not selected */
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    right: 1em;
+    display: inline-block;
+    content: " ";
+    font-weight: bold;
+    width: 16px;
+    height: 14px;
+    padding-left: 6px;
+    border-radius: 4px;
+    box-shadow: inset 2px 2px 2px rgba(0,0,0,0.5), 2px 2px 0 rgba(188, 188, 188, 0.4);
+}
+div.dt-button-collection .dt-button-active:after {
+    /* checkmarked box when selected */
+    content: "✓";
+    color: var(--button-text-color);
 }
 
 /* Disable select (might accidentally occur when double clicking) */
