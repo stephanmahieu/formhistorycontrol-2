@@ -426,15 +426,15 @@
     "description": "Option window, contextmenu display: No context menu"
   },
   "XXXpageActionSelect": {
-    "message": "Address bar icon",
+    "message": "Εικονίδιο γραμμής διεύθυνσης",
     "description": "Options window: The Address bar icon dropdown label (select when it should be displayed)"
   },
   "XXXoptionPageActionAlways": {
-    "message": "Always available",
+    "message": "Πάντα διαθέσιμο",
     "description": "Option window, Address bar icon display: Always available"
   },
   "XXXoptionPageActionNone": {
-    "message": "No address bar icon",
+    "message": "Χωρίς εικονίδιο γραμμής διεύθυνσης",
     "description": "Option window, Address bar icon display: No context menu"
   },
   "optionsMiscellaneousLegend": {
