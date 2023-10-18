@@ -603,8 +603,8 @@
     "message": "Επαναφορά πεδίου επεξεργασίας",
     "description": "Title of context menu item that displays the editor (wysiwyg) field values."
   },
-  "XXXcontextMenuItemRestoreTextField": {
-    "message": "Restore text field",
+  "contextMenuItemRestoreTextField": {
+    "message": "Επαναφορά πεδίου κειμένου",
     "description": "Title of context menu item that displays the text field values."
   },
   "contextMenuItemRestoreEditorFieldSubmenuHostname": {
