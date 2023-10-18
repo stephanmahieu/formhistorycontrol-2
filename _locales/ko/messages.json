@@ -603,8 +603,8 @@
     "message": "편집기 필드 복원",
     "description": "Title of context menu item that displays the editor (wysiwyg) field values."
   },
-  "XXXcontextMenuItemRestoreTextField": {
-    "message": "Restore text field",
+  "contextMenuItemRestoreTextField": {
+    "message": "텍스트 필드 복원",
     "description": "Title of context menu item that displays the text field values."
   },
   "contextMenuItemRestoreEditorFieldSubmenuHostname": {
