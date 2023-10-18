@@ -747,100 +747,38 @@
     "message": "Загрузка...",
     "description": "Text displayed while data is being loaded."
   },
-  "dateSecond": {
-    "message": "секунда"
-  },
-  "dateSeconds": {
-    "message": "секунд"
-  },
-  "dateMinute": {
-    "message": "минута"
-  },
-  "dateMinutes": {
-    "message": "минут"
-  },
-  "dateHour": {
-    "message": "час"
-  },
-  "dateHours": {
-    "message": "часов"
-  },
-  "dateDay": {
-    "message": "день"
-  },
-  "dateDays": {
-    "message": "дней"
-  },
-  "dateWeek": {
-    "message": "неделя"
-  },
-  "dateWeeks": {
-    "message": "недель"
-  },
-  "dateMonth": {
-    "message": "месяц"
-  },
-  "dateMonths": {
-    "message": "месяцев"
-  },
-  "dateYear": {
-    "message": "год"
-  },
-  "dateYears": {
-    "message": "лет"
-  },
-  "Shift": {
-    "message": "Shift"
-  },
-  "Ctrl": {
-    "message": "Ctrl"
-  },
-  "Alt": {
-    "message": "Alt"
-  },
-  "Command": {
-    "message": "Command"
-  },
-  "MacCtrl": {
-    "message": "Ctrl(Mac)"
-  },
-  "Comma": {
-    "message": "Comma"
-  },
-  "Period": {
-    "message": "Period"
-  },
-  "Home": {
-    "message": "Home"
-  },
-  "End": {
-    "message": "End"
-  },
-  "PageUp": {
-    "message": "Page Up"
-  },
-  "PageDown": {
-    "message": "Page Down"
-  },
-  "Space": {
-    "message": "Space"
-  },
-  "Insert": {
-    "message": "Insert"
-  },
-  "Delete": {
-    "message": "Delete"
-  },
-  "Up": {
-    "message": "Up"
-  },
-  "Down": {
-    "message": "Down"
-  },
-  "Left": {
-    "message": "Left"
-  },
-  "Right": {
-    "message": "Right"
-  }
+
+  "dateSecond":  {"message": "секунда"},
+  "dateSeconds": {"message": "секунд"},
+  "dateMinute":  {"message": "минута"},
+  "dateMinutes": {"message": "минут"},
+  "dateHour":    {"message": "час"},
+  "dateHours":   {"message": "часов"},
+  "dateDay":     {"message": "день"},
+  "dateDays":    {"message": "дней"},
+  "dateWeek":    {"message": "неделя"},
+  "dateWeeks":   {"message": "недель"},
+  "dateMonth":   {"message": "месяц"},
+  "dateMonths":  {"message": "месяцев"},
+  "dateYear":    {"message": "год"},
+  "dateYears":   {"message": "лет"},
+
+  "Shift":    {"message": "Shift"},
+  "Ctrl":     {"message": "Ctrl"},
+  "Alt":      {"message": "Alt"},
+  "Command":  {"message": "Command"},
+  "MacCtrl":  {"message": "Ctrl(Mac)"},
+  "Comma":    {"message": "Comma"},
+  "Period":   {"message": "Period"},
+  "Home":     {"message": "Home"},
+  "End":      {"message": "End"},
+  "PageUp":   {"message": "Page Up"},
+  "PageDown": {"message": "Page Down"},
+  "Space":    {"message": "Space"},
+  "Insert":   {"message": "Insert"},
+  "Delete":   {"message": "Delete"},
+  "Up":       {"message": "Up"},
+  "Down":     {"message": "Down"},
+  "Left":     {"message": "Left"},
+  "Right":    {"message": "Right"}
 }

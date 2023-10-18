@@ -747,100 +747,38 @@
     "message": "불러오는 중...",
     "description": "Text displayed while data is being loaded."
   },
-  "dateSecond": {
-    "message": "초"
-  },
-  "dateSeconds": {
-    "message": "초"
-  },
-  "dateMinute": {
-    "message": "분"
-  },
-  "dateMinutes": {
-    "message": "분"
-  },
-  "dateHour": {
-    "message": "시"
-  },
-  "dateHours": {
-    "message": "시"
-  },
-  "dateDay": {
-    "message": "일"
-  },
-  "dateDays": {
-    "message": "일"
-  },
-  "dateWeek": {
-    "message": "주"
-  },
-  "dateWeeks": {
-    "message": "주"
-  },
-  "dateMonth": {
-    "message": "월"
-  },
-  "dateMonths": {
-    "message": "월"
-  },
-  "dateYear": {
-    "message": "년"
-  },
-  "dateYears": {
-    "message": "년"
-  },
-  "Shift": {
-    "message": "Shift"
-  },
-  "Ctrl": {
-    "message": "Ctrl"
-  },
-  "Alt": {
-    "message": "Alt"
-  },
-  "Command": {
-    "message": "Command"
-  },
-  "MacCtrl": {
-    "message": "Ctrl(Mac)"
-  },
-  "Comma": {
-    "message": "쉼표(,)"
-  },
-  "Period": {
-    "message": "마침표(.)"
-  },
-  "Home": {
-    "message": "Home"
-  },
-  "End": {
-    "message": "End"
-  },
-  "PageUp": {
-    "message": "Page Up"
-  },
-  "PageDown": {
-    "message": "Page Down"
-  },
-  "Space": {
-    "message": "Space"
-  },
-  "Insert": {
-    "message": "Insert"
-  },
-  "Delete": {
-    "message": "Delete"
-  },
-  "Up": {
-    "message": "위"
-  },
-  "Down": {
-    "message": "아래"
-  },
-  "Left": {
-    "message": "왼쪽"
-  },
-  "Right": {
-    "message": "오른쪽"
-  }
+
+  "dateSecond":  {"message": "초"},
+  "dateSeconds": {"message": "초"},
+  "dateMinute":  {"message": "분"},
+  "dateMinutes": {"message": "분"},
+  "dateHour":    {"message": "시"},
+  "dateHours":   {"message": "시"},
+  "dateDay":     {"message": "일"},
+  "dateDays":    {"message": "일"},
+  "dateWeek":    {"message": "주"},
+  "dateWeeks":   {"message": "주"},
+  "dateMonth":   {"message": "월"},
+  "dateMonths":  {"message": "월"},
+  "dateYear":    {"message": "년"},
+  "dateYears":   {"message": "년"},
+
+  "Shift":    {"message": "Shift"},
+  "Ctrl":     {"message": "Ctrl"},
+  "Alt":      {"message": "Alt"},
+  "Command":  {"message": "Command"},
+  "MacCtrl":  {"message": "Ctrl(Mac)"},
+  "Comma":    {"message": "쉼표(,)"},
+  "Period":   {"message": "마침표(.)"},
+  "Home":     {"message": "Home"},
+  "End":      {"message": "End"},
+  "PageUp":   {"message": "Page Up"},
+  "PageDown": {"message": "Page Down"},
+  "Space":    {"message": "Space"},
+  "Insert":   {"message": "Insert"},
+  "Delete":   {"message": "Delete"},
+  "Up":       {"message": "위"},
+  "Down":     {"message": "아래"},
+  "Left":     {"message": "왼쪽"},
+  "Right":    {"message": "오른쪽"}
 }
