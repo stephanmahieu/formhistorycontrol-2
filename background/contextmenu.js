@@ -37,12 +37,12 @@ function receiveContextEvents(fhcEvent, sender, sendResponse) {
         const hostname = fhcEvent.host;
 
         removeCurrentMenuItems(EDITOR_FIELDS_MENUITEM_IDS, TEXT_FIELDS_MENUITEM_IDS)
-        .then(() => {
-            if (nodeName !== 'input') {
-                return getEditorFieldsByHostname(hostname, 10);
-            }
-            return [];
-        }).then(hostnameItemsArray => {
+            .then(() => {
+                if (nodeName !== 'input') {
+                    return getEditorFieldsByHostname(hostname, 10);
+                }
+                return [];
+            }).then(hostnameItemsArray => {
             hostnameItemsArray.forEach(item => {EDITOR_FIELDS_MENUITEM_IDS.push(item);});
             return hostnameItemsArray;
         }).then(hostnameItemsArray => {
@@ -359,11 +359,11 @@ function removeTagsAndShorten(value) {
 }
 
 function onMenuCreated() {
-  if (browser.runtime.lastError) {
-    console.error(`Error: ${browser.runtime.lastError}`);
-  } else {
-    //console.log("MenuItem created successfully");
-  }
+    if (browser.runtime.lastError) {
+        console.error(`Error: ${browser.runtime.lastError}`);
+    } else {
+        //console.log("MenuItem created successfully");
+    }
 }
 
 
@@ -803,7 +803,7 @@ getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
 
 
 /**
- * Cross browser (Firefox, Chrome) create menus.
+ * Cross browser (Firefox, Safari, Chrome) create menus.
  */
 function browserMenusCreate(menuProperties, onMenuCreated) {
     if (menuProperties.contexts.length) {
@@ -835,7 +835,7 @@ function browserContextMenusCreate(menuProperties, onMenuCreated) {
 
 
 /**
- * Cross browser (Firefox, Chrome) remove menu.
+ * Cross browser (Firefox, Safari, Chrome) remove menu.
  */
 function browserMenusRemove(menuItemId, onMenuRemoved) {
     if (IS_FIREFOX || IS_SAFARI) {
@@ -845,7 +845,7 @@ function browserMenusRemove(menuItemId, onMenuRemoved) {
 }
 
 /**
- * Cross browser (Firefox, Chrome) return onClicked handler.
+ * Cross browser (Firefox, Safari, Chrome) return onClicked handler.
  */
 function getBrowserMenusOnClickedHandler() {
     if (IS_FIREFOX || IS_SAFARI) {
