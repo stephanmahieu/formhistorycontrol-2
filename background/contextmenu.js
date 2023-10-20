@@ -7,10 +7,8 @@
 'use strict';
 
 const IS_FIREFOX = typeof browser.runtime.getBrowserInfo === 'function';
-console.log("IS_FIREFOX = " + IS_FIREFOX);
-
 const IS_SAFARI = navigator.userAgent.includes("Safari");
-console.log("IS_SAFARI = " + IS_SAFARI);
+console.log("IS_FIREFOX=" + IS_FIREFOX + " IS_SAFARI=" + IS_SAFARI);
 
 browser.runtime.onMessage.addListener(receiveContextEvents);
 // MF3 browser.runtime.onInstalled.addListener(receiveContextEvents);
@@ -805,20 +803,11 @@ getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
 
 
 /**
- * Cross browser (Firefox, Chrome, Safari) create menus.
+ * Cross browser (Firefox, Safari, Chrome) create menus.
  */
 function browserMenusCreate(menuProperties, onMenuCreated) {
     if (menuProperties.contexts.length) {
         if (IS_FIREFOX) {
-            return browser.menus.create(menuProperties, onMenuCreated);
-        }
-        else if (IS_SAFARI) {
-            // strip unsupported icons
-            delete menuProperties['icons'];
-            // skip unsupported "tools_menu" context
-            if (menuProperties.contexts.includes("tools_menu")) {
-                return null;
-            }
             return browser.menus.create(menuProperties, onMenuCreated);
         }
         else {
@@ -827,6 +816,9 @@ function browserMenusCreate(menuProperties, onMenuCreated) {
             // skip unsupported "tools_menu" context
             if (menuProperties.contexts.includes("tools_menu")) {
                 return null;
+            }
+            if (IS_SAFARI) {
+                return browser.menus.create(menuProperties, onMenuCreated);
             }
             return chrome.contextMenus.create(menuProperties, onMenuCreated);
         }
@@ -843,7 +835,7 @@ function browserContextMenusCreate(menuProperties, onMenuCreated) {
 
 
 /**
- * Cross browser (Firefox, Chrome, Safari) remove menu.
+ * Cross browser (Firefox, Safari, Chrome) remove menu.
  */
 function browserMenusRemove(menuItemId, onMenuRemoved) {
     if (IS_FIREFOX || IS_SAFARI) {
@@ -853,7 +845,7 @@ function browserMenusRemove(menuItemId, onMenuRemoved) {
 }
 
 /**
- * Cross browser (Firefox, Chrome, Safari) return onClicked handler.
+ * Cross browser (Firefox, Safari, Chrome) return onClicked handler.
  */
 function getBrowserMenusOnClickedHandler() {
     if (IS_FIREFOX || IS_SAFARI) {
