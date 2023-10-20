@@ -7,8 +7,7 @@
 'use strict';
 
 const IS_FIREFOX = typeof browser.runtime.getBrowserInfo === 'function';
-const IS_SAFARI = navigator.userAgent.includes("Safari");
-console.log("IS_FIREFOX=" + IS_FIREFOX + " IS_SAFARI=" + IS_SAFARI);
+console.log("IS_FIREFOX = " + IS_FIREFOX);
 
 browser.runtime.onMessage.addListener(receiveContextEvents);
 // MF3 browser.runtime.onInstalled.addListener(receiveContextEvents);
@@ -37,12 +36,12 @@ function receiveContextEvents(fhcEvent, sender, sendResponse) {
         const hostname = fhcEvent.host;
 
         removeCurrentMenuItems(EDITOR_FIELDS_MENUITEM_IDS, TEXT_FIELDS_MENUITEM_IDS)
-        .then(() => {
-            if (nodeName !== 'input') {
-                return getEditorFieldsByHostname(hostname, 10);
-            }
-            return [];
-        }).then(hostnameItemsArray => {
+            .then(() => {
+                if (nodeName !== 'input') {
+                    return getEditorFieldsByHostname(hostname, 10);
+                }
+                return [];
+            }).then(hostnameItemsArray => {
             hostnameItemsArray.forEach(item => {EDITOR_FIELDS_MENUITEM_IDS.push(item);});
             return hostnameItemsArray;
         }).then(hostnameItemsArray => {
@@ -359,11 +358,11 @@ function removeTagsAndShorten(value) {
 }
 
 function onMenuCreated() {
-  if (browser.runtime.lastError) {
-    console.error(`Error: ${browser.runtime.lastError}`);
-  } else {
-    //console.log("MenuItem created successfully");
-  }
+    if (browser.runtime.lastError) {
+        console.error(`Error: ${browser.runtime.lastError}`);
+    } else {
+        //console.log("MenuItem created successfully");
+    }
 }
 
 
@@ -809,16 +808,12 @@ function browserMenusCreate(menuProperties, onMenuCreated) {
     if (menuProperties.contexts.length) {
         if (IS_FIREFOX) {
             return browser.menus.create(menuProperties, onMenuCreated);
-        }
-        else {
+        } else {
             // strip unsupported icons
             delete menuProperties['icons'];
             // skip unsupported "tools_menu" context
             if (menuProperties.contexts.includes("tools_menu")) {
                 return null;
-            }
-            if (IS_SAFARI) {
-                return browser.menus.create(menuProperties, onMenuCreated);
             }
             return chrome.contextMenus.create(menuProperties, onMenuCreated);
         }
@@ -838,7 +833,7 @@ function browserContextMenusCreate(menuProperties, onMenuCreated) {
  * Cross browser (Firefox, Chrome) remove menu.
  */
 function browserMenusRemove(menuItemId, onMenuRemoved) {
-    if (IS_FIREFOX || IS_SAFARI) {
+    if (IS_FIREFOX) {
         return browser.menus.remove(menuItemId, onMenuRemoved);
     }
     return chrome.contextMenus.remove(menuItemId, onMenuRemoved);
@@ -848,7 +843,7 @@ function browserMenusRemove(menuItemId, onMenuRemoved) {
  * Cross browser (Firefox, Chrome) return onClicked handler.
  */
 function getBrowserMenusOnClickedHandler() {
-    if (IS_FIREFOX || IS_SAFARI) {
+    if (IS_FIREFOX) {
         return browser.menus.onClicked;
     }
     return chrome.contextMenus.onClicked;
