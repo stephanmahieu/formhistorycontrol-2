@@ -93,6 +93,13 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#keepdayshistory").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#btnCleanupNow").addEventListener("click", cleanupNow);
 
+    document.querySelector("#btnEncryptionEnable").addEventListener("click", showEnableEncryptionFields);
+    document.querySelector("#btnEncryptionCancel").addEventListener("click", hideEnableEncryptionFields);
+    document.querySelectorAll(".encryptpwd-input").forEach(input => {
+        input.addEventListener("input", checkEncryptionPasswords);
+    });
+    document.querySelector("#btnEncryptionActivate").addEventListener("click", activateEncryption);
+
     document.querySelector("#fieldfillModeSelect").addEventListener("change", checkPropertiesChanged);
 
     document.querySelectorAll('input[name=radiogroupDomainlist]').forEach(radio => {
@@ -538,6 +545,275 @@ function cleanupNow(event) {
     // notify popup(s) that new data has been added so they can update their view
     // do not do that immediately because cleanup is performed asynchronously
     window.setTimeout(()=>{browser.runtime.sendMessage({eventType: 777});}, 800);
+}
+
+function showEnableEncryptionFields(event) {
+    event.preventDefault();
+    document.querySelector("#enableEncryptForm").style.display = "block";
+
+    // clear both pasword fields
+    document.querySelector("#encryptKeyPwd1").value = "test";
+    document.querySelector("#encryptKeyPwd2").value = "test";
+    checkEncryptionPasswords();
+
+    const enableBtn = document.querySelector("#btnEncryptionEnable");
+    enableBtn.setAttribute("disabled", "true");
+    enableBtn.classList.add("disabled");
+}
+
+function hideEnableEncryptionFields(event) {
+    event.preventDefault();
+    document.querySelector("#enableEncryptForm").style.display = "none";
+
+    document.querySelector("#encryptKeyPwd1").value = "";
+    document.querySelector("#encryptKeyPwd2").value = "";
+    checkEncryptionPasswords();
+
+    const enableBtn = document.querySelector("#btnEncryptionEnable");
+    enableBtn.removeAttribute("disabled");
+    enableBtn.classList.remove("disabled");
+}
+
+function checkEncryptionPasswords() {
+    // only enable when both password are not empty and equal
+    const pw1 = document.querySelector("#encryptKeyPwd1").value;
+    const pw2 = document.querySelector("#encryptKeyPwd2").value;
+
+    const enableBtn = document.querySelector("#btnEncryptionActivate");
+    if (pw1.length > 0 && pw1 === pw2) {
+        enableBtn.removeAttribute("disabled");
+        enableBtn.classList.remove("disabled");
+    } else {
+        enableBtn.setAttribute("disabled", "true");
+        enableBtn.classList.add("disabled");
+    }
+}
+
+// function getWrappingKey(password, salt) {
+//     return new Promise((resolve, reject) => {
+//         const encUTF8 = new TextEncoder();
+//         window.crypto.subtle.importKey(
+//             "raw",
+//             encUTF8.encode(password),
+//             {name: "PBKDF2"},
+//             false,
+//             ["deriveBits", "deriveKey"]
+//         ).then( (keyMaterial) => {
+//             window.crypto.subtle.deriveKey(
+//                 {
+//                     "name": "PBKDF2",
+//                     "salt": salt,
+//                     "iterations": 100000,
+//                     "hash": "SHA-256"
+//                 },
+//                 keyMaterial,
+//                 {"name": "AES-GCM", "length": 256},
+//                 true,
+//                 ["wrapKey", "unwrapKey"]
+//             ).then( (wrappingKey ) => {
+//                 console.log("WrappingKey ", wrappingKey);
+//                 resolve(wrappingKey);
+//             });
+//         });
+//     });
+// }
+//
+// /*
+// Convert an array of byte values to an ArrayBuffer.
+// */
+// function bytesToArrayBuffer(bytes) {
+//     const bytesAsArrayBuffer = new ArrayBuffer(bytes.length);
+//     const bytesUint8 = new Uint8Array(bytesAsArrayBuffer);
+//     bytesUint8.set(bytes);
+//     return bytesAsArrayBuffer;
+// }
+
+function activateEncryption(event) {
+    event.preventDefault();
+
+    const password = document.querySelector("#encryptKeyPwd1").value;
+
+    CryptoUtil.generateKeypair(password).then( (keys) => {
+        console.log("Generated keys", keys);
+
+        CryptoUtil.encrypt(keys["publicKey"], "Hello hëllö World!").then( (ciphertext) => {
+            console.log("Encrypted text (an arraybuffer)", ciphertext);
+
+            CryptoUtil.decrypt(password, keys["wrappedPrivateKey"], ciphertext).then( (plaintext) => {
+                console.log("Decrypted text", plaintext);
+
+            });
+        });
+
+
+        CryptoUtil.encrypt(keys["publicKey"], "Hallo Allemaal Dit is een TEST!!!!").then( (ciphertext2) => {
+
+
+            // export the public key as spki so it can be stored
+            CryptoUtil.exportPublicKey(keys["publicKey"]).then((publicPemKey) => {
+                console.log("exported pubkey as pem", publicPemKey);
+
+                const privateKeyString = CryptoUtil.exportPrivateKey(keys["wrappedPrivateKey"]);
+
+                const secKeys = {
+                    secPublicKey: publicPemKey,
+                    secEncryptedPrivateKey: privateKeyString
+                };
+                browser.storage.local.set(secKeys).then(() => {
+                    console.log("Security keys stored successfully!");
+
+                    // retrieve the keys
+                    browser.storage.local.get(["secPublicKey", "secEncryptedPrivateKey"]).then((result) => {
+                        // console.log("Security keys retrieved successfully!", result);
+                        console.log("Security keys retrieved successfully!");
+
+                        CryptoUtil.importPublicKey(result["secPublicKey"]).then( (pubKey2) => {
+                            console.log("Public key imported successfully!", pubKey2);
+
+                            const privKey2 = CryptoUtil.importPrivateKey(result["secEncryptedPrivateKey"]);
+                            console.log("Private key imported successfully!", privKey2);
+
+
+
+                            // Now test decryption with private key from storage
+                            CryptoUtil.decrypt(password, privKey2, ciphertext2).then( (plaintext2) => {
+                                console.log("Decrypted text", plaintext2);
+                            });
+
+                            WindowUtil.createOrFocusWindow(FHC_WINDOW_PASSW);
+
+
+                        });
+
+                    });
+                });
+            });
+
+        });
+
+    });
+
+
+    // /*  Salt for derivation, key-wrapping and unwrapping */
+    // const saltBytes = [89,113,135,234,168,204,21,36,55,93,1,132,242,242,192,156];
+    // const saltBuffer = bytesToArrayBuffer(saltBytes);
+    //
+    // window.crypto.subtle.generateKey(
+    //     {
+    //         name: "RSA-OAEP",
+    //         // Consider using a 4096-bit key for systems that require long-term security
+    //         modulusLength: 2048,
+    //         publicExponent: new Uint8Array([1, 0, 1]),
+    //         hash: "SHA-256",
+    //     }, true, ["encrypt", "decrypt", "wrapKey", "unwrapKey"]
+    // ).then( (keyPair) => {
+    //     console.log("Key Success!");
+    //
+    //     window.crypto.subtle.exportKey("jwk", keyPair["publicKey"]).then( (pubKey) => {
+    //         console.log("Public key is: ", pubKey);
+    //     });
+    //     window.crypto.subtle.exportKey("jwk", keyPair["privateKey"]).then( (privKey) => {
+    //         console.log("Private key is: ", privKey);
+    //     });
+    //
+    //     const plainText = "The quick brown fox";
+    //     const encUTF8 = new TextEncoder();
+    //
+    //     window.crypto.subtle.encrypt(
+    //         {
+    //             name: "RSA-OAEP"
+    //         },
+    //         keyPair["publicKey"],
+    //         encUTF8.encode(plainText)
+    //     ).then( (ciphertext) => {
+    //         console.log("Encrypted text (an arraybuffer)", ciphertext);
+    //
+    //         window.crypto.subtle.decrypt(
+    //             {name: "RSA-OAEP"},
+    //             keyPair["privateKey"],
+    //             ciphertext
+    //         ).then( (decryptedArrayBuffer) => {
+    //             const dec = new TextDecoder();
+    //             console.log("Decrypted text", dec.decode(decryptedArrayBuffer));
+    //         });
+    //     });
+    //
+    //
+    //     getWrappingKey(password, saltBuffer).then( (wrappingKey) => {
+    //         const iv = window.crypto.getRandomValues(new Uint8Array(16));
+    //         window.crypto.subtle.wrapKey(
+    //             "pkcs8",
+    //             keyPair["privateKey"],
+    //             wrappingKey,
+    //             {
+    //                 name: "AES-GCM",
+    //                 iv: iv
+    //             }
+    //         ).then( (wrappedPrivateKey) => {
+    //             console.log("WrappedPrivateKey", wrappedPrivateKey);
+    //             // ArrayBuffer bytes
+    //
+    //             // now we have a wrappedPrivateKey, lets try to unwrap it again
+    //             window.crypto.subtle.unwrapKey(
+    //                 "pkcs8",                  // import format
+    //                 wrappedPrivateKey,               // ArrayBuffer representing key to unwrap
+    //                 wrappingKey,                     // CryptoKey representing key encryption key
+    //                 {                  // algorithm params for key encryption key
+    //                     name: "AES-GCM",
+    //                     iv: iv
+    //                 },
+    //                 {
+    //                     name: "RSA-OAEP",
+    //                     modulusLength: 2048,
+    //                     publicExponent: new Uint8Array([1, 0, 1]),
+    //                     hash: "SHA-256",
+    //                 },
+    //                 true,                  // extractability of key to unwrap
+    //                 ["decrypt"]               // key usages for key to unwrap
+    //             ).then( (unwrappedPrivateKey) => {
+    //                 console.log("UnwrappedPrivateKey", unwrappedPrivateKey);
+    //
+    //
+    //                 // now try to encrypt with public key and decrypt with unwrapped privatekey
+    //                 const plainText2 = "Hello world!";
+    //                 const encUTF8 = new TextEncoder();
+    //                 window.crypto.subtle.encrypt(
+    //                     {
+    //                         name: "RSA-OAEP"
+    //                     },
+    //                     keyPair["publicKey"],
+    //                     encUTF8.encode(plainText2)
+    //                 ).then( (ciphertext2) => {
+    //                     console.log("Encrypted text (an arraybuffer)", ciphertext2);
+    //
+    //                     window.crypto.subtle.decrypt(
+    //                         {name: "RSA-OAEP"},
+    //                         unwrappedPrivateKey,
+    //                         ciphertext2
+    //                     ).then( (decryptedArrayBuffer2) => {
+    //                         const dec = new TextDecoder();
+    //                         console.log("Decrypted text", dec.decode(decryptedArrayBuffer2));
+    //                     });
+    //                 });
+    //
+    //
+    //             });
+    //
+    //         });
+    //     });
+    //
+    // });
+}
+function _ab2str(buf) {
+    return String.fromCharCode.apply(null, new Uint8Array(buf));
+}
+function _str2ab(str) {
+    const buf = new ArrayBuffer(str.length);
+    const bufView = new Uint8Array(buf);
+    for (let i = 0, strLen = str.length; i < strLen; i++) {
+        bufView[i] = str.charCodeAt(i);
+    }
+    return buf;
 }
 
 function handleClick(e) {

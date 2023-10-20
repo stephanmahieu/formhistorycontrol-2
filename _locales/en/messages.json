@@ -377,6 +377,10 @@
     "message": "Cleanup",
     "description": "Options window: Left Cleanup menu."
   },
+  "optionsEncryptionMenu": {
+    "message": "Encryption",
+    "description": "Options window: Left Encryption menu."
+  },
   "optionsFieldfillMenu": {
     "message": "Form Fill",
     "description": "Options window: Left Form Fill menu."
@@ -541,6 +545,12 @@
     "message": "Clean Up Now",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
+
+  "optionsEncryptionLegend": {
+    "message": "Encryption",
+    "description": "Options window: The Encryption legend."
+  },
+
   "optionsFieldfillLegend":  {
     "message": "Form Field Fill",
     "description": "Options window: The Form Field Fill legend."

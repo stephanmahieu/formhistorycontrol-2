@@ -12,11 +12,12 @@ const FHC_WINDOW_IMPORT  = { path:"popup/importexport/import.html", width: 350, 
 const FHC_WINDOW_EXPORT  = { path:"popup/importexport/export.html", width: 350, height:250, type:"popup", currentId: -1, pref: 'prefPosSizeExport' };
 const FHC_WINDOW_ENTRYVW = { path:"popup/entryview/entryview.html", width: 550, height:315, type:"popup", currentId: -1, pref: 'prefPosSizeEntryview' };
 const FHC_WINDOW_EDITRVW = { path:"popup/entryview/entryview.html", width: 550, height:415, type:"popup", currentId: -1, pref: 'prefPosSizeEntryview' }; // same pref as entryvw
+const FHC_WINDOW_PASSW   = { path:"popup/password/password.html",   width: 365, height:200, type:"popup", currentId: -1, pref: 'prefPosSizePassword' };
 
 const FHC_WINDOW_HELP     = { path:"https://stephanmahieu.github.io/fhc-home/",                               width: 990, height:900, type:"normal", currentId: -1, tabId: -1 };
 const FHC_WINDOW_RELNOTES = { path:"https://stephanmahieu.github.io/fhc-home/ReleaseNotes/fhc-releasenotes/", width: 990, height:900, type:"normal", currentId: -1, tabId: -1 };
 
-const FHC_ALL_POPUPS = [FHC_WINDOW_MANAGE, FHC_WINDOW_OPTIONS, FHC_WINDOW_ABOUT, FHC_WINDOW_IMPORT, FHC_WINDOW_EXPORT, FHC_WINDOW_ENTRYVW, FHC_WINDOW_EDITRVW];
+const FHC_ALL_POPUPS = [FHC_WINDOW_MANAGE, FHC_WINDOW_OPTIONS, FHC_WINDOW_ABOUT, FHC_WINDOW_IMPORT, FHC_WINDOW_EXPORT, FHC_WINDOW_ENTRYVW, FHC_WINDOW_EDITRVW, FHC_WINDOW_PASSW];
 
 // these paths are shown in tabs in the same window
 const TAB_GROUP = [FHC_WINDOW_HELP, FHC_WINDOW_RELNOTES];

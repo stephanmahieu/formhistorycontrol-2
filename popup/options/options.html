@@ -49,6 +49,11 @@
                         <span data-fhc-i18n="optionsCleanupMenu" class="optionLabel">Cleanup</span>
                     </a>
                 </li>
+                <li>
+                    <a id="encryption" href="#" class="optionLink">
+                        <span data-fhc-i18n="optionsEncryptionMenu" class="optionLabel">Encryption</span>
+                    </a>
+                </li>
                 <li class="expert-pref">
                     <a id="fieldfill" href="#" class="optionLink">
                         <span data-fhc-i18n="optionsFieldfillMenu" class="optionLabel">Form Fill</span>
@@ -208,6 +213,41 @@
                     <button id="btnCleanupNow" data-fhc-i18n="buttonCleanupNow">Clean Up Now</button>
                 </fieldset>
 
+                <fieldset id="fld_encryption" class="sub-fieldset" style="display:none">
+                    <legend data-fhc-i18n="optionsEncryptionLegend">Encryption</legend>
+
+                    <label id="optionsEncryptionState" data-fhc-i18n="optionsEncryptionState">Encryption mode:</label>
+                    <span id="optionEncryptionEnabled" data-fhc-i18n="optionEncryptionEnabled" class="optionValue" style="display:none">Enabled</span>
+                    <span id="optionEncryptionDisabled" data-fhc-i18n="optionEncryptionDisabled" class="optionValue">Disabled</span>
+                    <button id="btnEncryptionEnable" data-fhc-i18n="buttonEncryptionEnable" class="inline-button">Enable</button>
+                    <button id="btnEncryptionDisable" data-fhc-i18n="buttonEncryptionDisable" class="inline-button" style="display:none">Disable</button>
+                    <br/>
+                    <br/>
+
+                    <div id="enableEncryptForm" style="display:none">
+                        <!--
+                        <label for="encryptKeyLengthSelect" data-fhc-i18n="optionsKeyLengthSelect">Encryption key length</label>
+                        <select id="encryptKeyLengthSelect" class="rightalign">
+                            <option value="1024">1024</option>
+                            <option value="2048">2048</option>
+                            <option value="4096">4096</option>
+                        </select><br/><br/>
+                        -->
+                        <label for="encryptKeyPwd1" data-fhc-i18n="inputEncryptKeyPwd1">Password</label>
+                        <input type="password" id="encryptKeyPwd1" class="encryptpwd-input rightalign"><br/><br/>
+                        <label for="encryptKeyPwd2" data-fhc-i18n="inputEncryptKeyPwd2">Retype Password</label>
+                        <input type="password" id="encryptKeyPwd2" class="encryptpwd-input rightalign">
+                        <br/>
+                        <div style="display:inline-block">
+                            <button id="btnEncryptionActivate" data-fhc-i18n="buttonEncryptionActivate">Activate Encryption</button>
+                            <button id="btnEncryptionCancel" data-fhc-i18n="buttonEncryptionCancel">Cancel</button>
+                        </div>
+                    </div>
+                    <div id="disableEncryptForm">
+
+                    </div>
+                </fieldset>
+
                 <div  class="expert-pref">
                     <fieldset id="fld_fieldfill" class="sub-fieldset" style="display:none">
                         <legend data-fhc-i18n="optionsFieldfillLegend">Form Field Fill</legend>
@@ -261,6 +301,7 @@
 </form>
 <script src="/common/browser-polyfill.min.js"></script>
 <script src="/common/CleanupConst.js"></script>
+<script src="/common/CryptoUtil.js"></script>
 <script src="/common/FileUtil.js"></script>
 <script src="/common/OptionsUtil.js"></script>
 <script src="/common/ThemeUtil.js"></script>
