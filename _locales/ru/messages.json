@@ -425,16 +425,16 @@
     "message": "Без контекстного меню",
     "description": "Option window, contextmenu display: No context menu"
   },
-  "XXXpageActionSelect": {
-    "message": "Address bar icon",
+  "pageActionSelect": {
+    "message": "Иконка адресной строки",
     "description": "Options window: The Address bar icon dropdown label (select when it should be displayed)"
   },
-  "XXXoptionPageActionAlways": {
-    "message": "Always available",
+  "optionPageActionAlways": {
+    "message": "Всегда видна",
     "description": "Option window, Address bar icon display: Always available"
   },
-  "XXXoptionPageActionNone": {
-    "message": "No address bar icon",
+  "optionPageActionNone": {
+    "message": "Без иконки в адресной строке",
     "description": "Option window, Address bar icon display: No context menu"
   },
   "optionsMiscellaneousLegend": {
@@ -603,8 +603,8 @@
     "message": "Заполнить редактируемое поле",
     "description": "Title of context menu item that displays the editor (wysiwyg) field values."
   },
-  "XXXcontextMenuItemRestoreTextField": {
-    "message": "Restore text field",
+  "contextMenuItemRestoreTextField": {
+    "message": "Восстановить текстовое поле",
     "description": "Title of context menu item that displays the text field values."
   },
   "contextMenuItemRestoreEditorFieldSubmenuHostname": {
