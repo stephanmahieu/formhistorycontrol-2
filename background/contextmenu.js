@@ -7,7 +7,7 @@
 'use strict';
 
 const IS_FIREFOX = typeof browser.runtime.getBrowserInfo === 'function';
-const IS_SAFARI = navigator.userAgent.includes("Safari");
+const IS_SAFARI = navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("Chrom");
 console.log("IS_FIREFOX=" + IS_FIREFOX + " IS_SAFARI=" + IS_SAFARI);
 
 browser.runtime.onMessage.addListener(receiveContextEvents);
@@ -70,7 +70,6 @@ function receiveContextEvents(fhcEvent, sender, sendResponse) {
             } else {
                 chrome.contextMenus.update('restoreEditorField', {"enabled": (nodeName !== 'input')});
                 chrome.contextMenus.update('restoreTextField', {"enabled": (nodeName === 'input')});
-                chrome.contextMenus.refresh();
             }
         });
     }
