@@ -7,9 +7,9 @@
 }
 
 /* left align column header with data columns */
-table.dataTable.compact thead th, table.dataTable.compact thead td {
-    /*padding: 4px 17px;*/
-    padding: 4px;
+table.dataTable.compact thead th,
+table.dataTable.compact thead td {
+    padding: 4px 6px !important;
 }
 
 /* search box */

@@ -129,10 +129,6 @@ table.dataTable tbody td.no-padding {
     cursor: s-resize;
 }
 
-/* column-visibility checkmarks */
-button.buttons-columnVisibility.active span span.col-select span.check {
-    transform: rotate(-45deg) translateX(5px) translateY(3px) scaleY(0.9);
-    width: 10px;
-    height: 7px;
-    margin-left: -1px;
+.buttons-columnVisibility:after {
+    padding-left: 3px;
 }
