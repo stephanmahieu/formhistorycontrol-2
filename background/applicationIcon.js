@@ -108,15 +108,17 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
     }
 
     // Only show pageaction when preference is set
-    browser.storage.local.get({
-        prefPageactionAvail: 'always'
-    }).then(res => {
-        if (res.prefPageactionAvail === 'always') {
-            browser.pageAction.show(tabId);
-        } else {
-            browser.pageAction.hide(tabId);
-        }
-    });
+    if (browser.pageAction) {
+        browser.storage.local.get({
+            prefPageactionAvail: 'always'
+        }).then(res => {
+            if (res.prefPageactionAvail === 'always') {
+                browser.pageAction.show(tabId);
+            } else {
+                browser.pageAction.hide(tabId);
+            }
+        });
+    }
 
     const host = MiscUtil.getHostnameFromUrlString(url);
 
