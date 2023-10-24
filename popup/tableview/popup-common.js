@@ -175,8 +175,10 @@ function resizeTable() {
 function adjustSearchBox() {
     // adjust size searchbox for placeholder to fit nicely
     const inpSearch = $("#fhcTable_filter input")[0];
-    const placeholderText = inpSearch.getAttribute("placeholder");
-    inpSearch.setAttribute("size", placeholderText.length + 2);
+    if (inpSearch) {
+        const placeholderText = inpSearch.getAttribute("placeholder");
+        inpSearch.setAttribute("size", placeholderText.length + 2);
+    }
 }
 
 function haveSelectedItems() {
