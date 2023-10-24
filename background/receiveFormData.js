@@ -358,7 +358,7 @@ function initDatabase() {
 
             objStore = db.createObjectStore(DbConst.DB_STORE_ELEM, {autoIncrement: true});
             objStore.createIndex(DbConst.DB_ELEM_IDX_FIELD, "fieldkey", {unique: true});
-            objStore.createIndex("by_saved", "saved", {unique: false});
+            objStore.createIndex(DbConst.DB_ELEM_IDX_SAVED, "saved", {unique: false});
             //objStore.createIndex("by_name", "name", {unique: false});
         }
 
