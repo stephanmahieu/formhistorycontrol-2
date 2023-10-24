@@ -52,23 +52,17 @@ table#fhcTable tbody tr {
     background: linear-gradient(to bottom, #777 0%, #545454 100%);
 }
 
-
-/* Selection color even rows */
-table.dataTable.display tbody tr.even.selected,
-table.dataTable.display tbody tr.even.selected > .sorting_1,
-table.dataTable         tbody tr.even.selected > .sorting_1 {
-    background: linear-gradient(90deg, #d37720 0%, #d37720 1%, #a1561d 3%, #a1561d 100%);
-    color: #ffc538 !important;
+/* Selection colors */
+table.dataTable tbody tr.even.selected > *,
+table.dataTable tbody tr.odd.selected > * {
+    color: #ffc538;
 }
-
-/* Selection color odd rows */
-table.dataTable.display tbody tr.odd.selected,
-table.dataTable.display tbody tr.odd.selected > .sorting_1,
-table.dataTable         tbody tr.odd.selected > .sorting_1 {
-    background: linear-gradient(90deg, #d37720 0%, #d37720 1%, #a85520 3%, #a85520 100%);
-    color: #ffc538 !important;
+table.dataTable tbody tr.even.selected > * {
+    box-shadow: inset 0 0 0 9999px rgb(90, 45, 2, 0.6) !important;
 }
-
+table.dataTable tbody tr.odd.selected > * {
+    box-shadow: inset 0 0 0 9999px rgb(80, 38, 0, 0.6) !important;
+}
 
 /* Even zebra rows */
 table.dataTable              tbody tr,
