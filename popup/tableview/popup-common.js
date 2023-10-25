@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Stephan Mahieu
+ * Copyright (c) 2023. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -178,6 +178,23 @@ function adjustSearchBox() {
     if (inpSearch) {
         const placeholderText = inpSearch.getAttribute("placeholder");
         inpSearch.setAttribute("size", placeholderText.length + 2);
+
+        addSearchBoxEraseButton();
+    }
+}
+
+function addSearchBoxEraseButton() {
+    // add erase icon searchbox
+    if (!$("#fhcTable_filter_erase").length) {
+        const inpSearchLbl = $($("#fhcTable_filter label")[0]);
+        if (inpSearchLbl.length) {
+            inpSearchLbl.append('<div id="fhcTable_filter_erase">X</div>');
+            $("#fhcTable_filter_erase").on('click', function(event) {
+                // Event listener for erasing the searchbox
+                $($("#fhcTable_filter input")[0]).val('').trigger('cut');
+                return false;
+            });
+        }
     }
 }
 

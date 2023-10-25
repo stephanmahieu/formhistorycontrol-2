@@ -4,6 +4,9 @@
 #fhcTable_filter input[type=search] {
     background: url("search-white.png") no-repeat 3px 3px var(--field-bg-color);
 }
+#fhcTable_filter_erase {
+    color: #b6b6b6;
+}
 ::-webkit-input-placeholder {
     color: #b6b6b6;
 }
