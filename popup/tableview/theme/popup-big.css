@@ -39,7 +39,7 @@ td.my-details-control {
   min-width: 115px;
 }
 #fhcTable_filter input[type=search]:focus {
-  min-width: 300px;
+  min-width: 30em;
 }
 
 /* hide the plus-icon when resizing window to a amall width */
