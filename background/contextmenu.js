@@ -752,6 +752,10 @@ getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
             // WindowUtil.notify("Not implemented yet!");
             break;
 
+        case "clearFieldsPA":
+            fillformfields(tab.id, "clearFields");
+            break;
+
         case "clearFields":
         case "fillMostRecent":
         case "fillMostUsed":
