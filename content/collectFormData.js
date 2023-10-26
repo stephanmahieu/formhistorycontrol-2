@@ -160,7 +160,8 @@ function _setMultilineTextValue(element, value) {
     let changed = false;
     if (element.nodeName.toLowerCase()==='textarea') {
         if (element.value !== value) {
-            element.value = value;
+            // element.value = value;
+            _setValueAndSimulatedUserInteraction(element, value);
             changed = true;
         }
         found = true;
@@ -188,7 +189,8 @@ function _setTextValue(element, value) {
         found = true;
         let changed = false;
         if (element.value !== value) {
-            element.value = value;
+            // element.value = value;
+            _setValueAndSimulatedUserInteraction(element, value);
             changed = true;
         }
         _setStyle(element, false);
@@ -246,6 +248,7 @@ function _ifMatchSetValue(node, fhcEvent) {
                 node.removeChild(node.firstChild);
             }
             node.appendChild(DOMPurify.sanitize(fhcEvent.value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
+            _setValueAndSimulatedUserInteraction(node, null);
 
             // indicate changed value backgroundColor
             _setStyle(node, doErase);
@@ -276,7 +279,9 @@ function _ifMatchSetValue(node, fhcEvent) {
             case "datetime":
             case "datetime-local":
                 if (node.value !== fhcEvent.value) {
-                    node.value = fhcEvent.value;
+                    // node.value = fhcEvent.value;
+                    _setValueAndSimulatedUserInteraction(node, fhcEvent.value)
+
                     // trigger update count and last used date
                     _manualOnContentChanged(node);
                 }
@@ -327,6 +332,39 @@ function _ifMatchSetValue(node, fhcEvent) {
     }
 
     return false;
+}
+function _createKeyboardEvent(eventType, key) {
+    return new KeyboardEvent(eventType, {
+        'key': ' ',
+        'code': ' ',
+        'charCode': 0,
+        'keyCode': ' '.charCodeAt(0),
+        'which': ' '.charCodeAt(0),
+        'bubbles': true,
+        'composed': true,
+        'cancelable': true
+    });
+}
+
+function _createInputEvent(eventType) {
+    return new InputEvent(eventType, {
+        'bubbles': true,
+        'composed': true,
+        'cancelable': true
+    })
+}
+
+function _setValueAndSimulatedUserInteraction(element, value) {
+    // set a new value on an element and dispatch additional events to simulate
+    // user interaction and trigger local javascript (if any) to detect the change
+    element.dispatchEvent(_createKeyboardEvent('keydown'));
+    if (value !== null) {
+        element.value = value;
+    }
+    element.dispatchEvent(_createKeyboardEvent('keyup'));
+    element.dispatchEvent(_createKeyboardEvent('keypress'));
+    element.dispatchEvent(_createInputEvent('input'));
+    element.dispatchEvent(_createInputEvent('change'));
 }
 
 function _setStyle(node, doErase) {
