@@ -180,8 +180,14 @@
     "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
   },
   "confirmDeleteMultipleMessage": {
-    "message": "Πολλαπλά αντικείμενα έχουν επιλεχτεί, διαγραφή ΟΛΩΝ των επιλεγμένων αντικειμένων;",
-    "description": "Message asking confirmation for deleting multiple selected item."
+    "message": "Πολλαπλά αντικείμενα έχουν επιλεχτεί, διαγραφή $count$ επιλεγμένων αντικειμένων;",
+    "description": "Message asking confirmation for deleting multiple selected item.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "10"
+      }
+    }
   },
   "validationErrorMissingRequired": {
     "message": "Δεν έχουν συμπληρωθεί όλα τα απαραίτητα πεδία.",

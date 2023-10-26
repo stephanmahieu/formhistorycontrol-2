@@ -364,7 +364,9 @@ function deleteSelectedItemsAsk() {
     if (rows.data().length > 1) {
         // multiple items to be deleted, ask confirmation
         try {
-            WindowUtil.showModalYesNo({titleId:'confirmDeleteMultipleTitle', msgId:'confirmDeleteMultipleMessage'}).then(
+            WindowUtil.showModalYesNo(
+                {titleId:'confirmDeleteMultipleTitle', msgId:'confirmDeleteMultipleMessage', args: [rows.data().length]}
+            ).then(
                 value=>{deleteSelectedItems(value);},
                 reason=>{console.log('rejected ' + reason);}
             );

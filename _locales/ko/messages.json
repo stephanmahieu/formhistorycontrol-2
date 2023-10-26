@@ -180,8 +180,14 @@
     "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
   },
   "confirmDeleteMultipleMessage": {
-    "message": "여러 항목을 선택했습니다, 선택한 항목을 모두 삭제할까요?",
-    "description": "Message asking confirmation for deleting multiple selected item."
+    "message": "여러 항목을 선택했습니다, 선택한 항목을 $count$ 삭제할까요?",
+    "description": "Message asking confirmation for deleting multiple selected item.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "10"
+      }
+    }
   },
   "validationErrorMissingRequired": {
     "message": "입력되지 않은 필수 필드가 있습니다",

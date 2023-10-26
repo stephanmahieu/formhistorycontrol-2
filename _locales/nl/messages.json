@@ -180,8 +180,14 @@
     "description": "Title of confirmation dialog asking confirmation for deleting multiple selected item."
   },
   "confirmDeleteMultipleMessage": {
-    "message": "Meerdere items zijn geselecteerd, verwijder ALLE geselecteerde waarden?",
-    "description": "Message asking confirmation for deleting multiple selected item."
+    "message": "Meerdere items zijn geselecteerd, verwijder $count$ geselecteerde waarden?",
+    "description": "Message asking confirmation for deleting multiple selected item.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "10"
+      }
+    }
   },
   "validationErrorMissingRequired": {
     "message": "Niet alle verplichte velden zijn ingevuld",
