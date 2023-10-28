@@ -683,6 +683,11 @@ function showformfields(tabId) {
     browser.tabs.sendMessage(tabId, {
         action: "showformfields",
         targetTabId: tabId
+    }).catch((err) => {
+        /* ignore error if no receiving end */
+        if (err.message && !err.message.includes('Receiving end does not exist')) {
+            throw(err)
+        }
     });
 }
 
@@ -692,6 +697,11 @@ function fillformfields(tabId, action) {
     browser.tabs.sendMessage(tabId, {
         action: action,
         targetTabId: tabId
+    }).catch((err) => {
+        /* ignore error if no receiving end */
+        if (err.message && !err.message.includes('Receiving end does not exist')) {
+            throw(err)
+        }
     });
 }
 
