@@ -149,7 +149,7 @@
 
                 </fieldset>
 
-                <fieldset id="fld_miscellaneous" class="sub-fieldset" style="display:none">
+                <fieldset id="fld_miscellaneous" class="sub-fieldset">
                     <legend data-fhc-i18n="optionsMiscellaneousLegend">Miscellaneous</legend>
                     <div class="expert-pref">
                         <input type="checkbox" id="overrideAutocomplete">
@@ -190,26 +190,26 @@
                     </div>
                 </fieldset>
 
-                <fieldset id="fld_shortcuts" class="sub-fieldset" style="display:none">
+                <fieldset id="fld_shortcuts" class="sub-fieldset">
                     <legend data-fhc-i18n="optionsShortcutsLegend">Shortcut key combinations</legend>
                     <div id="shortcut_pane"></div>
                     <div id="shortcut_message"></div>
                     <button id="shortcutKeysModify" class="domainbutton" data-fhc-i18n="buttonModify">Modify</button>
-                    <button id="shortcutKeysSummary" class="domainbutton" data-fhc-i18n="buttonOkay" style="display:none">Okay</button>
+                    <button id="shortcutKeysSummary" class="domainbutton" data-fhc-i18n="buttonOkay">Okay</button>
                 </fieldset>
 
-                <fieldset id="fld_cleanup" class="sub-fieldset" style="display:none">
+                <fieldset id="fld_cleanup" class="sub-fieldset">
                     <legend data-fhc-i18n="optionsCleanupLegend">Cleanup</legend>
                     <input type="checkbox" id="autocleanup">
                     <label for="autocleanup"><span></span><div data-fhc-i18n="optionsAutoCleanup">Automatically cleanup at regular intervals</div></label><br/><br/>
                     <label for="keepdayshistory" data-fhc-i18n="optionsRemoveDays">Remove formhistory not used in the past</label>
-                    <input type="number" id="keepdayshistory" min="0" style="width: 3.5em; text-align: right">
+                    <input type="number" id="keepdayshistory" min="0">
                     <label for="keepdayshistory" data-fhc-i18n="optionsRemoveDaysDays">days</label><br/>
                     <button id="btnCleanupNow" data-fhc-i18n="buttonCleanupNow">Clean Up Now</button>
                 </fieldset>
 
                 <div  class="expert-pref">
-                    <fieldset id="fld_fieldfill" class="sub-fieldset" style="display:none">
+                    <fieldset id="fld_fieldfill" class="sub-fieldset">
                         <legend data-fhc-i18n="optionsFieldfillLegend">Form Field Fill</legend>
                         <br/>
                         <label for="fieldfillModeSelect" data-fhc-i18n="optionsFieldfillModeSelect">Field Fill mode</label>
@@ -223,7 +223,7 @@
                 </div>
 
                 <div  class="expert-pref">
-                    <fieldset id="fld_domainhistory" class="sub-fieldset" style="display:none">
+                    <fieldset id="fld_domainhistory" class="sub-fieldset">
                         <legend data-fhc-i18n="optionDomainlistLegend">Enable/Disable history per domain</legend>
                         <input type="radio" id="radioDomainlistAll" name="radiogroupDomainlist" value="all">
                         <label for="radioDomainlistAll"><span></span><div data-fhc-i18n="optionsRadioDomainAll">Allow All</div></label>
@@ -240,7 +240,7 @@
                 </div>
 
                 <div  class="expert-pref">
-                    <fieldset id="fld_fieldhistory" class="sub-fieldset" style="display:none">
+                    <fieldset id="fld_fieldhistory" class="sub-fieldset">
                         <legend data-fhc-i18n="optionsFieldlistlegend">Disable history for specific fields</legend>
                         <select id="fieldlist" size="5" class="list-select"></select><br/>
                         <input type="text" id="fieldListItem" class="list-input">
@@ -251,7 +251,7 @@
                 </div>
             </fieldset>
 
-            <div id="fileinput" style="display: none"><input type="file" id="files" name="files[]"/></div>
+            <div id="fileinput"><input type="file" id="files" name="files[]"/></div>
             <div id="buttons">
                 <button id="buttonApply" type="submit" data-fhc-i18n="buttonApply">Apply</button>
                 <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>

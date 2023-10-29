@@ -120,6 +120,9 @@ document.addEventListener("DOMContentLoaded", function() {
         showShortcutKeysModifyNotAllowedMessage();
     }
 
+    // show the first fieldset (all are initially hidden)
+    document.querySelector('.sub-fieldset').style.display = "block";
+
     // if this is a large window, options have been opened from outside the app, in that case show all options at once
     if (document.body.clientHeight > 600) {
         // unhide fieldsets
@@ -173,8 +176,8 @@ function restoreOptions() {
         prefPageactionAvail      : "always",
         prefShortcutKeys         : {
             // defaults here must be equal to the defaults in manifest.json
-            _execute_browser_action     : OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
-            // MF3 _execute_action      : OptionsUtil.getDefaultShortcutKey('_execute_action'),
+            // _execute_browser_action     : OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
+            _execute_action             : OptionsUtil.getDefaultShortcutKey('_execute_action'),
             open_fhc                    : OptionsUtil.getDefaultShortcutKey('open_fhc'),
             toggle_display_fields       : OptionsUtil.getDefaultShortcutKey('toggle_display_fields'),
             fill_recent                 : OptionsUtil.getDefaultShortcutKey('fill_recent'),
