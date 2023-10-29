@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2023. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -58,7 +58,8 @@ function setUnusedAccessKey(element, child, translation) {
             }
             // add the key part wrapped inside a span element and apply an underline style
             let keyDiv = document.createElement('div');
-            keyDiv.setAttribute('style', 'text-decoration: underline; display:inline-block;');
+            keyDiv.style.display = 'inline-block';
+            keyDiv.style.textDecoration = 'underline';
             keyDiv.appendChild(document.createTextNode(key));
             element.appendChild(keyDiv);
             // add the remainder of the label
