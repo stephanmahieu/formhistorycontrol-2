@@ -1,9 +1,9 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "short_name": "FormHistCtrl",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "2.5.7.2",
+  "version": "2.5.8.1",
   "author": "Stephan Mahieu",
   "default_locale": "en",
 
@@ -34,18 +34,7 @@
   },
 
   "background": {
-    "scripts": [
-      "common/browser-polyfill.min.js",
-      "common/DbConst.js",
-      "common/CleanupConst.js",
-      "common/WindowUtil.js",
-      "common/OptionsUtil.js",
-      "common/DateUtil.js",
-      "common/MiscUtil.js",
-      "background/receiveFormData.js",
-      "background/contextmenu.js",
-      "background/applicationIcon.js"
-    ]
+    "service_worker": "/background/service-worker.js"
   },
 
   "content_scripts": [
@@ -67,8 +56,7 @@
     }
   ],
 
-  "browser_action": {
-    "browser_style": false,
+  "action": {
     "default_icon": "theme/icons/fhc-128.png",
     "default_title": "__MSG_extensionName__",
     "default_popup": "popup/tableview/popup-small.html"
