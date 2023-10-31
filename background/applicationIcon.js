@@ -140,8 +140,7 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
 let debouncedUpdateApplicationIcon = debounceFunc(updateApplicationIcon, 100);
 
 function setApplicationIcon(tabId, fixedPath, scalablePath) {
-    // MF3 browser.action.setIcon({
-    browser.browserAction.setIcon({
+    browser.action.setIcon({
         tabId: tabId,
         path: {
             16: fixedPath.replace('nn', '16'),

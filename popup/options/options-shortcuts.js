@@ -142,8 +142,7 @@ function _createShortcutKeySelects(keys, commandName, extendedModifiers) {
     keySelects.id = commandName;
     keySelects.style.display = 'none';
     keySelects.classList.add('shortcutkey-selects');
-    if (commandName !== '_execute_browser_action') {
-    // MF3 if (commandName !== '_execute_action') {
+    if (commandName !== '_execute_action') {
         keySelects.appendChild(_getEnableBox(commandName));
     }
     keySelects.appendChild(_getMainModifierSelect(commandName, modifier1));
@@ -156,8 +155,7 @@ function _createShortcutKeySelects(keys, commandName, extendedModifiers) {
 
 function _shortcutCommandToContextMenuLabel(commandName) {
     switch(commandName) {
-        case "_execute_browser_action":return browser.i18n.getMessage("contextMenuItemManageHistory") + ' ' + browser.i18n.getMessage("optionsShortcutsSmallDialog");
-        // MF3 case "_execute_action":        return browser.i18n.getMessage("contextMenuItemManageHistory") + ' ' + browser.i18n.getMessage("optionsShortcutsSmallDialog");
+        case "_execute_action":        return browser.i18n.getMessage("contextMenuItemManageHistory") + ' ' + browser.i18n.getMessage("optionsShortcutsSmallDialog");
         case "open_fhc":               return browser.i18n.getMessage("contextMenuItemManageHistory") + ' ' + browser.i18n.getMessage("optionsShortcutsMainDialog");
         case "toggle_display_fields":  return browser.i18n.getMessage("contextMenuItemShowformfields");
         case "fill_recent":            return browser.i18n.getMessage("contextMenuItemFillMostRecent");
@@ -252,8 +250,7 @@ function _createOptionNode(value, label) {
 
 function getAllShortcutKeyValues() {
     return {
-        _execute_browser_action     : _getShortcutKeyValue('_execute_browser_action'),
-        // MF3 _execute_action      : _getShortcutKeyValue('_execute_action'),
+        _execute_action             : _getShortcutKeyValue('_execute_action'),
         open_fhc                    : _getShortcutKeyValue('open_fhc'),
         open_fhc_enable             : _getShortcutKeyEnable('open_fhc'),
         toggle_display_fields       : _getShortcutKeyValue('toggle_display_fields'),

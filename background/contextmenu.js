@@ -10,8 +10,8 @@ const IS_FIREFOX = typeof browser.runtime.getBrowserInfo === 'function';
 const IS_SAFARI = navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("Chrom");
 console.log("IS_FIREFOX=" + IS_FIREFOX + " IS_SAFARI=" + IS_SAFARI);
 
-browser.runtime.onMessage.addListener(receiveContextEvents);
-// MF3 browser.runtime.onInstalled.addListener(receiveContextEvents);
+// browser.runtime.onMessage.addListener(receiveContextEvents);
+browser.runtime.onInstalled.addListener(receiveContextEvents);
 
 function receiveContextEvents(fhcEvent, sender, sendResponse) {
     if (fhcEvent.eventType && fhcEvent.eventType === 888 && fhcEvent.contextmenuAvailChanged) {
@@ -419,14 +419,14 @@ function _initContextMenu(contextmenuAvail) {
      * Hide the menu separators for the browser-action, we may only show 6 items
      * including the separators.
      */
-    const contextAll = ["browser_action", "page_action"];
+    // const contextAll = ["browser_action", "page_action"];
+    // const contextPage = [];
+    // const contextAllButPageAction = ["browser_action"];
+    // const contextFillTextField = [];
+    const contextAll = ["action", "page"];
     const contextPage = [];
-    const contextAllButPageAction = ["browser_action"];
+    const contextAllButPageAction = ["action"];
     const contextFillTextField = [];
-    // MF3 const contextAll = ["action", "page"];
-    // MF3 const contextPage = [];
-    // MF3 const contextAllButPageAction = ["action"];
-    // MF3 const contextFillTextField = [];
 
     // Empty the array
     CONTEXT_FIELDS_MENUITEM_IDS.splice(0, CONTEXT_FIELDS_MENUITEM_IDS.length);
@@ -590,8 +590,8 @@ function _initBrowserActionSubmenu() {
     browserContextMenusCreate({
         id: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemRestoreEditorFieldSubmenuMore"),
-        contexts: ["browser_action", "page_action"],
-        // MF3 contexts: ["action", "page"],
+        // contexts: ["browser_action", "page_action"],
+        contexts: ["action", "page_action"],
         icons: {
             "16": "/theme/icons/menu/16/submenu.png",
             "32": "/theme/icons/menu/32/submenu.png"
@@ -601,8 +601,8 @@ function _initBrowserActionSubmenu() {
         id: "clearFieldsPA",
         parentId: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemClearFields"),
+        // contexts: ["action"],  // show only for page_action here
         contexts: ["page_action"],  // show only for page_action here
-        // MF3 contexts: ["page"],  // show only for page_action here
         icons: {
             "16": "/theme/icons/menu/16/emptyfields.png",
             "32": "/theme/icons/menu/32/emptyfields.png"
@@ -612,7 +612,7 @@ function _initBrowserActionSubmenu() {
         parentId: "submenuExtra",
         type: "separator",
         contexts: ["page_action"]
-        // MF3 contexts: ["page"]
+        // contexts: ["page"]
     }, onMenuCreated);
     browserContextMenusCreate({
         id: "showformfieldsBA",
@@ -679,12 +679,13 @@ function _initBrowserActionSubmenu() {
 
 function showformfields(tabId) {
     // send without checking response
-    //console.log('Sending a message to tab ' + tabId);
+    console.log('Sending a showformfields message to tab ' + tabId);
     browser.tabs.sendMessage(tabId, {
         action: "showformfields",
         targetTabId: tabId
     }).catch((err) => {
         /* ignore error if no receiving end */
+        console.log('Error sending showformfields message ' + err);
         if (err.message && !err.message.includes('Receiving end does not exist')) {
             throw(err)
         }
@@ -744,6 +745,7 @@ function getSingleElementByPrimaryKeyAndNotify(primaryKey, tabId) {
  * Menu item click event listener, perform action given the ID of the menu item that was clicked.
  */
 getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
+    console.log('getBrowserMenusOnClickedHandler');
     switch (info.menuItemId) {
         case "manage":
         case "manageTools":
@@ -774,6 +776,7 @@ getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
 
         case "showformfields":
         case "showformfieldsBA":
+            console.log('showformfields / showformfieldsBA');
             showformfields(tab.id);
             break;
 

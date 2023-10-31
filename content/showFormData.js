@@ -10,6 +10,11 @@
 // uses some functions from collectFormData.js
 //import {collectFormData} from 'collectFormData.js';
 
+// TODO MF3 Ensure listeners are at the top-level and use the synchronous pattern.??????
+//   !!! ??? TypeError: browser.runtime.onStartup is undefined
+//   !!! ??? content script IS NOT loaded on local pages (file:///D:/MyFFaddons/FormHistory2_git/test/test.html)
+// browser.runtime.onStartup.addListener(receiveEvents);
+// browser.runtime.onInstalled.addListener(receiveEvents);
 browser.runtime.onMessage.addListener(receiveEvents);
 
 function receiveEvents(fhcEvent, sender, sendResponse) {

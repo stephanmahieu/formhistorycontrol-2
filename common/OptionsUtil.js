@@ -88,8 +88,7 @@ class OptionsUtil {
         return new Promise((resolve, reject) => {
             browser.storage.local.get({
                 prefShortcutKeys: {
-                    _execute_browser_action: OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
-                    // MF3 _execute_action : OptionsUtil.getDefaultShortcutKey('_execute_action'),
+                    _execute_action        : OptionsUtil.getDefaultShortcutKey('_execute_action'),
                     open_fhc               : OptionsUtil.getDefaultShortcutKey('open_fhc'),
                     toggle_display_fields  : OptionsUtil.getDefaultShortcutKey('toggle_display_fields'),
                     fill_recent            : OptionsUtil.getDefaultShortcutKey('fill_recent'),
@@ -154,13 +153,12 @@ class OptionsUtil {
     static getDefaultShortcutKey(commandName) {
         // defaults must be equal to the defaults in manifest.json
         switch(commandName) {
-            case '_execute_browser_action': return 'Alt+Shift+P';
-            // MF3 case '_execute_action':  return 'Alt+Shift+P';
-            case 'open_fhc':                return 'Alt+Shift+M';
-            case 'toggle_display_fields':   return 'Alt+Shift+D';
-            case 'fill_recent':             return 'Alt+Shift+R';
-            case 'fill_often':              return 'Alt+Shift+O';
-            case 'clear_filled':            return 'Alt+Shift+C';
+            case '_execute_action':       return 'Alt+Shift+P';
+            case 'open_fhc':              return 'Alt+Shift+M';
+            case 'toggle_display_fields': return 'Alt+Shift+D';
+            case 'fill_recent':           return 'Alt+Shift+R';
+            case 'fill_often':            return 'Alt+Shift+O';
+            case 'clear_filled':          return 'Alt+Shift+C';
         }
     }
 
