@@ -144,7 +144,7 @@ function createSubmenuItem(id, parentId, title, enabled) {
     let icons;
     if (!enabled) {
         icons = undefined;
-    } else if (id === 'editfldMore') {
+    } else if (id === 'editfldMore' || id === 'textfldMore') {
         icons = {
             "16": "/theme/icons/fhc-16.png",
             "32": "/theme/icons/fhc-32.png"
@@ -778,6 +778,7 @@ getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
             break;
 
         case "editfldMore":
+        case 'textfldMore':
             WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
             break;
 
