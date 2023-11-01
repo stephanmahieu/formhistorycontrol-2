@@ -120,6 +120,9 @@ document.addEventListener("DOMContentLoaded", function() {
         showShortcutKeysModifyNotAllowedMessage();
     }
 
+    // show the first fieldset (all are initially hidden)
+    document.querySelector('.sub-fieldset').style.display = "block";
+
     // if this is a large window, options have been opened from outside the app, in that case show all options at once
     if (document.body.clientHeight > 600) {
         // unhide fieldsets

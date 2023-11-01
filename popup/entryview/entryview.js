@@ -70,6 +70,14 @@ document.addEventListener("DOMContentLoaded", function(/*event*/) {
     // key handler
     document.addEventListener("keyup", onKeyClicked);
 
+    // initially hide all previews
+    document.querySelectorAll('.viewOverlay ').forEach(view => {
+        view.style.display = "none";
+    });
+    document.querySelectorAll('.viewOverlayLabel ').forEach(lbl => {
+        lbl.style.display = "none";
+    });
+
     // no event available for window move, check periodically
     setInterval(function() {WindowUtil.checkAndSaveCurrentWindowPosition(FHC_WINDOW_ENTRYVW);}, 5*1000);
 });

@@ -274,3 +274,9 @@ textarea[disabled] {
 #mdViewOverlay.viewOverlay tbody tr td {
     border-top: 2px solid #ddd;
 }
+
+/* initially hidden */
+#buttonOkay,
+#buttonCancel {
+    display: none;
+}
