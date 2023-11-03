@@ -463,10 +463,6 @@
     "message": "(작은 대화상자)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
   },
-  "optionsShortcutsUpdateNotSupported": {
-    "message": "단축 키 교체가 이 브라우저에서는 (아직) 지원되지 않습니다!",
-    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
-  },
   "optionsSaveNewVersionMultiline": {
     "message": "여러 줄 필드의 새 기록을 저장할 시기:",
     "description": "Options window, sub heading: Save a new version of a multiline field when:."

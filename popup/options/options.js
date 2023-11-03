@@ -86,8 +86,8 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#versionAgeSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#versionLengthSelect").addEventListener("change", checkPropertiesChanged);
 
-    document.querySelector("#shortcutKeysModify").addEventListener("click", showShortkeyModifySelects);
-    document.querySelector("#shortcutKeysSummary").addEventListener("click", showShortkeySummary);
+    // document.querySelector("#shortcutKeysModify").addEventListener("click", showShortkeyModifySelects);
+    // document.querySelector("#shortcutKeysSummary").addEventListener("click", showShortkeySummary);
 
     document.querySelector("#autocleanup").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#keepdayshistory").addEventListener("change", checkPropertiesChanged);
@@ -113,12 +113,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("div.titleSidebar img.logo").addEventListener("dblclick", handleClick);
     document.getElementById('files').addEventListener('change', handleFileSelect);
-
-
-    // if update shortcut commands is not supported (chrome), hide the shortcut edit button
-    if (!browser.commands.update) {
-        showShortcutKeysModifyNotAllowedMessage();
-    }
 
     // show the first fieldset (all are initially hidden)
     document.querySelector('.sub-fieldset').style.display = "block";
@@ -174,20 +168,6 @@ function restoreOptions() {
         prefScrollAmount         : "auto",
         prefContextmenuAvail     : "page",
         prefPageactionAvail      : "always",
-        prefShortcutKeys         : {
-            // defaults here must be equal to the defaults in manifest.json
-            _execute_browser_action     : OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
-            // MF3 _execute_action      : OptionsUtil.getDefaultShortcutKey('_execute_action'),
-            open_fhc                    : OptionsUtil.getDefaultShortcutKey('open_fhc'),
-            toggle_display_fields       : OptionsUtil.getDefaultShortcutKey('toggle_display_fields'),
-            fill_recent                 : OptionsUtil.getDefaultShortcutKey('fill_recent'),
-            fill_often                  : OptionsUtil.getDefaultShortcutKey('fill_often'),
-            open_fhc_enable             : true,
-            toggle_display_fields_enable: true,
-            fill_recent_enable          : true,
-            fill_often_enable           : true,
-            clear_filled_enable         : true
-        },
         prefFieldfillMode        : "auto",
         prefDomainFilter         : "all",
         prefDomainList           : [],
@@ -218,8 +198,6 @@ function applyPreferences(res, fromStore) {
     document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
     document.querySelector("#fieldfillModeSelect").value = res.prefFieldfillMode;
     document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
-
-    checkShortcutKeyEnable(res.prefShortcutKeys);
 
     checkRadioDomainByValue(res.prefDomainFilter);
 
@@ -280,9 +258,6 @@ function saveOptions(e) {
         });
     });
 
-    // activate the new shortcut keys
-    OptionsUtil.applyShortcutKeysPrefs();
-
     currentOptions = Object.assign({}, newOptions);
     checkPropertiesChanged();
 }
@@ -302,7 +277,6 @@ function getNewOptions() {
         prefScrollAmount         : document.querySelector("#scrollAmountSelect").value,
         prefContextmenuAvail     : document.querySelector("#contextMenuSelect").value,
         prefPageactionAvail      : document.querySelector("#pageActionSelect").value,
-        prefShortcutKeys         : getAllShortcutKeyValues(),
         prefFieldfillMode        : document.querySelector("#fieldfillModeSelect").value,
         prefDomainFilter         : getCheckedRadioDomainValue(),
         prefDomainList           : getList("#domainlist"),
@@ -443,12 +417,6 @@ function fieldlistInputPasted(event) {
     window.setTimeout(() => {fieldlistInputChanged(); }, 10);
 }
 
-function shortcutKeyEnableChanged(event) {
-    const commandName = event.target.getAttribute('data-cmd');
-    shortcutKeyCommandEnableChanged(commandName);
-    checkPropertiesChanged();
-}
-
 function checkPropertiesChanged() {
     // enable apply button only if properties have changed
     let changed = false;
@@ -497,27 +465,6 @@ function arrayContentEquals(array1, array2) {
         }
     });
     return sameContent;
-}
-
-function shortcutKeySelectChanged(event) {
-    // check validity change first, modifier 1 and 2 can not be the same
-    const curSelect = event.target;
-    const commandName = curSelect.getAttribute('data-cmd');
-
-    const mod1 = document.getElementById('smod1_' + commandName).value;
-    let   mod2 = document.getElementById('smod2_' + commandName).value;
-    const key  = document.getElementById('skey_'  + commandName).value;
-
-    // reset mod2 to empty if set equal to mod1
-    if (mod1 === mod2) {
-        document.getElementById('smod2_' + commandName).value = '';
-    }
-
-    // TODO check for duplicate shortcuts?
-
-    updateShortcutKeyTextLabel(commandName, mod1, mod2, key);
-
-    checkPropertiesChanged();
 }
 
 function themeSelectionChanged(/*event*/) {

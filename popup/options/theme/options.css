@@ -247,48 +247,6 @@ input[type="Radio"]:checked+label span:before{
     margin-right: 3px;
 }
 
-.shortcutkey-selects {
-    text-align: right;
-    margin: 3px 6px;
-}
-
-.shortcutkey-enable {
-    display: inline;
-}
-
-.disabled-shortcut-command {
-    text-decoration: line-through;
-    color: var(--field-disabled-text-color);
-}
-
-#shortcut_update_unsupported {
-    margin: 2px 4px;
-    padding: 3px;
-    font-style: italic;
-    font-weight: bold;
-    border-radius: 6px;
-}
-#shortcut_update_unsupported:hover {
-    color: #292929;
-    background-color: #fff3af;
-    margin-bottom: 0;
-    cursor: help;
-    border: 1px #292929 solid;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.51);
-    transition: color .4s ease-in-out, background-color .4s ease-in-out;
-}
-
-#shortcut_update_unsupported:before {
-    content: "";
-    display: block;
-    background: url('/theme/icons/dialog/information16.png') no-repeat;
-    width: 16px;
-    height: 16px;
-    float: left;
-    margin-right: 5px;
-    filter: drop-shadow(2px 2px 2px rgba(90, 90, 90, 0.7));
-}
-
 .inline-button {
     height: 20px;
     font-size: 11px;
@@ -297,8 +255,6 @@ input[type="Radio"]:checked+label span:before{
     float: right;
 }
 
-/* Hidden features */
-#files,
 #fileinput {
     display: none;
 }

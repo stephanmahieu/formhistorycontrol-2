@@ -463,10 +463,6 @@
     "message": "(малый диалог)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
   },
-  "optionsShortcutsUpdateNotSupported": {
-    "message": "Обновление сочетаний (пока) не поддерживается браузером!",
-    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
-  },
   "optionsSaveNewVersionMultiline": {
     "message": "Заменить запись многострочного поля, если:",
     "description": "Options window, sub heading: Save a new version of a multiline field when:."

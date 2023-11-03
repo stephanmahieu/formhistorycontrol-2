@@ -463,10 +463,6 @@
     "message": "(Subdialog)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
   },
-  "optionsShortcutsUpdateNotSupported": {
-    "message": "Aktualisieren von Tastenkombinationen wird (aktuell) nicht vom Browser unterstützt!",
-    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
-  },
   "optionsSaveNewVersionMultiline": {
     "message": "Eine neue Version von mehrzeiligen Eingabefeldern speichern wenn:",
     "description": "Options window, sub heading: Save a new version of a multiline field when:."
