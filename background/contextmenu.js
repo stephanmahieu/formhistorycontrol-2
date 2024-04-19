@@ -468,7 +468,7 @@ function _initContextMenu(contextmenuAvail) {
     }, onMenuCreated);
     browserContextMenusCreate({
         id: "restoreTextField",
-        title: "Herstel tekst veld", // browser.i18n.getMessage("contextMenuItemRestoreTextField"),
+        title: browser.i18n.getMessage("contextMenuItemRestoreTextField"),
         contexts: contextFillTextField,
         icons: {
             "16": "/theme/icons/menu/16/refresh.png",
