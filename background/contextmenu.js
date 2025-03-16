@@ -14,6 +14,7 @@ console.log("IS_FIREFOX=" + IS_FIREFOX + " IS_SAFARI=" + IS_SAFARI);
 browser.runtime.onInstalled.addListener(receiveContextEvents);
 
 function receiveContextEvents(fhcEvent, sender, sendResponse) {
+    console.log('DEBUG receiveContextEvents')
     if (fhcEvent.eventType && fhcEvent.eventType === 888 && fhcEvent.contextmenuAvailChanged) {
         // remove the context menu and rebuild from scratch
         const promisesArray = [];
@@ -359,7 +360,7 @@ function removeTagsAndShorten(value) {
 
 function onMenuCreated() {
     if (browser.runtime.lastError) {
-        console.error(`Error: ${browser.runtime.lastError}`);
+        //console.error(`Error: ${browser.runtime.lastError}`);
     } else {
         //console.log("MenuItem created successfully");
     }
@@ -367,6 +368,7 @@ function onMenuCreated() {
 
 
 function initBrowserMenus() {
+    console.log('DEBUG INSIDE initBrowserMenus()')
     const gettingPref = browser.storage.local.get({
         prefContextmenuAvail: "page"
     });
@@ -590,8 +592,7 @@ function _initBrowserActionSubmenu() {
     browserContextMenusCreate({
         id: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemRestoreEditorFieldSubmenuMore"),
-        // contexts: ["browser_action", "page_action"],
-        contexts: ["action", "page_action"],
+        contexts: ["action", "page"],
         icons: {
             "16": "/theme/icons/menu/16/submenu.png",
             "32": "/theme/icons/menu/32/submenu.png"
@@ -602,7 +603,8 @@ function _initBrowserActionSubmenu() {
         parentId: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemClearFields"),
         // contexts: ["action"],  // show only for page_action here
-        contexts: ["page_action"],  // show only for page_action here
+        // contexts: ["page_action"],  // show only for page_action here
+        contexts: ["page"],  // show only for page here
         icons: {
             "16": "/theme/icons/menu/16/emptyfields.png",
             "32": "/theme/icons/menu/32/emptyfields.png"
@@ -611,8 +613,7 @@ function _initBrowserActionSubmenu() {
     browserContextMenusCreate({
         parentId: "submenuExtra",
         type: "separator",
-        contexts: ["page_action"]
-        // contexts: ["page"]
+        contexts: ["page"]
     }, onMenuCreated);
     browserContextMenusCreate({
         id: "showformfieldsBA",
