@@ -4,13 +4,23 @@
     -moz-user-select: none; /* older FF versions */
 }
 
+html, body, div, iframe {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
 body {
     width: max-content;
 }
 
 .content {
     margin: 8px;
-    overflow-y: hidden;
-    overflow-x: hidden;
 }
 
+/* Initially all hidden */
+#add-blacklist,
+#del-blacklist,
+#add-whitelist,
+#del-whitelist {
+    display: none;
+}

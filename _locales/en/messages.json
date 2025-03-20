@@ -411,10 +411,6 @@
     "message": "Reset all window positions and sizes",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
-  "optionsScrollAmountSelect": {
-    "message": "Mousewheel scroll amount (pixels)",
-    "description": "Options window: The scroll amount selection dropdown label"
-  },
   "optionsContextMenuSelect": {
     "message": "Context menu",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"
@@ -462,10 +458,6 @@
   "optionsShortcutsSmallDialog": {
     "message": "(small dialog)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
-  },
-  "optionsShortcutsUpdateNotSupported": {
-    "message": "Updating shortcuts is not (yet) supported by the browser!",
-    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
   "optionsSaveNewVersionMultiline": {
     "message": "Save a new version of a multiline field when:",

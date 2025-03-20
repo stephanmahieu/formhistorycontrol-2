@@ -411,10 +411,6 @@
     "message": "Alle Fensterpositionen und -größe wiederherstellen",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
-  "optionsScrollAmountSelect": {
-    "message": "Mausrad Bildlaufanzahl (pixels)",
-    "description": "Options window: The scroll amount selection dropdown label"
-  },
   "optionsContextMenuSelect": {
     "message": "Kontextmenü",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"
@@ -462,10 +458,6 @@
   "optionsShortcutsSmallDialog": {
     "message": "(Subdialog)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
-  },
-  "optionsShortcutsUpdateNotSupported": {
-    "message": "Aktualisieren von Tastenkombinationen wird (aktuell) nicht vom Browser unterstützt!",
-    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
   "optionsSaveNewVersionMultiline": {
     "message": "Eine neue Version von mehrzeiligen Eingabefeldern speichern wenn:",

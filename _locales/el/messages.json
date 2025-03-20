@@ -411,10 +411,6 @@
     "message": "Επαναφορά όλων των θέσεων και μεγεθών στα παράθυρα",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
-  "optionsScrollAmountSelect": {
-    "message": "Ποσό κύλισης ροδέλας ποντικιού (εικονοστοιχεία)",
-    "description": "Options window: The scroll amount selection dropdown label"
-  },
   "optionsContextMenuSelect": {
     "message": "Μενού περιβάλλοντος",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"
@@ -462,10 +458,6 @@
   "optionsShortcutsSmallDialog": {
     "message": "(μικρό παράθυρο)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
-  },
-  "optionsShortcutsUpdateNotSupported": {
-    "message": "Η ενημέρωση των συντομεύσεων δεν υποστηρίζεται (ακόμα) από τον περιηγητή!",
-    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
   "optionsSaveNewVersionMultiline": {
     "message": "Αποθήκευση μιας νέας έκδοσης ενός πολλαπλού πεδίου όταν:",

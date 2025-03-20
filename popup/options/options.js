@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#dateformatSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#saveWindowProperties").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#resetWindowProperties").addEventListener("click", resetAllWindowProperties);
-    document.querySelector("#scrollAmountSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#contextMenuSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#pageActionSelect").addEventListener("change", checkPropertiesChanged);
 
@@ -86,8 +85,8 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#versionAgeSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#versionLengthSelect").addEventListener("change", checkPropertiesChanged);
 
-    document.querySelector("#shortcutKeysModify").addEventListener("click", showShortkeyModifySelects);
-    document.querySelector("#shortcutKeysSummary").addEventListener("click", showShortkeySummary);
+    // document.querySelector("#shortcutKeysModify").addEventListener("click", showShortkeyModifySelects);
+    // document.querySelector("#shortcutKeysSummary").addEventListener("click", showShortkeySummary);
 
     document.querySelector("#autocleanup").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#keepdayshistory").addEventListener("change", checkPropertiesChanged);
@@ -113,12 +112,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("div.titleSidebar img.logo").addEventListener("dblclick", handleClick);
     document.getElementById('files').addEventListener('change', handleFileSelect);
-
-
-    // if update shortcut commands is not supported (chrome), hide the shortcut edit button
-    if (!browser.commands.update) {
-        showShortcutKeysModifyNotAllowedMessage();
-    }
 
     // show the first fieldset (all are initially hidden)
     document.querySelector('.sub-fieldset').style.display = "block";
@@ -171,7 +164,6 @@ function restoreOptions() {
         prefRetainType           : "all",
         prefUpdateInterval       : "5000",
         prefDateFormat           : "automatic",
-        prefScrollAmount         : "auto",
         prefContextmenuAvail     : "page",
         prefPageactionAvail      : "always",
         prefShortcutKeys         : {
@@ -212,14 +204,11 @@ function applyPreferences(res, fromStore) {
     document.querySelector('#retainTypeSelect').value = res.prefRetainType;
     document.querySelector('#updateIntervalSelect').value = res.prefUpdateInterval;
     document.querySelector("#dateformatSelect").value = res.prefDateFormat;
-    document.querySelector("#scrollAmountSelect").value = res.prefScrollAmount;
     document.querySelector("#contextMenuSelect").value = res.prefContextmenuAvail;
     document.querySelector("#pageActionSelect").value = res.prefPageactionAvail;
     document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
     document.querySelector("#fieldfillModeSelect").value = res.prefFieldfillMode;
     document.querySelector("#keepdayshistory").value = res.prefKeepDaysHistory;
-
-    checkShortcutKeyEnable(res.prefShortcutKeys);
 
     checkRadioDomainByValue(res.prefDomainFilter);
 
@@ -259,7 +248,6 @@ function saveOptions(e) {
         retainTypeChanged:           (currentOptions.prefRetainType !== newOptions.prefRetainType),
         updateIntervalChanged:       (currentOptions.prefUpdateInterval !== newOptions.prefUpdateInterval),
         dateFormatChanged:           (currentOptions.prefDateFormat !== newOptions.prefDateFormat),
-        scrollAmountChanged:         (currentOptions.prefScrollAmount !== newOptions.prefScrollAmount),
         contextmenuAvailChanged:     (currentOptions.prefContextmenuAvail !== newOptions.prefContextmenuAvail),
         domainFilterChanged:         (currentOptions.prefDomainFilter !== newOptions.prefDomainFilter || !arrayContentEquals(currentOptions.prefDomainList, newOptions.prefDomainList)),
         fieldFilterChanged:          !arrayContentEquals(currentOptions.prefFieldList, newOptions.prefFieldList)
@@ -280,9 +268,6 @@ function saveOptions(e) {
         });
     });
 
-    // activate the new shortcut keys
-    OptionsUtil.applyShortcutKeysPrefs();
-
     currentOptions = Object.assign({}, newOptions);
     checkPropertiesChanged();
 }
@@ -299,10 +284,8 @@ function getNewOptions() {
         prefRetainType           : document.querySelector("#retainTypeSelect").value,
         prefUpdateInterval       : document.querySelector("#updateIntervalSelect").value,
         prefDateFormat           : document.querySelector("#dateformatSelect").value,
-        prefScrollAmount         : document.querySelector("#scrollAmountSelect").value,
         prefContextmenuAvail     : document.querySelector("#contextMenuSelect").value,
         prefPageactionAvail      : document.querySelector("#pageActionSelect").value,
-        prefShortcutKeys         : getAllShortcutKeyValues(),
         prefFieldfillMode        : document.querySelector("#fieldfillModeSelect").value,
         prefDomainFilter         : getCheckedRadioDomainValue(),
         prefDomainList           : getList("#domainlist"),
@@ -443,12 +426,6 @@ function fieldlistInputPasted(event) {
     window.setTimeout(() => {fieldlistInputChanged(); }, 10);
 }
 
-function shortcutKeyEnableChanged(event) {
-    const commandName = event.target.getAttribute('data-cmd');
-    shortcutKeyCommandEnableChanged(commandName);
-    checkPropertiesChanged();
-}
-
 function checkPropertiesChanged() {
     // enable apply button only if properties have changed
     let changed = false;
@@ -497,27 +474,6 @@ function arrayContentEquals(array1, array2) {
         }
     });
     return sameContent;
-}
-
-function shortcutKeySelectChanged(event) {
-    // check validity change first, modifier 1 and 2 can not be the same
-    const curSelect = event.target;
-    const commandName = curSelect.getAttribute('data-cmd');
-
-    const mod1 = document.getElementById('smod1_' + commandName).value;
-    let   mod2 = document.getElementById('smod2_' + commandName).value;
-    const key  = document.getElementById('skey_'  + commandName).value;
-
-    // reset mod2 to empty if set equal to mod1
-    if (mod1 === mod2) {
-        document.getElementById('smod2_' + commandName).value = '';
-    }
-
-    // TODO check for duplicate shortcuts?
-
-    updateShortcutKeyTextLabel(commandName, mod1, mod2, key);
-
-    checkPropertiesChanged();
 }
 
 function themeSelectionChanged(/*event*/) {

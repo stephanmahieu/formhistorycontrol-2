@@ -19,9 +19,6 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
                 if (fhcEvent.dateFormatChanged) {
                     // there is no way (yet) to alter the render function after initialization
                 }
-                if (fhcEvent.scrollAmountChanged) {
-                    // there is no way (yet) to alter the render function after initialization
-                }
                 break;
 
             case 111:

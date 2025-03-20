@@ -79,8 +79,7 @@ function receiveContextEvents(fhcEvent, sender, sendResponse) {
 // create the context menus
 initBrowserMenus();
 
-// set the preferred shortcut keys and add a shortcutKey listener
-initShortcutKeys();
+// set the shortcutKey listener
 browser.commands.onCommand.addListener(handleShortcutKeys);
 
 const MAX_LENGTH_EDITFIELD_ITEM = 35;
@@ -145,7 +144,7 @@ function createSubmenuItem(id, parentId, title, enabled) {
     let icons;
     if (!enabled) {
         icons = undefined;
-    } else if (id === 'editfldMore') {
+    } else if (id === 'editfldMore' || id === 'textfldMore') {
         icons = {
             "16": "/theme/icons/fhc-16.png",
             "32": "/theme/icons/fhc-32.png"
@@ -471,7 +470,7 @@ function _initContextMenu(contextmenuAvail) {
     }, onMenuCreated);
     browserContextMenusCreate({
         id: "restoreTextField",
-        title: "Herstel tekst veld", // browser.i18n.getMessage("contextMenuItemRestoreTextField"),
+        title: browser.i18n.getMessage("contextMenuItemRestoreTextField"),
         contexts: contextFillTextField,
         icons: {
             "16": "/theme/icons/menu/16/refresh.png",
@@ -782,6 +781,7 @@ getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
             break;
 
         case "editfldMore":
+        case 'textfldMore':
             WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
             break;
 
@@ -871,52 +871,39 @@ function getBrowserMenusOnClickedHandler() {
     return chrome.contextMenus.onClicked;
 }
 
-function initShortcutKeys() {
-    OptionsUtil.applyShortcutKeysPrefs();
-}
-
+/**\
+ *
+ * Invoke function when shortcutkey command fired.
+ */
 function handleShortcutKeys(command) {
     // console.log("Command! " + command);
-    OptionsUtil.getShortcutKeysEnablePrefs().then(res => {
-        switch (command) {
-            case "open_fhc":
-                if (res.prefShortcutKeys['open_fhc_enable']) {
-                    WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
-                }
-                break;
+    switch (command) {
+        case "open_fhc":
+            WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);
+            break;
 
-            case "toggle_display_fields":
-                if (res.prefShortcutKeys['toggle_display_fields_enable']) {
-                    browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
-                        showformfields(tabInfo[0].id);
-                    });
-                }
-                break;
+        case "toggle_display_fields":
+            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                showformfields(tabInfo[0].id);
+            });
+            break;
 
-            case "fill_recent":
-                if (res.prefShortcutKeys['fill_recent_enable']) {
-                    browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
-                        fillformfields(tabInfo[0].id, "fillMostRecent");
-                    });
-                }
-                break;
+        case "fill_recent":
+            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                fillformfields(tabInfo[0].id, "fillMostRecent");
+            });
+            break;
 
-            case "fill_often":
-                if (res.prefShortcutKeys['fill_often_enable']) {
-                    browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
-                        fillformfields(tabInfo[0].id, "fillMostUsed");
-                    });
-                }
-                break;
+        case "fill_often":
+            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                fillformfields(tabInfo[0].id, "fillMostUsed");
+            });
+            break;
 
-            case "clear_filled":
-                if (res.prefShortcutKeys['clear_filled_enable']) {
-                    browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
-                        fillformfields(tabInfo[0].id, "clearFields");
-                    });
-                }
-                break;
-        }
-
-    });
+        case "clear_filled":
+            browser.tabs.query({active: true, currentWindow: true}).then(tabInfo => {
+                fillformfields(tabInfo[0].id, "clearFields");
+            });
+            break;
+    }
 }

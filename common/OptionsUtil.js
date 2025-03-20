@@ -35,6 +35,7 @@ class OptionsUtil {
         });
     }
 
+    // TODO prefFieldfillMode not implemented yet!
     static getFieldfillModePrefs() {
         const defaultValue = "auto";
         return new Promise((resolve, reject) => {
@@ -82,84 +83,6 @@ class OptionsUtil {
                 }
             );
         });
-    }
-
-    static getShortcutKeysPrefs() {
-        return new Promise((resolve, reject) => {
-            browser.storage.local.get({
-                prefShortcutKeys: {
-                    _execute_action        : OptionsUtil.getDefaultShortcutKey('_execute_action'),
-                    open_fhc               : OptionsUtil.getDefaultShortcutKey('open_fhc'),
-                    toggle_display_fields  : OptionsUtil.getDefaultShortcutKey('toggle_display_fields'),
-                    fill_recent            : OptionsUtil.getDefaultShortcutKey('fill_recent'),
-                    fill_often             : OptionsUtil.getDefaultShortcutKey('fill_often'),
-                    clear_filled           : OptionsUtil.getDefaultShortcutKey('clear_filled')
-                }
-            }).then(
-                result => {
-                    resolve(result);
-                },
-                () => {
-                    resolve();
-                }
-            );
-        });
-    }
-
-    static getShortcutKeysEnablePrefs() {
-        return new Promise((resolve, reject) => {
-            browser.storage.local.get({
-                prefShortcutKeys: {
-                    open_fhc_enable               : true,
-                    toggle_display_fields_enable  : true,
-                    fill_recent_enable            : true,
-                    fill_often_enable             : true,
-                    clear_filled_enable           : true
-                }
-            }).then(
-                result => {
-                    resolve(result);
-                },
-                () => {
-                    resolve();
-                }
-            );
-        });
-    }
-
-    static applyShortcutKeysPrefs() {
-        if (!browser.commands.update) {
-            return;
-        }
-        OptionsUtil.getShortcutKeysPrefs().then((prefs) => {
-
-            // get all shortcut commands (max 4 for chrome)
-            browser.commands.getAll().then( (commands) => (
-
-                // for each command change the shortcut where preference differs from default
-                commands.forEach(function(command) {
-                    const prefShortcut = prefs.prefShortcutKeys[command.name];
-                    if (prefShortcut !== command.shortcut) {
-                        browser.commands.update({
-                            name: command.name,
-                            shortcut: prefShortcut
-                        });
-                    }
-                })
-            ));
-        });
-    }
-
-    static getDefaultShortcutKey(commandName) {
-        // defaults must be equal to the defaults in manifest.json
-        switch(commandName) {
-            case '_execute_action':       return 'Alt+Shift+P';
-            case 'open_fhc':              return 'Alt+Shift+M';
-            case 'toggle_display_fields': return 'Alt+Shift+D';
-            case 'fill_recent':           return 'Alt+Shift+R';
-            case 'fill_often':            return 'Alt+Shift+O';
-            case 'clear_filled':          return 'Alt+Shift+C';
-        }
     }
 
     static isDomainfilterActive(filterPrefs) {

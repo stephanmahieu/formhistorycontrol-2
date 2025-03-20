@@ -411,10 +411,6 @@
     "message": "Сбросить позиции и размеры всех окон",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
-  "optionsScrollAmountSelect": {
-    "message": "Прокрутка колесом мыши (в пикселях)",
-    "description": "Options window: The scroll amount selection dropdown label"
-  },
   "optionsContextMenuSelect": {
     "message": "Контекстное меню",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"
@@ -462,10 +458,6 @@
   "optionsShortcutsSmallDialog": {
     "message": "(малый диалог)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
-  },
-  "optionsShortcutsUpdateNotSupported": {
-    "message": "Обновление сочетаний (пока) не поддерживается браузером!",
-    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
   "optionsSaveNewVersionMultiline": {
     "message": "Заменить запись многострочного поля, если:",

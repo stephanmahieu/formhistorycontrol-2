@@ -35,15 +35,13 @@ $(document).ready(function() {
     browser.storage.local.get({
         pageSizeBig: 500,
         prefDateFormat: 'automatic',
-        prefScrollAmount: 'auto',
         prefColBigVisible: []
     }).then(result => {
         let pageSizeBig = result.pageSizeBig;
         let dateformat = result.prefDateFormat;
-        let scrollAmount = result.prefScrollAmount;
         const prefColBigVisible = OptionsUtil.initColPrefs(result.prefColBigVisible);
         DataTableUtil.dateformat = dateformat;
-        table = createDataTable(tableElement, dateformat, scrollAmount, prefColBigVisible);
+        table = createDataTable(tableElement, dateformat, prefColBigVisible);
 
         // add event listener for saving changed pageSize
         table.on('length.dt', function(e, settings, len) {
@@ -173,7 +171,7 @@ $(document).ready(function() {
     setInterval(function() {WindowUtil.checkAndSaveCurrentWindowPosition(FHC_WINDOW_MANAGE);}, 5*1000);
 });
 
-function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible) {
+function createDataTable(tableElement, dateformat, prefColVisible) {
     let languageURL = DataTableUtil.getLanguageURL();
     const i18nFld = DataTableUtil.getLocaleFieldNames();
     const i18nAll = browser.i18n.getMessage("pagingAll") || 'All';
@@ -194,16 +192,6 @@ function createDataTable(tableElement, dateformat, scrollAmount, prefColVisible)
         paging: true,
         lengthMenu: [[100, 500, 1000, 2000, -1], [100, 500, 1000, 2000, i18nAll]],
         pageLength: 500,
-        fnDrawCallback: function(){
-            $('.dataTables_scrollBody').mCustomScrollbar({
-                scrollInertia: 500,
-                showArrows: true,
-                scrollButtons:{ enable: true, scrollAmount: 5 },
-                mouseWheel:{ scrollAmount: scrollAmount },
-                keyboard:{ enable: true, scrollAmount: 5 },
-                theme: "3d-thick-dark"
-            });
-        },
         select: {
             style: 'multi+shift',
             info: true,

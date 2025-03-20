@@ -411,10 +411,6 @@
     "message": "Herstel alle venster posities en afmetingen",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
-  "optionsScrollAmountSelect": {
-    "message": "Muiswiel scroll aantal (pixels)",
-    "description": "Options window: The scroll amount selection dropdown label"
-  },
   "optionsContextMenuSelect": {
     "message": "Contextmenu",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"
@@ -462,10 +458,6 @@
   "optionsShortcutsSmallDialog": {
     "message": "(kleine venster)",
     "description": "Options window: Shortcut-keys label opening FHC main dialog, additional text to distinguish from small"
-  },
-  "optionsShortcutsUpdateNotSupported": {
-    "message": "Aanpassen van de sneltoetsen wordt (nog) niet ondersteund door de browser!",
-    "description": "Options window: Message displayed when updating Shortcut-keys is not (yet) supported by the browser."
   },
   "optionsSaveNewVersionMultiline": {
     "message": "Bewaar een nieuwe versie van een meerregelig veld als:",
