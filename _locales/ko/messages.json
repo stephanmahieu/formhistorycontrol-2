@@ -411,10 +411,6 @@
     "message": "모든 창 위치 및 크기 초기화",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
-  "optionsScrollAmountSelect": {
-    "message": "마우스 휠 스크롤할 양 (픽셀)",
-    "description": "Options window: The scroll amount selection dropdown label"
-  },
   "optionsContextMenuSelect": {
     "message": "문맥 메뉴",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"

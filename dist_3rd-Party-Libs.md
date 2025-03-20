@@ -25,12 +25,6 @@ DataTable extension Buttons 2.4.1
 https://github.com/DataTables/Buttons/blob/2.4.1/js/buttons.colVis.js
 https://github.com/DataTables/Buttons/blob/2.4.1/js/dataTables.buttons.js
 
-jquery plugin custom scrollbar 3.1.5
-https://github.com/malihu/malihu-custom-scrollbar-plugin/blob/3.1.5/jquery.mCustomScrollbar.js
-
-jQuery plugin Mousewheel 3.1.13
-https://github.com/jquery/jquery-mousewheel/blob/3.1.13/jquery.mousewheel.js
-
 
 Location /popup/entryview/renderjs
 ----------------------------------------------------

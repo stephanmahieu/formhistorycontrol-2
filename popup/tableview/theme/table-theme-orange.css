@@ -120,26 +120,3 @@ td.my-details-control {
 td.details-control {
     filter: brightness(90%);
 }
-
-
-/* Scrollbar styling, overrule the default set theme 3d-thick-dark */
-
-.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
-.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar,
-.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
-.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
-    background-color: #afafaf;
-}
-
-.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_draggerContainer{
-    background-color: rgba(229, 229, 229, 0.08);
-}
-
-/*.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonUp{ background-position: -32px -72px; }*/
-/*.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonDown{ background-position: -32px -92px; }*/
-/*.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonLeft{ background-position: -40px -112px; }*/
-/*.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_buttonRight{ background-position: -40px -128px; }*/
-
-.mCS-3d-thick-dark.mCSB_scrollTools .mCSB_draggerContainer {
-    background-color: rgba(0, 0, 0, 0.75);
-}

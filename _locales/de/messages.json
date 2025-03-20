@@ -411,10 +411,6 @@
     "message": "Alle Fensterpositionen und -größe wiederherstellen",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
-  "optionsScrollAmountSelect": {
-    "message": "Mausrad Bildlaufanzahl (pixels)",
-    "description": "Options window: The scroll amount selection dropdown label"
-  },
   "optionsContextMenuSelect": {
     "message": "Kontextmenü",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"

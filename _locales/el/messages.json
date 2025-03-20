@@ -411,10 +411,6 @@
     "message": "Επαναφορά όλων των θέσεων και μεγεθών στα παράθυρα",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
-  "optionsScrollAmountSelect": {
-    "message": "Ποσό κύλισης ροδέλας ποντικιού (εικονοστοιχεία)",
-    "description": "Options window: The scroll amount selection dropdown label"
-  },
   "optionsContextMenuSelect": {
     "message": "Μενού περιβάλλοντος",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"

@@ -411,10 +411,6 @@
     "message": "Сбросить позиции и размеры всех окон",
     "description": "Options window: The Reset all window positions and sizes button Tooltip."
   },
-  "optionsScrollAmountSelect": {
-    "message": "Прокрутка колесом мыши (в пикселях)",
-    "description": "Options window: The scroll amount selection dropdown label"
-  },
   "optionsContextMenuSelect": {
     "message": "Контекстное меню",
     "description": "Options window: The context menu dropdown label (select when it should be displayed)"

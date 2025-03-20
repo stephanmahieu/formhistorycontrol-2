@@ -29,15 +29,13 @@ $(document).ready(function() {
     browser.storage.local.get({
             pageSizeSmall: 12,
             prefDateFormat: 'automatic',
-            prefScrollAmount: 'auto',
             prefColSmallVisible: []
     }).then(result => {
         let pageSizeSmall = result.pageSizeSmall;
         let dateformat = result.prefDateFormat;
-        let scrollAmount = result.prefScrollAmount;
         const prefColSmallVisible = OptionsUtil.initColSmallPrefs(result.prefColSmallVisible);
 
-        table = createDataTable(dateformat, scrollAmount, prefColSmallVisible);
+        table = createDataTable(dateformat, prefColSmallVisible);
 
         // add event listener for saving changed pageSize
         table.on('length.dt', function(e, settings, len) {
@@ -260,7 +258,7 @@ function onContextMenuClicked(menuItemId) {
 }
 
 
-function createDataTable(dateformat, scrollAmount, prefColVisible) {
+function createDataTable(dateformat, prefColVisible) {
     const languageURL = DataTableUtil.getLanguageURL();
     const i18nFld = DataTableUtil.getLocaleFieldNames();
     const i18nColVis = browser.i18n.getMessage("buttonColumnVisibility") || 'Column visibility';
@@ -280,16 +278,6 @@ function createDataTable(dateformat, scrollAmount, prefColVisible) {
         paging: true,
         lengthMenu: [10, 12, 20, 50, 100, 500],
         pageLength: 12,
-        fnDrawCallback: function(){
-            $('.dataTables_scrollBody').mCustomScrollbar({
-                scrollInertia: 500,
-                showArrows: true,
-                scrollButtons:{ enable: true, scrollAmount: 13 },
-                mouseWheel:{ scrollAmount: scrollAmount },
-                keyboard:{ enable: true, scrollAmount: 13 },
-                theme: "3d-thick-dark"
-            });
-        },
         select: {
             style: 'single',
             info: false,

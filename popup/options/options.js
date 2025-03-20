@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#dateformatSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#saveWindowProperties").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#resetWindowProperties").addEventListener("click", resetAllWindowProperties);
-    document.querySelector("#scrollAmountSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#contextMenuSelect").addEventListener("change", checkPropertiesChanged);
     document.querySelector("#pageActionSelect").addEventListener("change", checkPropertiesChanged);
 
@@ -165,7 +164,6 @@ function restoreOptions() {
         prefRetainType           : "all",
         prefUpdateInterval       : "5000",
         prefDateFormat           : "automatic",
-        prefScrollAmount         : "auto",
         prefContextmenuAvail     : "page",
         prefPageactionAvail      : "always",
         prefFieldfillMode        : "auto",
@@ -192,7 +190,6 @@ function applyPreferences(res, fromStore) {
     document.querySelector('#retainTypeSelect').value = res.prefRetainType;
     document.querySelector('#updateIntervalSelect').value = res.prefUpdateInterval;
     document.querySelector("#dateformatSelect").value = res.prefDateFormat;
-    document.querySelector("#scrollAmountSelect").value = res.prefScrollAmount;
     document.querySelector("#contextMenuSelect").value = res.prefContextmenuAvail;
     document.querySelector("#pageActionSelect").value = res.prefPageactionAvail;
     document.querySelector("#autocleanup").checked = res.prefAutomaticCleanup;
@@ -237,7 +234,6 @@ function saveOptions(e) {
         retainTypeChanged:           (currentOptions.prefRetainType !== newOptions.prefRetainType),
         updateIntervalChanged:       (currentOptions.prefUpdateInterval !== newOptions.prefUpdateInterval),
         dateFormatChanged:           (currentOptions.prefDateFormat !== newOptions.prefDateFormat),
-        scrollAmountChanged:         (currentOptions.prefScrollAmount !== newOptions.prefScrollAmount),
         contextmenuAvailChanged:     (currentOptions.prefContextmenuAvail !== newOptions.prefContextmenuAvail),
         domainFilterChanged:         (currentOptions.prefDomainFilter !== newOptions.prefDomainFilter || !arrayContentEquals(currentOptions.prefDomainList, newOptions.prefDomainList)),
         fieldFilterChanged:          !arrayContentEquals(currentOptions.prefFieldList, newOptions.prefFieldList)
@@ -274,7 +270,6 @@ function getNewOptions() {
         prefRetainType           : document.querySelector("#retainTypeSelect").value,
         prefUpdateInterval       : document.querySelector("#updateIntervalSelect").value,
         prefDateFormat           : document.querySelector("#dateformatSelect").value,
-        prefScrollAmount         : document.querySelector("#scrollAmountSelect").value,
         prefContextmenuAvail     : document.querySelector("#contextMenuSelect").value,
         prefPageactionAvail      : document.querySelector("#pageActionSelect").value,
         prefFieldfillMode        : document.querySelector("#fieldfillModeSelect").value,
