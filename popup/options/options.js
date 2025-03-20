@@ -166,20 +166,6 @@ function restoreOptions() {
         prefDateFormat           : "automatic",
         prefContextmenuAvail     : "page",
         prefPageactionAvail      : "always",
-        prefShortcutKeys         : {
-            // defaults here must be equal to the defaults in manifest.json
-            // _execute_browser_action     : OptionsUtil.getDefaultShortcutKey('_execute_browser_action'),
-            _execute_action             : OptionsUtil.getDefaultShortcutKey('_execute_action'),
-            open_fhc                    : OptionsUtil.getDefaultShortcutKey('open_fhc'),
-            toggle_display_fields       : OptionsUtil.getDefaultShortcutKey('toggle_display_fields'),
-            fill_recent                 : OptionsUtil.getDefaultShortcutKey('fill_recent'),
-            fill_often                  : OptionsUtil.getDefaultShortcutKey('fill_often'),
-            open_fhc_enable             : true,
-            toggle_display_fields_enable: true,
-            fill_recent_enable          : true,
-            fill_often_enable           : true,
-            clear_filled_enable         : true
-        },
         prefFieldfillMode        : "auto",
         prefDomainFilter         : "all",
         prefDomainList           : [],
