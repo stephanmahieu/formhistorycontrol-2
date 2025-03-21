@@ -8,13 +8,12 @@
 
 const IS_FIREFOX = typeof browser.runtime.getBrowserInfo === 'function';
 const IS_SAFARI = navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("Chrom");
-console.log("IS_FIREFOX=" + IS_FIREFOX + " IS_SAFARI=" + IS_SAFARI);
+// console.log("IS_FIREFOX=" + IS_FIREFOX + " IS_SAFARI=" + IS_SAFARI);
 
-// browser.runtime.onMessage.addListener(receiveContextEvents);
-browser.runtime.onInstalled.addListener(receiveContextEvents);
+browser.runtime.onMessage.addListener(receiveContextEvents);
 
 function receiveContextEvents(fhcEvent, sender, sendResponse) {
-    console.log('DEBUG receiveContextEvents')
+    // console.log('DEBUG receiveContextEvents')
     if (fhcEvent.eventType && fhcEvent.eventType === 888 && fhcEvent.contextmenuAvailChanged) {
         // remove the context menu and rebuild from scratch
         const promisesArray = [];
@@ -82,6 +81,7 @@ initBrowserMenus();
 // set the shortcutKey listener
 browser.commands.onCommand.addListener(handleShortcutKeys);
 
+// TODO local vars?!!!
 const MAX_LENGTH_EDITFIELD_ITEM = 35;
 const EDITOR_FIELDS_MENUITEM_IDS = [];
 const TEXT_FIELDS_MENUITEM_IDS = [];
@@ -367,7 +367,7 @@ function onMenuCreated() {
 
 
 function initBrowserMenus() {
-    console.log('DEBUG INSIDE initBrowserMenus()')
+    // console.log('DEBUG INSIDE initBrowserMenus()')
     const gettingPref = browser.storage.local.get({
         prefContextmenuAvail: "page"
     });
@@ -591,7 +591,9 @@ function _initBrowserActionSubmenu() {
     browserContextMenusCreate({
         id: "submenuExtra",
         title: browser.i18n.getMessage("contextMenuItemRestoreEditorFieldSubmenuMore"),
-        contexts: ["action", "page"],
+        // page !== page_action !!!
+        // contexts: ["action", "page"],
+        contexts: ["action"],
         icons: {
             "16": "/theme/icons/menu/16/submenu.png",
             "32": "/theme/icons/menu/32/submenu.png"
@@ -745,7 +747,7 @@ function getSingleElementByPrimaryKeyAndNotify(primaryKey, tabId) {
  * Menu item click event listener, perform action given the ID of the menu item that was clicked.
  */
 getBrowserMenusOnClickedHandler().addListener(function(info, tab) {
-    console.log('getBrowserMenusOnClickedHandler');
+    // console.log('DEBUG getBrowserMenusOnClickedHandler');
     switch (info.menuItemId) {
         case "manage":
         case "manageTools":
