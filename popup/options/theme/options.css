@@ -256,9 +256,6 @@ input[type="Radio"]:checked+label span:before{
 }
 
 /* Hidden features */
-#files {
-    display: none;
-}
-fileinput {
+#fileinput {
     display: none;
 }
