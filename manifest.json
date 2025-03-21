@@ -109,7 +109,7 @@
     },
     "open_fhc": {
       "suggested_key": {
-        "default": "Alt+Shift+F"
+        "default": "Alt+Shift+M"
       },
       "description": "Open the main FHC dialog"
     },
