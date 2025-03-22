@@ -7,16 +7,15 @@
 
 class MiscUtil {
 
-    static getHostnameFromUrlString(url) {
-        if (url.trim() === '') {
+    static getHostnameFromUrlString(urlString) {
+        if (urlString.trim() === '') {
             return '';
         }
-        if (url.toLowerCase().startsWith('file:')) {
+        if (urlString.toLowerCase().startsWith('file:')) {
             return 'localhost';
         }
-        const link = document.createElement('a');
-        link.setAttribute('href', url);
-        return link.hostname;
+        const url = new URL(urlString);
+        return url.hostname;
     }
 
     static copyTextToClipboard(value) {
