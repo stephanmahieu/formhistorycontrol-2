@@ -41,7 +41,6 @@
 
   "options_ui": {
     "open_in_tab": true,
-    "browser_style": false,
     "page": "popup/options/options.html"
   },
 
