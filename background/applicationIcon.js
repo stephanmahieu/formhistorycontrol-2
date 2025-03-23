@@ -151,7 +151,7 @@ function setApplicationIcon(tabId, fixedPath, scalablePath) {
         // firefox only, chrome does not handle svg path here
         paths['129'] = scalablePath;
     }
-    browser.action.setIcon({
+    browser.browserAction.setIcon({
         tabId: tabId,
         path: paths
     });
