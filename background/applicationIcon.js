@@ -143,10 +143,12 @@ function setApplicationIcon(tabId, fixedPath, scalablePath) {
     browser.action.setIcon({
         tabId: tabId,
         path: {
-            16: fixedPath.replace('nn', '16'),
-            32: fixedPath.replace('nn', '32'),
-            48: fixedPath.replace('nn', '48'),
-            64: fixedPath.replace('nn', '64'),
-            65: scalablePath}
+            '16': fixedPath.replace('nn', '16'),
+            '32': fixedPath.replace('nn', '32'),
+            '48': fixedPath.replace('nn', '48'),
+            '64': fixedPath.replace('nn', '64'),
+            '128': fixedPath.replace('nn', '128'),
+            '129': scalablePath
+        }
     });
 }
