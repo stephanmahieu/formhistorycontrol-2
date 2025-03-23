@@ -140,15 +140,19 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
 let debouncedUpdateApplicationIcon = debounceFunc(updateApplicationIcon, 100);
 
 function setApplicationIcon(tabId, fixedPath, scalablePath) {
+    const paths = {
+        '16': fixedPath.replace('nn', '16'),
+        '32': fixedPath.replace('nn', '32'),
+        '48': fixedPath.replace('nn', '48'),
+        '64': fixedPath.replace('nn', '64'),
+        '128': fixedPath.replace('nn', '128')
+    };
+    if (typeof browser.runtime.getBrowserInfo === 'function') {
+        // firefox only, chrome does not handle svg path here
+        paths['129'] = scalablePath;
+    }
     browser.action.setIcon({
         tabId: tabId,
-        path: {
-            '16': fixedPath.replace('nn', '16'),
-            '32': fixedPath.replace('nn', '32'),
-            '48': fixedPath.replace('nn', '48'),
-            '64': fixedPath.replace('nn', '64'),
-            '128': fixedPath.replace('nn', '128'),
-            '129': scalablePath
-        }
+        path: paths
     });
 }
