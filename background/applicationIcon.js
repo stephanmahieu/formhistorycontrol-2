@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023. Stephan Mahieu
+ * Copyright (c) 2025. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -25,13 +25,16 @@ const debounceFunc = (fn, time) => {
 // initially update icon for the active tab
 setTimeout(()=>{ updateIconForActiveTab(); }, 1500);
 
-
+// browser icons:
 const DEFAULT_PNG_ICON = "/theme/icons/fhc-nn.png";
 const DEFAULT_SVG_ICON = "/theme/icons/fhc_icon.svg";
 const DISABLED_PNG_ICON = "/theme/icons/state/fhc_icon_disabled_nn.png";
 const DISABLED_SVG_ICON = "/theme/icons/state/fhc_icon_disabled.svg";
 const ENABLED_PNG_ICON = "/theme/icons/state/fhc_icon_enabled_nn.png";
 const ENABLED_SVG_ICON = "/theme/icons/state/fhc_icon_enabled.svg";
+// page icons:
+const PNG_PAGE_ICON = "/theme/icons/fhc-nn_bw.png";
+const SVG_PAGE_ICON = "/theme/icons/fhc_icon_bw.svg";
 
 
 function receiveIconEvents(fhcEvent, sender, sendResponse) {
@@ -114,6 +117,7 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
         }).then(res => {
             if (res.prefPageactionAvail === 'always') {
                 browser.pageAction.show(tabId);
+                setPageActionIcon(tabId, PNG_PAGE_ICON, SVG_PAGE_ICON);
             } else {
                 browser.pageAction.hide(tabId);
             }
@@ -140,15 +144,32 @@ function updateApplicationIcon(windowId, tabId, url, incognito) {
 let debouncedUpdateApplicationIcon = debounceFunc(updateApplicationIcon, 100);
 
 function setApplicationIcon(tabId, fixedPath, scalablePath) {
+    const paths = {
+        '16': fixedPath.replace('nn', '16'),
+        '32': fixedPath.replace('nn', '32'),
+        '48': fixedPath.replace('nn', '48'),
+        '64': fixedPath.replace('nn', '64'),
+        '128': fixedPath.replace('nn', '128')
+    };
+    if (typeof browser.runtime.getBrowserInfo === 'function') {
+        // firefox only, chrome does not handle svg path here
+        paths['129'] = scalablePath;
+    }
     browser.action.setIcon({
+        tabId: tabId,
+        path: paths
+    });
+}
+
+function setPageActionIcon(tabId, fixedPath, scalablePath) {
+    // default_icon not used in manifest v3
+    browser.pageAction.setIcon({
         tabId: tabId,
         path: {
             '16': fixedPath.replace('nn', '16'),
             '32': fixedPath.replace('nn', '32'),
             '48': fixedPath.replace('nn', '48'),
             '64': fixedPath.replace('nn', '64'),
-            '128': fixedPath.replace('nn', '128'),
-            '129': scalablePath
-        }
-    });
+            '65': scalablePath
+        }});
 }
