@@ -1,5 +1,9 @@
 /* Dark theme */
 
+div.dataTables_scrollBody {
+    scrollbar-color: #ffc538 #854b2a;
+}
+
 /* search box */
 #fhcTable_filter input[type=search] {
     background: url("search-white.png") no-repeat 3px 3px var(--field-bg-color);
