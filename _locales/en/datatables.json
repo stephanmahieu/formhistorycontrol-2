@@ -27,5 +27,13 @@
             "0": "",
             "1": "1 row selected"
         }
-    }
+    },
+    "buttons": {
+        "pageLength": {
+            "-1": "Show all rows",
+            "_": "Show %d rows"
+        }
+    },
+    "decimal": ".",
+    "thousands": ","
 }

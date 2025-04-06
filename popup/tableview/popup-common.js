@@ -147,7 +147,8 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost, doRes
                 $("#overlaystatus").removeClass('spinner').hide();
 
                 // hide page control if all entries are shown
-                $('#fhcTable_paginate').toggle((-1 !== table.page.len()));
+                $('.dt-paging').toggle((-1 !== table.page.len()));
+
 
                 adjustSearchBox();
 
@@ -161,17 +162,17 @@ function populateViewFromDatabase(table, refreshEvery, forFields, forHost, doRes
 }
 
 function resizeTable() {
-    let buttonSpace = 160;
+    let buttonSpace = 199;
     if (window.innerWidth < 768) {
         // miscellaneous DataTable components will stack on top of each other, leave more room for the buttons
-        buttonSpace = 220;
+        buttonSpace = 240;
     }
-    $('.dataTables_scrollBody').css('max-height', "none").css('height', window.innerHeight-buttonSpace+"px");
+    $('.dt-scroll-body').css('max-height', "none").css('height', window.innerHeight-buttonSpace+"px");
 }
 
 function adjustSearchBox() {
     // adjust size searchbox for placeholder to fit nicely
-    const inpSearch = $("#fhcTable_filter input")[0];
+    const inpSearch = $("#dt-search-0")[0];
     if (inpSearch) {
         const placeholderText = inpSearch.getAttribute("placeholder");
         inpSearch.setAttribute("size", placeholderText.length + 2);
@@ -181,17 +182,35 @@ function adjustSearchBox() {
 }
 
 function addSearchBoxEraseButton() {
-    // add erase icon searchbox
+    // add erase icon search input
     if (!$("#fhcTable_filter_erase").length) {
-        const inpSearchLbl = $($("#fhcTable_filter label")[0]);
-        if (inpSearchLbl.length) {
-            inpSearchLbl.append('<div id="fhcTable_filter_erase">X</div>');
+        const inpSearch = $($("#dt-search-0")[0]);
+        if (inpSearch.length) {
+            $(inpSearch[0].parentNode).append('<div id="fhcTable_filter_erase">✖</div>');
             $("#fhcTable_filter_erase").on('click', function(event) {
                 // Event listener for erasing the searchbox
-                $($("#fhcTable_filter input")[0]).val('').trigger('cut');
+                $($("#dt-search-0")[0]).val('').trigger('cut');
                 return false;
             });
         }
+    }
+}
+
+function searchBoxChangedHandler() {
+    hideEraseSearchboxIcon(true);
+
+    const searchInput = $('#dt-search-0');
+    if (typeof searchInput !== 'undefined') {
+        const inputVal = searchInput.val() || '';
+        const dataLen = inputVal.length || 0;
+        hideEraseSearchboxIcon((dataLen === 0));
+    }
+}
+
+function hideEraseSearchboxIcon(doHide) {
+    const filtErase = $('#fhcTable_filter_erase');
+    if (typeof filtErase !== 'undefined') {
+        filtErase.css('visibility', doHide ? 'hidden' : 'visible');
     }
 }
 

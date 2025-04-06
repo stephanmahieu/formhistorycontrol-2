@@ -27,5 +27,14 @@
             "0": "",
             "1": "1 rij geselecteerd"
         }
-    }
+    },
+    "buttons": {
+        "pageLength": {
+            "-1": "Toon alle rijen",
+            "_": "Toon %d rijen",
+            "1": "Toon 1 rij"
+        }
+    },
+    "decimal": ",",
+    "thousands": "."
 }

@@ -21,5 +21,19 @@
     "oAria": {
         "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    }
+    },
+    "select": {
+        "rows": {
+            "1": "1 fila seleccionada",
+            "_": "%d filas seleccionadas"
+        }
+    },
+    "buttons": {
+        "pageLength": {
+            "-1": "Mostrar todas las filas",
+            "_": "Mostrar %d filas"
+        }
+    },
+    "decimal": ",",
+    "thousands": "."
 }

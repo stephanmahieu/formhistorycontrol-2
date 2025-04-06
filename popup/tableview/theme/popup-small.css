@@ -11,11 +11,6 @@ body {
     padding: 0;
 }
 
-#colvis-container {
-    position: absolute;
-    left: -4px;
-}
-
 #popup-header {
     margin: 2px;
     width: 99%;
@@ -69,16 +64,10 @@ body {
     width: 100%;
 }
 
-/* too close to the edge, add room */
-#fhcTable_info,
-#fhcTable_length {
-    padding-left: 5px;
-}
-
-#fhcTable_filter input[type=search] {
+#dt-search-0[type=search] {
     min-width: 85px;
 }
-#fhcTable_filter input[type=search]:focus {
+#dt-search-0[type=search]:focus {
     min-width: 270px;
 }
 

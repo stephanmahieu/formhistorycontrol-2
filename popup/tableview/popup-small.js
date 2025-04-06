@@ -56,6 +56,11 @@ $(document).ready(function() {
             }
         });
 
+        // add event listener for search events
+        table.on('search.dt', function (e, dt) {
+            searchBoxChangedHandler();
+        });
+
         $('#fhcTable tbody').on('dblclick', 'tr', function () {
             // show details in a separate window
             DataTableUtil.openDetailViewOnRowClick($(this), table, "view");
@@ -283,6 +288,27 @@ function createDataTable(dateformat, prefColVisible) {
             info: false,
             selector: 'td:not(.details-control)'
         },
+        layout: {
+            topStart: {
+                buttons: [
+                    {
+                        extend: 'pageLength'
+                    },
+                    {
+                        extend: 'colvis',
+                        postfixButtons: ['colvisRestore'],
+                        /*text: '<span class="column-selector" title="'+i18nColVis+'"/>',*/
+                        columnText: function(dt, idx, title) {
+                            return '<span class="col-select"><span class="check"/></span><span class="col-select-title">'+title+'</span>';
+                        },
+                        columns: ':gt(1)'
+                    }
+                ]
+            },
+            topEnd: 'search',
+            bottomStart: 'info',
+            bottomEnd: 'paging'
+        },
         columns: [
             {
                 responsivePriority: 1,
@@ -366,7 +392,7 @@ function createDataTable(dateformat, prefColVisible) {
                 targets: 8,
                 visible: prefColVisible[6],
                 data: 6,
-                className: "dt-head-left",
+                className: "dt-right",
                 render: function ( data, type/*, row */) {
                     return DataTableUtil.formatAge(data, type);
                 }
@@ -403,19 +429,6 @@ function createDataTable(dateformat, prefColVisible) {
             }
         ]
     } );
-
-    new $.fn.dataTable.Buttons(table, {
-        buttons: [{
-            extend: 'colvis',
-            columns: ':gt(1)',
-            postfixButtons: [ 'colvisRestore' ],
-            text: '<span class="column-selector" title="' + i18nColVis + '"/>',
-            columnText: function(dt, idx, title) {
-                return '<span class="col-select"><span class="check"/></span><span class="col-select-title">'+title+'</span>';
-            }
-        }]
-    });
-    table.table().buttons().container().appendTo( $('#colvis-container', table.table().container()));
 
     return table;
 }
