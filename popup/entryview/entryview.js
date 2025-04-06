@@ -317,11 +317,6 @@ function onDataRetrieved(data) {
         document.getElementById('used').removeAttribute('disabled');
         document.getElementById('first').removeAttribute('disabled');
         document.getElementById('last').removeAttribute('disabled');
-        document.querySelectorAll(".dateTimeEdit").forEach(dte => {
-            dte.style.display = 'inline-block';
-            dte.addEventListener("click", showModalDatetimeDialog)
-        });
-
         document.getElementById('url').removeAttribute('disabled');
     }
 
