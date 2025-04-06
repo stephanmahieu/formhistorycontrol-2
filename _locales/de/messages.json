@@ -83,7 +83,7 @@
     "message": "Neuen Formularhistory-Eintrag einfügen",
     "description": "Add a new field, info displayed in edit window."
   },
-  Styling tableview"infofieldCopy": {
+  "infofieldCopy": {
     "message": "Doppelklick auf ein Feld um den Wert in die Zwischenablage zu kopieren.",
     "description": "Info text on EntryView page, douible-click to copy field."
   },
