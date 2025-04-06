@@ -38,19 +38,10 @@ browser.runtime.onMessage.addListener(fhcEvent=>{
 document.addEventListener("DOMContentLoaded", function(/*event*/) {
     OptionsUtil.getInterfaceTheme().then(res=>{ThemeUtil.switchTheme(res);});
 
-    // make sure the popup overlay is hidden
-    document.getElementById('datetimeOverlay').style.display = 'none';
-
     populateView();
     document.getElementById("buttonClose").addEventListener("click", WindowUtil.closeThisPopup);
     document.getElementById("buttonCancel").addEventListener("click", WindowUtil.closeThisPopup);
     document.getElementById("buttonOkay").addEventListener("click", onOkayButton);
-
-    document.getElementById("buttonTimeOkay").addEventListener("click", onDatetimeOkayButton);
-    document.getElementById("buttonTimeCancel").addEventListener("click", onDatetimeAbort);
-    document.getElementById("buttonTimeClose").addEventListener("click", onDatetimeAbort);
-    document.getElementById("btnNowdate").addEventListener("click", onDatetimeNowdate);
-    document.getElementById("btnErase").addEventListener("click", onDatetimeErase);
 
     document.getElementById("typeSelect").addEventListener("change", showHideFields);
     document.getElementById("url").addEventListener("keyup", updateHostvalue);
@@ -111,14 +102,30 @@ function onContextMenuItemClicked(event) {
     }
 }
 
+function onTextInputDoubleClicked(event) {
+    // parent td element was clicked, get the text input value
+    const inputElm = event.currentTarget.querySelector('input');
+    if (inputElm.value) {
+        MiscUtil.copyTextToClipboard(inputElm.value);
+        WindowUtil.showModalInformation({titleId:'dialogInformationTitle', msgId:'informClipboardValueCopied'});
+    }
+}
+
+function onTextareaInputDoubleClicked(event) {
+    // parent td element was clicked, get the textarea input value
+    const inputElm = event.currentTarget.querySelector('textarea');
+    if (inputElm.value) {
+        MiscUtil.copyTextToClipboard(inputElm.value);
+        WindowUtil.showModalInformation({titleId:'dialogInformationTitle', msgId:'informClipboardValueCopied'});
+    }
+}
+
 function onKeyClicked(event) {
     const keyCode = event.code;
 
     if (keyCode === 'Escape') {
         if (WindowUtil.isModalDialogActive()) {
             WindowUtil.doCancelModalDialog();
-        } else if (isModalDatetimeDialogActive()) {
-            hideModalDatetimeDialog();
         } else if (isPreviewActive('html')) {
             togglePreviewCheckbox('html');
         } else if (isPreviewActive('text')) {
@@ -276,13 +283,11 @@ function onDataRetrieved(data) {
 
     if (objEntryData.doWhat === "view" || (objEntryData.doWhat === "edit" && !objEntryData.isMultiple)) {
         document.getElementById('name').value = objEntryData.name;
-        // document.getElementById('value').value = objEntryData.value;
         document.getElementById('typeSelect').value = objEntryData.type;
         document.getElementById('used').value = objEntryData.used;
-        document.getElementById('first').value = DateUtil.dateToDateString(new Date(objEntryData.first));
-        document.getElementById('first').setAttribute('data-time', objEntryData.first);
-        document.getElementById('last').value = DateUtil.dateToDateString(new Date(objEntryData.last));
-        document.getElementById('last').setAttribute('data-time', objEntryData.last);
+        document.getElementById('first').value = DateUtil.toISOdateString(objEntryData.first);
+        document.getElementById('last').value = DateUtil.toISOdateString(objEntryData.last);
+
         if (objEntryData.type === 'input') {
             document.getElementById('value').value = objEntryData.value;
         } else {
@@ -296,10 +301,8 @@ function onDataRetrieved(data) {
         objEntryData.used = 1;
         objEntryData.first = objEntryData.last = DateUtil.getCurrentDate();
         document.getElementById('used').value = '1';
-        document.getElementById('first').value = DateUtil.dateToDateString(new Date(objEntryData.first));
-        document.getElementById('first').setAttribute('data-time', objEntryData.first);
-        document.getElementById('last').value = DateUtil.dateToDateString(new Date(objEntryData.last));
-        document.getElementById('last').setAttribute('data-time', objEntryData.last);
+        document.getElementById('first').value = DateUtil.toISOdateString(objEntryData.first);
+        document.getElementById('last').value = DateUtil.toISOdateString(objEntryData.last);
     }
 
     if (objEntryData.doWhat === "edit" || objEntryData.doWhat === "add") {
@@ -314,10 +317,6 @@ function onDataRetrieved(data) {
         document.getElementById('used').removeAttribute('disabled');
         document.getElementById('first').removeAttribute('disabled');
         document.getElementById('last').removeAttribute('disabled');
-        document.getElementById('first').addEventListener('focus', showModalDatetimeDialog);
-        document.getElementById('last').addEventListener('focus', showModalDatetimeDialog);
-        populateDatetimeSelect();
-
         document.getElementById('url').removeAttribute('disabled');
     }
 
@@ -327,6 +326,19 @@ function onDataRetrieved(data) {
         document.getElementById('buttonClose').style.display = 'none';
         document.getElementById('buttonOkay').style.display = 'block';
         document.getElementById('buttonCancel').style.display = 'block';
+    }
+    else {
+        // double click handler input fields (copy content to clipboard)
+        document.querySelectorAll("input[type=text],input[type=datetime-local]").forEach(textInput => {
+            textInput.parentElement.addEventListener("dblclick", onTextInputDoubleClicked)
+        });
+        document.querySelectorAll("textarea").forEach(textInput => {
+            textInput.parentElement.addEventListener("dblclick", onTextareaInputDoubleClicked)
+        });
+        // show info: double-click is available
+        document.querySelectorAll(".infoFieldCopy").forEach(infoElm => {
+            infoElm.style.display = 'inline-block'
+        });
     }
 }
 
@@ -451,16 +463,11 @@ function toggleMarkdownView(event) {
         // show Markdown overlay
         _removeChildren(mdOverlay);
         // use marked renderer (sanitize: true)
-        marked.setOptions({
-            renderer: new marked.Renderer(),
+        marked.use({
             gfm: true,
-            tables: true,
-            breaks: false,
-            pedantic: false,
-            smartLists: true,
-            smartypants: true
+            breaks: true
         });
-        const value = marked(document.getElementById('multiline-value').value);
+        const value = marked.parse(document.getElementById('multiline-value').value);
         mdOverlay.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
         overlayLabel.style.display = mdOverlay.style.display = '';
         wrapLabel.style.display = 'none';
@@ -482,7 +489,7 @@ function toggleWikiView(event) {
     if (checkbox.checked) {
         // show Markdown overlay
         _removeChildren(wikiOverlay);
-        // usu wiki renderer
+        // use wiki renderer
         const value = wiky.process(document.getElementById('multiline-value').value);
         wikiOverlay.appendChild(DOMPurify.sanitize(value, {RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true}));
         overlayLabel.style.display = wikiOverlay.style.display = '';
@@ -520,97 +527,6 @@ function getOperationInfo(doWhat, multiple) {
             break;
     }
     return operationInfoId ? browser.i18n.getMessage(operationInfoId) : '';
-}
-
-function showModalDatetimeDialog(event) {
-    let elemId = event.target.id;
-    document.getElementById('modalTitle').setAttribute('data-which', elemId);
-    let i18nTitle = (elemId === 'first') ? 'fieldFirstUsed' : 'fieldLastUsed';
-    document.getElementById('modalTitle').firstChild.nodeValue = browser.i18n.getMessage(i18nTitle);
-
-    let time = parseInt(document.getElementById(elemId).getAttribute('data-time'));
-    let date;
-    if (time) {
-        date = new Date(time);
-    } else {
-        date = new Date();
-    }
-    setDatetimeDialog(date);
-
-    document.getElementById('datetimeOverlay').style.display = 'block';
-}
-
-function hideModalDatetimeDialog() {
-    document.getElementById('datetimeOverlay').style.display = 'none';
-}
-
-function isModalDatetimeDialogActive() {
-    return (document.getElementById('datetimeOverlay').style.display !== 'none');
-}
-
-function onDatetimeAbort() {
-    document.getElementById('datetimeOverlay').style.display = 'none';
-}
-
-function onDatetimeNowdate() {
-    setDatetimeDialog(new Date());
-}
-
-function onDatetimeErase() {
-    eraseDatetimeDialog();
-}
-
-function onDatetimeOkayButton() {
-    let elemId = document.getElementById('modalTitle').getAttribute('data-which');
-
-    let date = new Date();
-
-    let year = document.getElementById('year').value;
-    let month = document.getElementById('month').value;
-    let day = document.getElementById('day').value;
-
-    if (year && month && day) {
-        date.setFullYear(document.getElementById('year').value);
-        date.setMonth(document.getElementById('month').value - 1);
-        date.setDate(document.getElementById('day').value);
-
-        let hour = document.getElementById('hour').value;
-        let minute = document.getElementById('minute').value;
-        let seconds = document.getElementById('second').value;
-        hour = 0 || hour;
-        minute = 0 || minute;
-        seconds = 0 || seconds;
-        date.setHours(hour);
-        date.setMinutes(minute);
-        date.setSeconds(seconds);
-
-        document.getElementById(elemId).value = DateUtil.dateToDateString(date);
-        document.getElementById(elemId).setAttribute('data-time', ''+date.getTime());
-    } else {
-        date = null;
-        document.getElementById(elemId).value = '';
-        document.getElementById(elemId).setAttribute('data-time', '');
-    }
-
-    hideModalDatetimeDialog();
-}
-
-function setDatetimeDialog(date) {
-    document.getElementById('year').value = date.getFullYear();
-    document.getElementById('month').value = leftpadZero(date.getMonth()+1,2);
-    document.getElementById('day').value = leftpadZero(date.getDate(),2);
-    document.getElementById('hour').value = leftpadZero(date.getHours(),2);
-    document.getElementById('minute').value = leftpadZero(date.getMinutes(),2);
-    document.getElementById('second').value = leftpadZero(date.getSeconds(),2);
-}
-
-function eraseDatetimeDialog() {
-    document.getElementById('year').value = '';
-    document.getElementById('month').value = '';
-    document.getElementById('day').value = '';
-    document.getElementById('hour').value = '';
-    document.getElementById('minute').value = '';
-    document.getElementById('second').value = '';
 }
 
 function validateRequiredFields(fieldIds) {
@@ -662,8 +578,8 @@ function validateURL(fieldId) {
 function validateDates() {
     let isOkay = true;
     // last >= first
-    let first = parseInt(document.getElementById('first').getAttribute('data-time'));
-    let last = parseInt(document.getElementById('last').getAttribute('data-time'));
+    let first = DateUtil.fromISOdateString(document.getElementById('first').value);
+    let last = DateUtil.fromISOdateString(document.getElementById('last').value);
     if (first && last && last < first) {
         document.getElementById('last').classList.add('invalid-value');
         isOkay = false;
@@ -682,34 +598,6 @@ function onDataRemoveError(error) {
     console.warn(`Error removing data from local storage: ${error}`);
 }
 
-function populateDatetimeSelect() {
-    populateSelect('month', 1, 12);
-    populateSelect('day', 1, 31);
-}
-
-function populateSelect(target, min, max){
-    const select = document.getElementById(target);
-
-    let optEmpty = document.createElement('option');
-    optEmpty.value = '';
-    optEmpty.innerText = '-';
-    select.appendChild(optEmpty);
-
-    for (let i = min; i<=max; i++) {
-        let opt = document.createElement('option');
-        let val = leftpadZero(i,2);
-        opt.value = val;
-        opt.innerText = val;
-        select.appendChild(opt);
-    }
-}
-function leftpadZero(aValue, maxLength) {
-    let result = "" + aValue;
-    while (result.length < maxLength) {
-        result = "0" + result;
-    }
-    return result;
-}
 
 /**
  * Send entry to the background handler for adding or changing into the datastore.
@@ -752,8 +640,8 @@ function setNewValuesToObjEntryData() {
     }
     let host = (url) ? MiscUtil.getHostnameFromUrlString(url) : '';
     let used = (document.getElementById('used').value !== '') ? parseInt(document.getElementById('used').value) : undefined;
-    let first = (document.getElementById('first').value !== '') ? parseInt(document.getElementById('first').getAttribute('data-time')) : undefined;
-    let last = (document.getElementById('last').value !== '') ? parseInt(document.getElementById('last').getAttribute('data-time')) : undefined;
+    let first = (document.getElementById('first').value !== '') ?  DateUtil.fromISOdateString(document.getElementById('first').value) : undefined;
+    let last = (document.getElementById('last').value !== '') ?  DateUtil.fromISOdateString(document.getElementById('last').value) : undefined;
 
     objEntryData.name = document.getElementById('name').value;
     objEntryData.value = value;

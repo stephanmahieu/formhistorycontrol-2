@@ -83,6 +83,10 @@
     "message": "Добавление новой записи в истрию форм",
     "description": "Add a new field, info displayed in edit window."
   },
+  "infofieldCopy": {
+    "message": "Дважды щелкните поле, чтобы скопировать значение в буфер обмена.",
+    "description": "Info text on EntryView page, douible-click to copy field."
+  },
   "labelPreview": {
     "message": "Вид",
     "description": "Label for the checkbox which toggles the HTML preview window."

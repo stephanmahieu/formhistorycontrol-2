@@ -83,6 +83,10 @@
     "message": "새 폼 기록 항목 추가",
     "description": "Add a new field, info displayed in edit window."
   },
+  "infofieldCopy": {
+    "message": "필드를 두 번 클릭하여 값을 클립보드에 복사합니다.",
+    "description": "Info text on EntryView page, douible-click to copy field."
+  },
   "labelPreview": {
     "message": "보기",
     "description": "Label for the checkbox which toggles the HTML preview window."

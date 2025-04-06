@@ -76,98 +76,25 @@ textarea[disabled] {
     display: inline-block;
 }
 
+ìnput:invalid,
 .invalid-value {
-    border: 1px solid #ff0000;
+    border: 1px solid #ff0000 !important;
 }
 
-
-.datetime-modal {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-#datetimeContent {
-    max-width: 200px;
-}
-
-#datetimeContent .modal-header {
-    height: 18px;
-}
-
-#datetimeContent .modal-title {
-    margin-left: 11px;
-    margin-top: -3px;
-}
-
-#datetimeContent table {
-    padding: 4px;
-}
-
-#datetimeContent th {
-    max-width: 3.0em;
-}
-
-.timeseparator {
-    width: 12px;
-    text-align: center;
-    font-weight: bold;
-    display: inline-block;
-}
-
-.datetime-separator {
-    height: 6px;
-}
-
-#year {
-    width: 2.8em;
-    display: inline-block;
-}
-#hour,#minute,#second {
-    width: 1.7em;
-    display: inline-block;
-}
-
-.modal-buttons {
-    margin-right: 3px;
-}
-
-.modal-buttons button {
-    margin-bottom: 6px;
-}
-
-.datetime-controls {
-    display: inline-block;
-    text-align: right;
-    width: 50px;
-}
-
-#btnErase,
-#btnNowdate {
+#infofieldCopyIcon {
+    background: url('../../../theme/icons/dialog/information16.png') no-repeat center center;
     width: 16px;
     height: 16px;
-    display: inline-block;
-    margin-left: 4px;
+    vertical-align: bottom;
+    margin-right: 5px;
 }
-
-#btnErase {
-    background: url("icons/eraser.png") no-repeat top left;
+#infofieldCopyText {
+    font-style: italic;
 }
-
-#btnNowdate {
-    background: url("icons/time.png") no-repeat top left;
-}
-
-#btnErase:hover,
-#btnNowdate:hover {
-    transform: rotate(360deg);
-    transition: all .3s ease;
-    cursor: pointer;
+#infofieldCopyIcon,
+#infofieldCopyText {
+    margin-top: 10px;
+    display: none;
 }
 
 #togglePreview {
@@ -209,6 +136,13 @@ textarea[disabled] {
     padding: 0 2px;
     color: black;
     font-size: 10px;
+}
+
+/* Limit max size of images */
+.viewOverlay img,
+.viewOverlay svg {
+    max-width: 200px;
+    max-height: 200px;
 }
 
 #textWrapOverlayLabel {

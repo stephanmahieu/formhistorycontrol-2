@@ -83,6 +83,10 @@
     "message": "Προσθήκη μιας νέας καταχώρησης",
     "description": "Add a new field, info displayed in edit window."
   },
+  "infofieldCopy": {
+    "message": "Κάντε διπλό κλικ σε ένα πεδίο για να αντιγράψετε την τιμή στο πρόχειρο.",
+    "description": "Info text on EntryView page, douible-click to copy field."
+  },
   "labelPreview": {
     "message": "Προβολή",
     "description": "Label for the checkbox which toggles the HTML preview window."

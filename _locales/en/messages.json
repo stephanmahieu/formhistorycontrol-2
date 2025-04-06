@@ -83,6 +83,10 @@
     "message": "Insert a new formhistory entry",
     "description": "Add a new field, info displayed in edit window."
   },
+  "infofieldCopy": {
+    "message": "Double-click a field to copy its value to the clipboard.",
+    "description": "Info text on EntryView page, douible-click to copy field."
+  },
   "labelPreview": {
     "message": "View",
     "description": "Label for the checkbox which toggles the HTML preview window."
@@ -156,7 +160,7 @@
     "description": "Title of confirmation dialog asking confirmation for cleaning up immediately."
   },
   "confirmStartCleanupMessage": {
-    "message": "Start cleanup and remove formhistory not used in the past $nrofdays$ days?\n\n(Age can be adjusted in preferences)",
+    "message": "Start cleanup and remove formhistory not used in the past $nrofdays$ days?\n\n(Age can be adjusted in options)",
     "description": "Message asking confirmation for for cleaning up immediately (see also key: optionsremovedays).",
     "placeholders": {
       "nrofdays" : {
@@ -572,7 +576,7 @@
     "description": "Extra info next to the header title of the small popup."
   },
   "open_preference_tooltip": {
-    "message": "Open preferences",
+    "message": "Open options",
     "description": "Tooltip for icon displayed in dialog which opens the preferences dialog."
   },
   "open_bigdialog_tooltip": {
@@ -698,7 +702,7 @@
     "description": "Label of Extra menu."
   },
   "menuItemExtraPreferences": {
-    "message": "Preferences",
+    "message": "Options",
     "description": "Label of Preferences menuitem in the Extra menu."
   },
   "menuItemExtraCleanupNow": {

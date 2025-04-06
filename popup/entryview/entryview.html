@@ -47,11 +47,11 @@
             </tr>
             <tr>
                 <th><label for="first" data-fhc-i18n="fieldFirstUsed">First used</label></th>
-                <td><input id="first" type="text" disabled/></td>
+                <td><input id="first" type="datetime-local" step="1" disabled/></td>
             </tr>
             <tr>
                 <th><label for="last" data-fhc-i18n="fieldLastUsed">Last used</label></th>
-                <td><input id="last" type="text" disabled/></td>
+                <td><input id="last" type="datetime-local" step="1" disabled/></td>
             </tr>
             <tr id="hostRow">
                 <th><label for="host" data-fhc-i18n="fieldHost">Host</label></th>
@@ -60,6 +60,10 @@
             <tr id="urlRow">
                 <th><label for="url">URL</label></th>
                 <td><input id="url" type="text" disabled/></td>
+            </tr>
+            <tr id="infoRow">
+                <th></th>
+                <td><div id="infofieldCopyIcon" class="infoFieldCopy"></div><div id="infofieldCopyText" class="infoFieldCopy" data-fhc-i18n="infofieldCopy">Double click a field to copy the value to the clipboard.</div></td>
             </tr>
         </tbody>
     </table>
@@ -93,44 +97,6 @@
             <li><span id="copy2clipboardText-ctx" data-fhc-i18n="menuItemText2Clipboard" class="context-menu-item icon-item icon-copy">Copy clean text only</span></li>
             <li><span id="copy2clipboardAll-ctx" data-fhc-i18n="menuItemHtml2Clipboard" class="context-menu-item icon-item icon-copy">Copy complete HTML</span></li>
         </ul>
-    </div>
-</div>
-
-<div id="datetimeOverlay" class="datetime-modal">
-    <div id="datetimeContent" class="modal-content">
-        <div class="modal-header"><div id="modalTitle" class="modal-title">Titel</div><span id="buttonTimeClose" class="modal-close modal-button"></span></div>
-        <table border="0">
-            <tbody>
-                <tr>
-                    <th><label for="year" data-fhc-i18n="labelYear">Year</label></th>
-                    <th><label for="month" data-fhc-i18n="labelMonth">Month</label></th>
-                    <th><label for="day" data-fhc-i18n="labelDay">Day</label></th>
-                </tr>
-                <tr>
-                    <td><input id="year" type="text" pattern="^(\d{4})$" placeholder="yyyy"/></td>
-                    <td><select id="month"></select></td>
-                    <td><select id="day"></select></td>
-                </tr>
-                <tr class="datetime-separator"><td colspan="3"></td></tr>
-                <tr>
-                    <th colspan="3"><label data-fhc-i18n="labelTime">Time</label></th>
-                </tr>
-                <tr>
-                    <td colspan="3"><input id="hour" type="text" pattern="^(\d{2})$" placeholder="hh"/><div class="timeseparator">:</div>
-                        <input id="minute" type="text" pattern="^(\d{2})$" placeholder="mm"/><div class="timeseparator">:</div>
-                        <input id="second" type="text" pattern="^(\d{2})$" placeholder="ss"/>
-                        <div class="datetime-controls">
-                            <div id="btnNowdate" data-fhc-i18n-title="tooltipNowDatetimeButton" title="Set the current date and time"></div>
-                            <div id="btnErase" data-fhc-i18n-title="tooltipEraseDatetimeButton" title="Erase the date and time"></div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="modal-buttons">
-            <button id="buttonTimeCancel" data-fhc-i18n="buttonCancel" class="button-right">Cancel</button>
-            <button id="buttonTimeOkay" data-fhc-i18n="buttonOkay" class="button-right">Okay</button>
-        </div>
     </div>
 </div>
 
