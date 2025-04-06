@@ -13,10 +13,7 @@ table.dataTable.compact thead td {
 }
 
 /* search box */
-#fhcTable_filter {
-    padding-right: 5px;
-}
-#fhcTable_filter input[type=search] {
+#dt-search-0[type=search] {
     -webkit-transition: width 0.4s ease-in-out;
     transition: min-width 0.4s ease-in-out;
     background: url("search-dark.png") no-repeat 3px 3px;
@@ -27,6 +24,7 @@ table.dataTable.compact thead td {
 }
 #fhcTable_filter_erase {
     display: inline-block;
+    visibility: hidden;
     position: relative;
     left: -14px;
     font-size: 14px;
@@ -34,32 +32,10 @@ table.dataTable.compact thead td {
     font-weight: bold;
 }
 
-#fhcTable_length select {
-    padding-top: 1px;
-    padding-bottom: 2px;
-}
-
-#fhcTable_length option {
-    text-align: right;
-}
 
 /* Force styling for column-visibility buttons */
 div.dt-buttons {
     margin-left: 12px;
-}
-button.buttons-colvis {
-    margin-top: 3px;
-    margin-left: 10px;
-    width: 25px;
-    height: 16px;
-    border: none !important;
-    min-width: unset !important;
-    background: url('../../../theme/icons/dialog/column_select.png') no-repeat center center !important;
-}
-button.buttons-colvis:hover {
-    border: none !important;
-    background: url('../../../theme/icons/dialog/column_select.png') no-repeat center center !important;
-    filter: unset !important;
 }
 span.column-selector {
     display: inline-block;
@@ -70,7 +46,7 @@ span.column-selector {
 }
 div.dt-button-collection div button {
     background: var(--button-disabled-bg-color) !important;
-    margin-bottom: 2px !important;
+    /*margin-bottom: 2px !important;*/
 }
 div.dt-button-collection div button.dt-button-active {
     background: var(--button-bg-color) !important;
@@ -80,6 +56,9 @@ div.dt-button-collection div button.buttons-colvisRestore {
     color: var(--button-text-color);
     margin-top: 8px;
     font-style: italic;
+}
+div.dt-button-collection div button {
+    color: var(--button-text-color) !important;
 }
 div.dt-button-collection div button:hover {
     background: var(--button-hover-bg-color) !important;
@@ -92,6 +71,7 @@ div.dt-button-collection {
 span.col-select-title {
     color: var(--button-text-color);
 }
+.button-page-length:after,
 .buttons-columnVisibility:after {
     /* create a box even when not selected */
     position: absolute;

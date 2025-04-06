@@ -1,11 +1,11 @@
-/* Dark theme */
+/* Blue theme */
 
-div.dataTables_scrollBody {
-    scrollbar-color: #a4b8dd #122952;
+div.dt-scroll-body {
+    scrollbar-color: #6178aa #122952;
 }
 
 /* search box */
-#fhcTable_filter input[type=search] {
+#dt-search-0[type=search] {
     background: url("search-white.png") no-repeat 3px 3px var(--field-bg-color);
 }
 #fhcTable_filter_erase {
@@ -21,8 +21,8 @@ table#fhcTable tbody tr {
 }
 
 /* Text color table info */
-.dataTables_wrapper .dataTables_paginate .paginate_button,
-.dataTables_wrapper .dataTables_paginate .ellipsis,
+div.dt-container .dt-paging .dt-paging-button.current,
+div.dt-container .dt-paging .ellipsis,
 .dataTables_info,
 .dataTables_length label,
 .dataTables_filter label {
@@ -30,14 +30,14 @@ table#fhcTable tbody tr {
 }
 
 /* Paginate (next/previous) disabled */
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+div.dt-container .dt-paging .dt-paging-button.disabled,
+div.dt-container .dt-paging .dt-paging-button.disabled:hover,
+div.dt-container .dt-paging .dt-paging-button.disabled:active {
     color: #566270 !important;
 }
 
 /* Hover page number (button like) */
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+div.dt-container .dt-paging .dt-paging-button:hover {
     color: white !important;
     border: 1px solid #111;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #264a94), color-stop(100%, #122952));
@@ -46,7 +46,8 @@ table#fhcTable tbody tr {
 }
 
 /* Active pagenumber (button-like) */
-.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+div.dt-container .dt-paging .dt-paging-button.current,
+div.dt-container .dt-paging .dt-paging-button.current:hover {
     color: #f3f3f3 !important;
     border: 1px solid #777777;
     /*background-color: white;*/

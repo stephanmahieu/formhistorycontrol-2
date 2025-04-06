@@ -48,7 +48,7 @@ $(document).ready(function() {
             browser.storage.local.set({
                 pageSizeBig: len
             });
-            $('#fhcTable_paginate').toggle((len !== -1));
+            $('.dt-paging').toggle((len !== -1));
             // console.log( 'New page length: '+len);
         });
 
@@ -83,6 +83,11 @@ $(document).ready(function() {
             if (type === 'row') {
                 selectionChangedHandler();
             }
+        });
+
+        // add event listener for search events
+        table.on('search.dt', function (e, dt) {
+            searchBoxChangedHandler();
         });
 
         // navigation menu animation
@@ -179,7 +184,6 @@ function createDataTable(tableElement, dateformat, prefColVisible) {
     const i18nColVisRestore = browser.i18n.getMessage("buttonRestoreColumnVisibility") || 'Restore visibility';
 
     return tableElement.DataTable( {
-        dom: 'lBfrtip',
         responsive: {details: false},
         scrollY: '300px',
         language: {
@@ -190,7 +194,7 @@ function createDataTable(tableElement, dateformat, prefColVisible) {
             }
         },
         paging: true,
-        lengthMenu: [[100, 500, 1000, 2000, -1], [100, 500, 1000, 2000, i18nAll]],
+        lengthMenu: [[100, 500, 1000, 2000, -1], ['100', '500', '1000', '2000', i18nAll]],
         pageLength: 500,
         select: {
             style: 'multi+shift',
@@ -198,15 +202,27 @@ function createDataTable(tableElement, dateformat, prefColVisible) {
             selector: 'td:not(.my-details-control)'
         },
         order: [[ 7, "desc" ]],
-        buttons: [{
-            extend: 'colvis',
-            columns: ':gt(1)',
-            postfixButtons: [ 'colvisRestore' ],
-            text: '<span class="column-selector" title="'+i18nColVis+'"/>',
-            columnText: function(dt, idx, title) {
-                return '<span class="col-select"><span class="check"/></span><span class="col-select-title">'+title+'</span>';
-            }
-        }],
+        layout: {
+            topStart: {
+                buttons: [
+                    {
+                        extend: 'pageLength'
+                    },
+                    {
+                        extend: 'colvis',
+                        postfixButtons: ['colvisRestore'],
+                        /*text: '<span class="column-selector" title="'+i18nColVis+'"/>',*/
+                        columnText: function(dt, idx, title) {
+                            return '<span class="col-select"><span class="check"/></span><span class="col-select-title">'+title+'</span>';
+                        },
+                        columns: ':gt(1)'
+                    }
+                ]
+            },
+            topEnd: 'search',
+            bottomStart: 'info',
+            bottomEnd: 'paging'
+        },
         columns: [
             {
                 responsivePriority: 1,
@@ -290,7 +306,7 @@ function createDataTable(tableElement, dateformat, prefColVisible) {
                 targets: 8,
                 visible: prefColVisible[6],
                 data: 6,
-                className: "dt-head-left",
+                className: "dt-right",
                 render: function ( data, type /*, row */) {
                     return DataTableUtil.formatAge(data, type);
                 }

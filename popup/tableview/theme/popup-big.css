@@ -4,7 +4,7 @@ body {
 }
 
 /* workaround: prevent unwanted horizontal scrollbar from appearing occasionally */
-div.dataTables_scrollBody {
+div.dt-scroll-body {
   overflow-x: hidden !important;
 }
 
@@ -35,22 +35,22 @@ td.my-details-control {
   cursor: pointer;
 }
 
-#fhcTable_filter input[type=search] {
+#dt-search-0[type=search] {
   min-width: 115px;
 }
-#fhcTable_filter input[type=search]:focus {
+#dt-search-0[type=search]:focus {
   min-width: 30em;
 }
 
-/* hide the plus-icon when resizing window to a amall width */
+/* hide the plus-icon when resizing window to a small width */
 table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child::before,
 table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child::before {
   display: none;
 }
 
 /* column-visibility checkmarks */
-button.buttons-columnVisibility.active span span.col-select span.check {
-  transform: rotate(-45deg) translateX(3px) translateY(2px) scaleY(0.8);
-  width: 7px;
-  height: 5px;
-}
+/*button.buttons-columnVisibility.active span span.col-select span.check {*/
+/*  transform: rotate(-45deg) translateX(3px) translateY(2px) scaleY(0.8);*/
+/*  width: 7px;*/
+/*  height: 5px;*/
+/*}*/

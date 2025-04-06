@@ -27,5 +27,14 @@
       "0": "Zum Auswählen auf eine Zeile klicken",
       "1": "1 Zeile ausgewählt"
     }
-  }
+  },
+  "buttons": {
+    "pageLength": {
+      "-1": "Alle Zeilen anzeigen",
+      "1": "Zeige 1 Zeile",
+      "_": "Zeige %d Zeilen"
+    }
+  },
+  "decimal": ",",
+  "thousands": "."
 }
