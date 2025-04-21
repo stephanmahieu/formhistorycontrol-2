@@ -527,6 +527,18 @@
     "message": "Aufräumen",
     "description": "Options window: The Cleanup legend."
   },
+  "optionsSaverestoreLegend": {
+    "message": "Optionen speichern/wiederherstellen",
+    "description": "Options window: The Save/Restore legend."
+  },
+  "buttonSaveOptions": {
+    "message": "Optionen speichern",
+    "description": "Options window, save/restore: Button for Save options"
+  },
+  "optionsRestore": {
+    "message": "Optionen wiederherstellen",
+    "description": "Options window, save/restore: Label for Restore options"
+  },
   "optionsautocleanup": {
     "message": "Regelmäßig automatisch aufräumen",
     "description": "Options window, cleanup: Label for auto cleanup checkbox."

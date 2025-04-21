@@ -527,6 +527,18 @@
     "message": "Cleanup",
     "description": "Options window: The Cleanup legend."
   },
+  "optionsSaverestoreLegend": {
+    "message": "Save/Restore options",
+    "description": "Options window: The Save/Restore legend."
+  },
+  "buttonSaveOptions": {
+    "message": "Save options",
+    "description": "Options window, save/restore: Button for Save options"
+  },
+  "optionsRestore": {
+    "message": "Restore options",
+    "description": "Options window, save/restore: Label for Restore options"
+  },
   "optionsautocleanup": {
     "message": "Automatic cleanup periodically",
     "description": "Options window, cleanup: Label for auto cleanup checkbox."
