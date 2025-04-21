@@ -107,11 +107,11 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('#fieldListItem').addEventListener("keyup", fieldlistInputChanged);
     document.querySelector('#fieldListItem').addEventListener("paste", fieldlistInputPasted);
 
+    document.querySelector("#btnSaveOptions").addEventListener("click", savePreferences);
+    document.getElementById('fileRestoreOptions').addEventListener('change', uploadPreferences);
+
     document.querySelector("#buttonClose").addEventListener("click", closeThisPopup);
     document.addEventListener("keyup", onKeyClicked);
-
-    document.querySelector("div.titleSidebar img.logo").addEventListener("dblclick", handleClick);
-    document.getElementById('files').addEventListener('change', handleFileSelect);
 
     // show the first fieldset (all are initially hidden)
     document.querySelector('.sub-fieldset').style.display = "block";
@@ -485,31 +485,30 @@ function cleanupNow(event) {
     window.setTimeout(()=>{browser.runtime.sendMessage({eventType: 777});}, 800);
 }
 
-function handleClick(e) {
-    if (e.shiftKey && e.ctrlKey && !e.altKey) {
-        downloadprefs();
-    } else if (e.shiftKey && e.altKey && e.ctrlKey) {
-        uploadprefs();
-    }
-}
-function downloadprefs() {
-    console.log('Download prefs...');
-    const curPrefs = JSON.stringify(getNewOptions(), null, '  ');
-    FileUtil.download(curPrefs, 'text/json', 'formhistory-preferences.json').then(success => {
-        console.log(`Download succeeded: ${success}`);
+function savePreferences() {
+    console.log('Save (export) options...');
+    browser.permissions.request({permissions: ["downloads"]}).then(response => {
+        if (!response) {
+            // downloads permission denied by user
+            console.warn("Permission downloads required for export is denied by the user");
+            WindowUtil.showModalWarning({titleId: "exportErrorTitle", msgId: "exportErrorNoPermission"});
+        }
+        else {
+            // downloads permission (previously) granted by user
+            const curPrefs = JSON.stringify(getNewOptions(), null, '  ');
+            FileUtil.download(curPrefs, 'text/json', 'formhistory-options.json').then(success => {
+                console.log(`Save option succeeded: ${success}`);
+            });
+        }
     });
 }
-function uploadprefs() {
-    console.log('Enable upload prefs.');
-    document.querySelector('#fileinput').style.display = 'block';
-}
-function handleFileSelect() {
-    document.querySelector('#fileinput').style.display = 'none';
-    console.log('Uploading prefs...');
-    const fileList = document.getElementById('files').files;
+
+function uploadPreferences() {
+    console.log('Upload (restore) options...');
+    const fileList = document.getElementById('fileRestoreOptions').files;
     FileUtil.upload(fileList, 'application/json').then(content => {
         const importedPrefs = JSON.parse(content);
-        console.log('JSON file read okay, applying preferences...');
+        console.log('JSON file read okay, applying options...');
         applyPreferences(importedPrefs, false);
         themeSelectionChanged();
         console.log('Done');

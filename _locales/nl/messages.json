@@ -527,6 +527,18 @@
     "message": "Opschonen",
     "description": "Options window: The Cleanup legend."
   },
+  "optionsSaverestoreLegend": {
+    "message": "Opties Opslaan/Herstellen",
+    "description": "Options window: The Save/Restore legend."
+  },
+  "buttonSaveOptions": {
+    "message": "Opties opslaan",
+    "description": "Options window, save/restore: Button for Save options"
+  },
+  "optionsRestore": {
+    "message": "Opties herstellen",
+    "description": "Options window, save/restore: Label for Restore options"
+  },
   "optionsautocleanup": {
     "message": "Automatisch periodiek schonen",
     "description": "Options window, cleanup: Label for auto cleanup checkbox."

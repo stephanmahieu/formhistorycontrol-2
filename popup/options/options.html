@@ -64,6 +64,11 @@
                         <span data-fhc-i18n="optionsFieldlistMenu" class="optionLabel">Field Filter</span>
                     </a>
                 </li>
+                <li>
+                    <a id="saverestore" href="#" class="optionLink">
+                        <span data-fhc-i18n="optionsSaverestoreMenu" class="optionLabel">Save/Restore</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -206,7 +211,7 @@
                     </fieldset>
                 </div>
 
-                <div  class="expert-pref">
+                <div class="expert-pref">
                     <fieldset id="fld_domainhistory" class="sub-fieldset">
                         <legend data-fhc-i18n="optionDomainlistLegend">Enable/Disable history per domain</legend>
                         <input type="radio" id="radioDomainlistAll" name="radiogroupDomainlist" value="all">
@@ -223,7 +228,7 @@
                     </fieldset>
                 </div>
 
-                <div  class="expert-pref">
+                <div class="expert-pref">
                     <fieldset id="fld_fieldhistory" class="sub-fieldset">
                         <legend data-fhc-i18n="optionsFieldlistlegend">Disable history for specific fields</legend>
                         <select id="fieldlist" size="5" class="list-select"></select><br/>
@@ -233,9 +238,17 @@
                         <button id="fieldDelete" class="domainbutton" data-fhc-i18n="buttonDelete">Delete</button>
                     </fieldset>
                 </div>
+
+                <fieldset id="fld_saverestore" class="sub-fieldset">
+                    <legend data-fhc-i18n="optionsSaverestoreLegend">Save/Restore Options</legend>
+                    <button id="btnSaveOptions" data-fhc-i18n="buttonSaveOptions">Save Options</button>
+                    <br/>
+                    <label for="fileRestoreOptions" data-fhc-i18n="optionsRestore">Restore options</label>
+                    <br/>
+                    <input type="file" id="fileRestoreOptions" name="files[]"/>
+                </fieldset>
             </fieldset>
 
-            <div id="fileinput"><input type="file" id="files" name="files[]"/></div>
             <div id="buttons">
                 <button id="buttonApply" type="submit" data-fhc-i18n="buttonApply">Apply</button>
                 <button id="buttonClose" data-fhc-i18n="buttonClose" class="button-right">Close</button>

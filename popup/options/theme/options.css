@@ -255,6 +255,11 @@ input[type="Radio"]:checked+label span:before{
     float: right;
 }
 
-#fileinput {
-    display: none;
+#btnSaveOptions {
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+#fileRestoreOptions {
+    width: 100%;
 }
