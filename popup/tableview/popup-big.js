@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Stephan Mahieu
+ * Copyright (c) 2025. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -185,7 +185,7 @@ function createDataTable(tableElement, dateformat, prefColVisible) {
 
     return tableElement.DataTable( {
         responsive: {details: false},
-        scrollY: '300px',
+        scrollY: '300',
         language: {
             url: languageURL,
             buttons: {
@@ -384,15 +384,19 @@ function deleteSelectedItemsAsk() {
 }
 
 function deleteSelectedItems() {
-    let rows = $('#fhcTable').DataTable().rows('.selected');
+    const rows = $('#fhcTable').DataTable().rows('.selected');
 
+    // Collect primaryKeys in array
+    const primaryKeys = [];
     rows.every(
         function (/* rowIdx, tableLoop, rowLoop */) {
-            let primaryKey = this.data()[0];
+            const primaryKey = this.data()[0];
             // console.log('primaryKey database (delete) is: ' + primaryKey);
-            DataTableUtil.deleteItemFromDatabase(primaryKey);
+            primaryKeys.push(primaryKey);
         }
     );
+
+    DataTableUtil.deleteMultipleItemsFromDatabase(primaryKeys);
     DataTableUtil.broadcastItemDeletedFromDatabase();
 
     // assume db deletes succeed, remove selected entries and redraw table
