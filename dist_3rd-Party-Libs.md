@@ -39,3 +39,10 @@ Location /common
 ---------------------------
 DOMPurify 3.2.4
 https://github.com/cure53/DOMPurify/blob/3.2.4/dist/purify.js
+
+
+
+Validation report:
+------------------
+The "Unsafe assignment to innerHTML" tests in the validation report are all found in 3rd party libraries
+but do not pose any security risk imho.
