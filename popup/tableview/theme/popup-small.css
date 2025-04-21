@@ -75,6 +75,7 @@ body {
 td.details-control {
     background: url('../../../theme/icons/details_open.png') no-repeat center center;
     cursor: pointer;
+    min-width: 14px;
 }
 
 tr.shown td.details-control {

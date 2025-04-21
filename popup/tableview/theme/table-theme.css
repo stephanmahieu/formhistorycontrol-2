@@ -6,12 +6,6 @@
     -moz-user-select: none; /* older FF versions */
 }
 
-/* left align column header with data columns */
-table.dataTable.compact thead th,
-table.dataTable.compact thead td {
-    padding: 4px 6px !important;
-}
-
 /* search box */
 #dt-search-0[type=search] {
     -webkit-transition: width 0.4s ease-in-out;

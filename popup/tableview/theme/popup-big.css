@@ -33,6 +33,7 @@ div.dt-scroll-body {
 td.my-details-control {
   background: url('/theme/icons/details_popup.png') no-repeat center center;
   cursor: pointer;
+  min-width: 14px;
 }
 
 #dt-search-0[type=search] {

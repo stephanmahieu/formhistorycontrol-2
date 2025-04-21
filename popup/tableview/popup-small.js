@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Stephan Mahieu
+ * Copyright (c) 2025. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -27,23 +27,13 @@ $(document).ready(function() {
 
     // create/initialize the dataTable
     browser.storage.local.get({
-            pageSizeSmall: 12,
             prefDateFormat: 'automatic',
             prefColSmallVisible: []
     }).then(result => {
-        let pageSizeSmall = result.pageSizeSmall;
         let dateformat = result.prefDateFormat;
         const prefColSmallVisible = OptionsUtil.initColSmallPrefs(result.prefColSmallVisible);
 
         table = createDataTable(dateformat, prefColSmallVisible);
-
-        // add event listener for saving changed pageSize
-        table.on('length.dt', function(e, settings, len) {
-            browser.storage.local.set({
-                pageSizeSmall: len
-            });
-            // console.log( 'New page length: ' + len);
-        });
 
         // add event listener for saving changed column visibility
         table.on('column-visibility.dt', function(e, settings, column, state) {
@@ -96,9 +86,6 @@ $(document).ready(function() {
             }
         });
 
-        // set the pagesize to the last used value
-        table.page.len(pageSizeSmall);
-
         populateViewFromDatabase(table, 15, null, null, false);
       },
       () => {console.error("Get preferences error", this.error);}
@@ -146,12 +133,18 @@ $(document).ready(function() {
     });
 
     $('#bigdialog-action').on('click', function() {
+        // close the small popup (ff closes popup automatically, chrome does not)
+        window.close();
+
         // Let background script open the popup (WindowUtil.createOrFocusWindow(FHC_WINDOW_MANAGE);)
         browser.runtime.sendMessage({eventType: 338}).then(null,
             error=>console.log(`Error sending open-bigdialog event: ${error}`)
         )
     });
     $('#preference-action').on('click', function() {
+        // close the small popup (ff closes popup automatically, chrome does not)
+        window.close();
+
         // Let background script open the popup (WindowUtil.createOrFocusWindow(FHC_WINDOW_OPTIONS);)
         browser.runtime.sendMessage({eventType: 339}).then(null,
             error=>console.log(`Error sending open-preference event: ${error}`)
@@ -234,15 +227,16 @@ function onContextMenuClicked(menuItemId) {
             WindowUtil.hideContextMenu();
             break;
 
-        case "delete-ctx":
-            // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
-            // if an entry is selected delete the selection, otherwise delete the right-clicked item
-            const dataRowDel = haveSelectedItems() ? $('#fhcTable').DataTable().rows('.selected').data()[0] : dataRightClicked;
-            // deleteItemFromDatabase method expects the primary key
-            DataTableUtil.deleteItemFromDatabase(dataRowDel[0]);
-            DataTableUtil.broadcastItemDeletedFromDatabase();
-            WindowUtil.hideContextMenu();
-            break;
+        // Not working for the small popup (FF restriction?)
+        // case "delete-ctx":
+            // // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
+            // // if an entry is selected delete the selection, otherwise delete the right-clicked item
+            // const dataRowDel = haveSelectedItems() ? $('#fhcTable').DataTable().rows('.selected').data()[0] : dataRightClicked;
+            // // deleteItemFromDatabase method expects the primary key
+            // DataTableUtil.deleteItemFromDatabase(dataRowDel[0]);
+            // DataTableUtil.broadcastItemDeletedFromDatabase();
+            // WindowUtil.hideContextMenu();
+            // break;
 
         case "copy2clipboard-ctx":
             // console.log('- primaryKey: ' + dataRightClicked[0] + '  fieldname: ' + dataRightClicked[1]);
@@ -272,6 +266,8 @@ function createDataTable(dateformat, prefColVisible) {
     const table = $('#fhcTable').DataTable( {
         responsive: {details: false},
         scrollY: 300,
+        deferRender: true,
+        scroller: true,
         language: {
             url: languageURL,
             buttons: {
@@ -281,8 +277,6 @@ function createDataTable(dateformat, prefColVisible) {
         },
         order: [[ 7, "desc" ]],
         paging: true,
-        lengthMenu: [10, 12, 20, 50, 100, 500],
-        pageLength: 12,
         select: {
             style: 'single',
             info: false,
@@ -291,9 +285,6 @@ function createDataTable(dateformat, prefColVisible) {
         layout: {
             topStart: {
                 buttons: [
-                    {
-                        extend: 'pageLength'
-                    },
                     {
                         extend: 'colvis',
                         postfixButtons: ['colvisRestore'],
@@ -307,7 +298,7 @@ function createDataTable(dateformat, prefColVisible) {
             },
             topEnd: 'search',
             bottomStart: 'info',
-            bottomEnd: 'paging'
+            bottomEnd: ''
         },
         columns: [
             {
@@ -440,19 +431,20 @@ function refreshView() {
 }
 
 function deleteSelected() {
-    let deleted = false;
-    let rows = $('#fhcTable').DataTable().rows('.selected');
-    rows.every(
-        function (/* rowIdx, tableLoop, rowLoop */) {
-            let primaryKey = this.data()[0];
-            // console.log('primaryKey database (delete) is: ' + primaryKey);
-            DataTableUtil.deleteItemFromDatabase(primaryKey);
-            deleted = true;
-        }
-    );
-    if (deleted) {
-        DataTableUtil.broadcastItemDeletedFromDatabase();
-    }
+    // Not working for the small popup!!!! (FF restriction?)
+    // let deleted = false;
+    // let rows = $('#fhcTable').DataTable().rows('.selected');
+    // rows.every(
+    //     function (/* rowIdx, tableLoop, rowLoop */) {
+    //         let primaryKey = this.data()[0];
+    //         // console.log('primaryKey database (delete) is: ' + primaryKey);
+    //         DataTableUtil.deleteItemFromDatabase(primaryKey);
+    //         deleted = true;
+    //     }
+    // );
+    // if (deleted) {
+    //     DataTableUtil.broadcastItemDeletedFromDatabase();
+    // }
 }
 
 function onKeyClicked(event) {

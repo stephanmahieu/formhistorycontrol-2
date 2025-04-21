@@ -21,6 +21,9 @@ https://github.com/DataTables/Responsive/blob/3.0.4/js/dataTables.responsive.js
 DataTable extension Select 3.0.0
 https://github.com/DataTables/Select/blob/3.0.0/js/dataTables.select.js
 
+DataTable extension Scroller 2.4.3
+https://github.com/DataTables/Scroller/blob/2.4.3/js/dataTables.scroller.js
+
 DataTable extension Buttons 3.2.2
 https://github.com/DataTables/Buttons/blob/3.2.2/js/buttons.colVis.js
 https://github.com/DataTables/Buttons/blob/3.2.2/js/dataTables.buttons.js

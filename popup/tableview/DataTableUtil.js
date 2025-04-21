@@ -257,15 +257,15 @@ class DataTableUtil {
     }
 
     static deleteItemFromDatabase(primaryKey) {
-        let req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
+        const req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
         req.onerror = function (/*event*/) {
             console.error("Database open error", this.error);
         };
         req.onsuccess = function (event) {
-            let db = event.target.result;
-            //console.log("Database opened successfully.");
+            const db = event.target.result;
+            // console.log("Database opened successfully.");
 
-            let objStore = db.transaction(DbConst.DB_STORE_TEXT, "readwrite").objectStore(DbConst.DB_STORE_TEXT);
+            const objStore = db.transaction(DbConst.DB_STORE_TEXT, "readwrite").objectStore(DbConst.DB_STORE_TEXT);
 
             let reqDel = objStore.delete(primaryKey);
             reqDel.onsuccess = function(/*evt*/) {
@@ -277,6 +277,33 @@ class DataTableUtil {
             };
         }
     };
+
+    static deleteMultipleItemsFromDatabase(primaryKeys) {
+        const req = indexedDB.open(DbConst.DB_NAME, DbConst.DB_VERSION);
+        req.onerror = function (/*event*/) {
+            console.error("Database open error", this.error);
+        };
+        req.onsuccess = function (event) {
+            const db = event.target.result;
+            // console.log("Database opened successfully.");
+
+            const objStore = db.transaction(DbConst.DB_STORE_TEXT, "readwrite").objectStore(DbConst.DB_STORE_TEXT);
+
+            primaryKeys.forEach( (primaryKey) => {
+                const reqDel = objStore.delete(primaryKey);
+                reqDel.onsuccess = function(/*evt*/) {
+                    // console.log("primaryKey " + primaryKey + " deleted from the object store.");
+                    // caller is responsible for deleting multiple selected rows, ie rows.remove().draw();
+                    // too time consuming: DataTableUtil.removeRowFromTable(primaryKey);
+                };
+                reqDel.onerror = function(/*evt*/) {
+                    console.error("delete error for key " + primaryKey, this.error);
+                };
+            });
+
+            // console.log("deleteMultipleItemsFromDatabase, primaryKeys deleted.");
+        }
+    }
 
     static broadcastItemDeletedFromDatabase() {
         // tell background script
