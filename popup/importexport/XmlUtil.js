@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Stephan Mahieu
+ * Copyright (c) 2025. Stephan Mahieu
  *
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
@@ -23,6 +23,7 @@ class XmlUtil {
         let parsedEditorfield = [];
 
         let now = DateUtil.getCurrentDate();
+        let currentItemNo;
 
         let parser = new DOMParser();
         try {
@@ -32,25 +33,26 @@ class XmlUtil {
 
                 // formhistory fields
                 let fldElem = doc.getElementsByTagName("field");
-                let nameElem, valElem;
+                let valElem;
                 for(let ii=0; ii<fldElem.length; ii++) {
+                    currentItemNo = 'field#' + (ii + 1);
                     if (fldElem[ii].hasChildNodes()) {
-                        nameElem = fldElem[ii].getElementsByTagName("name");
                         valElem = fldElem[ii].getElementsByTagName("value");
 
                         if (1 === valElem.length && 0 < valElem[0].textContent.length) {
+                            const edFldElem = fldElem[ii];
                             parsedEntries.push({
                                 id:        -1,
-                                name:      decodeURIComponent(nameElem[0].textContent),
+                                name:      this._decodeTxt(edFldElem, "name", "", currentItemNo),
                                 value:     decodeURIComponent(valElem[0].textContent),
-                                used:      decodeURIComponent(this._getElementValue(fldElem[ii], "timesUsed", 0)),
-                                first:                        this._getElemenDate(  fldElem[ii], "firstUsed", now),
-                                last:                         this._getElemenDate(  fldElem[ii], "lastUsed",  now),
+                                used:      this._getElementValue(edFldElem, "timesUsed", 0),
+                                first:     this._getElemenDate(edFldElem, "firstUsed", now),
+                                last:      this._getElemenDate(edFldElem, "lastUsed",  now),
                                 /* new since 2.0.0. */
-                                type:      decodeURIComponent(this._getElementValue(fldElem[ii], "type", "")),
-                                host:      decodeURIComponent(this._getElementValue(fldElem[ii], "host", "")),
-                                url:       decodeURIComponent(this._getElementValue(fldElem[ii], "url", "")),
-                                pagetitle: decodeURIComponent(this._getElementValue(fldElem[ii], "pagetitle", ""))
+                                type:      this._decodeTxt(edFldElem, "type", "", currentItemNo),
+                                host:      this._decodeTxt(edFldElem, "host", "", currentItemNo),
+                                url:       this._decodeTxt(edFldElem, "url", "", currentItemNo),
+                                pagetitle: this._decodeTxt(edFldElem, "pagetitle", "", currentItemNo)
                             });
                         }
                     }
@@ -58,23 +60,23 @@ class XmlUtil {
 
                 // multiline editor fields
                 let editorfieldElem = doc.getElementsByTagName("editorField");
-                let edFldElem;
                 for(let nn=0; nn<editorfieldElem.length; nn++) {
+                    currentItemNo = 'editorField#' + (nn + 1);
                     if (editorfieldElem[nn].hasChildNodes()) {
-                        edFldElem = editorfieldElem[nn];
+                        const edFldElem = editorfieldElem[nn];
                         parsedEditorfield.push({
-                            id:         decodeURIComponent(this._getElementValue(edFldElem, "id", "")),
-                            name:       decodeURIComponent(this._getElementValue(edFldElem, "name", "")),
-                            type:       decodeURIComponent(this._getElementValue(edFldElem, "type", "")),
-                            formid:     decodeURIComponent(this._getElementValue(edFldElem, "formid", "")),
-                            content:    decodeURIComponent(this._getElementValue(edFldElem, "content", "")),
-                            host:       decodeURIComponent(this._getElementValue(edFldElem, "host", "")),
-                            url:        decodeURIComponent(this._getElementValue(edFldElem, "url", "")),
-                            firstsaved:                    this._getElemenDate(edFldElem, "firstsaved", ""),
-                            lastsaved:                     this._getElemenDate(edFldElem, "lastsaved", ""),
+                            id:         this._decodeTxt(edFldElem, "id", "", currentItemNo),
+                            name:       this._decodeTxt(edFldElem, "name", "", currentItemNo),
+                            type:       this._decodeTxt(edFldElem, "type", "", currentItemNo),
+                            formid:     this._decodeTxt(edFldElem, "formid", "", currentItemNo),
+                            content:    this._decodeTxt(edFldElem, "content", "", currentItemNo),
+                            host:       this._decodeTxt(edFldElem, "host", "", currentItemNo),
+                            url:        this._decodeTxt(edFldElem, "url", "", currentItemNo),
+                            firstsaved: this._getElemenDate(edFldElem, "firstsaved", ""),
+                            lastsaved:  this._getElemenDate(edFldElem, "lastsaved", ""),
                             /* new since 2.0.0. */
-                            used:                          this._getElementValue(edFldElem, "timesUsed", 1),
-                            pagetitle:  decodeURIComponent(this._getElementValue(edFldElem, "pagetitle", ""))
+                            used:       this._getElementValue(edFldElem, "timesUsed", 1),
+                            pagetitle:  this._decodeTxt(edFldElem, "pagetitle", "", currentItemNo)
                         });
                     }
                 }
@@ -144,7 +146,36 @@ class XmlUtil {
     //----------------------------------------------------------------------------
     // Helper methods
     //----------------------------------------------------------------------------
-    
+
+    /**
+     * Get the textcontent of an URIencoded DOM Element from a parent by tagname. If no tag
+     * is found or URIdecoding fails, the default value is returned.
+     *
+     * @param  parentElem {Element}
+     *         the DOM element containing the child element(s)
+     *
+     * @param  tagName {String}
+     *         the name of the tag to search for inside the parent
+     *
+     * @param  defaultValue
+     *         the value to return if no tag is found
+     *
+     * @param itemNo
+     *        the sequence no for this field in the xml file
+     *
+     * @return {String}
+     *        the textcontent of the requested child element or the default
+     *         value if tag is not found
+     */
+    static _decodeTxt(parentElem, tagName, defaultValue, itemNo) {
+        try {
+            return decodeURIComponent(this._getElementValue(parentElem, tagName, defaultValue));
+        } catch(ex) {
+            console.log("XML decodeURIComponent exception! " + itemNo + " tag: " + tagName);
+            return defaultValue;
+        }
+    }
+
     /**
      * Get the textcontent of a DOM Element from a parent by tagname. If no tag
      * is found, the default value is returned.
