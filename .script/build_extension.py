@@ -82,6 +82,98 @@ def remove_script_line(filepath, substring):
 
 
 # -------------------------------------------------------
+def check_translation():
+    # check the presence of all html i18n_values in each language file
+
+    all_i18n_values = get_all_i18n_values_from_html_pages()
+
+    check_ok = True
+    for root, dirs, files in os.walk(os.path.join(distSubDirectoryPath, '_locales')):
+        for name in files:
+            if 'messages.json' in name:
+                path = os.path.join(root, name)
+                check_ok = message_contains_all_i18n(path, all_i18n_values) and check_ok
+    return check_ok
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+def check_unused_translation():
+    # check if translations exist in locale files that are no longer used in html
+    all_i18n_values = get_all_i18n_values_from_html_pages()
+
+    check_ok = True
+    for root, dirs, files in os.walk(os.path.join(distSubDirectoryPath, '_locales')):
+        for name in files:
+            if 'messages.json' in name:
+                path = os.path.join(root, name)
+                check_ok = message_contains_unused_i18n(path, all_i18n_values) and check_ok
+    return check_ok
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+def get_all_i18n_values_from_html_pages():
+    all_i18n_values = []
+    for root, dirs, files in os.walk(os.path.join(distSubDirectoryPath, 'popup')):
+        for fname in files:
+            if (fname.endswith('.html')):
+                html_file = os.path.join(root, fname)
+                all_i18n_values += get_i18n_values(html_file)
+    return all_i18n_values
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+def message_contains_all_i18n(message_path, i18n_values):
+    all_found = True
+
+    with open(message_path, 'r', encoding='utf-8') as json_file:
+        messages = load(json_file)
+
+    for i18n_value in i18n_values:
+        if not i18n_value in messages:
+            print(f'  WARN, i18n_value {i18n_value} missing in locale {message_path}')
+            all_found = False
+
+    return all_found
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+def message_contains_unused_i18n(message_path, i18n_html_values):
+    has_unused = False
+    with open(message_path, 'r', encoding='utf-8') as json_file:
+        messages = load(json_file)
+
+    for key in messages:
+        if not key in i18n_html_values:
+            # todo check if i18n value is used in javascript -> browser.i18n.getMessage('extensionName')
+            #   enclosed in double or single quotes
+            has_unused = True
+            print(f'  WARN, i18n_value {key} in locale {message_path} not used in html or javascript')
+
+    return has_unused
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+def get_i18n_values(html_filepath):
+    i18n_key = 'data-fhc-i18n'
+    found = []
+    with open(html_filepath, 'r') as f:
+        for line in f.readlines():
+            if i18n_key in line:
+                # data-fhc-i18n="buttonApply"
+                start = line.index('data-fhc-i18n')
+                start = line.index('=', start) + 2
+                end = line.index('"', start)
+                found.append(line[start : end])
+    return found
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
 def post_process_firefox():
     script = 'browser-polyfill.min.js'
     srcmap_script = script + '.map'
@@ -155,6 +247,15 @@ for root, dirs, files in os.walk(os.path.join(distSubDirectoryPath, '_locales'))
             print(f'  cleanup: {messagesPath}')
             cleanup_locale_messages(messagesPath)
 
+# validation: all data-fhc-i18n values in html files should be present in each locale translation
+print('Check completeness translations:')
+translation_ok = check_translation()
+print(f'  complete: {translation_ok}')
+
+# validation: check for unused translations
+# todo: needs to check javascript too
+# check_unused_translation()
+
 # keep the target manifest, remove all others
 manifestFile = os.path.join(distSubDirectoryPath, 'manifest.json')
 os.remove(manifestFile)
@@ -185,4 +286,7 @@ print(f'Creating {zipName}.zip')
 make_archive(zipPath, 'zip', distSubDirectoryPath)
 
 print('=' * 80)
-print('Finished!')
+if translation_ok:
+    print('Finished!')
+else:
+    print('Finished with translation warning(s)!')
