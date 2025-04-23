@@ -1,29 +1,30 @@
 {
     "sEmptyTable":        "Aucune donnée disponible dans le tableau",
-    "sInfo":              "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-    "sInfoEmpty":         "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-    "sInfoFiltered":      "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+    "sInfo":              "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+    "sInfoEmpty":         "Affichage de 0 à 0 sur 0 entrées",
+    "sInfoFiltered":       "(filtrées depuis un total de _MAX_ entrées)",
     "sInfoPostFix":       "",
     "sInfoThousands":     ",",
-    "sLengthMenu":        "Afficher _MENU_ &eacute;l&eacute;ments",
-    "sLoadingRecords":    "Chargement en cours...",
-    "sProcessing":        "Traitement en cours...",
+    "sLengthMenu":        "Afficher _MENU_ entrées",
+    "sLoadingRecords":    "Chargement...",
+    "sProcessing":        "Traitement...",
     "sSearch":            "",
     "sSearchPlaceholder": "Rechercher...",
-    "sZeroRecords":       "Aucun &eacute;l&eacute;ment &agrave; afficher",
+    "sZeroRecords":       "Aucune entrée correspondante trouvée",
     "oPaginate": {
         "sFirst":      "Premier",
-        "sPrevious":   "Pr&eacute;c&eacute;dent",
+        "sPrevious":   "Précédent",
         "sNext":       "Suivant",
         "sLast":       "Dernier"
     },
     "oAria": {
         "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
-        "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+        "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
     },
     "select": {
         "rows": {
             "_": "%d lignes sélectionnées",
+            "0": "",
             "1": "1 ligne sélectionnée"
         }
     },

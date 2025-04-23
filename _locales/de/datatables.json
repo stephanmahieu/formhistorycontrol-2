@@ -24,7 +24,7 @@
   "select": {
     "rows": {
       "_": "%d Zeilen ausgewählt",
-      "0": "Zum Auswählen auf eine Zeile klicken",
+      "0": "",
       "1": "1 Zeile ausgewählt"
     }
   },
