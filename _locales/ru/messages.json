@@ -383,6 +383,10 @@
     "message": "Фильтр полей",
     "description": "Options window: Left Field Filter menu."
   },
+  "optionsSaverestoreMenu": {
+    "message": "Cохранения/Bосстановления",
+    "description": "Options window: Left Options Save/Restore menu."
+  },
   "optionsCleanupMenu": {
     "message": "Очистка",
     "description": "Options window: Left Cleanup menu."
@@ -431,7 +435,7 @@
     "message": "Без контекстного меню",
     "description": "Option window, contextmenu display: No context menu"
   },
-  "pageActionSelect": {
+  "optionsPageActionSelect": {
     "message": "Иконка адресной строки",
     "description": "Options window: The Address bar icon dropdown label (select when it should be displayed)"
   },
@@ -503,19 +507,19 @@
     "message": "Интервал обновления",
     "description": "Options window, Update interval"
   },
-  "optiondomainlistlegend": {
+  "optionDomainlistLegend": {
     "message": "Включение / отключение истории сайтов",
     "description": "Options window: The Domain Filter legend."
   },
-  "optionsradiodomainall": {
+  "optionsRadioDomainAll": {
     "message": "Разрешить все",
     "description": "Options window, domainfilter: Label for Allow All radiobutton."
   },
-  "optionsradiodomainblacklist": {
+  "optionsRadioDomainBlacklist": {
     "message": "Черный список",
     "description": "Options window, domainfilter: Label for Blacklist radiobutton."
   },
-  "optionsradiodomainwhitelist": {
+  "optionsRadioDomainWhitelist": {
     "message": "Белый список",
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
@@ -539,19 +543,19 @@
     "message": "Параметры восстановления",
     "description": "Options window, save/restore: Label for Restore options"
   },
-  "optionsautocleanup": {
+  "optionsAutoCleanup": {
     "message": "Периодическая автоочистка",
     "description": "Options window, cleanup: Label for auto cleanup checkbox."
   },
-  "optionsremovedays": {
+  "optionsRemoveDays": {
     "message": "Удалять записи, не использованные более",
     "description": "Options window, cleanup: Label before no of days input."
   },
-  "optionsremovedaysdays": {
+  "optionsRemoveDaysDays": {
     "message": "дней",
     "description": "Options window, cleanup: Label after no of days input."
   },
-  "buttoncleanupnow": {
+  "buttonCleanupNow": {
     "message": "Очистить сейчас",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
@@ -623,11 +627,11 @@
   },
   "contextMenuItemRestoreEditorFieldSubmenuHostname": {
     "message": "Соответствие по сайту",
-    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+    "description": "Submenu-item header of context-menu 'Restore Edit field' indicating hostname matches."
   },
   "contextMenuItemRestoreEditorFieldSubmenuLastused": {
     "message": "Самые последние записи",
-    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+    "description": "Submenu-item header of context-menu 'Restore Edit field' indicating most recent matches."
   },
   "contextMenuItemRestoreEditorFieldSubmenuMore": {
     "message": "Дополнительно...",

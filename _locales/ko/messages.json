@@ -383,6 +383,10 @@
     "message": "필드 필터",
     "description": "Options window: Left Field Filter menu."
   },
+  "optionsSaverestoreMenu": {
+    "message": "저장/복원",
+    "description": "Options window: Left Options Save/Restore menu."
+  },
   "optionsCleanupMenu": {
     "message": "정리",
     "description": "Options window: Left Cleanup menu."
@@ -431,7 +435,7 @@
     "message": "항상 숨김",
     "description": "Option window, contextmenu display: No context menu"
   },
-  "pageActionSelect": {
+  "optionsPageActionSelect": {
     "message": "주소 표시줄 아이콘",
     "description": "Options window: The Address bar icon dropdown label (select when it should be displayed)"
   },
@@ -503,19 +507,19 @@
     "message": "업데이트 주기",
     "description": "Options window, Update interval"
   },
-  "optiondomainlistlegend": {
+  "optionDomainlistLegend": {
     "message": "도메인별 기록 사용/중지",
     "description": "Options window: The Domain Filter legend."
   },
-  "optionsradiodomainall": {
+  "optionsRadioDomainAll": {
     "message": "모두 허용",
     "description": "Options window, domainfilter: Label for Allow All radiobutton."
   },
-  "optionsradiodomainblacklist": {
+  "optionsRadioDomainBlacklist": {
     "message": "금지 목록",
     "description": "Options window, domainfilter: Label for Blacklist radiobutton."
   },
-  "optionsradiodomainwhitelist": {
+  "optionsRadioDomainWhitelist": {
     "message": "허용 목록",
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
@@ -539,19 +543,19 @@
     "message": "복원 옵션",
     "description": "Options window, save/restore: Label for Restore options"
   },
-  "optionsautocleanup": {
+  "optionsAutoCleanup": {
     "message": "일정 기간마다 자동 정리",
     "description": "Options window, cleanup: Label for auto cleanup checkbox."
   },
-  "optionsremovedays": {
+  "optionsRemoveDays": {
     "message": "다음 기간 동안 쓰이지 않은 폼 기록 삭제: ",
     "description": "Options window, cleanup: Label before no of days input."
   },
-  "optionsremovedaysdays": {
+  "optionsRemoveDaysDays": {
     "message": "일",
     "description": "Options window, cleanup: Label after no of days input."
   },
-  "buttoncleanupnow": {
+  "buttonCleanupNow": {
     "message": "지금 정리",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
@@ -623,11 +627,11 @@
   },
   "contextMenuItemRestoreEditorFieldSubmenuHostname": {
     "message": "일치하는 호스트명",
-    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+    "description": "Submenu-item header of context-menu 'Restore Edit field' indicating hostname matches."
   },
   "contextMenuItemRestoreEditorFieldSubmenuLastused": {
     "message": "가장 최근 항목",
-    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+    "description": "Submenu-item header of context-menu 'Restore Edit field' indicating most recent matches."
   },
   "contextMenuItemRestoreEditorFieldSubmenuMore": {
     "message": "더 보기...",
