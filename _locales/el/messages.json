@@ -383,6 +383,10 @@
     "message": "Φίλτρο Πεδίου",
     "description": "Options window: Left Field Filter menu."
   },
+  "optionsSaverestoreMenu": {
+    "message": "Αποθήκευσης/Επαναφοράς",
+    "description": "Options window: Left Options Save/Restore menu."
+  },
   "optionsCleanupMenu": {
     "message": "Καθαρισμός",
     "description": "Options window: Left Cleanup menu."
@@ -431,7 +435,7 @@
     "message": "Απουσία μενού περιβάλλοντος",
     "description": "Option window, contextmenu display: No context menu"
   },
-  "pageActionSelect": {
+  "optionsPageActionSelect": {
     "message": "Εικονίδιο γραμμής διεύθυνσης",
     "description": "Options window: The Address bar icon dropdown label (select when it should be displayed)"
   },
@@ -503,19 +507,19 @@
     "message": "Χρονικό διάστημα μέχρι την επόμενη ανανέωση",
     "description": "Options window, Update interval"
   },
-  "optiondomainlistlegend": {
+  "optionDomainlistLegend": {
     "message": "Ενεργοποίηση/Απενεργοποίηση ιστορικού ανά Τομέα.",
     "description": "Options window: The Domain Filter legend."
   },
-  "optionsradiodomainall": {
+  "optionsRadioDomainAll": {
     "message": "Επιτρέπονται όλα",
     "description": "Options window, domainfilter: Label for Allow All radiobutton."
   },
-  "optionsradiodomainblacklist": {
+  "optionsRadioDomainBlacklist": {
     "message": "Λίστα Απαγορευμένων",
     "description": "Options window, domainfilter: Label for Blacklist radiobutton."
   },
-  "optionsradiodomainwhitelist": {
+  "optionsRadioDomainWhitelist": {
     "message": "Λίστα Επιτρεπόμενων",
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
@@ -539,19 +543,19 @@
     "message": "Επιλογές Επαναφοράς",
     "description": "Options window, save/restore: Label for Restore options"
   },
-  "optionsautocleanup": {
+  "optionsAutoCleanup": {
     "message": "Αυτόματος καθαρισμός ανά τακτά χρονικά διαστήματα.",
     "description": "Options window, cleanup: Label for auto cleanup checkbox."
   },
-  "optionsremovedays": {
+  "optionsRemoveDays": {
     "message": "Αφαίρεση Ιστορικού που δεν χρησιμοποιήθηκε στο παρελθόν.",
     "description": "Options window, cleanup: Label before no of days input."
   },
-  "optionsremovedaysdays": {
+  "optionsRemoveDaysDays": {
     "message": "ημέρες",
     "description": "Options window, cleanup: Label after no of days input."
   },
-  "buttoncleanupnow": {
+  "buttonCleanupNow": {
     "message": "Καθαρισμός Τώρα",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
@@ -623,11 +627,11 @@
   },
   "contextMenuItemRestoreEditorFieldSubmenuHostname": {
     "message": "Ταιριαστό Όνομα Εξυπηρετητή",
-    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+    "description": "Submenu-item header of context-menu 'Restore Edit field' indicating hostname matches."
   },
   "contextMenuItemRestoreEditorFieldSubmenuLastused": {
     "message": "Πιο πρόσφατες καταχωρήσεις",
-    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+    "description": "Submenu-item header of context-menu 'Restore Edit field' indicating most recent matches."
   },
   "contextMenuItemRestoreEditorFieldSubmenuMore": {
     "message": "Περισσότερα...",

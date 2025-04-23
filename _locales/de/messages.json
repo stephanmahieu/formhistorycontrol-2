@@ -383,6 +383,10 @@
     "message": "Feld Filter",
     "description": "Options window: Left Field Filter menu."
   },
+  "optionsSaverestoreMenu": {
+    "message": "Speichern/Wiederherstellen",
+    "description": "Options window: Left Options Save/Restore menu."
+  },
   "optionsCleanupMenu": {
     "message": "Bereinigung",
     "description": "Options window: Left Cleanup menu."
@@ -431,7 +435,7 @@
     "message": "Kein Kontextmenü",
     "description": "Option window, contextmenu display: No context menu"
   },
-  "pageActionSelect": {
+  "optionsPageActionSelect": {
     "message": "Adressleiste-Symbol",
     "description": "Options window: The Address bar icon dropdown label (select when it should be displayed)"
   },
@@ -503,19 +507,19 @@
     "message": "Aktualisierungsfrequenz",
     "description": "Options window, Update interval"
   },
-  "optiondomainlistlegend": {
+  "optionDomainlistLegend": {
     "message": "Aktiviere/Deaktiviere den Verlauf pro Domain",
     "description": "Options window: The Domain Filter legend."
   },
-  "optionsradiodomainall": {
+  "optionsRadioDomainAll": {
     "message": "Erlaube Alle",
     "description": "Options window, domainfilter: Label for Allow All radiobutton."
   },
-  "optionsradiodomainblacklist": {
+  "optionsRadioDomainBlacklist": {
     "message": "Blacklist",
     "description": "Options window, domainfilter: Label for Blacklist radiobutton."
   },
-  "optionsradiodomainwhitelist": {
+  "optionsRadioDomainWhitelist": {
     "message": "Whitelist",
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
@@ -539,19 +543,19 @@
     "message": "Optionen wiederherstellen",
     "description": "Options window, save/restore: Label for Restore options"
   },
-  "optionsautocleanup": {
+  "optionsAutoCleanup": {
     "message": "Regelmäßig automatisch aufräumen",
     "description": "Options window, cleanup: Label for auto cleanup checkbox."
   },
-  "optionsremovedays": {
+  "optionsRemoveDays": {
     "message": "Entferne die in der Vergangenheit nicht genutzten Verlaufseinträge alle x Tage.",
     "description": "Options window, cleanup: Label before no of days input."
   },
-  "optionsremovedaysdays": {
+  "optionsRemoveDaysDays": {
     "message": "Tage",
     "description": "Options window, cleanup: Label after no of days input."
   },
-  "buttoncleanupnow": {
+  "buttonCleanupNow": {
     "message": "Jetzt bereinigen",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
@@ -623,11 +627,11 @@
   },
   "contextMenuItemRestoreEditorFieldSubmenuHostname": {
     "message": "Übereinstimmende URL",
-    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+    "description": "Submenu-item header of context-menu 'Restore Edit field' indicating hostname matches."
   },
   "contextMenuItemRestoreEditorFieldSubmenuLastused": {
     "message": "Neueste Einträge",
-    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+    "description": "Submenu-item header of context-menu 'Restore Edit field' indicating most recent matches."
   },
   "contextMenuItemRestoreEditorFieldSubmenuMore": {
     "message": "Mehr...",

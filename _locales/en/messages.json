@@ -383,6 +383,10 @@
     "message": "Field Filter",
     "description": "Options window: Left Field Filter menu."
   },
+  "optionsSaverestoreMenu": {
+    "message": "Save/Restore",
+    "description": "Options window: Left Options Save/Restore menu."
+  },
   "optionsCleanupMenu": {
     "message": "Cleanup",
     "description": "Options window: Left Cleanup menu."
@@ -431,7 +435,7 @@
     "message": "No context menu",
     "description": "Option window, contextmenu display: No context menu"
   },
-  "pageActionSelect": {
+  "optionsPageActionSelect": {
     "message": "Address bar icon",
     "description": "Options window: The Address bar icon dropdown label (select when it should be displayed)"
   },
@@ -503,19 +507,19 @@
     "message": "Update interval",
     "description": "Options window, Update interval"
   },
-  "optiondomainlistlegend": {
+  "optionDomainlistLegend": {
     "message": "Enable/Disable history per domain",
     "description": "Options window: The Domain Filter legend."
   },
-  "optionsradiodomainall": {
+  "optionsRadioDomainAll": {
     "message": "Allow All",
     "description": "Options window, domainfilter: Label for Allow All radiobutton."
   },
-  "optionsradiodomainblacklist": {
+  "optionsRadioDomainBlacklist": {
     "message": "Blacklist",
     "description": "Options window, domainfilter: Label for Blacklist radiobutton."
   },
-  "optionsradiodomainwhitelist": {
+  "optionsRadioDomainWhitelist": {
     "message": "Whitelist",
     "description": "Options window, domainfilter: Label for Whitelist radiobutton."
   },
@@ -539,19 +543,19 @@
     "message": "Restore options",
     "description": "Options window, save/restore: Label for Restore options"
   },
-  "optionsautocleanup": {
+  "optionsAutoCleanup": {
     "message": "Automatic cleanup periodically",
     "description": "Options window, cleanup: Label for auto cleanup checkbox."
   },
-  "optionsremovedays": {
+  "optionsRemoveDays": {
     "message": "Remove formhistory not used in the past",
     "description": "Options window, cleanup: Label before no of days input."
   },
-  "optionsremovedaysdays": {
+  "optionsRemoveDaysDays": {
     "message": "days",
     "description": "Options window, cleanup: Label after no of days input."
   },
-  "buttoncleanupnow": {
+  "buttonCleanupNow": {
     "message": "Clean Up Now",
     "description": "Options window, cleanup: Label of the cleanup-now button."
   },
@@ -623,11 +627,11 @@
   },
   "contextMenuItemRestoreEditorFieldSubmenuHostname": {
     "message": "Matching Hostname",
-    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating hostname matches."
+    "description": "Submenu-item header of context-menu 'Restore Edit field' indicating hostname matches."
   },
   "contextMenuItemRestoreEditorFieldSubmenuLastused": {
     "message": "Most Recent Entries",
-    "description": "Submenu-item header of ontext-menu 'Restore Edit field' indicating most recent matches."
+    "description": "Submenu-item header of context-menu 'Restore Edit field' indicating most recent matches."
   },
   "contextMenuItemRestoreEditorFieldSubmenuMore": {
     "message": "More...",
