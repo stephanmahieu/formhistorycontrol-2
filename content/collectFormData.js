@@ -365,6 +365,7 @@ function _setValueAndSimulatedUserInteraction(element, value) {
     element.dispatchEvent(_createKeyboardEvent('keypress'));
     element.dispatchEvent(_createInputEvent('input'));
     element.dispatchEvent(_createInputEvent('change'));
+    element.dispatchEvent(_createInputEvent('blur'));
 }
 
 function _setStyle(node, doErase) {
