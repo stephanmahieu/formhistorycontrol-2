@@ -13,13 +13,22 @@ class DataTableUtil {
      * get the URL to the translation file (translation will fallback to en if language file does not exist).
      */
     static getLanguageURL() {
-        let languageURL = '';
-        let uiLanguage = browser.i18n.getUILanguage();
+        const supportedLocales = ['de', 'el', 'en', 'ko', 'nl', 'ru'];
+
+        // default locale
+        let uiLocale = 'en';
+
+        // uiLanguage is a i18n.LanguageCode such as "en-US" or "fr"
+        const uiLanguage = browser.i18n.getUILanguage();
+
         if (uiLanguage && uiLanguage.length >= 2) {
-            languageURL = browser.runtime.getURL('/_locales/' + uiLanguage.substring(0, 2) + '/datatables.json');
-            // console.log("setting languageURL for DataTables: " + languageURL);
+            const uiLocaleShort = uiLanguage.substring(0, 2);
+            if (supportedLocales.includes(uiLocaleShort)) {
+                uiLocale = uiLocaleShort;
+            }
         }
-        return languageURL;
+        // console.log("setting UILanguage for DataTables: " + uiLanguage);
+        return browser.runtime.getURL('/_locales/' + uiLocale + '/datatables.json');
     }
 
     /**
